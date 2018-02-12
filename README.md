@@ -12,7 +12,7 @@ The material composion impacts the transport of neutrons and photons through the
 Neutronics material make is availabe here on the git repository or via the python package index
 - install the package by cloning this git repository
 ```sh
-$ git clone 
+$ git clone git@github.com:ukaea/neutronics_material_maker.git
 ```
 - install the package using pip
 ```sh
