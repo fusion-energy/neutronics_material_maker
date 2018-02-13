@@ -1,0 +1,7 @@
+README.rst
+setup.cfg
+neutronics_material_maker.egg-info/PKG-INFO
+neutronics_material_maker.egg-info/SOURCES.txt
+neutronics_material_maker.egg-info/dependency_links.txt
+neutronics_material_maker.egg-info/not-zip-safe
+neutronics_material_maker.egg-info/top_level.txt
