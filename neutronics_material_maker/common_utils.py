@@ -709,6 +709,7 @@ def mass_amu(symbol,atomic_number):
             print(symbol, ' not found no mass to return ')
 
 def natural_isotopes_in_elements(symbol):
+        from isotope import Isotope
         if symbol == 'Sn': return [Isotope(symbol, 112), Isotope(symbol, 114), Isotope(symbol, 115),
                                         Isotope(symbol, 116), Isotope(symbol, 117),
                                         Isotope(symbol, 118), Isotope(symbol, 119), Isotope(symbol, 120),
@@ -841,8 +842,7 @@ def natural_isotopes_in_elements(symbol):
         if symbol == 'Au': return [Isotope(symbol, 197)]
         if symbol == 'Bi': return [Isotope(symbol, 209)]
         if symbol == 'Th': return [Isotope(symbol, 232)]
-        if symbol == 'Pa':
-            return [Isotope(symbol, 231)]
+        if symbol == 'Pa': return [Isotope(symbol, 231)]
 
         else:
             print('natural composition of isotope not found', symbol)

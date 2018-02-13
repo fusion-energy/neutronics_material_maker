@@ -4,7 +4,7 @@ import sys
 import json
 import pprint
 
-from common_utils import full_name
+#from common_utils import full_name
 from common_utils import natural_abundance
 from common_utils import mass_amu
 from common_utils import natural_isotopes_in_elements

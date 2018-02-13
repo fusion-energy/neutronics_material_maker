@@ -5,6 +5,8 @@ import json
 import pprint
 
 from common_utils import is_number
+from element import Element
+from common_utils import natural_isotopes_in_elements
 
 class NamedObject(object):
     def __init__(self):

@@ -8,7 +8,7 @@
 # requires pytest (pip install pytest)
 
 import neutronics_material_maker as nmm
-
+import numpy
 
 
 def test_isotopes_zaid():
@@ -39,8 +39,79 @@ def test_atomic_number():
 
 def test_element_protons():
     new_element = nmm.Element('Fe')
-
     assert new_element.protons == 26
+
+def test_element_symbol():
+    new_element = nmm.Element('Fe')
+    assert new_element.symbol == 'Fe'
+
+def test_element_enriched_isotope_natural():
+    new_element = nmm.Element('Fe')
+    assert new_element.enriched_isotopes == 'Natural'
+
+def test_element_enriched_isotopes():
+    new_element = nmm.Element('Li',enriched_isotopes=(nmm.Isotope('Li', 6, 0.9), nmm.Isotope('Li', 7, 0.1)))
+    assert len(new_element.enriched_isotopes) == 2
+# todo another test for enriched element to check actual isotopes are correct
+
+def test_element_molar_mass_g():
+    new_element = nmm.Element('Fe')
+    assert new_element.molar_mass_g == 55.845144433865904
+
+def test_element_isotopes():
+    new_element = nmm.Element('Fe')
+    assert len(new_element.isotopes) == 4   
+
+
+
+def test_compound_chemical_equation():
+    new_compound = nmm.Compound('Li4SiO4')
+    assert new_compound.chemical_equation == 'Li4SiO4'  
+
+def test_compound_enriched_isotopes_natural():
+    new_compound = nmm.Compound('Li4SiO4')
+    assert new_compound.enriched_isotopes == 'Natural' 
+
+def test_compound_enriched_isotopes():
+    new_compound = nmm.Compound('Li4SiO4',enriched_isotopes=(nmm.Isotope('Li', 6, 0.9), nmm.Isotope('Li', 7, 0.1)))
+    assert len(new_compound.enriched_isotopes) == 2
+
+
+def test_compound_packing_fraction():
+    new_compound = nmm.Compound('Li4SiO4',packing_fraction=0.64)
+    assert new_compound.packing_fraction == 0.64 
+
+def test_compound_packing_fraction():
+    new_compound_solid = nmm.Compound('Li4SiO4')
+    new_compound_pebble = nmm.Compound('Li4SiO4',packing_fraction=0.64)
+    assert (numpy.isclose(new_compound_solid.density_g_per_cm3*0.64,new_compound_pebble.density_g_per_cm3,rtol=1e-15)) == True
+    #assert new_compound_solid.density_g_per_cm3*0.64==new_compound_pebble.density_g_per_cm3
+
+
+# theoretical_density
+# pressure_Pa
+# temperature_K
+# density_g_per_cm3
+# density_g_per_cm3_idea_gas
+# elements
+# fractions_coefficients
+# isotopes_mass_fractions
+# zaids
+# serpent_material_card_zaid
+# molar_mass_g
+# mass_kg
+# volume_m3
+# description
+# find_density_kg_per_m3
+# find_density_g_per_cm3
+
+    #[Isotope(symbol, 54), Isotope(symbol, 56), Isotope(symbol, 57),Isotope(symbol, 58)]
+    # todo perhaps also test isotopes produced are correct isotopes
+
+
+
+
+
 
 #     def test_upper(self):
 #         self.assertEqual('foo'.upper(), 'FOO')

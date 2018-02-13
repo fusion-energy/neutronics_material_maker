@@ -4,12 +4,10 @@ import sys
 import json
 import pprint
 
-from common_utils import full_name
-from common_utils import natural_abundance
-from common_utils import mass_amu
-from common_utils import natural_isotopes_in_elements
+from isotope import Isotope
 from common_utils import find_symbol_from_protons
 from common_utils import find_protons_from_symbol
+from common_utils import natural_isotopes_in_elements
 
 from jsonable_object import NamedObject
 
@@ -58,7 +56,7 @@ class Element(NamedObject):
                 sys.exit()
 
             # check if all isotopes for element are present
-            required_isotope_list = self.natural_isotopes_in_elements
+            required_isotope_list = natural_isotopes_in_elements(self.symbol)
             if len(self.enriched_isotopes) != len(required_isotope_list):
                 print(
                 'Your number of enriched isotopes does not match the number of isotopes in the natural element composition')
@@ -81,7 +79,7 @@ class Element(NamedObject):
 
         else:
             # print('no enriched isotopes found')
-            isotopes_to_make = self.natural_isotopes_in_elements
+            isotopes_to_make = natural_isotopes_in_elements(self.symbol)
 
         return isotopes_to_make
 
