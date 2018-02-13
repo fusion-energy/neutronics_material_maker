@@ -38,8 +38,9 @@ def test_atomic_number():
 
 
 def test_element_protons():
-    new_element = nmm
+    new_element = nmm.Element('Fe')
 
+    assert new_element.protons == 26
 
 #     def test_upper(self):
 #         self.assertEqual('foo'.upper(), 'FOO')

@@ -7,5 +7,5 @@ setup(name='neutronics_material_maker',
       author='Jonathan Shimwell',
       author_email='jonathan.shimwell@ukaea.uk',
       license='MIT',
-      pacakge=['neutronics_material_maker'],
+      packages=['neutronics_material_maker'],
       zip_safe=False)

@@ -4,6 +4,13 @@ import sys
 import json
 import pprint
 
+from common_utils import full_name
+from common_utils import natural_abundance
+from common_utils import mass_amu
+from common_utils import natural_isotopes_in_elements
+from common_utils import find_symbol_from_protons
+from common_utils import find_protons_from_symbol
+
 from jsonable_object import NamedObject
 
 class Element(NamedObject):
