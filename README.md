@@ -1,10 +1,10 @@
 [![N|Python](https://www.python.org/static/community_logos/python-powered-w-100x40.png)](https://www.python.org)
 # Design goals
-The material composion impacts the transport of neutrons and photons through the material and therefore neutronics codes require information on the material composition to accuratly model particle behaviour. This software aims to ease the creation of customisable materials for use in neutronics codes
+The material composion impacts the transport of neutrons and photons through the mmaterial.Neutronics codes attempt to simulate the transport of particles through matter and  therefore require the material composition. This software aims to ease the creation of customisable materials for use in neutronics codes
 
 # Features
-- Generate isotopes, materials, chemical compounds, homgenised mixtures 
-- Retrieve isotope compostions, isotopes fractions and density
+- Generate isotopes, materials, chemical compounds and homgenised mixtures 
+- Retrieve isotope compostions, isotopes fractions and material density required for material cards
 - Customise your creation with optional isotope enrichment, packing fractions and more
 
 # Installation
@@ -193,8 +193,8 @@ $ mat_Tungsten.serpent_material_card_zaid
 Materials and Compounds can be combined to form a Homogenised_mixture. Any number of Materials and Compounds can be combined but they must combine to give a volume fraction of 1.0. Here are some examples ...
 
 ```sh
-$ mat_steel = Compound('SS-316L-IG')
-$ mat_steel.density_g_per_cm3
+$ mat_bronze = Material('Bronze')
+$ mat_bronze.density_g_per_cm3
 >>> 7.93
 $ mat_water = Compound('H2O',density_g_per_cm3=0.926)
 $ mat_water.density_g_per_cm3
@@ -206,7 +206,7 @@ $ mat_CuCrZr.density_g_per_cm3
 
 The two Compounds and 1 Material can then be mixed with volume fractions the following way
 ```sh
-$ mat_mix = Homogenised_mixture([(mat_water, 0.25), (mat_CuCrZr, 0.25), (mat_steel,0.5)])
+$ mat_mix = Homogenised_mixture([(mat_water, 0.25), (mat_CuCrZr, 0.25), (mat_bronze,0.5)])
 $ mat_mix.density_g_per_cm3
 >>> 6.4
 ```
@@ -214,65 +214,11 @@ $ mat_mix.density_g_per_cm3
 The resulting material card comprises of the combined three material cards with modified atom fractions to account for the volume fraction of each component. The material name is also based on the combination of the three components along with their volume fractions.
 ```sh
 $ mat_mix.serpent_material_card_zaid
->>> mat H2O_vf_0.25_CuCrZr_vf_0.25_SS-316L-IG_vf_0.5_  -6.4
+>>> mat H2O_vf_0.25_CuCrZr_vf_0.25_Bronze_vf_0.5_  -6.4
 >>>   1001.31c 0.4999425
 >>>   1002.31c 5.75e-05
->>>   8016.31c 0.25
->>>   29063.31c 0.172875
->>>   29065.31c 0.077125
->>>   24050.31c 0.0108625
->>>   24052.31c 0.2094725
->>>   24053.31c 0.0237525
->>>   24054.31c 0.0059125
->>>   40090.31c 0.128625
->>>   40091.31c 0.02805
->>>   40092.31c 0.042875
->>>   40094.31c 0.04345
->>>   40096.31c 0.007
->>>   26054.31c 0.001645905
->>>   26056.31c 0.02491445
->>>   26057.31c 0.00056529
->>>   26058.31c 7.39325e-05
->>>   6012.31c 5.96385e-05
->>>   25055.31c 0.000868265
->>>   14028.31c 0.000393248
->>>   14029.31c 1.927965e-05
->>>   14030.31c 1.228565e-05
->>>   15031.31c 1.925585e-05
->>>   16032.03c 7.08335e-06
->>>   16033.03c 5.499e-08
->>>   16034.03c 3.012745e-07
->>>   16036.03c 1.326515e-09
->>>   24050.31c 0.0003734875
->>>   24052.31c 0.0069253
->>>   24053.31c 0.00077046
->>>   24054.31c 0.000188232
->>>   28058.31c 0.003503205
->>>   28060.31c 0.00130445
->>>   28061.31c 5.5774e-05
->>>   28062.31c 0.0001749635
->>>   28064.31c 4.316555e-05
->>>   42092.31c 0.0001039905
->>>   42094.31c 6.344e-05
->>>   42095.31c 0.0001080355
->>>   42096.31c 0.000112014
->>>   42097.31c 6.34715e-05
->>>   42098.31c 0.0001587375
->>>   42100.31c 6.2083e-05
->>>   7014.31c 0.000135939
->>>   7015.31c 4.686305e-07
->>>   5010.31c 4.75157e-07
->>>   5011.31c 1.738695e-06
->>>   29063.31c 7.8647e-05
->>>   29065.31c 3.397545e-05
->>>   27059.31c 2.023495e-05
->>>   41093.31c 2.567445e-06
->>>   22046.31c 4.28233e-06
->>>   22047.31c 3.779715e-06
->>>   22048.31c 3.667145e-05
->>>   22049.31c 2.63624e-06
->>>   22050.31c 2.47368e-06
->>>   73181.31c 1.319185e-06
+>>>   ...
+
 ```
 
 ### Todos
