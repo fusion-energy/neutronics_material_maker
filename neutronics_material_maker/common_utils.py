@@ -187,12 +187,12 @@ def natural_abundance(symbol,atomic_number):
         if symbol == 'Cr' and atomic_number == 52: return 0.83789
         if symbol == 'Cr' and atomic_number == 53: return 0.09501
         if symbol == 'Cr' and atomic_number == 54: return 0.02365
-        if symbol == 'Mn' and atomic_number == 55: return 1
+        if symbol == 'Mn' and atomic_number == 55: return 1.0
         if symbol == 'Fe' and atomic_number == 54: return 0.05845
         if symbol == 'Fe' and atomic_number == 56: return 0.91754
         if symbol == 'Fe' and atomic_number == 57: return 0.02119
         if symbol == 'Fe' and atomic_number == 58: return 0.00282
-        if symbol == 'Co' and atomic_number == 59: return 1
+        if symbol == 'Co' and atomic_number == 59: return 1.0
         if symbol == 'Ni' and atomic_number == 58: return 0.68077
         if symbol == 'Ni' and atomic_number == 60: return 0.26223
         if symbol == 'Ni' and atomic_number == 61: return 0.011399
@@ -428,7 +428,7 @@ def mass_amu(symbol,atomic_number):
         if symbol == 'Be' and atomic_number == 9: return 9.012183065
         if symbol == 'B' and atomic_number == 10: return 10.01293695
         if symbol == 'B' and atomic_number == 11: return 11.00930536
-        if symbol == 'C' and atomic_number == 12: return 12
+        if symbol == 'C' and atomic_number == 12: return 12.0
         if symbol == 'C' and atomic_number == 13: return 13.0033548351
         if symbol == 'C' and atomic_number == 14: return 14.0032419884
         if symbol == 'N' and atomic_number == 14: return 14.0030740044

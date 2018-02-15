@@ -103,7 +103,7 @@ class Compound(NamedObject):
         return list_of_zaids
 
     @property
-    def serpent_material_card_zaid(self):
+    def serpent_material_card(self):
         #print('checking for density')
         material_card = 'mat ' + self.description + ' -' + str(self.density_g_per_cm3) + '\n'
         for zaid, isotopes_mass_fraction in zip(self.zaids, self.isotopes_mass_fractions):
