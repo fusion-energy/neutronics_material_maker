@@ -47,17 +47,6 @@ class Compound(NamedObject):
         density_kg_m3 = (self.pressure_Pa / (8.31 * self.temperature_K)) * molar_mass * 6.023e23 * 1.66054e-27
         return density_kg_m3
 
-    @property
-    def is_this_available(self):
-        if self.chemical_equation in ['Li4SiO4', 'Li2SiO3', 'Li2ZrO3', 'Li2TiO3', 'Be', 'Be12Ti', 'Ba5Pb3', 'Nd5Pb4',
-                                      'Zr5Pb3', 'Zr5Pb4']:
-            return True
-        else:
-            return False
-
-    @property
-    def available_comounds(self):
-        return ['Li4SiO4', 'Li2SiO3', 'Li2ZrO3', 'Li2TiO3', 'Be', 'Be12Ti', 'Ba5Pb3', 'Nd5Pb4','Zr5Pb3', 'Zr5Pb4']
 
     @property
     def elements(self):
@@ -70,31 +59,13 @@ class Compound(NamedObject):
                 if self.enriched_isotopes!='Natural':
 
 
-
-                    # this stopes multiple elements enrichment, should update this
-                    #print(self.enriched_isotopes)
-                    #print(self.enriched_isotopes)
-                    # if len(self.enriched_isotopes[0])==1:
-                    #     print('number of enriched isotopes can not be 1, you must list all isotopes present in the natural material')
-                    #     sys.exit()
-
-                    # enriched_element = True
-                    # for group_of_enriched_isotopes in self.enriched_isotopes:
-                    #     print(group_of_enriched_isotopes.symbol)
-                    #
-                    #
                     if self.enriched_isotopes[0].symbol == self.list[counter]:
-                    #             enriched_element = False
-                    #
-                    #     if enriched_element == True:
-                    #         # print('adding element with enriched isotopes ',group_of_enriched_isotopes)
+
                         list_elements.append(Element(self.list[counter], self.enriched_isotopes))
                     else:
-                    #         # print('adding element with natural isotopes ')
+
                         list_elements.append(Element(self.list[counter]))
-                    #
-                    # # print('number of enriched isotopes can not be 1, you must list all isotopes present in the natural material')
-                    # # sys.exit()
+
                 else:
                     list_elements.append(Element(self.list[counter]))
         return list_elements

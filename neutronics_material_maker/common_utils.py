@@ -141,7 +141,9 @@ def natural_abundance(symbol,atomic_number):
         if symbol == 'C' and atomic_number == 14: return 0
         if symbol == 'N' and atomic_number == 14: return 0.99636
         if symbol == 'N' and atomic_number == 15: return 0.00364
-        if symbol == 'O' and atomic_number == 16: return 1
+        if symbol == 'O' and atomic_number == 16: return 0.99757
+        if symbol == 'O' and atomic_number == 17: return 0.00038
+        if symbol == 'O' and atomic_number == 18: return 0.00205
         if symbol == 'F' and atomic_number == 19: return 1
         if symbol == 'Ne' and atomic_number == 20: return 0.9048
         if symbol == 'Ne' and atomic_number == 21: return 0.0027
@@ -432,6 +434,8 @@ def mass_amu(symbol,atomic_number):
         if symbol == 'N' and atomic_number == 14: return 14.0030740044
         if symbol == 'N' and atomic_number == 15: return 15.0001088989
         if symbol == 'O' and atomic_number == 16: return 15.9949146196
+        if symbol == 'O' and atomic_number == 17: return 16.99913175650
+        if symbol == 'O' and atomic_number == 18: return 17.99915961286
         if symbol == 'F' and atomic_number == 19: return 18.9984031627
         if symbol == 'Ne' and atomic_number == 20: return 19.9924401762
         if symbol == 'Ne' and atomic_number == 21: return 20.993846685
@@ -703,10 +707,11 @@ def mass_amu(symbol,atomic_number):
         if symbol == 'Pa' and atomic_number == 231: return 231.0358842
         if symbol == 'U' and atomic_number == 234: return 234.0409523
         if symbol == 'U' and atomic_number == 235: return 235.0439301
-        if symbol == 'U' and atomic_number == 238:
-            return 238.0507884
+        if symbol == 'U' and atomic_number == 238: return 238.0507884
         else:
-            print(symbol, ' not found no mass to return ')
+            print('symbol atomic number combination not found no isotope mass to return ')
+            print('symbol=',symbol,'atomic_number',atomic_number)
+
 
 def natural_isotopes_in_elements(symbol):
         from isotope import Isotope
@@ -793,7 +798,7 @@ def natural_isotopes_in_elements(symbol):
         if symbol == 'Sr': return [Isotope(symbol, 84), Isotope(symbol, 86), Isotope(symbol, 87),
                                         Isotope(symbol, 88)]
         if symbol == 'Ar': return [Isotope(symbol, 36), Isotope(symbol, 38), Isotope(symbol, 40)]
-        if symbol == 'C': return [Isotope(symbol, 12), Isotope(symbol, 13), Isotope(symbol, 14)]
+        if symbol == 'C': return [Isotope(symbol, 12), Isotope(symbol, 13)]#, Isotope(symbol, 14)]
         if symbol == 'K': return [Isotope(symbol, 39), Isotope(symbol, 40), Isotope(symbol, 41)]
         if symbol == 'Mg': return [Isotope(symbol, 24), Isotope(symbol, 25), Isotope(symbol, 26)]
         if symbol == 'Ne': return [Isotope(symbol, 20), Isotope(symbol, 21), Isotope(symbol, 22)]
@@ -821,7 +826,7 @@ def natural_isotopes_in_elements(symbol):
         if symbol == 'Tl': return [Isotope(symbol, 203), Isotope(symbol, 205)]
         if symbol == 'V':  return [Isotope(symbol, 50), Isotope(symbol, 51)]
         if symbol == 'Be': return [Isotope(symbol, 9)]
-        if symbol == 'O':  return [Isotope(symbol, 16)]
+        if symbol == 'O':  return [Isotope(symbol, 16),Isotope(symbol, 17),Isotope(symbol, 18)]
         if symbol == 'F':  return [Isotope(symbol, 19)]
         if symbol == 'Na': return [Isotope(symbol, 23)]
         if symbol == 'Al': return [Isotope(symbol, 27)]

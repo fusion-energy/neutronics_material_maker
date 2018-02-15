@@ -34,7 +34,7 @@ class Element(NamedObject):
         element_mass = 0
         for isotope in self.isotopes:
             # isotope.print_details
-            # print(isotope.abundance, isotope.mass_amu)
+            print('element_mass',element_mass,'isotope.abundance',isotope.abundance, 'isotope.mass_amu',isotope.mass_amu)
             element_mass = element_mass + isotope.abundance * isotope.mass_amu
         return element_mass
 

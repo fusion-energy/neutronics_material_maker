@@ -4,6 +4,21 @@ import sys
 import json
 import pprint
 
+#todo future work : allow conversion to pyne material and then exporting to hdf5 file for use in DAGMC
+# from pyne import material
+# from pyne.material import Material
+# nucvec = {10010:  1.0, 80160:  1.0, 691690: 1.0, 922350: 1.0,
+#           922380: 1.0, 942390: 1.0, 942410: 1.0, 952420: 1.0,
+#           962440: 1.0}
+# mat = Material(nucvec) #assumes mass fraction
+#
+# mat = Material()
+# mat.from_atom_frac(nucvec) #converts to volume fraction
+
+
+
+from element import Element
+
 class NamedObject(object):
     def __init__(self):
         self.classname = self.__class__.__name__
@@ -14,160 +29,138 @@ class NamedObject(object):
             return obj.__dict__
 
         return json.loads(json.dumps(self, default=obj_dict))#, indent=4, sort_keys=False))
+
 class Material(NamedObject):
     def __init__(self,name):#,*enriched_isotopes):
         super(Material, self).__init__()
         self.name = name
+        self.element_mixture = self.find_element_mass_faction_mixture(name)
         self.elements = self.find_elements_in_material(name)
-        self.element_fractions = self.element_fractions(name)
+        self.element_atom_fractions = self.find_element_atom_fractions()
+        self.element_mass_fractions = self.find_element_mass_fractions()
         #self.enriched_isotopes = enriched_isotopes
         #if enriched_isotopes:
         #    print('enriched materials not yet implemented')
         #    sys.exit()
 
-    def element_fractions(self,name):
-        if name =='Tungsten':
-            fractions =elements=[1.0]
-        if name == 'Eurofer':
-            fractions = [88.935/100.0,
-                        0.005/100.0,
-                        0.11/100.0,
-                        0.03/100.0,
-                        # Element(8),
-                        # Element(13),
-                        0.05/100.0,
-                        # Element(15),
-                        # Element(16),
-                        # Element(22),
-                        0.25/100.0,
-                        9.0/100.0,
-                        0.4/100.0,
-                        # Element(27),
-                        # Element(28),
-                        # Element(29),
-                        # Element(41),
-                        # Element(42),
-                        0.12/100.0,
-                        1.1/100.0
-                        ]
-            return fractions
 
+
+    # todo export material as pyne material
+    # example
+    # pyne.material.Material(
+    #     {922350000: 0.07359999999999998, 922380000: 0.8464, 942390000: 0.03999999999999998, 942410000: 0.03999999999999998},
+    #     50.0, -1.0, -1.0, {})
+
+    def find_element_mass_faction_mixture(self, name):
+
+        if name == 'Eurofer':
+            #weight fractions
+            return [(Element('Fe'),0.88821),
+                    (Element('B') ,0.00001),
+                    (Element('C') ,0.00105),
+                    (Element('N') ,0.00040),
+                    (Element('O') ,0.00001),
+                    (Element('Al'),0.00004),
+                    (Element('Si'),0.00026),
+                    (Element('P') ,0.00002),
+                    (Element('S') ,0.00003),
+                    (Element('Ti'),0.00001),
+                    (Element('V') ,0.00200),
+                    (Element('Cr'),0.09000),
+                    (Element('Mn'),0.00550),
+                    (Element('Co'),0.00005),
+                    (Element('Ni'),0.00010),
+                    (Element('Cu'),0.00003),
+                    (Element('Nb'),0.00005),
+                    (Element('Mo'),0.00003),
+                    (Element('Ta'),0.00120),
+                    (Element('W') ,0.01100),
+                    ]
+        if name == 'SS-316-LN': #(cryogenic steel)
+            'SS-316L(n)-IG'
+            'r-epoxy'
+
+        # if name == 'SS-316L-IG':
+        # if name == 'DT-plasma':
 
     def find_elements_in_material(self,name):
-        print('name',name)
-        if name =='Tungsten':
-            elements=[Element('W')
-            ]
-        if name == 'Eurofer':
-            elements = [Element(26),
-                        Element(5),
-                        Element(6),
-                        Element(7),
-                        # Element(8),
-                        # Element(13),
-                        Element(14),
-                        # Element(15),
-                        # Element(16),
-                        # Element(22),
-                        Element(23),
-                        Element(24),
-                        Element(25),
-                        # Element(27),
-                        # Element(28),
-                        # Element(29),
-                        # Element(41),
-                        # Element(42),
-                        Element(73),
-                        Element(74)
-                        ]
-            #[26054, 26056, 26057, 26058,
-            # 5010, 5011,
-            # 6012,
-            # 7014, 7015,
-            # 8016,
-            # 13027,
-            # 14028, 14029, 14030,
-            # 15031, 16032,
-             # 16033, 16034, 16036,
-            # 22046, 22047, 22048,
-            # 22049, 22050,
-            # 23050, 23051,
-            # 24050, 24052, 24053, 24054,
-            # 25055,
-             # 27059,
-            # 28058, 28060, 28061, 28062, 28064,
-            # 29063, 29065,
-            # 41093,
-            # 42092, 42094, 42095, 42096, 42097, 42098, 42100,
-            # 73181,
-            # 74182, 74183, 74184, 74186]
-        return elements
+       list_of_elements=[]
+       for element_element_fractions in self.element_mixture:
+            list_of_elements.append(element_element_fractions[0])
+       return list_of_elements
 
 
+    def find_element_mass_fractions(self):
+        list_of_fractions=[]
+        for element_element_fractions in self.element_mixture:
+            list_of_fractions.append(element_element_fractions[1])
 
-    @property
-    def available_materials(self):
-        return ['Tungsten','Eurofer','Homogenous_Magnet','DT_plasma','SS-316L-IG']
+        a = sum(list_of_fractions)
+        b = 1.0
 
+        rtol=1e-6
 
+        if not abs(a - b) <= rtol * max(abs(a), abs(b)):
 
-    @property
-    def is_this_available(self):
-        if self.name in ['Tungsten','Eurofer','Homogenous_Magnet','DT_plasma','SS-316L-IG']:
-            return True
-        else: return False
+            print('element mass fractions within a material must sum to 1')
+            print('current mass factions are ',list_of_fractions)
+            print('which sums to ',sum(list_of_fractions))
+            sys.exit()
 
+        return list_of_fractions
 
-    @property
-    def zaids(self):
-        if self.is_this_available:
-            if self.name == 'Eurofer':
-                list_of_zaids = [26054, 26056, 26057, 26058, 5010, 5011, 6012, 7014, 7015, 8016, 13027, 14028, 14029, 14030, 15031,16032, 16033, 16034, 16036, 22046, 22047, 22048, 22049, 22050, 23050, 23051, 24050, 24052, 24053,             24054, 25055, 27059, 28058, 28060, 28061, 28062, 28064, 29063, 29065, 41093, 42092, 42094, 42095,42096, 42097, 42098, 42100, 73181, 74182, 74183, 74184, 74186]
-            if self.name == 'Homogenous_Magnet':
-                list_of_zaids = [1001,6012,7014,8016,12024,12025,12026,13027,14028,14029,14030,16032,16033,16034,16036,29063,29065,41093,50112,50114,50115,50116,50117,50118,50119,50120,50122,50124,2004,5010,5011,6012,7014,8016,13027,14028,15031,16032,16033,16034,16036,19039,19040,19041,22046,22047,22048,22049,22050,23050,23051,24050,24052,24053,24054,25055,26054,26056,26057,26058,27059,28058,28060,28061,28062,28064,29063,29065,40090,40091,40092,40094,40096,41093,42092,42094,42095,42096,42097,42098,42100,50112,50114,50115,50116,50117,50118,50119,50120,50122,50124,73181,74182,74183,74184,74186,82206,82207,82208,83209,29063,29065,50112,50114,50115,50116,50117,50118,50119,50120,50122,50124]
-            if self.name == 'SS-316L-IG':
-                list_of_zaids = [26054,26056,26057,26058, 6012,25055,14028,14029,14030,15031,16032,16033,16034,16036,24050,24052,24053,24054,28058,28060,28061,28062,28064,42092,42094,42095,42096,42097,42098,42100, 7014, 7015, 5010, 5011,29063,29065,27059,41093,22046,22047,22048,22049,22050,73181]
-            if self.name == 'DT_plasma':
-                list_of_zaids = [1002,1003]
-            if self.name == 'Tungsten':
-                list_of_zaids = [74182,74183,74184,74186]
-            list_of_zaids_string=[]
-            for item in list_of_zaids:
-                list_of_zaids_string.append(str(item)) #.zfill(3)
-            return list_of_zaids_string
-        else:
-            return self.name +' is not in the available materials please ask Jon to add it'
+    def find_element_atom_fractions(self):
+        list_of_fractions=[]
+        for element_element_fractions in self.element_mixture:
+
+            print('element_element_fractions[1]',element_element_fractions[1])
+            print('element_element_fractions[0].molar_mass_g',element_element_fractions[0].molar_mass_g)
+            list_of_fractions.append(element_element_fractions[1]/element_element_fractions[0].molar_mass_g)
 
 
+        # todo normalise the mass fractions so the add up to 1
+        # this commend out code below will check the fractions add up to 1
+        # a = sum(list_of_fractions)
+        # b = 1.0
+        #
+        # rtol=1e-6
+        #
+        # if not abs(a - b) <= rtol * max(abs(a), abs(b)):
+        #
+        #     print('element atom fractions within a material must sum to 1')
+        #     print('current atom factions are ',list_of_fractions)
+        #     print('which sums to ',sum(list_of_fractions))
+        #     sys.exit()
+
+        return list_of_fractions          
+
+                        
 
 
     @property
     def atom_density_per_barn_per_cm(self):
         if self.name == 'DT_plasma':
             return 1E-20
-        if self.name == 'Homogenous_Magnet':
-            return 7.194E-02
+        if self.name == 'SS-316L(n)-IG':
+            return 8.58294E-02
         else:
-            print('material not found, current materials available are ',self.available_materials)
+            print('material not found in atom_density_per_barn_per_cm function')
             print('perhaps try density_g_per_cm3 property')
             sys.exit()
 
     @property
     def density_g_per_cm3(self):
         if self.name == 'Eurofer':
-            return 7750.0/1000.0
+            return  7.79800
 
-        if self.name == 'SS-316L-IG':
-            return 7930.0/1000.0
+        if self.name == 'SS-316L(n)-IG':
+            return 7.93
 
         if self.name == 'Tungsten':
             return 19298.0/1000.0
 
-        # if self.name == 'plasma':
-        #     return self.atom_density_per_barn_per_cm * 1E24 * ((Isotope('H',2).mass_amu+Isotope('H',2).mass_amu)/2.0)*1.660539040E-27*1000.0
-
         else:
-            print('material not found, current materials available are ',self.is_this_available)
+            print('material not found in density_g_per_cm3 function')
             print('perhaps try atom_density_per_barn_per_cm property')
             sys.exit()
 
@@ -194,36 +187,34 @@ class Material(NamedObject):
         except:
             material_card = 'mat ' + self.name + ' ' + str(self.atom_density_per_barn_per_cm) + '\n'
 
-        for element , element_fractions in zip(self.elements,self.element_fractions):
+        for element_element_fractions,element_atom_fraction in zip(self.element_mixture,self.element_atom_fractions):
+
+            element=element_element_fractions[0]
+            #element_mass_fraction=element_element_fractions[1]
+
             for isotope in element.isotopes:
-                isotopes_mass_fraction=str(isotope.abundance * element_fractions)
-
-                if isotope.zaid.startswith('160'):
-                    material_card = material_card + ('  l  ' + isotope.zaid + '.03c ' + isotopes_mass_fraction + '\n')
+                isotopes_mass_fraction=isotope.abundance * element_atom_fraction
+                if isotopes_mass_fraction>0:
+                    isotopes_mass_fraction=str(isotopes_mass_fraction)
+                    if isotope.zaid.startswith('160') :
+                        #todo Serpent appears to be not compatible with particular Fendl libraries, check the updated version of Serpent
+                        material_card = material_card + ('    ' + isotope.zaid + '.03c ' + isotopes_mass_fraction + '\n')
+                    else:
+                        material_card = material_card + ('    ' + isotope.zaid + '.31c ' + isotopes_mass_fraction + '\n')
                 else:
-                    material_card = material_card + ('  l  ' + isotope.zaid + '.31c ' + isotopes_mass_fraction + '\n')
-
-        # old method
-        # for zaid, isotopes_mass_fraction in zip(self.zaids, self.isotopes_mass_fractions):
-        #     #str_zaid = str(zaid).zfill(6)
-        #     if zaid.startswith('160'):
-        #         material_card = material_card + ('    '+zaid + '.03c ' + str(isotopes_mass_fraction) + '\n')
-        #     else:
-        #         material_card = material_card + ('    '+zaid + '.31c ' + str(isotopes_mass_fraction) + '\n')
+                    print('isotope massfraction is 0, ignoring')
+                    print(isotope.abundance ,'*', element_fractions)
 
         return material_card
 
-    @property
-    def description(self):
 
-        # list_of_enriched_isotope_keys = []
-        # if self.enriched_isotopes:
-        #     list_of_enriched_isotope_keys.append('_')
-        #     for enriched_isotope in self.enriched_isotopes:
-        #         for entry in enriched_isotope:
-        #             list_of_enriched_isotope_keys.append(
-        #                 entry.symbol + str(entry.atomic_number) + '_' + str(entry.abundance))
-        #
-        #     return self.name + '_'.join(list_of_enriched_isotope_keys)
-        # else:
-        return self.name
+for e in Material('Eurofer').element_mixture:
+    print(e)
+
+for e in Material('Eurofer').elements:
+    print(e)
+
+for e in Material('Eurofer').element_mass_fractions:
+    print(e)
+
+print(Material('Eurofer').serpent_material_card_zaid)
