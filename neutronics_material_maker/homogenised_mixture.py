@@ -74,3 +74,15 @@ class Homogenised_mixture(NamedObject):
 
 
         return description_to_return
+
+
+mat_steel = Material('SS-316LN-IG')
+
+
+mat_bronze = Material('Bronze')
+
+
+mat_Tungsten = Material('Tungsten')
+
+
+mat_divertor_layer_2 = Homogenised_mixture([(mat_water, 0.25), (mat_CuCrZr, 0.25), (mat_copper,0.5)])

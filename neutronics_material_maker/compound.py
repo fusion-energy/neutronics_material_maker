@@ -141,43 +141,43 @@ class Compound(NamedObject):
     def volume_m3(self):
         units = ''
         if self.chemical_equation == 'Li4SiO4':
-            vol = 1.1543  # http://materials.springer.com/isp/crystallographic/docs/sd_1404772
+            vol = 1.1543
             units = 'nm3'
             molecules_per_unit_cell = 14.0
         if self.chemical_equation == 'Li2SiO3':
-            vol = 0.23632  # http://materials.springer.com/isp/crystallographic/docs/sd_1703282
+            vol = 0.23632
             units = 'nm3'
             molecules_per_unit_cell = 4.0
         if self.chemical_equation == 'Li2ZrO3':
-            vol = 0.24479  # http://materials.springer.com/isp/crystallographic/docs/sd_1520554
+            vol = 0.24479
             units = 'nm3'
             molecules_per_unit_cell = 4.0
         if self.chemical_equation == 'Li2TiO3':
-            vol = 0.42701  # http://materials.springer.com/isp/crystallographic/docs/sd_1716489
+            vol = 0.42701
             units = 'nm3'
             molecules_per_unit_cell = 8.0
         if self.chemical_equation == 'Be':
-            vol = 0.01622  # http://materials.springer.com/isp/crystallographic/docs/sd_0261739
+            vol = 0.01622
             units = 'nm3'
             molecules_per_unit_cell = 2.0
         if self.chemical_equation == 'Be12Ti':
-            vol = 0.22724  # http://materials.springer.com/isp/crystallographic/docs/sd_0528340
+            vol = 0.22724
             molecules_per_unit_cell = 2.0
             units = 'nm3'
         if self.chemical_equation == 'Ba5Pb3':
-            vol = 1.37583  # http://materials.springer.com/isp/crystallographic/docs/sd_0528381
+            vol = 1.37583
             molecules_per_unit_cell = 4.0
             units = 'nm3'
         if self.chemical_equation == 'Nd5Pb4':
-            vol = 1.06090  # http://materials.springer.com/isp/crystallographic/docs/sd_0252125
+            vol = 1.06090
             molecules_per_unit_cell = 4.0
             units = 'nm3'
         if self.chemical_equation == 'Zr5Pb3':
-            vol = 0.36925  # http://materials.springer.com/isp/crystallographic/docs/sd_0307360
+            vol = 0.36925
             molecules_per_unit_cell = 2.0
             units = 'nm3'
         if self.chemical_equation == 'Zr5Pb4':
-            vol = 0.40435  # http://materials.springer.com/isp/crystallographic/docs/sd_0451962
+            vol = 0.40435
             molecules_per_unit_cell = 2.0
             units = 'nm3'
         if self.chemical_equation == 'Pb84.2Li15.8':

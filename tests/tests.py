@@ -87,7 +87,39 @@ def test_compound_packing_fraction():
     assert (numpy.isclose(new_compound_solid.density_g_per_cm3*0.64,new_compound_pebble.density_g_per_cm3,rtol=1e-15)) == True
     #assert new_compound_solid.density_g_per_cm3*0.64==new_compound_pebble.density_g_per_cm3
 
+def test_material_serpent_material_card_type():
+    new_material = nmm.Material('SS-316LN-IG')
+    assert type(new_material.serpent_material_card) == str
 
+def test_material_atom_density_per_barn_per_cm():
+    new_material = nmm.Material('SS-316LN-IG')
+    assert new_material.density_g_per_cm3 > 0
+
+def test_material_density_g_per_cm3():
+    new_material = nmm.Material('SS-316LN-IG')
+    assert new_material.density_g_per_cm3 > 0
+
+
+def test_material_description():
+    new_material = nmm.Material('SS-316LN-IG')
+    assert new_material.description == 'SS-316LN-IG'
+
+def test_material_element_mixtures_type():
+    new_material = nmm.Material('SS-316LN-IG')
+    assert type(new_material.element_mixtures) == list
+
+def test_material_find_material_mass_or_atom_faction_mixture_length():
+    new_material = nmm.Material('SS-316LN-IG')
+    assert len(new_material.find_material_mass_or_atom_faction_mixture('SS-316LN-IG'))==len(new_material.element_mixtures)
+
+def test_material_find_material_mass_or_atom_faction_mixture_length():
+    new_material = nmm.Material('DT-plasma')
+    assert len(new_material.find_material_mass_or_atom_faction_mixture('DT-plasma')) == len(new_material.element_mixtures)
+
+
+
+
+# todo more tests on compounds
 # theoretical_density
 # pressure_Pa
 # temperature_K
@@ -107,6 +139,7 @@ def test_compound_packing_fraction():
 
     #[Isotope(symbol, 54), Isotope(symbol, 56), Isotope(symbol, 57),Isotope(symbol, 58)]
     # todo perhaps also test isotopes produced are correct isotopes
+
 
 
 

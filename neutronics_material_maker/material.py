@@ -32,21 +32,19 @@ class NamedObject(object):
         return json.loads(json.dumps(self, default=obj_dict))#, indent=4, sort_keys=False))
 
 class Material(NamedObject):
-    def __init__(self,name):#,*enriched_isotopes):
+    def __init__(self, description):#,*enriched_isotopes):
         super(Material, self).__init__()
-        self.name = name
+        self.description = description
 
-        self.element_mixtures = self.find_material_mass_or_atom_faction_mixture(name)
+        self.element_mixtures = self.find_material_mass_or_atom_faction_mixture(description)
 
-        self.elements = self.find_elements_in_material(name)
+        self.elements = self.find_elements_in_material()
         self.element_atom_fractions = self.find_element_atom_fractions()
         self.element_mass_fractions = self.find_element_mass_fractions()
         #self.enriched_isotopes = enriched_isotopes
         #if enriched_isotopes:
         #    print('enriched materials not yet implemented')
         #    sys.exit()
-
-
 
 
 
@@ -104,8 +102,21 @@ class Material(NamedObject):
                                        enriched_isotopes=(Isotope('H', 2, 0.5),
                                                           Isotope('H', 3, 0.5))),
                                        'atom_fraction':1.0 }]
+        if name == 'Glass-fibre':
+            return [{'element':Element('H') ,'atom_fraction':0.0000383948},
+                    {'element':Element('O') ,'atom_fraction':0.6328110447},
+                    {'element':Element(12),'atom_fraction':0.0499936947},
+                    {'element':Element(13),'atom_fraction':0.1026861642},
+                    {'element':Element(14),'atom_fraction':0.2144707015}]
 
-    def find_elements_in_material(self,name):
+
+        if name == 'Epoxy':
+            return [{'element':Element('H'),'atom_fraction':1.0414E-06},
+                    {'element':Element('C'),'atom_fraction':1.7164E-02},
+                    {'element':Element(7),'atom_fraction':  1.3560E-03},
+                    {'element':Element(8),'atom_fraction':  2.7852E-03}]
+
+    def find_elements_in_material(self):
        list_of_elements=[]
        for element_element_fractions in self.element_mixtures:
             list_of_elements.append(element_element_fractions['element'])
@@ -143,6 +154,8 @@ class Material(NamedObject):
         for element_element_fractions in self.element_mixtures:
             list_of_fractions.append(element_element_fractions['atom_fraction'])
 
+
+
         a = sum(list_of_fractions)
         b = 1.0
 
@@ -153,18 +166,20 @@ class Material(NamedObject):
             print('element atom fractions within a material must sum to 1')
             print('current atom factions are ',list_of_fractions)
             print('which sums to ',sum(list_of_fractions))
-            sys.exit()
+            normalised_list_of_fractions=[]
+            normalisation_factor = 1.0 / sum(list_of_fractions)
+            for fraction in list_of_fractions:
+                normalised_list_of_fractions.append(normalisation_factor*fraction)
+            return normalised_list_of_fractions
 
         return list_of_fractions
-
-                        
 
 
     @property
     def atom_density_per_barn_per_cm(self):
-        if self.name == 'DT-plasma':
+        if self.description == 'DT-plasma':
             return 1E-20
-        if self.name == 'SS-316LN-IG':
+        if self.description == 'SS-316LN-IG':
             return 8.58294E-02
         else:
             print('material not found in atom_density_per_barn_per_cm function')
@@ -173,17 +188,20 @@ class Material(NamedObject):
 
     @property
     def density_g_per_cm3(self):
-        if self.name == 'Eurofer':
+        if self.description == 'Eurofer':
             return  7.79800
 
-        if self.name == 'SS-316LN-IG':
+        if self.description == 'SS-316LN-IG':
             return 7.93
 
-        if self.name == 'Bronze':
+        if self.description == 'Bronze':
             return 8.8775
 
-        # if self.name == 'Tungsten':
-        #     return 19298.0/1000.0
+        if self.description == 'Glass-fibre':
+            return 2.49
+
+        if self.description == 'Epoxy':
+            return 1.18
 
         else:
             print('material not found in density_g_per_cm3 function')
@@ -194,9 +212,9 @@ class Material(NamedObject):
     @property
     def serpent_material_card(self):
         try:
-            material_card = 'mat ' + self.name + ' -' + str(self.density_g_per_cm3) + '\n'
+            material_card = 'mat ' + self.description + ' -' + str(self.density_g_per_cm3) + '\n'
         except:
-            material_card = 'mat ' + self.name + ' ' + str(self.atom_density_per_barn_per_cm) + '\n'
+            material_card = 'mat ' + self.description + ' ' + str(self.atom_density_per_barn_per_cm) + '\n'
 
 
 
@@ -210,10 +228,10 @@ class Material(NamedObject):
 
             if 'atom_fraction' in element_mixture.keys():
                 print('using atom fraction')
-                element_atom_fraction = element_mixture['atom_fraction']
+                element_atom_fraction = self.find_element_atom_fractions()[counter] #element_mixture['atom_fraction']
             else:
                 print('using mass fraction')
-                element_atom_fraction = element_mixture['mass_fraction']/element.molar_mass_g
+                element_atom_fraction = self.find_element_mass_fractions()[counter]/element.molar_mass_g #element_mixture['mass_fraction']/element.molar_mass_g
 
             print('element.isotopes',element.isotopes)
             for isotope in element.isotopes:
@@ -231,17 +249,17 @@ class Material(NamedObject):
 
         return material_card
 
-mat_name= 'DT-plasma'#'Bronze'#''SS-316LN-IG'
-for e in Material(mat_name).element_mixtures:
-    print('mixtures',e)
-
-for e in Material(mat_name).elements:
-    print('elements',e)
-
-for e in Material(mat_name).element_atom_fractions:
-    print('element_atom_fractions',e)
-
-for e in Material(mat_name).element_mass_fractions:
-    print('element_mass_fractions',e)
-
-print(Material(mat_name).serpent_material_card)
+# mat_name= 'Epoxy'#'Glass-fibre'#'DT-plasma'#'Bronze'#''SS-316LN-IG'
+# for e in Material(mat_name).element_mixtures:
+#     print('mixtures',e)
+#
+# for e in Material(mat_name).elements:
+#     print('elements',e)
+#
+# for e in Material(mat_name).element_atom_fractions:
+#     print('element_atom_fractions',e)
+#
+# for e in Material(mat_name).element_mass_fractions:
+#     print('element_mass_fractions',e)
+#
+# print(Material(mat_name).serpent_material_card)

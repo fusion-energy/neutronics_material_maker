@@ -1,4 +1,4 @@
-
+import sys
 
 def is_number(s):
     try:
@@ -123,7 +123,7 @@ def full_name(symbol):  # returns full element name
         if (symbol == 'Y'): return 'Yttrium'
         if (symbol == 'Zn'): return 'Zinc'
         if (symbol == 'Zr'): return 'Zirconium'
-        print('element not found', element)
+        print('element symbol not found', symbol)
         sys.exit()
         
 def natural_abundance(symbol,atomic_number):
@@ -972,7 +972,8 @@ def find_symbol_from_protons(protons):
     if protons ==  116 : return 'Lv'
     if protons ==  117 : return 'Ts'
     if protons ==  118 : return 'Og'
-    return ('proton number ' + str(protons) + ' not found')
+    print('proton number ' + str(protons) + ' not found')
+    sys.exit()
 
 def find_protons_from_symbol(symbol):
         #print(symbol)
