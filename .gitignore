@@ -12,8 +12,7 @@
 
 __pycache__/
 
+.idea/
+
 *.py[cod]
 
-**/.idea/workspace.xml 
-
-**/.idea/tasks.xml
