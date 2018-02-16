@@ -25,7 +25,7 @@ $ python setup.py install
 
 # Getting started
 
-The software can be used to create isotopes, elements, compounds, materials or homogenised mixtures. Properties such as density or material card can be accessed after creation. 
+The software can be used to create isotopes, elements, compounds, materials or homogenised mixtures. Properties such as density or material card can be accessed after creation.
 
 After installation users must import the package
 
@@ -128,7 +128,7 @@ $ He_compound.density_g_per_cm3_idea_gas
 >>> 0.004682671945463105
 ```
 
-Once a compound has been created various properties can be exstracted including material cards suitable for Serpent simulation and density. 
+Once a compound has been created various properties can be exstracted including material cards suitable for Serpent simulation and density.
 ```sh
 $ example_compound = nmm.Compound('Li4SiO4',enriched_isotopes=(nmm.Isotope('Li', 6, 0.9), nmm.Isotope('Li', 7, 0.1)))
 $ example_compound.enriched_isotopes
@@ -221,10 +221,17 @@ $ example_mat2.serpent_material_card_zaid
 Materials and Compounds can be combined to form a Homogenised_mixture. Any number of Materials and Compounds can be combined but they must combine to give a volume fraction of 1.0. Here are some examples ...
 
 ```sh
+<<<<<<< HEAD
 $ mat_bronze = nmm.Material('Bronze')
 $ mat_bronze.density_g_per_cm3
 >>> 8.8775
 $ mat_water = nmm.Compound('H2O',density_g_per_cm3=0.926)
+=======
+$ mat_bronze = Material('Bronze')
+$ mat_bronze.density_g_per_cm3
+>>> 7.93
+$ mat_water = Compound('H2O',density_g_per_cm3=0.926)
+>>>>>>> b0b3a184b18ef477c20f6c0fe50e22ca877fb8ba
 $ mat_water.density_g_per_cm3
 >>> 0.926
 $ mat_CuCrZr = nmm.Compound('CuCrZr',density_g_per_cm3=8.814)
@@ -234,7 +241,11 @@ $ mat_CuCrZr.density_g_per_cm3
 
 The two Compounds and 1 Material can then be mixed with volume fractions the following way. This Homogenised_mixture contains 20% volume Water, 30% volume CuCrZr and 50% Bronze.
 ```sh
+<<<<<<< HEAD
 $ mat_mix = nmm.Homogenised_mixture([(mat_water, 0.20), (mat_CuCrZr, 0.30), (mat_bronze,0.5)])
+=======
+$ mat_mix = Homogenised_mixture([(mat_water, 0.25), (mat_CuCrZr, 0.25), (mat_bronze,0.5)])
+>>>>>>> b0b3a184b18ef477c20f6c0fe50e22ca877fb8ba
 $ mat_mix.density_g_per_cm3
 >>> 7.26815
 ```
@@ -246,7 +257,11 @@ $ mat_mix.serpent_material_card_zaid
 >>> mat H2O_vf_0.25_CuCrZr_vf_0.25_Bronze_vf_0.5_  -6.4
 >>>   1001.31c 0.4999425
 >>>   1002.31c 5.75e-05
+<<<<<<< HEAD
 >>>   etc ...
+=======
+>>>   ...
+>>>>>>> b0b3a184b18ef477c20f6c0fe50e22ca877fb8ba
 
 ```
 
@@ -258,7 +273,7 @@ $ mat_mix.serpent_material_card_zaid
  - Combine with engineering materials database
  - Make a GUI
  - address #todo comments in the code
- 
+
 ### Acknowledgements
 
 Isotope natural abundance and mass data from [Nist](https://www.nist.gov/pml/atomic-weights-and-isotopic-compositions-relative-atomic-masses)
