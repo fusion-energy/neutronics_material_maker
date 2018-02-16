@@ -141,6 +141,28 @@ def test_material_find_material_mass_or_atom_faction_mixture_length():
     # todo perhaps also test isotopes produced are correct isotopes
 
 
+import numpy
+
+
+mat_bronze = nmm.Material('Bronze')
+print(mat_bronze.density_g_per_cm3)
+
+mat_water = nmm.Compound('H2O', density_g_per_cm3=0.926)
+print(mat_water.density_g_per_cm3)
+
+mat_CuCrZr = nmm.Compound('CuCrZr', density_g_per_cm3=8.814)
+print(mat_CuCrZr.density_g_per_cm3)
+mat_mix = nmm.Homogenised_mixture([(mat_water, 0.20), (mat_CuCrZr, 0.30), (mat_bronze, 0.5)])
+print(mat_mix.density_g_per_cm3)
+print(mat_mix.serpent_material_card)
+
+for enrichment in numpy.linspace(0, 1, num=5):
+    example_compound = nmm.Compound('Li4SiO4', enriched_isotopes=(
+    nmm.Isotope('Li', 6, enrichment), nmm.Isotope('Li', 7, 1.0 - enrichment)))
+    print(enrichment)
+    print(example_compound.density_g_per_cm3)
+    print(example_compound.element_atom_fractions)
+    print(example_compound.serpent_material_card)
 
 
 

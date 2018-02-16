@@ -111,7 +111,6 @@ class Material(NamedObject):
             list_of_elements.append(element_element_fractions['element'])
        return list_of_elements
 
-    @property
     def isotopes_atom_fractions(self):
         list_of_fractions = []
         for fractions, element in zip(self.element_atom_fractions, self.elements):

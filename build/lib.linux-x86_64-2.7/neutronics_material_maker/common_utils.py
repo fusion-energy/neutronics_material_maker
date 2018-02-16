@@ -7,6 +7,7 @@ def is_number(s):
     except ValueError:
         return False
 
+
 def full_name(symbol):  # returns full element name
         if (symbol == 'Ac'): return 'Actinium'
         if (symbol == 'Al'): return 'Aluminum'

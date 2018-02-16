@@ -221,17 +221,10 @@ $ example_mat2.serpent_material_card_zaid
 Materials and Compounds can be combined to form a Homogenised_mixture. Any number of Materials and Compounds can be combined but they must combine to give a volume fraction of 1.0. Here are some examples ...
 
 ```sh
-<<<<<<< HEAD
 $ mat_bronze = nmm.Material('Bronze')
 $ mat_bronze.density_g_per_cm3
 >>> 8.8775
 $ mat_water = nmm.Compound('H2O',density_g_per_cm3=0.926)
-=======
-$ mat_bronze = Material('Bronze')
-$ mat_bronze.density_g_per_cm3
->>> 7.93
-$ mat_water = Compound('H2O',density_g_per_cm3=0.926)
->>>>>>> b0b3a184b18ef477c20f6c0fe50e22ca877fb8ba
 $ mat_water.density_g_per_cm3
 >>> 0.926
 $ mat_CuCrZr = nmm.Compound('CuCrZr',density_g_per_cm3=8.814)
@@ -241,11 +234,7 @@ $ mat_CuCrZr.density_g_per_cm3
 
 The two Compounds and 1 Material can then be mixed with volume fractions the following way. This Homogenised_mixture contains 20% volume Water, 30% volume CuCrZr and 50% Bronze.
 ```sh
-<<<<<<< HEAD
 $ mat_mix = nmm.Homogenised_mixture([(mat_water, 0.20), (mat_CuCrZr, 0.30), (mat_bronze,0.5)])
-=======
-$ mat_mix = Homogenised_mixture([(mat_water, 0.25), (mat_CuCrZr, 0.25), (mat_bronze,0.5)])
->>>>>>> b0b3a184b18ef477c20f6c0fe50e22ca877fb8ba
 $ mat_mix.density_g_per_cm3
 >>> 7.26815
 ```
@@ -254,15 +243,35 @@ The resulting material card comprises of the combined three material cards with 
 
 ```sh
 $ mat_mix.serpent_material_card_zaid
->>> mat H2O_vf_0.25_CuCrZr_vf_0.25_Bronze_vf_0.5_  -6.4
->>>   1001.31c 0.4999425
->>>   1002.31c 5.75e-05
-<<<<<<< HEAD
->>>   etc ...
-=======
->>>   ...
->>>>>>> b0b3a184b18ef477c20f6c0fe50e22ca877fb8ba
-
+>>> mat H2O_vf_0.2_CuCrZr_vf_0.3_Bronze_vf_0.5_  -7.26815
+>>>     1001.31c 0.13331800000000002
+>>>     1002.31c 1.5333333333333334e-05
+>>>     8016.31c 0.06650466666666666
+>>>     8017.31c 2.5333333333333334e-05
+>>>     8018.31c 0.00013666666666666666
+>>>     29063.31c 0.06914999999999999
+>>>     29065.31c 0.03085
+>>>     24050.31c 0.004345
+>>>     24052.31c 0.08378899999999999
+>>>     24053.31c 0.009500999999999999
+>>>     24054.31c 0.0023649999999999995
+>>>     40090.31c 0.051449999999999996
+>>>     40091.31c 0.011219999999999999
+>>>     40092.31c 0.017150000000000002
+>>>     40094.31c 0.01738
+>>>     40096.31c 0.0027999999999999995
+>>>     29063.31c 0.3284625
+>>>     29065.31c 0.1465375
+>>>     50112.31c 0.0002425
+>>>     50114.31c 0.000165
+>>>     50115.31c 8.5e-05
+>>>     50116.31c 0.003635
+>>>     50117.31c 0.0019199999999999998
+>>>     50118.31c 0.0060550000000000005
+>>>     50119.31c 0.0021475
+>>>     50120.31c 0.008145
+>>>     50122.31c 0.0011575000000000001
+>>>     50124.31c 0.0014475
 ```
 
 ### Todos

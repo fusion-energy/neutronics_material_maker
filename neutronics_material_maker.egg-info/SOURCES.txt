@@ -1,4 +1,5 @@
 setup.cfg
+setup.py
 neutronics_material_maker/__init__.py
 neutronics_material_maker/common_utils.py
 neutronics_material_maker/compound.py

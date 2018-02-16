@@ -42,17 +42,22 @@ class Homogenised_mixture(NamedObject):
         material_card='mat '+self.description
         material_card = material_card + '  -' + str(self.density_g_per_cm3) + '\n'
 
-        for item, volume_fraction in zip(self.items, self.volume_fractions):
-            print(type(item))
-            print(item.zaids)
-            print('sum',sum(item.isotopes_atom_fractions))
-            for zaid, isotopes_mass_fraction in zip(item.zaids, item.isotopes_atom_fractions):
-                 if zaid.startswith('160'):
-                     material_card = material_card + ('    '+zaid + '.03c ' + str(isotopes_mass_fraction*volume_fraction) + '\n')
-                 else:
-                     material_card = material_card + ('    '+zaid + '.31c ' + str(isotopes_mass_fraction*volume_fraction) + '\n')
 
-        return material_card
+
+
+        #for compound, volume_fraction in zip([self.compound1,self.compound2],[self.volume_fraction1,self.volume_fraction2]):
+        for item, volume_fraction in zip(self.items, self.volume_fractions):
+
+            for zaid, isotopes_mass_fraction in zip(item.zaids, item.isotopes_atom_fractions):
+                print(isotopes_mass_fraction)
+        #     for zaid, isotopes_mass_fraction in zip(item.zaids, item.isotopes_mass_fractions):
+
+        #         if zaid.startswith('160'):
+        #             material_card = material_card + ('    '+zaid + '.03c ' + str(isotopes_mass_fraction*volume_fraction) + '\n')
+        #         else:
+        #             material_card = material_card + ('    '+zaid + '.31c ' + str(isotopes_mass_fraction*volume_fraction) + '\n')
+        #
+        # return material_card
 
     @property
     def description(self):
@@ -71,14 +76,12 @@ class Homogenised_mixture(NamedObject):
         return description_to_return
 
 
+# mat_steel = Material('SS-316LN-IG')
+#
+#
 # mat_bronze = Material('Bronze')
-# print(mat_bronze.density_g_per_cm3)
 #
-# mat_water = Compound('H2O', density_g_per_cm3=0.926)
-# print(mat_water.density_g_per_cm3)
 #
-# mat_CuCrZr = Compound('CuCrZr', density_g_per_cm3=8.814)
-# print(mat_CuCrZr.density_g_per_cm3)
-# mat_mix = Homogenised_mixture([(mat_water, 0.20), (mat_CuCrZr, 0.30), (mat_bronze, 0.5)])
-# print(mat_mix.density_g_per_cm3)
-# print(mat_mix.serpent_material_card)
+#
+#
+# mat_divertor_layer_2 = Homogenised_mixture([(mat_water, 0.25), (mat_CuCrZr, 0.25), (mat_copper,0.5)])
