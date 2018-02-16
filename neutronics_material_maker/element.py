@@ -13,6 +13,7 @@ from common_utils import full_name
 from jsonable_object import NamedObject
 
 class Element(NamedObject):
+
     def __init__(self, symbol_or_proton, enriched_isotopes='Natural',density_g_per_cm3=None):
         super(Element, self).__init__()
 

@@ -36,11 +36,9 @@ class Isotope(NamedObject):
     def zaid(self):
         return str(self.protons) + str(self.atomic_number).zfill(3)
 
- 
     @property
     def neutrons(self):
         return self.atomic_number - self.protons
-
 
     @property
     def description(self):

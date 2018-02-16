@@ -8,19 +8,7 @@ from common_utils import is_number
 from element import Element
 from common_utils import natural_isotopes_in_elements
 
-class NamedObject(object):
-    def __init__(self):
-        self.classname = self.__class__.__name__
-
-    def to_dict(self):
-
-        def obj_dict(obj):
-            return obj.__dict__
-
-        return json.loads(json.dumps(self, default=obj_dict))#, indent=4, sort_keys=False))
-
-
-
+from jsonable_object import NamedObject
 
 class Compound(NamedObject):
     def __init__(self, chemical_equation, packing_fraction=1, theoretical_density=1, pressure_Pa=8.0E6,temperature_K=823.0, enriched_isotopes='Natural',density_g_per_cm3=None):
@@ -40,13 +28,11 @@ class Compound(NamedObject):
             self.density_g_per_cm3=self.find_density_g_per_cm3
             #print('finding density',self.density_g_per_cm3)
 
-
     @property
     def density_g_per_cm3_idea_gas(self):
         molar_mass = Element('He').molar_mass_g #4.002602
         density_kg_m3 = (self.pressure_Pa / (8.31 * self.temperature_K)) * molar_mass * 6.023e23 * 1.66054e-27
         return density_kg_m3
-
 
     @property
     def elements(self):
@@ -85,7 +71,7 @@ class Compound(NamedObject):
         return list_fraction
 
     @property
-    def isotopes_mass_fractions(self):
+    def isotopes_atom_fractions(self):
         list_isotopes_mass_fraction = []
         for fractions, element in zip(self.fractions_coefficients, self.elements):
             for isotope in element.isotopes:
@@ -106,7 +92,7 @@ class Compound(NamedObject):
     def serpent_material_card(self):
         #print('checking for density')
         material_card = 'mat ' + self.description + ' -' + str(self.density_g_per_cm3) + '\n'
-        for zaid, isotopes_mass_fraction in zip(self.zaids, self.isotopes_mass_fractions):
+        for zaid, isotopes_mass_fraction in zip(self.zaids, self.isotopes_atom_fractions):
             if zaid.startswith('160'):
                 material_card = material_card +'    '+ zaid + '.03c ' + str(isotopes_mass_fraction) + '\n'
             else:

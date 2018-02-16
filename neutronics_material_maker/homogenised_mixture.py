@@ -3,17 +3,10 @@ import re
 import sys
 import json
 import pprint
+from material import Material
+from compound import Compound
 
-class NamedObject(object):
-    def __init__(self):
-        self.classname = self.__class__.__name__
-
-    def to_dict(self):
-
-        def obj_dict(obj):
-            return obj.__dict__
-
-        return json.loads(json.dumps(self, default=obj_dict))#, indent=4, sort_keys=False))
+from jsonable_object import NamedObject
 
 class Homogenised_mixture(NamedObject):
     def __init__(self, list_of_items_and_volume_fractions):
@@ -40,24 +33,31 @@ class Homogenised_mixture(NamedObject):
         cumlative_density = 0
         for item, volume in zip(self.items,self.volume_fractions):
             cumlative_density = cumlative_density + (item.density_g_per_cm3 * volume)
-        #print('cumlative_density',cumlative_density)
+        # todo allow density combinations involving atom_per_barn_cm2
         return cumlative_density
 
     @property
-    def serpent_material_card_zaid(self):
+    def serpent_material_card(self):
 
         material_card='mat '+self.description
         material_card = material_card + '  -' + str(self.density_g_per_cm3) + '\n'
 
+
+
+
         #for compound, volume_fraction in zip([self.compound1,self.compound2],[self.volume_fraction1,self.volume_fraction2]):
         for item, volume_fraction in zip(self.items, self.volume_fractions):
-            for zaid, isotopes_mass_fraction in zip(item.zaids, item.isotopes_mass_fractions):
-                if zaid.startswith('160'):
-                    material_card = material_card + ('    '+zaid + '.03c ' + str(isotopes_mass_fraction*volume_fraction) + '\n')
-                else:
-                    material_card = material_card + ('    '+zaid + '.31c ' + str(isotopes_mass_fraction*volume_fraction) + '\n')
 
-        return material_card
+            print(type(item))
+            if isinstance(item,Material):
+                print('mat')
+        #     for zaid, isotopes_mass_fraction in zip(item.zaids, item.isotopes_mass_fractions):
+        #         if zaid.startswith('160'):
+        #             material_card = material_card + ('    '+zaid + '.03c ' + str(isotopes_mass_fraction*volume_fraction) + '\n')
+        #         else:
+        #             material_card = material_card + ('    '+zaid + '.31c ' + str(isotopes_mass_fraction*volume_fraction) + '\n')
+        #
+        # return material_card
 
     @property
     def description(self):
@@ -76,13 +76,12 @@ class Homogenised_mixture(NamedObject):
         return description_to_return
 
 
-mat_steel = Material('SS-316LN-IG')
-
-
-mat_bronze = Material('Bronze')
-
-
-mat_Tungsten = Material('Tungsten')
-
-
-mat_divertor_layer_2 = Homogenised_mixture([(mat_water, 0.25), (mat_CuCrZr, 0.25), (mat_copper,0.5)])
+# mat_steel = Material('SS-316LN-IG')
+#
+#
+# mat_bronze = Material('Bronze')
+#
+#
+#
+#
+# mat_divertor_layer_2 = Homogenised_mixture([(mat_water, 0.25), (mat_CuCrZr, 0.25), (mat_copper,0.5)])

@@ -20,16 +20,7 @@ from isotope import Isotope
 
 from element import Element
 
-class NamedObject(object):
-    def __init__(self):
-        self.classname = self.__class__.__name__
-
-    def to_dict(self):
-
-        def obj_dict(obj):
-            return obj.__dict__
-
-        return json.loads(json.dumps(self, default=obj_dict))#, indent=4, sort_keys=False))
+from jsonable_object import NamedObject
 
 class Material(NamedObject):
     def __init__(self, description):#,*enriched_isotopes):
@@ -45,8 +36,6 @@ class Material(NamedObject):
         #if enriched_isotopes:
         #    print('enriched materials not yet implemented')
         #    sys.exit()
-
-
 
     def find_material_mass_or_atom_faction_mixture(self, name):
 
@@ -174,7 +163,6 @@ class Material(NamedObject):
 
         return list_of_fractions
 
-
     @property
     def atom_density_per_barn_per_cm(self):
         if self.description == 'DT-plasma':
@@ -208,15 +196,12 @@ class Material(NamedObject):
             print('perhaps try atom_density_per_barn_per_cm property')
             sys.exit()
 
-
     @property
     def serpent_material_card(self):
         try:
             material_card = 'mat ' + self.description + ' -' + str(self.density_g_per_cm3) + '\n'
         except:
             material_card = 'mat ' + self.description + ' ' + str(self.atom_density_per_barn_per_cm) + '\n'
-
-
 
 
         for counter, element_mixture in enumerate(self.element_mixtures):

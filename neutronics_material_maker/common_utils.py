@@ -712,7 +712,6 @@ def mass_amu(symbol,atomic_number):
             print('symbol atomic number combination not found no isotope mass to return ')
             print('symbol=',symbol,'atomic_number',atomic_number)
 
-
 def natural_isotopes_in_elements(symbol):
         from isotope import Isotope
         if symbol == 'Sn': return [Isotope(symbol, 112), Isotope(symbol, 114), Isotope(symbol, 115),
