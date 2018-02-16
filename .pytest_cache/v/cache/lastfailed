@@ -1,5 +1,0 @@
-{
-  "tests/tests.py::test_isotope_descrition": true, 
-  "tests/tests.py::test_material": true, 
-  "tests/tests.py::test_molar_mass_g": true
-}
