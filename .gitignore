@@ -24,3 +24,11 @@ build/
 neutronics_material_maker.egg-info/
 
 .ipynb_checkpoints/
+
+dist_pac.sh
+
+setup.cfg
+
+twine_upload.sh
+
+upload.sh

@@ -4,11 +4,13 @@
 # to run type
 
 # python -m pytest tests.py
+# python3 -m pytest tests.py
 
 # requires pytest (pip install pytest)
 
 import neutronics_material_maker as nmm
 import numpy
+import random as rand
 
 
 def test_isotopes_zaid():
@@ -116,7 +118,12 @@ def test_material_find_material_mass_or_atom_faction_mixture_length():
     new_material = nmm.Material('DT-plasma')
     assert len(new_material.find_material_mass_or_atom_faction_mixture('DT-plasma')) == len(new_material.element_mixtures)
 
+def test_all_natural_elements():
+    all_elements = nmm.all_natural_elements()
+    for x in range(0,rand.randint(1,5)):
+        rand.randint(0,len(all_elements))
 
+test_all_natural_elements()
 
 
 # todo more tests on compounds
