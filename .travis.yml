@@ -2,5 +2,4 @@
   python:
     - "3.6"
   script:
-
-    - pytest module_tests.py
+    - pytest tests/module_tests.py
