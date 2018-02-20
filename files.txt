@@ -1,1 +1,0 @@
-/usr/local/lib/python2.7/dist-packages/neutronics_material_maker-0.12-py2.7.egg
