@@ -10,7 +10,7 @@
 
 import neutronics_material_maker as nmm
 import numpy
-import random as rand
+import random
 
 
 def test_isotopes_zaid():
@@ -118,12 +118,45 @@ def test_material_find_material_mass_or_atom_faction_mixture_length():
     new_material = nmm.Material('DT-plasma')
     assert len(new_material.find_material_mass_or_atom_faction_mixture('DT-plasma')) == len(new_material.element_mixtures)
 
+# def test_all_natural_elements():
+#     all_elements = nmm.all_natural_elements()
+#     for x in range(0,rand.randint(1,5)):
+#         rand.randint(0,len(all_elements))
+
+def test_broken_element():
+    z = nmm.Compound('zzzz', density_g_per_cm3=1)
+    try:
+        test_mat_card = z.serpent_material_card
+        assert False
+    except:
+        assert True
+
+
+
+
 def test_all_natural_elements():
     all_elements = nmm.all_natural_elements()
-    for x in range(0,rand.randint(1,5)):
-        rand.randint(0,len(all_elements))
+    for fuss_test in range(0,1500):
+        chemical_equation_to_test = ''
+        equation_length = random.randint(1, 5)
+        for x in range(0, random.randint(1, equation_length)):
+            randint1 = random.randint(0, len(all_elements)-1)
+            randint2 = random.randint(1, 100)
+            next_element = all_elements[randint1].symbol
+            next_multiplier = str(randint2)
+            chemical_equation_to_test = chemical_equation_to_test + next_element + next_multiplier
 
-test_all_natural_elements()
+            random_density = random.uniform(0, 23)
+            print('fuzzy test',chemical_equation_to_test,random_density)
+            fuzzy_test_compound = nmm.Compound(chemical_equation_to_test, density_g_per_cm3=random_density)
+            #fuzzy_test_compound = nmm.Compound('zzzz', density_g_per_cm3=1)
+            try:
+                test_mat_card = fuzzy_test_compound.serpent_material_card
+                assert fuzzy_test_compound.chemical_equation == chemical_equation_to_test
+                assert type(fuzzy_test_compound.serpent_material_card) == str
+                assert fuzzy_test_compound.density_g_per_cm3 == random_density
+            except:
+                assert False
 
 
 # todo more tests on compounds
@@ -147,29 +180,29 @@ test_all_natural_elements()
     #[Isotope(symbol, 54), Isotope(symbol, 56), Isotope(symbol, 57),Isotope(symbol, 58)]
     # todo perhaps also test isotopes produced are correct isotopes
 
-
-import numpy
-
-
-mat_bronze = nmm.Material('Bronze')
-print(mat_bronze.density_g_per_cm3)
-
-mat_water = nmm.Compound('H2O', density_g_per_cm3=0.926)
-print(mat_water.density_g_per_cm3)
-
-mat_CuCrZr = nmm.Compound('CuCrZr', density_g_per_cm3=8.814)
-print(mat_CuCrZr.density_g_per_cm3)
-mat_mix = nmm.Homogenised_mixture([(mat_water, 0.20), (mat_CuCrZr, 0.30), (mat_bronze, 0.5)])
-print(mat_mix.density_g_per_cm3)
-print(mat_mix.serpent_material_card)
-
-for enrichment in numpy.linspace(0, 1, num=5):
-    example_compound = nmm.Compound('Li4SiO4', enriched_isotopes=(
-    nmm.Isotope('Li', 6, enrichment), nmm.Isotope('Li', 7, 1.0 - enrichment)))
-    print(enrichment)
-    print(example_compound.density_g_per_cm3)
-    print(example_compound.element_atom_fractions)
-    print(example_compound.serpent_material_card)
+#
+# import numpy
+#
+#
+# mat_bronze = nmm.Material('Bronze')
+# print(mat_bronze.density_g_per_cm3)
+#
+# mat_water = nmm.Compound('H2O', density_g_per_cm3=0.926)
+# print(mat_water.density_g_per_cm3)
+#
+# mat_CuCrZr = nmm.Compound('CuCrZr', density_g_per_cm3=8.814)
+# print(mat_CuCrZr.density_g_per_cm3)
+# mat_mix = nmm.Homogenised_mixture([(mat_water, 0.20), (mat_CuCrZr, 0.30), (mat_bronze, 0.5)])
+# print(mat_mix.density_g_per_cm3)
+# print(mat_mix.serpent_material_card)
+#
+# for enrichment in numpy.linspace(0, 1, num=5):
+#     example_compound = nmm.Compound('Li4SiO4', enriched_isotopes=(
+#     nmm.Isotope('Li', 6, enrichment), nmm.Isotope('Li', 7, 1.0 - enrichment)))
+#     print(enrichment)
+#     print(example_compound.density_g_per_cm3)
+#     print(example_compound.element_atom_fractions)
+#     print(example_compound.serpent_material_card)
 
 
 
