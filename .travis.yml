@@ -1,5 +1,11 @@
   language: python
   python:
     - "3.6"
+  install:
+    - pip install numpy 
+    - pip install pprint 
+    #re json sys
   script:
-    - pytest tests/module_tests.py
+    - pip3 install neutronics_material_maker
+    - python setup.py tests
+    #- pytest tests/module_tests.py
