@@ -1,4 +1,5 @@
 [![N|Python](https://www.python.org/static/community_logos/python-powered-w-100x40.png)](https://www.python.org)
+[![Build Status](https://travis-ci.org/ukaea/neutronics_material_maker.svg?branch=master)](https://travis-ci.org/ukaea/neutronics_material_maker)
 # Design goals
 The material composition impacts the transport of neutrons and photons through the material. Neutronics codes attempt to simulate the transport of particles through matter and therefore require the material composition. This software aims to ease the creation of customisable materials for use in neutronics codes
 
@@ -35,11 +36,11 @@ $ import neutronics_material_maker as nmm
 
 # Making Isotopes
 
-Isotope form the basic building blocks of more complex objects (elements). Isotope can be created by specifiy the symbol and the atomic number
+Isotope form the basic building blocks of more complex objects (elements). Isotope can be created by specifying the symbol and the atomic number
 ```sh
 $ example_isotope = nmm.Isotope('Li',7)
 ```
-Isotope can be created by specifiy the proton number and the atomic number
+Isotope can be created by specifying the proton number and the atomic number
 ```sh
 $ example_isotope = nmm.Isotope(3,7)
 ```
@@ -59,7 +60,7 @@ $ example_isotope.natural_abundance
 $ example_isotope.description
 >>> {'abundance': 0.9241, 'atomic_number ': 7, 'mass_amu': 7.0160034366, 'protons': 3, 'neutrons': 4, 'isotope ': 'Li'}
 ```
-It is also possible to overwrite the natural abundance of an isotope upon creation. This comes in usefull later when creating enriched compounds
+It is also possible to overwrite the natural abundance of an isotope upon creation. This comes in useful later when creating enriched compounds
 ```sh
 $ example_isotope = nmm.Isotope('Li',7,0.5)
 >>> Li
@@ -68,11 +69,11 @@ $ example_isotope.abundance
 ```
 # Making Elements
 
-Elements form another building blocks of more complex objects (compounds). Elements can be created by specifiy the symbol and optional enrichment. A simple element construct can be achieved with ...
+Elements form another building blocks of more complex objects (compounds). Elements can be created by specifying the symbol and optional enrichment. A simple element construct can be achieved with ...
 ```sh
 $ example_element = nmm.Element('Li')
 ```
-The nautral abunadnace of Elements is known and the isotopes are created accordingly. Elemental properties can then be queried. In some cases lists of Isotope objects are returned
+The natural abundance of Elements is known and the isotopes are created accordingly. Elemental properties can then be queried. In some cases lists of Isotope objects are returned
 
 ```sh
 $ example_element.natural_isotopes_in_elements
@@ -95,13 +96,13 @@ $ example_element = nmm.Element('Li',enriched_isotopes=(nmm.Isotope('Li', 6, 0.9
 
 # Making Compounds
 
-Chemical equations are refered to as Compounds by the software. Compounds can be any valid chemical formula such as H2O, CO2 or C8H10N4O2.  
+Chemical equations are referred to as Compounds by the software. Compounds can be any valid chemical formula such as H2O, CO2 or C8H10N4O2.  
 
-Compounds can be created using the following command when both the compound chemical forumla and the density in grams per cm3 are specified.
+Compounds can be created using the following command when both the compound chemical formula and the density in grams per cm3 are specified.
 ```sh
 $ nmm.Compound('C12H22O11',1.59)
 ```
-The software knows about the cystaline volume of some chemical formula and can create a compound using a small material database and the natural abundances of elements. Compounds that the software knows the cystaline volume or atoms per cm3 for are mainly fusion relevant materials Li4SiO4, Li2SiO3, Li2ZrO3, Li2TiO3, Be, Ba5Pb3, Nd5Pb4, Zr5Pb3, Zr5Pb4, Pb84.2Li15.8. For these compounds they can be create without the density argument.
+The software knows about the crystalline volume of some chemical formula and can create a compound using a small material database and the natural abundances of elements. Compounds that the software knows the crystalline volume or atoms per cm3 for are mainly fusion relevant materials Li4SiO4, Li2SiO3, Li2ZrO3, Li2TiO3, Be, Ba5Pb3, Nd5Pb4, Zr5Pb3, Zr5Pb4, Pb84.2Li15.8. For these compounds they can be create without the density argument.
 ```sh
 $ nmm.Compound('Li4SiO4')
 ```
@@ -109,26 +110,26 @@ Compounds can also be enriched much like isotopes can. To enrich an compound one
 ```sh
 nmm.Compound('Li2ZrO3',enriched_isotopes=(nmm.Isotope('Li', 6, 0.9), nmm.Isotope('Li', 7, 0.1)))
 ```
-Other input options for creating compounds include setting a packing_fraction and theoretical_density which both perform the same operation. The density of the resulting compound is multiplied by the input packing fraction or theoretical density. Both are included to allow pebble beds which are made of pebbles that are not at 100% density.
+Other input options for creating Compounds include setting a packing_fraction and theoretical_density which both perform the same operation. The density of the resulting compound is multiplied by the input packing fraction or theoretical density. Both are included to allow pebble beds which are made of pebbles that are not at 100% density.
 ```sh
 $ solid_ceramic = nmm.Compound('Be12Ti')
 $ pebble_bed_ceramic = nmm.Compound('Be12Ti',packing_fraction=0.64)
 ```
-The density of the two compounds can be found with the density_g_per_cm3 property.
+The density of the two Compounds can be found with the density_g_per_cm3 property.
 ```sh
 $ solid_ceramic.density_g_per_cm3
 >>>2.2801067618505506
 $ pebble_bed_ceramic.density_g_per_cm3
 >>>1.4592683275843523
 ```
-Other input options for Compunds include pressure_Pa and temperature_K which are used when calculating the density of ideal gases. This function only works for Helium at the moment but could be exspanded in the future.
+Other input options for Compunds include pressure_Pa and temperature_K which are used when calculating the density of ideal gases. This function only works for Helium at the moment but could be expanded in the future.
 ```sh
 $ He_compound = nmm.Compound('He', pressure_Pa = 8.0E6, temperature_K = 823.0)
 $ He_compound.density_g_per_cm3_idea_gas
 >>> 0.004682671945463105
 ```
 
-Once a compound has been created various properties can be exstracted including material cards suitable for Serpent simulation and density.
+Once a compound has been created various properties can be extracted including material cards suitable for Serpent simulation and density.
 ```sh
 $ example_compound = nmm.Compound('Li4SiO4',enriched_isotopes=(nmm.Isotope('Li', 6, 0.9), nmm.Isotope('Li', 7, 0.1)))
 $ example_compound.enriched_isotopes
