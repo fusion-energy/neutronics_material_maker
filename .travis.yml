@@ -7,5 +7,5 @@
     #re json sys
   script:
     - pip3 install neutronics_material_maker
-    - python setup.py tests
+    - python setup.py test
     #- pytest tests/module_tests.py
