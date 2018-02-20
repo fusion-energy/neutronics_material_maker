@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='neutronics_material_maker',
-      version='0.1221',
+      version='0.1222',
       summary='Package for making material cards for neutronic codes such as Serpent',
       description='create isotopes, materials, chemical compounds, homogenised mixtures',
       url='https://github.com/ukaea/neutronics_material_maker',

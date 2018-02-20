@@ -11,7 +11,7 @@ from neutronics_material_maker.common_utils import natural_isotopes_in_elements
 from neutronics_material_maker.common_utils import find_symbol_from_protons
 from neutronics_material_maker.common_utils import find_protons_from_symbol
   
-from jsonable_object import NamedObject
+from neutronics_material_maker.jsonable_object import NamedObject
 
 class Isotope(NamedObject):
     def __init__(self, symbol_or_proton, atomic_number, abundance='Natural'):
