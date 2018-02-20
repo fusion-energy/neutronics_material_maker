@@ -32,3 +32,7 @@ setup.cfg
 twine_upload.sh
 
 upload.sh
+
+setup.py___jb_old___
+
+setup.py___jb_tmp___

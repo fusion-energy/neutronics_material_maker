@@ -15,6 +15,7 @@ from neutronics_material_maker.common_utils import natural_isotopes_in_elements
 from neutronics_material_maker.common_utils import find_symbol_from_protons
 from neutronics_material_maker.common_utils import find_protons_from_symbol
 from neutronics_material_maker.common_utils import all_natural_elements_symbols
+from neutronics_material_maker.common_utils import all_natural_elements
 
 
 from neutronics_material_maker.isotope import Isotope
