@@ -8,17 +8,17 @@ sys.dont_write_bytecode = True
 
 
 
-from common_utils import full_name
-from common_utils import natural_abundance
-from common_utils import mass_amu
-from common_utils import natural_isotopes_in_elements
-from common_utils import find_symbol_from_protons
-from common_utils import find_protons_from_symbol
-from common_utils import all_natural_elements
-from common_utils import all_natural_isotopes
+from neutronics_material_maker.common_utils import full_name
+from neutronics_material_maker.common_utils import natural_abundance
+from neutronics_material_maker.common_utils import mass_amu
+from neutronics_material_maker.common_utils import natural_isotopes_in_elements
+from neutronics_material_maker.common_utils import find_symbol_from_protons
+from neutronics_material_maker.common_utils import find_protons_from_symbol
+from neutronics_material_maker.common_utils import all_natural_elements
+from neutronics_material_maker.common_utils import all_natural_isotopes
 
-from isotope import Isotope
-from element import Element
-from compound import Compound
-from material import Material
-from homogenised_mixture import Homogenised_mixture
+from neutronics_material_maker.isotope import Isotope
+from neutronics_material_maker.element import Element
+from neutronics_material_maker.compound import Compound
+from neutronics_material_maker.material import Material
+from neutronics_material_maker.homogenised_mixture import Homogenised_mixture
