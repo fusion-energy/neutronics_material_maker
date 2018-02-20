@@ -135,16 +135,16 @@ def test_broken_element():
 
 
 def test_all_natural_elements():
-    all_elements = nmm.all_natural_elements()
+    all_elements = nmm.all_natural_elements_symbols()
     for fuss_test in range(0,1500):
         chemical_equation_to_test = ''
         equation_length = random.randint(1, 5)
         for x in range(0, random.randint(1, equation_length)):
             randint1 = random.randint(0, len(all_elements)-1)
             randint2 = random.randint(1, 100)
-            next_element = all_elements[randint1].symbol
+            next_element = nmm.Element(all_elements[randint1])
             next_multiplier = str(randint2)
-            chemical_equation_to_test = chemical_equation_to_test + next_element + next_multiplier
+            chemical_equation_to_test = chemical_equation_to_test + next_element.symbol + next_multiplier
 
             random_density = random.uniform(0, 23)
             print('fuzzy test',chemical_equation_to_test,random_density)

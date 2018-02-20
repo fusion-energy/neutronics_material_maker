@@ -8,7 +8,7 @@ from neutronics_material_maker.common_utils import is_number
 from neutronics_material_maker.element import Element
 from neutronics_material_maker.common_utils import natural_isotopes_in_elements
 
-from jsonable_object import NamedObject
+from neutronics_material_maker.jsonable_object import NamedObject
 
 class Compound(NamedObject):
     def __init__(self, chemical_equation, packing_fraction=1, theoretical_density=1, pressure_Pa=8.0E6,temperature_K=823.0, enriched_isotopes='Natural',density_g_per_cm3=None):
