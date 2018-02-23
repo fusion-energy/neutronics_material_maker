@@ -1,18 +1,10 @@
 
-# these test cover the functionality of neutronics material maker
-
-# to run type
-
-# python -m pytest tests.py
-# python3 -m pytest tests.py
-
-# requires pytest (pip install pytest)
 
 
 
 
 import neutronics_material_maker as nmm
-import numpy
+
 import random
 import unittest
 
@@ -90,7 +82,14 @@ class Tester(unittest.TestCase):
     def test_compound_packing_fraction(self):
         new_compound_solid = nmm.Compound('Li4SiO4')
         new_compound_pebble = nmm.Compound('Li4SiO4',packing_fraction=0.64)
-        assert (numpy.isclose(new_compound_solid.density_g_per_cm3*0.64,new_compound_pebble.density_g_per_cm3,rtol=1e-15)) == True
+
+        a = new_compound_solid.density_g_per_cm3*0.64
+        b = new_compound_pebble.density_g_per_cm3
+
+        rtol = 1e-15
+
+        assert abs(a - b) <= rtol * max(abs(a), abs(b))
+
         #assert new_compound_solid.density_g_per_cm3*0.64==new_compound_pebble.density_g_per_cm3
 
     def test_material_serpent_material_card_type(self):
@@ -123,7 +122,7 @@ class Tester(unittest.TestCase):
         assert len(new_material.find_material_mass_or_atom_faction_mixture('DT-plasma')) == len(new_material.element_mixtures)
 
     # def test_all_natural_elements():
-    #     all_elements = nmm.all_natural_elements()
+    #     all_elements = all_natural_elements()
     #     for x in range(0,rand.randint(1,5)):
     #         rand.randint(0,len(all_elements))
 
@@ -153,7 +152,7 @@ class Tester(unittest.TestCase):
                 random_density = random.uniform(0, 23)
                 print('fuzzy test',chemical_equation_to_test,random_density)
                 fuzzy_test_compound = nmm.Compound(chemical_equation_to_test, density_g_per_cm3=random_density)
-                #fuzzy_test_compound = nmm.Compound('zzzz', density_g_per_cm3=1)
+                #fuzzy_test_compound = Compound('zzzz', density_g_per_cm3=1)
                 try:
                     test_mat_card = fuzzy_test_compound.serpent_material_card
                     assert fuzzy_test_compound.chemical_equation == chemical_equation_to_test
@@ -161,6 +160,35 @@ class Tester(unittest.TestCase):
                     assert fuzzy_test_compound.density_g_per_cm3 == random_density
                 except:
                     assert False
+
+    def test_all_elements_have_natural_isotope_fractions_summing_to_1(self):
+        all_elements = nmm.all_natural_elements()
+        for element in all_elements:
+
+            print(element.symbol)
+            isotopes = nmm.natural_isotopes_in_elements(element.symbol)
+            sum_of_isotope_abundances = 0
+            for isotope in isotopes:
+                sum_of_isotope_abundances = sum_of_isotope_abundances + isotope.abundance
+            a = 1.0
+            b = sum_of_isotope_abundances
+
+            rtol = 1e-15
+
+            if abs(a - b) <= rtol * max(abs(a), abs(b)):
+                print('isotope fraction sum to 1 or nearly 1')
+                assert True
+            else:
+                print("isotope fractions don't sum to 1.0")
+                print("element = ", element.symbol)
+                # for isotope in isotopes:
+                # print(isotope.abundance)
+                print(sum_of_isotope_abundances)
+                assert False
+                # print(all_natural_isotopes())
+#test_all_elements_have_natural_isotope_fractions_summing_to_1()
+
+
 
 
 # todo more tests on compounds
@@ -185,24 +213,24 @@ class Tester(unittest.TestCase):
     # todo perhaps also test isotopes produced are correct isotopes
 
 #
-# import numpy
+
 #
 #
-# mat_bronze = nmm.Material('Bronze')
+# mat_bronze = Material('Bronze')
 # print(mat_bronze.density_g_per_cm3)
 #
-# mat_water = nmm.Compound('H2O', density_g_per_cm3=0.926)
+# mat_water = Compound('H2O', density_g_per_cm3=0.926)
 # print(mat_water.density_g_per_cm3)
 #
-# mat_CuCrZr = nmm.Compound('CuCrZr', density_g_per_cm3=8.814)
+# mat_CuCrZr = Compound('CuCrZr', density_g_per_cm3=8.814)
 # print(mat_CuCrZr.density_g_per_cm3)
-# mat_mix = nmm.Homogenised_mixture([(mat_water, 0.20), (mat_CuCrZr, 0.30), (mat_bronze, 0.5)])
+# mat_mix = Homogenised_mixture([(mat_water, 0.20), (mat_CuCrZr, 0.30), (mat_bronze, 0.5)])
 # print(mat_mix.density_g_per_cm3)
 # print(mat_mix.serpent_material_card)
 #
 # for enrichment in numpy.linspace(0, 1, num=5):
-#     example_compound = nmm.Compound('Li4SiO4', enriched_isotopes=(
-#     nmm.Isotope('Li', 6, enrichment), nmm.Isotope('Li', 7, 1.0 - enrichment)))
+#     example_compound = Compound('Li4SiO4', enriched_isotopes=(
+#     Isotope('Li', 6, enrichment), Isotope('Li', 7, 1.0 - enrichment)))
 #     print(enrichment)
 #     print(example_compound.density_g_per_cm3)
 #     print(example_compound.element_atom_fractions)

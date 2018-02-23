@@ -1121,7 +1121,6 @@ def all_natural_elements():
                 Element('Nb'), Element('Rh'), Element('I'), Element('Cs'), Element('Pr'), Element('Tb'),
                 Element('Ho'), Element('Tm'), Element('Au'), Element('Bi'), Element('Th'), Element('Pa')]
 
-
 def all_natural_isotopes():
     from neutronics_material_maker.element import Element
     from neutronics_material_maker.isotope import Isotope

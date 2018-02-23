@@ -1,3 +1,10 @@
+
+# install with this command
+# sudo python setup.py install --force
+# test with this command
+# sudo python setup.py test
+
+
 from setuptools import setup
 
 with open('requirements.txt') as test_reqs_txt:
@@ -5,7 +12,7 @@ with open('requirements.txt') as test_reqs_txt:
 
 
 setup(name='neutronics_material_maker',
-      version='0.1223',
+      version='0.1224',
       summary='Package for making material cards for neutronic codes such as Serpent',
       description='create isotopes, materials, chemical compounds, homogenised mixtures',
       url='https://github.com/ukaea/neutronics_material_maker',
@@ -16,6 +23,7 @@ setup(name='neutronics_material_maker',
       test_suite='tests.module_tests',
       zip_safe=False,
       install_requires=requirements,
-      tests_require=requirements
+      setup_requires=['pytest-runner'],
+      tests_require=['pytest']
       )
 

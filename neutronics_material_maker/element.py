@@ -4,13 +4,13 @@ import sys
 import json
 import pprint
 
-from neutronics_material_maker.isotope import Isotope
-from neutronics_material_maker.common_utils import find_symbol_from_protons
-from neutronics_material_maker.common_utils import find_protons_from_symbol
-from neutronics_material_maker.common_utils import natural_isotopes_in_elements
-from neutronics_material_maker.common_utils import full_name
+from isotope import Isotope
+from common_utils import find_symbol_from_protons
+from common_utils import find_protons_from_symbol
+from common_utils import natural_isotopes_in_elements
+from common_utils import full_name
 
-from neutronics_material_maker.jsonable_object import NamedObject
+from jsonable_object import NamedObject
 
 class Element(NamedObject):
 

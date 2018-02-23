@@ -4,9 +4,9 @@ import sys
 import json
 import pprint
 
-from neutronics_material_maker.isotope import Isotope
-from neutronics_material_maker.element import Element
-from neutronics_material_maker.jsonable_object import NamedObject
+from isotope import Isotope
+from element import Element
+from jsonable_object import NamedObject
 
 
 #todo future work : allow conversion to pyne material and then exporting to hdf5 file for use in DAGMC
@@ -66,6 +66,15 @@ class Material(NamedObject):
         if name == 'Bronze':
             return [{'element':Element('Cu'),'atom_fraction':0.95} ,
                     {'element':Element('Sn'),'atom_fraction':0.05}
+                    ]
+
+        if name == 'CuCrZr_with_impurities':
+            return [{'element':Element(24),'atom_fraction':1.1408752E-4} ,
+                    {'element':Element(4),'atom_fraction':1.117755E-5},
+                    {'element':Element(8),'atom_fraction':1.83182E-5},
+                    {'element':Element(27),'atom_fraction':9.94336E-6},
+                    {'element':Element(14),'atom_fraction':3.85825124E-6},
+                    {'element':Element(29),'atom_fraction':1.522164E-2}
                     ]
 
         if name == 'SS-316LN-IG':
@@ -191,13 +200,14 @@ class Material(NamedObject):
 
         if not abs(a - b) <= rtol * max(abs(a), abs(b)):
 
-            print('element atom fractions within a material must sum to 1')
+            print("element atom fractions within a material don't sum to 1")
             print('current atom factions are ',list_of_fractions)
             print('which sums to ',sum(list_of_fractions))
             normalised_list_of_fractions=[]
             normalisation_factor = 1.0 / sum(list_of_fractions)
             for fraction in list_of_fractions:
                 normalised_list_of_fractions.append(normalisation_factor*fraction)
+            print('normalizing to ', normalised_list_of_fractions)
             return normalised_list_of_fractions
 
         return list_of_fractions
@@ -229,6 +239,9 @@ class Material(NamedObject):
 
         if self.description == 'Epoxy':
             return 1.18
+
+        if self.description == 'CuCrZr_with_impurities':
+            return 8.814
 
         else:
             print('material not found in density_g_per_cm3 function')

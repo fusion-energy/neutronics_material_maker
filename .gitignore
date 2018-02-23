@@ -1,6 +1,8 @@
 # Compiled python modules.
 **.pyc
 
+.eggs/
+
 # Setuptools distribution folder.
 /dist/
 
@@ -36,3 +38,5 @@ upload.sh
 setup.py___jb_old___
 
 setup.py___jb_tmp___
+
+.coverage
