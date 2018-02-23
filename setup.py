@@ -23,7 +23,7 @@ setup(name='neutronics_material_maker',
       test_suite='neutronics_material_maker.tests.module_tests',
       zip_safe=False,
       install_requires=requirements,
-      setup_requires=['pytest-runner'],
+      #setup_requires=['pytest-runner'],
       tests_require=['pytest']
       )
 
