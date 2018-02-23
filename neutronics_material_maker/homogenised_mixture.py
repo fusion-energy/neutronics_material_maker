@@ -4,9 +4,9 @@ import sys
 import json
 import pprint
 
-from material import Material
-from compound import Compound
-from jsonable_object import NamedObject
+from neutronics_material_maker.material import Material
+from neutronics_material_maker.compound import Compound
+from neutronics_material_maker.jsonable_object import NamedObject
 
 class Homogenised_mixture(NamedObject):
     def __init__(self, list_of_items_and_fractions):

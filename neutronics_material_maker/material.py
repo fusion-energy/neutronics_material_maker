@@ -4,9 +4,9 @@ import sys
 import json
 import pprint
 
-from isotope import Isotope
-from element import Element
-from jsonable_object import NamedObject
+from neutronics_material_maker.isotope import Isotope
+from neutronics_material_maker.element import Element
+from neutronics_material_maker.jsonable_object import NamedObject
 
 
 #todo future work : allow conversion to pyne material and then exporting to hdf5 file for use in DAGMC
