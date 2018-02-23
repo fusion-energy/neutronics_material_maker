@@ -44,12 +44,16 @@ class Homogenised_mixture(NamedObject):
         self.volume_fractions=volume_fractions
         self.items=items
 
-        if sum(self.volume_fractions) == 1.0:
+        a = sum(self.volume_fractions)
+
+        rtol = 1e-15
+
+        if abs(a - 1.0) <= rtol * max(abs(a), abs(1.0)):
             pass
         else:
             print('Volume fractions must be between 0 and 1 and add upto 1')
-            print(volume_fractions)
-            print(sum(self.volume_fractions))
+            print('current volume_fractions',volume_fractions)
+            print('sum of volume_fractions =',sum(self.volume_fractions))
             sys.exit()
 
     @property
@@ -117,3 +121,4 @@ class Homogenised_mixture(NamedObject):
 # mat_mix = Homogenised_mixture([(mat_water, 0.20), (mat_CuCrZr, 0.30), (mat_bronze, 0.5)])
 # print(mat_mix.density_g_per_cm3)
 # print(mat_mix.serpent_material_card)
+

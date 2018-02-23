@@ -12,9 +12,9 @@ with open('requirements.txt') as test_reqs_txt:
 
 
 setup(name='neutronics_material_maker',
-      version='0.1224',
+      version='0.1225',
       summary='Package for making material cards for neutronic codes such as Serpent',
-      description='create isotopes, materials, chemical compounds, homogenised mixtures',
+      description='Create isotopes, elements, materials, chemical compounds and homogenised mixtures for use in neutronics codes',
       url='https://github.com/ukaea/neutronics_material_maker',
       author='Jonathan Shimwell',
       author_email='jonathan.shimwell@ukaea.uk',
