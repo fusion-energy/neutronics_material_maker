@@ -7,7 +7,7 @@
     - pip install codecov pytest-cov pylint
     #re json sys
   script:
-    - pip3 install neutronics_material_maker
+    #- pip3 install neutronics_material_maker
     - python setup.py test
     #- covercov -run 
     #- pytest tests/module_tests.py
