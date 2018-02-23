@@ -9,6 +9,7 @@
   script:
     - pip3 install neutronics_material_maker
     - python setup.py test
+    #- covercov -run 
     #- pytest tests/module_tests.py
-  after_success:
-    - codecov
+  #after_success:
+  #  - codecov
