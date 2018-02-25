@@ -74,11 +74,12 @@ class Homogenised_mixture(NamedObject):
             print(type(item))
             print(item.zaids)
             print('sum',sum(item.isotopes_atom_fractions))
-            for zaid, isotopes_mass_fraction in zip(item.zaids, item.isotopes_atom_fractions):
+            for zaid, isotopes_atom_fraction in zip(item.zaids, item.isotopes_atom_fractions):
+                 print(zaid,isotopes_atom_fraction,volume_fraction)
                  if zaid.startswith('160'):
-                     material_card = material_card + ('    '+zaid + '.03c ' + str(isotopes_mass_fraction*volume_fraction) + '\n')
+                     material_card = material_card + ('    '+zaid + '.03c ' + str(isotopes_atom_fraction*volume_fraction) + '\n')
                  else:
-                     material_card = material_card + ('    '+zaid + '.31c ' + str(isotopes_mass_fraction*volume_fraction) + '\n')
+                     material_card = material_card + ('    '+zaid + '.31c ' + str(isotopes_atom_fraction*volume_fraction) + '\n')
 
         return material_card
 
