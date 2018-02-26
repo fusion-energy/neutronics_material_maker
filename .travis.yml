@@ -8,8 +8,8 @@
     #re json sys
   script:
     #- pip3 install neutronics_material_maker
-    # - python setup.py test
-    - pytest
+    - python setup.py test
+    #- pytest
     #- covercov -run 
     #- pytest tests/module_tests.py
   #after_success:
