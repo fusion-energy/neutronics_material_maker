@@ -101,6 +101,17 @@ class Compound(NamedObject):
         return list_of_fractions
 
     @property
+    def isotopes(self):
+        list_of_isotopes = []
+        for fractions, element in zip(self.fractions_coefficients, self.elements):
+            for isotope in element.isotopes:
+                list_of_isotopes.append(isotope)
+        # print('list_isotopes_mass_fraction',list_isotopes_mass_fraction)
+
+
+        return list_of_isotopes
+
+    @property
     def isotopes_atom_fractions(self):
         list_of_fractions = []
         for fractions, element in zip(self.fractions_coefficients, self.elements):

@@ -3,7 +3,8 @@
 # sudo python setup.py install --force
 # test with this command
 # sudo python setup.py test
-
+# export PYTHONPATH=/media/jshim/Data/neutronics_material_maker/
+# pytest
 
 from setuptools import setup
 

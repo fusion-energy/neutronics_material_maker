@@ -31,6 +31,7 @@ class Material(NamedObject):
         self.element_mixtures = self.find_material_mass_or_atom_faction_mixture(description)
 
         self.elements = self.find_elements_in_material()
+
         self.element_atom_fractions = self.find_element_atom_fractions()
         self.element_mass_fractions = self.find_element_mass_fractions()
         #self.enriched_isotopes = enriched_isotopes
@@ -51,16 +52,16 @@ class Material(NamedObject):
                                  {'element':Element('P') ,'mass_fraction':0.00002},
                                  {'element':Element('S') ,'mass_fraction':0.00003},
                                  {'element':Element('Ti'),'mass_fraction':0.00001},
-                                 {'element':Element('V') ,'mass_fraction':0.00200},
-                                 {'element':Element('Cr'),'mass_fraction':0.09000},
-                                 {'element':Element('Mn'),'mass_fraction':0.00550},
-                                 {'element':Element('Co'),'mass_fraction':0.00005},
-                                 {'element':Element('Ni'),'mass_fraction':0.00010},
-                                 {'element':Element('Cu'),'mass_fraction':0.00003},
-                                 {'element':Element('Nb'),'mass_fraction':0.00005},
-                                 {'element':Element('Mo'),'mass_fraction':0.00003},
-                                 {'element':Element('Ta'),'mass_fraction':0.00120},
-                                 {'element':Element('W') ,'mass_fraction':0.01100}
+                                 # {'element':Element('V') ,'mass_fraction':0.00200},
+                                 # {'element':Element('Cr'),'mass_fraction':0.09000},
+                                 # {'element':Element('Mn'),'mass_fraction':0.00550},
+                                 # {'element':Element('Co'),'mass_fraction':0.00005},
+                                 # {'element':Element('Ni'),'mass_fraction':0.00010},
+                                 # {'element':Element('Cu'),'mass_fraction':0.00003},
+                                 # {'element':Element('Nb'),'mass_fraction':0.00005},
+                                 # {'element':Element('Mo'),'mass_fraction':0.00003},
+                                 # {'element':Element('Ta'),'mass_fraction':0.00120},
+                                 # {'element':Element('W') ,'mass_fraction':0.01100}
                                  ]
 
         if name == 'Bronze':
@@ -121,7 +122,7 @@ class Material(NamedObject):
                                   {'element': Element(8), 'atom_fraction': 4.87080E-03 },
                                   {'element': Element(12), 'atom_fraction':1.69197E-04 +2.14200E-05+2.35834E-05},
                                   {'element': Element(13), 'atom_fraction':7.07400E-04 },
-                                  {'element': Element(16), 'atom_fraction':1.32800E-03+6.72000E-05+4.46000E-03  },
+                                  {'element': Element(14), 'atom_fraction':1.32800E-03+6.72000E-05+4.46000E-03  },
                                   {'element': Element(16), 'atom_fraction':8.71457E-05+ 6.97680E-07+3.93822E-06+1.83600E-08   }]
 
 
@@ -133,6 +134,19 @@ class Material(NamedObject):
        for element_element_fractions in self.element_mixtures:
             list_of_elements.append(element_element_fractions['element'])
        return list_of_elements
+
+
+    @property
+    def isotopes(self):
+        print(self.description)
+        print(self.element_atom_fractions)
+        list_of_isotopes = []
+        for fractions, element in zip(self.element_atom_fractions, self.elements):
+            for isotope in element.isotopes:
+                list_of_isotopes.append(isotope)
+
+        return list_of_isotopes
+
 
     @property
     def isotopes_atom_fractions(self):
@@ -262,6 +276,9 @@ class Material(NamedObject):
 
         if self.description == 'CuCrZr_with_impurities':
             return 8.814
+
+        if self.description == 'r-epoxy': #reference http://personalpages.to.infn.it/~tosello/EngMeet/ITSmat/SDD/CyanateEster.pdf
+            return 1.207
 
         else:
             print('material not found in density_g_per_cm3 function')

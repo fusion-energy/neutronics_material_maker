@@ -297,7 +297,8 @@ $ new_mat_mix.density_g_per_cm3
  - Combine with engineering materials database
  - Make a GUI
  - address #todo comments in the code
-
+ - allow user to specify the nuclear data library (currently it defaults to .31c)
+ - allow users to output material cards for other neutronics codes
 ### Acknowledgements
 
 Isotope natural abundance and mass data from [Nist](https://www.nist.gov/pml/atomic-weights-and-isotopic-compositions-relative-atomic-masses)

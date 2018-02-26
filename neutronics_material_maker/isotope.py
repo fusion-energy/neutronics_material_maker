@@ -40,6 +40,10 @@ class Isotope(NamedObject):
     def neutrons(self):
         return self.atomic_number - self.protons
 
+    # @property
+    # def mass_amu(self):
+    #     return self.mass_amu
+
     @property
     def description(self):
         return {'isotope ': self.symbol,
