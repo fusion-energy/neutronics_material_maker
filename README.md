@@ -190,7 +190,16 @@ The above feature is the main motivation behind the software as it allows me to 
 
 # Making Materials
 
-Materials are a sets of particular isotopes and densities that the software knows about. The list of Materials can easily be expanded but currently includes **Bronze**, **Eurofer**, **SS-316LN-IG**, **DT-plasma**, **Glass-fibre** and **Epoxy**.
+Custom materials can be constructed by specifiying the material **description**, density and elements that make up the material along with their **mass_faction** or **atom_fraction** . The density can be specified as **density_g_per_cm3** or **atom_density_per_barn_per_cm**. The following example makes a material called Steel which as 95% weight Iron and 5% weight Carbon.
+
+```sh
+m5 = nmm.Material('Steel',
+                   density_g_per_cm3=7.8,
+                   elements_and_fractions=[{'element':nmm.Element('Fe'),'mass_fraction':0.95},
+                                           {'element':nmm.Element('C') ,'mass_fraction':0.05}])
+```
+
+The software has a small internal database and knows the elemental composition and densities of some materials. The list of Materials can easily be expanded but currently includes **Bronze**, **Eurofer**, **SS-316LN-IG**, **DT-plasma**,  **CuCrZr_with_impurities**, **Glass-fibre** and **Epoxy**.
 
 ```sh
 $ example_mat1 = nmm.Material('DT_plasma')
@@ -201,7 +210,7 @@ $ example_mat1.serpent_material_card
 >>>     1002.31c 0.5
 >>>     1003.31c 0.5
 ```
-The other materials available are considerably more detailed in their isotope description. To keep this user manual concise only Glass-fibre and DT_plasma have been demonstrated. One difference between Materials is the known density, the software allows density to be input as atom_density_per_barn_per_cm which is useful for Materials such as DT-plasma or density_g_per_cm3 which is useful for Materials such as Glass-fibre. Neutronics codes such as Serpent can accept both options so this is not a problem (density in g/cm3 has a - flag to indicate the units).
+The other materials available are considerably more detailed in their isotope description. To keep this user manual concise only Glass-fibre and DT_plasma have been demonstrated. One difference between Materials is the known density, the software has materials with density in **atom_density_per_barn_per_cm** which is useful for Materials such as DT-plasma or **density_g_per_cm3** which is useful for Materials such as Glass-fibre. Neutronics codes such as Serpent can accept both options so this is not a problem (density in g/cm3 has a **-** flag to indicate the units).
 ```sh
 $ example_mat2 = nmm.Material('Glass-fibre')
 $ example_mat2.density_g_per_cm3
@@ -297,8 +306,7 @@ $ new_mat_mix.density_g_per_cm3
  - Combine with engineering materials database
  - Make a GUI
  - address #todo comments in the code
- - allow user to specify the nuclear data library (currently it defaults to .31c)
- - allow users to output material cards for other neutronics codes
+
 ### Acknowledgements
 
 Isotope natural abundance and mass data from [Nist](https://www.nist.gov/pml/atomic-weights-and-isotopic-compositions-relative-atomic-masses)

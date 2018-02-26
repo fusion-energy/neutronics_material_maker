@@ -44,16 +44,21 @@ import sys
 
 
 
-mat_ss316 = nmm.Material('SS-316LN-IG')
-mat_water = nmm.Compound('H2O',density_g_per_cm3=0.926)
-
-
-m60 =nmm.Homogenised_mixture([{'mix':mat_ss316, 'volume_fraction':0.6},
-                              {'mix': mat_water, 'volume_fraction': 0.4}])
-
-print(m60.serpent_material_card)
-
-m75 =nmm.Homogenised_mixture([{'mix':mat_ss316, 'volume_fraction':0.46},
-                              {'mix': mat_water, 'volume_fraction': 0.54}])
-
-print(m75.serpent_material_card)
+# mat_ss316 = nmm.Material('SS-316LN-IG')
+# mat_water = nmm.Compound('H2O',density_g_per_cm3=0.926)
+#
+#
+# m60 =nmm.Homogenised_mixture([{'mix':mat_ss316, 'volume_fraction':0.6},
+#                               {'mix': mat_water, 'volume_fraction': 0.4}])
+#
+# print(m60.serpent_material_card)
+#
+# m75 =nmm.Homogenised_mixture([{'mix':mat_ss316, 'volume_fraction':0.46},
+#                               {'mix': mat_water, 'volume_fraction': 0.54}])
+#
+# print(m75.serpent_material_card)
+#
+# m5 = nmm.Material('newmat',density_g_per_cm3=7.8,elements_and_fractions=[{'element':nmm.Element('Fe'),'mass_fraction':0.88821},{'element':nmm.Element('B') ,'mass_fraction':0.00001}])
+#
+# #m5 = nmm.Material('Eurofer')
+# print(m5.serpent_material_card)

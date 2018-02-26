@@ -24,11 +24,24 @@ from neutronics_material_maker.jsonable_object import NamedObject
 
 
 class Material(NamedObject):
-    def __init__(self, description):#,*enriched_isotopes):
-        super(Material, self).__init__()
+    def __init__(self, description,density_g_per_cm3=None,atom_density_per_barn_per_cm=None, elements_and_fractions=None):#,*enriched_isotopes):
+        #super(Material, self).__init__()
         self.description = description
 
-        self.element_mixtures = self.find_material_mass_or_atom_faction_mixture(description)
+        if elements_and_fractions==None:
+            self.element_mixtures = self.find_material_mass_or_atom_faction_mixture(description)
+        else:
+            self.element_mixtures = elements_and_fractions
+
+        self.density_g_per_cm3 = density_g_per_cm3
+        if density_g_per_cm3 ==None :
+            self.density_g_per_cm3 = self.find_density_g_per_cm3()
+
+        self.atom_density_per_barn_per_cm = atom_density_per_barn_per_cm
+        if atom_density_per_barn_per_cm == None:
+            self.atom_density_per_barn_per_cm = self.find_atom_density_per_barn_per_cm()
+
+
 
         self.elements = self.find_elements_in_material()
 
@@ -40,6 +53,30 @@ class Material(NamedObject):
         #    sys.exit()
 
     def find_material_mass_or_atom_faction_mixture(self, name):
+        material_to_return=None
+
+        if name == 'Eurofer_DEMO_models':
+            material_to_return= [{'element':Element('Fe'),'mass_fraction':0.88821},
+                                 {'element':Element('B') ,'mass_fraction':0.00001},
+                                 {'element':Element('C') ,'mass_fraction':0.00105},
+                                 {'element':Element('N') ,'mass_fraction':0.00040},
+                                 {'element':Element('O') ,'mass_fraction':0.00001},
+                                 {'element':Element('Al'),'mass_fraction':0.00004},
+                                 {'element':Element('Si'),'mass_fraction':0.00026},
+                                 {'element':Element('P') ,'mass_fraction':0.00002},
+                                 {'element':Element('S') ,'mass_fraction':0.00003},
+                                 {'element':Element('Ti'),'mass_fraction':0.00001},
+                                 {'element':Element('V') ,'mass_fraction':0.00200},
+                                 {'element':Element('Cr'),'mass_fraction':0.09000},
+                                 {'element':Element('Mn'),'mass_fraction':0.00550},
+                                 {'element':Element('Co'),'mass_fraction':0.00005},
+                                 {'element':Element('Ni'),'mass_fraction':0.00010},
+                                 {'element':Element('Cu'),'mass_fraction':0.00003},
+                                 {'element':Element('Nb'),'mass_fraction':0.00005},
+                                 {'element':Element('Mo'),'mass_fraction':0.00003},
+                                 {'element':Element('Ta'),'mass_fraction':0.00120},
+                                 {'element':Element('W') ,'mass_fraction':0.01100}
+                                 ]
 
         if name == 'Eurofer':
             material_to_return= [{'element':Element('Fe'),'mass_fraction':0.88821},
@@ -52,16 +89,6 @@ class Material(NamedObject):
                                  {'element':Element('P') ,'mass_fraction':0.00002},
                                  {'element':Element('S') ,'mass_fraction':0.00003},
                                  {'element':Element('Ti'),'mass_fraction':0.00001},
-                                 # {'element':Element('V') ,'mass_fraction':0.00200},
-                                 # {'element':Element('Cr'),'mass_fraction':0.09000},
-                                 # {'element':Element('Mn'),'mass_fraction':0.00550},
-                                 # {'element':Element('Co'),'mass_fraction':0.00005},
-                                 # {'element':Element('Ni'),'mass_fraction':0.00010},
-                                 # {'element':Element('Cu'),'mass_fraction':0.00003},
-                                 # {'element':Element('Nb'),'mass_fraction':0.00005},
-                                 # {'element':Element('Mo'),'mass_fraction':0.00003},
-                                 # {'element':Element('Ta'),'mass_fraction':0.00120},
-                                 # {'element':Element('W') ,'mass_fraction':0.01100}
                                  ]
 
         if name == 'Bronze':
@@ -126,14 +153,17 @@ class Material(NamedObject):
                                   {'element': Element(16), 'atom_fraction':8.71457E-05+ 6.97680E-07+3.93822E-06+1.83600E-08   }]
 
 
-
-        return material_to_return
+        if material_to_return == None:
+            print('Material is not in the database please specify the elements it is made from')
+            sys.exit()
+        else:
+            return material_to_return
 
     def find_elements_in_material(self):
-       list_of_elements=[]
-       for element_element_fractions in self.element_mixtures:
+        list_of_elements=[]
+        for element_element_fractions in self.element_mixtures:
             list_of_elements.append(element_element_fractions['element'])
-       return list_of_elements
+        return list_of_elements
 
 
     @property
@@ -246,8 +276,8 @@ class Material(NamedObject):
 
         return list_of_fractions
 
-    @property
-    def atom_density_per_barn_per_cm(self):
+
+    def find_atom_density_per_barn_per_cm(self):
         if self.description == 'DT-plasma':
             return 1E-20
         if self.description == 'SS-316LN-IG':
@@ -255,10 +285,10 @@ class Material(NamedObject):
         else:
             print('material not found in atom_density_per_barn_per_cm function')
             print('perhaps try density_g_per_cm3 property')
-            sys.exit()
+            return None  #sys.exit()
 
-    @property
-    def density_g_per_cm3(self):
+
+    def find_density_g_per_cm3(self):
         if self.description == 'Eurofer':
             return  7.79800
 
@@ -283,14 +313,17 @@ class Material(NamedObject):
         else:
             print('material not found in density_g_per_cm3 function')
             print('perhaps try atom_density_per_barn_per_cm property')
-            sys.exit()
+            return None #sys.exit()
 
     @property
     def serpent_material_card(self):
-        try:
-            material_card = 'mat ' + self.description + ' -' + str(self.density_g_per_cm3) + '\n'
-        except:
-            material_card = 'mat ' + self.description + ' ' + str(self.atom_density_per_barn_per_cm) + '\n'
+
+        density = self.atom_density_per_barn_per_cm
+        if density == None :
+            -1 * self.density_g_per_cm3
+
+        material_card = 'mat ' + self.description + ' -' + str(self.density_g_per_cm3) + '\n'
+
 
 
         for counter, element_mixture in enumerate(self.element_mixtures):

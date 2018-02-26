@@ -211,24 +211,24 @@ class Homogenised_mixture(NamedObject):
 
         return description_to_return
 
-mat_Epoxy = Material('r-epoxy')
-mat_copper = Compound('Cu', density_g_per_cm3=8.96)
-mat_Nb3Sn = Compound('Nb3Sn', density_g_per_cm3=8.91)  # 'Nb0.746Sn0.254' density assumes perfect latice
-mat_liqHe = Compound('He', density_g_per_cm3=0.125)
-mat_ss316 = Material('SS-316LN-IG')
-mat_bronze = Material('Bronze')
-
-
-
-m25 =Homogenised_mixture([{'mix':mat_Epoxy,      'volume_fraction':0.18},
-                              {'mix':mat_copper, 'volume_fraction':0.1169},
-                              {'mix':mat_Nb3Sn,  'volume_fraction': 0.02895},
-                              {'mix':mat_liqHe,  'volume_fraction':0.1682},
-                              {'mix':mat_ss316,  'volume_fraction':0.4319+0.00055},
-                              {'mix': mat_bronze,'volume_fraction': 0.0735}])
-
-
-print(m25.serpent_material_card)
+# mat_Epoxy = Material('r-epoxy')
+# mat_copper = Compound('Cu', density_g_per_cm3=8.96)
+# mat_Nb3Sn = Compound('Nb3Sn', density_g_per_cm3=8.91)  # 'Nb0.746Sn0.254' density assumes perfect latice
+# mat_liqHe = Compound('He', density_g_per_cm3=0.125)
+# mat_ss316 = Material('SS-316LN-IG')
+# mat_bronze = Material('Bronze')
+#
+#
+#
+# m25 =Homogenised_mixture([{'mix':mat_Epoxy,      'volume_fraction':0.18},
+#                               {'mix':mat_copper, 'volume_fraction':0.1169},
+#                               {'mix':mat_Nb3Sn,  'volume_fraction': 0.02895},
+#                               {'mix':mat_liqHe,  'volume_fraction':0.1682},
+#                               {'mix':mat_ss316,  'volume_fraction':0.4319+0.00055},
+#                               {'mix': mat_bronze,'volume_fraction': 0.0735}])
+#
+#
+# print(m25.serpent_material_card)
 
 # mat_bronze = Material('Bronze')
 # print(mat_bronze.density_g_per_cm3)
