@@ -1,14 +1,28 @@
 [![N|Python](https://www.python.org/static/community_logos/python-powered-w-100x40.png)](https://www.python.org)
 [![Build Status](https://travis-ci.org/ukaea/neutronics_material_maker.svg?branch=master)](https://travis-ci.org/ukaea/neutronics_material_maker)
-# Design goals
-The material composition impacts the transport of neutrons and photons through the material. Neutronics codes attempt to simulate the transport of particles through matter and therefore require the material composition. This software aims to ease the creation of customisable materials for use in neutronics codes
 
-# Features
-- Generate isotopes, materials, **chemical compounds** and homogenised mixtures
-- Retrieve isotope compositions, isotopes fractions and material density and **material cards for Serpent**
-- Customise your creations with optional **isotope enrichment**, packing fractions and specified densities
+- [Design goals](#design-goals)
+- [Features](#features)
+- [Installation](#installation)
+- [Getting started](#getting-started)
+- [Making Isotopes](#making-isotopes)
+- [Making Elements](#making-elements)
+- [Making Compounds](#making-compounds)
+- [Making Materials](#making-materials)
+- [Making Homogenised_mixtures](#making-homogenised_mixtures)
+- [Todo](#todo)
 
-# Installation
+
+# <a name="design-goals"></a>Design Goals
+The material composition impacts the transport of neutrons and photons through the material. Neutronics codes attempt to simulate the transport of particles through matter and therefore require the material composition. This software aims to ease the creation of customisable materials for use in neutronics codes.
+
+# <a name="features"></a>Features
+- Generate **isotopes**, **elements**, **materials**, **chemical compounds** and **homogenised mixtures**.
+- Create custom materials and chemical compounds or select from the internal database.
+- Optional parameters include packing fractions, specified densities, homogenisation fraction (volume or mass), void fraction and elements present (using natural abundance or enriched compositions)
+- Retrieve the **mat cards for Serpent** and other properties such as density, zaids, isotopes present ...
+
+# <a name="installation"></a>Installation
 
 Neutronics material maker is available here on the git repository or via the python package index
 
@@ -24,7 +38,7 @@ $ cd neutronics_material_maker
 $ python setup.py install
 ```
 
-# Getting started
+# <a name="getting-started"></a>Getting started
 
 The software can be used to create isotopes, elements, compounds, materials or homogenised mixtures. Properties such as density or material card can be accessed after creation.
 
@@ -34,7 +48,7 @@ After installation users must import the package
 $ import neutronics_material_maker as nmm
 ```
 
-# Making Isotopes
+# <a name="making-isotopes"></a>Making Isotopes
 
 Isotope form the basic building blocks of more complex objects (elements). Isotope can be created by specifying the symbol and the atomic number
 ```sh
@@ -69,7 +83,7 @@ $ example_enriched_isotope = nmm.Isotope('Li',7,0.5)
 $ example_enriched_isotope.abundance
 >>> 0.5
 ```
-# Making Elements
+# <a name="making-elements"></a>Making Elements
 
 Elements form another building blocks of more complex objects (compounds). Elements can be created by specifying the symbol and optional enrichment. A simple element construct can be achieved with ...
 ```sh
@@ -96,7 +110,7 @@ Elements can also be created with enriched Isotope abundances.
 $ example_element = nmm.Element('Li',enriched_isotopes=(nmm.Isotope('Li', 6, 0.9), nmm.Isotope('Li', 7, 0.1)))
 ```
 
-# Making Compounds
+# <a name="making-compounds"></a>Making Compounds
 
 Chemical equations are referred to as Compounds by the software. Compounds can be any valid chemical formula such as H2O, CO2 or C8H10N4O2.  
 
@@ -104,7 +118,7 @@ Compounds can be created using the following command when both the compound chem
 ```sh
 $ example_compound = nmm.Compound('C12H22O11',density_g_per_cm3=1.59)
 ```
-The software knows about the crystalline volume of some chemical formula (using a small internal material database) and can create some compound without the density_g_per_cm3 argument. Compounds that the software knows the crystalline volume or atoms per cm3 for are mainly fusion relevant materials Li4SiO4, Li2SiO3, Li2ZrO3, Li2TiO3, Be, Ba5Pb3, Nd5Pb4, Zr5Pb3, Zr5Pb4, Pb84.2Li15.8. For these compounds they can be create without the density argument. 
+The software knows about the crystalline volume of some chemical formula (using a small internal material database) and can create some compound without the density_g_per_cm3 argument. Compounds that the software knows the crystalline volume or atoms per cm3 for are mainly fusion relevant materials Li4SiO4, Li2SiO3, Li2ZrO3, Li2TiO3, Be, Ba5Pb3, Nd5Pb4, Zr5Pb3, Zr5Pb4, Pb84.2Li15.8. For these compounds they can be create without the density argument.
 ```sh
 $ example_compound = nmm.Compound('Li4SiO4')
 $ example_compound.density_g_per_cm3
@@ -126,11 +140,21 @@ $ solid_ceramic.density_g_per_cm3
 $ pebble_bed_ceramic.density_g_per_cm3
 >>>1.4592683275843523
 ```
-Other input options for Compounds include **pressure_Pa** and **temperature_K** which are used when calculating the density of ideal gases. This function only works for Helium at the moment but could be expanded in the future.
+Other input options for Compounds include **pressure_Pa** and **temperature_K** which are used when calculating the density of ideal gases. The **state_of_matter** must also be specified as 'gas'.
 ```sh
-$ He_compound = nmm.Compound('He', pressure_Pa = 8.0E6, temperature_K = 823.0)
-$ He_compound.density_g_per_cm3_idea_gas
+$ He_compound = nmm.Compound('He', pressure_Pa = 8.0E6, temperature_K = 823.0, state_of_matter='gas')
+$ He_compound.density_g_per_cm3
 >>> 0.004682671945463105
+```
+
+Liquids can also accept different **pressure_Pa** and **temperature_K** values and the density changes accordingly. The **state_of_matter** must also be specified as 'liquid'.
+```sh
+$ water_compound = nmm.Compound('H2O', pressure_Pa = 3100000, temperature_K = 473.15, state_of_matter='liquid')
+$ water_compound.density_g_per_cm3
+>>> 0.8664202359381719
+$ water_compound = nmm.Compound('H2O', pressure_Pa = 101325, temperature_K = 293, state_of_matter='liquid')
+$ water_compound.density_g_per_cm3
+>>> 0.9990449108576049
 ```
 
 Once a compound has been created various properties can be extracted including material cards suitable for use in Serpent II simulations.
@@ -188,7 +212,7 @@ $    example_compound.isotopes_atom_fractions
 
 The above feature is the main motivation behind the software as it allows me to perform massive parameter studies on various candidate neutron multiplier materials and lithium ceramics for use in fusion breeder blankets
 
-# Making Materials
+# <a name="making-materials"></a>Making Materials
 
 Custom materials can be constructed by specifiying the material **description**, density and elements that make up the material along with their **mass_faction** or **atom_fraction** . The density can be specified as **density_g_per_cm3** or **atom_density_per_barn_per_cm**. The following example makes a material called Steel which as 95% weight Iron and 5% weight Carbon.
 
@@ -231,7 +255,7 @@ $ example_mat2.serpent_material_card
 >>>     14030.31c 0.00663143409038
 ```
 
-# Making Homogenised_mixtures
+# <a name="making-homogenised_mixtures"></a>Making Homogenised_mixtures
 
 Materials and Compounds can be combined to form a Homogenised_mixture. Any number of Materials and Compounds can be combined but they must combine to give a volume fraction of 1.0. Here are some examples ...
 
@@ -299,14 +323,26 @@ $ new_mat_mix.density_g_per_cm3
 >>> 1.6759268993839835
 ```
 
-### Todos
+Void fractions can also be inserted into a **Homogenised_mixture**. In the example below a new materials is made from 50% volume fraction Nb3Sn and 50% void. The density of the Nb3Sn is specified as 8.91g per cm3 and a void is 0g per cm3. The resulting example material has a desnity of 4.455g per cm3 as expected.
+```sh
+$ mat_Nb3Sn = nmm.Compound('Nb3Sn',density_g_per_cm3=8.91)
+$ mat_void = nmm.Material('Void')
+
+$ example_mat =nmm.Homogenised_mixture([{'mix':mat_Nb3Sn, 'volume_fraction':0.5},
+                                        {'mix':mat_void, 'volume_fraction':0.5}])
+
+$ example_mat.density_g_per_cm3
+>>>4.455
+```
+
+# <a name="todo"></a>Todos
  - Write MORE Tests and improve code coverage
- - Improve gas Compounds and Materials
+ - Improve Materials (allow material made of isotopes aswell as elements)
  - Add some more Materials to the collection
  - Combine with engineering materials database
  - Make a GUI
- - address #todo comments in the code
+ - Address #todo comments in the code
 
-### Acknowledgements
+# <a name="acknowledgements"></a>Acknowledgements
 
 Isotope natural abundance and mass data from [Nist](https://www.nist.gov/pml/atomic-weights-and-isotopic-compositions-relative-atomic-masses)

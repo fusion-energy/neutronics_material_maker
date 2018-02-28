@@ -53,9 +53,10 @@ class Material(NamedObject):
         #    sys.exit()
 
     def find_material_mass_or_atom_faction_mixture(self, name):
+
         material_to_return=None
 
-        if name == 'Eurofer_DEMO_models':
+        if name == 'Eurofer': #gl
             material_to_return= [{'element':Element('Fe'),'mass_fraction':0.88821},
                                  {'element':Element('B') ,'mass_fraction':0.00001},
                                  {'element':Element('C') ,'mass_fraction':0.00105},
@@ -66,7 +67,7 @@ class Material(NamedObject):
                                  {'element':Element('P') ,'mass_fraction':0.00002},
                                  {'element':Element('S') ,'mass_fraction':0.00003},
                                  {'element':Element('Ti'),'mass_fraction':0.00001},
-                                 {'element':Element('V') ,'mass_fraction':0.00200},
+                                 {'element':Element('V') ,'mass_fraction':0.000200},#see neutronics guidlines V was too high in the demo model
                                  {'element':Element('Cr'),'mass_fraction':0.09000},
                                  {'element':Element('Mn'),'mass_fraction':0.00550},
                                  {'element':Element('Co'),'mass_fraction':0.00005},
@@ -78,17 +79,37 @@ class Material(NamedObject):
                                  {'element':Element('W') ,'mass_fraction':0.01100}
                                  ]
 
-        if name == 'Eurofer':
-            material_to_return= [{'element':Element('Fe'),'mass_fraction':0.88821},
-                                 {'element':Element('B') ,'mass_fraction':0.00001},
-                                 {'element':Element('C') ,'mass_fraction':0.00105},
-                                 {'element':Element('N') ,'mass_fraction':0.00040},
-                                 {'element':Element('O') ,'mass_fraction':0.00001},
-                                 {'element':Element('Al'),'mass_fraction':0.00004},
-                                 {'element':Element('Si'),'mass_fraction':0.00026},
-                                 {'element':Element('P') ,'mass_fraction':0.00002},
-                                 {'element':Element('S') ,'mass_fraction':0.00003},
-                                 {'element':Element('Ti'),'mass_fraction':0.00001},
+        if name == 'Tungsten': #gl
+            material_to_return= [{'element':Element('W'),'mass_fraction':1e6-405},#balance
+                                 {'element':Element('Ag'),'mass_fraction':10},
+                                 {'element':Element('Al'),'mass_fraction':15},
+                                 {'element':Element('As'),'mass_fraction':5},
+                                 {'element':Element('Ba'),'mass_fraction':5},
+                                 {'element':Element('Ca'),'mass_fraction':5},
+                                 {'element':Element('Cd'),'mass_fraction':5},
+                                 {'element':Element('Co'),'mass_fraction':10},
+                                 {'element':Element('Cr'),'mass_fraction':20},
+                                 {'element':Element('Cu'),'mass_fraction':10},
+                                 {'element':Element('Fe'),'mass_fraction':30},
+                                 {'element':Element('K'), 'mass_fraction':10},
+                                 {'element':Element('Mg'),'mass_fraction':5},
+                                 {'element':Element('Mn'),'mass_fraction':5},
+                                 {'element':Element('Na'),'mass_fraction':10},
+                                 {'element':Element('Nb'),'mass_fraction':10},
+                                 {'element':Element('Ni'),'mass_fraction':5},
+                                 {'element':Element('Pb'),'mass_fraction':5},
+                                 {'element':Element('Ta'),'mass_fraction':20},
+                                 {'element':Element('Ti'),'mass_fraction':5},
+                                 {'element':Element('Zn'),'mass_fraction':5},
+                                 {'element':Element('Zr'),'mass_fraction':5},
+                                 {'element':Element('Mo'),'mass_fraction':100},
+                                 {'element':Element('C'), 'mass_fraction':30},
+                                 {'element':Element('H'), 'mass_fraction':5},
+                                 {'element':Element('N'), 'mass_fraction':5},
+                                 {'element':Element('O'), 'mass_fraction':20},
+                                 {'element':Element('P'), 'mass_fraction':20},
+                                 {'element':Element('S'), 'mass_fraction':5},
+                                 {'element':Element('Si'),'mass_fraction':20}
                                  ]
 
         if name == 'Bronze':
@@ -96,14 +117,22 @@ class Material(NamedObject):
                                   {'element':Element('Sn'),'atom_fraction':0.05}
                                  ]
 
-        if name == 'CuCrZr_with_impurities':
-            material_to_return = [{'element':Element(24),'atom_fraction':0.0074183845},
-                                  {'element':Element(4), 'atom_fraction':0.0007268049},
-                                  {'element':Element(8), 'atom_fraction':0.0011911158},
-                                  {'element':Element(27),'atom_fraction':0.0006465533},
-                                  {'element':Element(14),'atom_fraction':0.0002508775},
-                                  {'element':Element(29),'atom_fraction':0.989766264}
+        if name == 'CuCrZr':
+            material_to_return = [{'element':Element(24),'mass_fraction':0.75},#Cr
+                                  {'element':Element(4), 'mass_fraction':0.11},#zr #Demo model has 0.11 in description but 0.011 in the calculation , this should be 0.011 to make everything sum to 100
+                                  {'element':Element(8), 'mass_fraction':0.03},#O
+                                  {'element':Element(27),'mass_fraction':0.06},#Co
+                                  {'element':Element(14),'mass_fraction':0.011},#Si
+                                  {'element':Element(29),'mass_fraction':99.039}#Cu
                                   ]
+
+            # material_to_return = [{'element':Element(24),'atom_fraction':0.0074183845},
+            #                       {'element':Element(4), 'atom_fraction':0.0007268049},
+            #                       {'element':Element(8), 'atom_fraction':0.0011911158},
+            #                       {'element':Element(27),'atom_fraction':0.0006465533},
+            #                       {'element':Element(14),'atom_fraction':0.0002508775},
+            #                       {'element':Element(29),'atom_fraction':0.989766264}
+            #                       ]
 
         if name == 'SS-316LN-IG':
             material_to_return = [{'element':Element('Fe'),'mass_fraction':0.63684},
@@ -128,13 +157,13 @@ class Material(NamedObject):
             material_to_return = [{'element':Element('H',enriched_isotopes=(Isotope('H', 2, 0.5),
                                                                             Isotope('H', 3, 0.5))),
                                                         'atom_fraction':1.0 }]
+
         if name == 'Glass-fibre':
             material_to_return = [{'element':Element('H') ,'atom_fraction':0.0000383948},
                                   {'element':Element('O') ,'atom_fraction':0.6328110447},
                                   {'element':Element(12),'atom_fraction':0.0499936947},
                                   {'element':Element(13),'atom_fraction':0.1026861642},
                                   {'element':Element(14),'atom_fraction':0.2144707015}]
-
 
         if name == 'Epoxy':
             material_to_return = [{'element':Element('H'),'atom_fraction':1.0414E-06},
@@ -152,11 +181,19 @@ class Material(NamedObject):
                                   {'element': Element(14), 'atom_fraction':1.32800E-03+6.72000E-05+4.46000E-03  },
                                   {'element': Element(16), 'atom_fraction':8.71457E-05+ 6.97680E-07+3.93822E-06+1.83600E-08   }]
 
+        if name == 'Copper':
+            material_to_return = [{'element':Element('Cu'),'atom_fraction':1.0}]
+
+        if name == 'Void':
+            material_to_return = []
 
         if material_to_return == None:
-            print('Material is not in the database please specify the elements it is made from')
+            print('Material '+name+' is not in the database please specify the elements it is made from')
             sys.exit()
         else:
+
+
+
             return material_to_return
 
     def find_elements_in_material(self):
@@ -177,9 +214,11 @@ class Material(NamedObject):
 
         return list_of_isotopes
 
-
     @property
     def isotopes_atom_fractions(self):
+
+        if self.description == 'Void':
+            return []
         print(self.description)
         print(self.element_atom_fractions)
         list_of_fractions = []
@@ -214,7 +253,8 @@ class Material(NamedObject):
         return list_of_zaids
 
     def find_element_mass_fractions(self):
-
+        if self.description == 'Void':
+            return []
         if 'mass_fraction' not in self.element_mixtures[0].keys():
             return []
 
@@ -242,7 +282,8 @@ class Material(NamedObject):
         return list_of_fractions
 
     def find_element_atom_fractions(self):
-
+        if self.description == 'Void':
+            return []
         list_of_fractions = []
         if 'atom_fraction' not in self.element_mixtures[0].keys():
             for element_element_fractions in self.element_mixtures:
@@ -280,17 +321,25 @@ class Material(NamedObject):
     def find_atom_density_per_barn_per_cm(self):
         if self.description == 'DT-plasma':
             return 1E-20
+
         if self.description == 'SS-316LN-IG':
             return 8.58294E-02
-        else:
-            print('material not found in atom_density_per_barn_per_cm function')
-            print('perhaps try density_g_per_cm3 property')
-            return None  #sys.exit()
+
+        if self.description == 'Eurofer_DEMO_models':
+            return  8.43211E-02
+
+        print('material not found in atom_density_per_barn_per_cm function')
+        print('perhaps try density_g_per_cm3 property')
+        return None  #sys.exit()
 
 
     def find_density_g_per_cm3(self):
+
         if self.description == 'Eurofer':
-            return  7.79800
+            return 7.79800
+
+        if self.description == 'Tungsten':
+            return 19.25
 
         if self.description == 'SS-316LN-IG':
             return 7.93
@@ -304,16 +353,21 @@ class Material(NamedObject):
         if self.description == 'Epoxy':
             return 1.18
 
-        if self.description == 'CuCrZr_with_impurities':
+        if self.description == 'CuCrZr':
             return 8.814
 
         if self.description == 'r-epoxy': #reference http://personalpages.to.infn.it/~tosello/EngMeet/ITSmat/SDD/CyanateEster.pdf
             return 1.207
 
-        else:
-            print('material not found in density_g_per_cm3 function')
-            print('perhaps try atom_density_per_barn_per_cm property')
-            return None #sys.exit()
+        if self.description == 'Copper':
+            return 8.96
+
+        if self.description == 'Void':
+            return 0.0
+
+        print('material '+self.description+' not found in density_g_per_cm3 function')
+        print('perhaps try atom_density_per_barn_per_cm property')
+        return None #sys.exit()
 
     @property
     def serpent_material_card(self):

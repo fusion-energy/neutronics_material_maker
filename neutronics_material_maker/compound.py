@@ -11,8 +11,12 @@ from neutronics_material_maker.common_utils import natural_isotopes_in_elements
 from neutronics_material_maker.jsonable_object import NamedObject
 
 class Compound(NamedObject):
-    def __init__(self, chemical_equation, packing_fraction=1, theoretical_density=1, pressure_Pa=8.0E6,temperature_K=823.0, enriched_isotopes='Natural',density_g_per_cm3=None):
+    def __init__(self, chemical_equation, packing_fraction=1, theoretical_density=1,
+                 pressure_Pa=8.0E6, temperature_K=823.0, enriched_isotopes='Natural',
+                 density_g_per_cm3=None, state_of_matter='solid'):
         super(Compound, self).__init__()
+
+        self.state_of_matter = state_of_matter
         self.chemical_equation = chemical_equation
         self.list = [a for a in re.split(r'([A-Z][a-z]*)', chemical_equation) if a]
         self.enriched_isotopes = enriched_isotopes
@@ -20,6 +24,7 @@ class Compound(NamedObject):
         self.theoretical_density = theoretical_density
         self.pressure_Pa = pressure_Pa
         self.temperature_K = temperature_K
+
         if density_g_per_cm3 != None:
             #print('setting density',density_g_per_cm3)
             self.density_g_per_cm3=density_g_per_cm3
@@ -28,11 +33,7 @@ class Compound(NamedObject):
             self.density_g_per_cm3=self.find_density_g_per_cm3
             #print('finding density',self.density_g_per_cm3)
 
-    @property
-    def density_g_per_cm3_idea_gas(self):
-        molar_mass = Element('He').molar_mass_g #4.002602
-        density_kg_m3 = (self.pressure_Pa / (8.31 * self.temperature_K)) * molar_mass * 6.023e23 * 1.66054e-27
-        return density_kg_m3
+
 
     @property
     def elements(self):
@@ -247,8 +248,15 @@ class Compound(NamedObject):
         if units != '':
             return vol
         else:
-            print('density =',self.density_g_per_cm3)
-            print('Compound volume not found for ', self.chemical_equation)
+            # print('density =',self.density_g_per_cm3)
+            print('\nNo density provided')
+            print('Tried to calculate density by first finding the crystaline volume')
+            print('Crystaline volume not found for ', self.chemical_equation)
+            print('Solve this with one of the following suggestions ...')
+            print('1. Add the density when creating the material')
+            print('2. Add the crystaline volume to the internal database')
+            print('3. Specifiy the state_of_matter="liquid" and allow the code to find the density of the liquid')
+            print('4. Specifiy the state_of_matter="gas" and allow the code to find the density of the liquid')
             sys.exit()
 
     @property
@@ -265,16 +273,26 @@ class Compound(NamedObject):
 
         return self.chemical_equation + '_'.join(list_of_enriched_isotope_keys)
 
-    @property
-    def find_density_kg_per_m3(self):
 
-        if self.chemical_equation == 'He':
-            density = self.density_g_per_cm3_idea_gas
-        else:
-            density = self.mass_kg / self.volume_m3
-        return density
+    def density_g_per_cm3_idea_gas(self):
+        molar_mass = self.molar_mass_g #4.002602
+        density_kg_m3 = (self.pressure_Pa / (8.31 * self.temperature_K)) * molar_mass * 6.023e23 * 1.66054e-27
+        return density_kg_m3
+
+    def density_g_per_cm3_liquid(self):
+        from thermo.chemical import Chemical
+        hot_pressurized_liquid = Chemical(self.chemical_equation, T=self.temperature_K, P=self.pressure_Pa)
+        return hot_pressurized_liquid.rho * 0.001
+
 
     @property
     def find_density_g_per_cm3(self):
-        density = self.find_density_kg_per_m3 * 0.001
+
+        if self.state_of_matter == 'solid':
+            density = (self.mass_kg / self.volume_m3)  * 0.001
+        if self.state_of_matter == 'gas':
+            density = self.density_g_per_cm3_idea_gas()
+        if self.state_of_matter == 'liquid':
+            density =self.density_g_per_cm3_liquid()
+
         return density

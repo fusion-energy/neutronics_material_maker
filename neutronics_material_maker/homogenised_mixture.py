@@ -80,19 +80,18 @@ class Homogenised_mixture(NamedObject):
 
                 print('vol_frac', item['volume_fraction'], ' from mass fraction ', item['mass_fraction'], ' at density ',
                       item['mix'].density_g_per_cm3)
-
+            print('list_of_fractions',sum(list_of_fractions))
             a = sum(list_of_fractions)
             b = 1.0
             rtol = 1e-6
 
             if abs(a - b) <= rtol * max(abs(a), abs(b)):
 
-            #if sum(list_of_fractions) == 1.0:
-
                 return list_of_fractions
 
             else:
-
+                # print(abs(a - b))
+                # print(rtol * max(abs(a), abs(b)))
                 print('error 1 inputted volume fractions should add up to 1.0')
 
                 sys.exit()
@@ -112,10 +111,17 @@ class Homogenised_mixture(NamedObject):
         if volume_fraction_not_found == False:
             for item in list_of_items_and_fractions:
                 list_of_fractions.append(item['volume_fraction'])
-            if sum(list_of_fractions)==1.0:
+
+
+            a = sum(list_of_fractions)
+            b = 1.0
+            rtol = 1e-6
+
+            if abs(a - b) <= rtol * max(abs(a), abs(b)):
                 return list_of_fractions
             else:
                 print('error 3 inputted volume fractions should add up to 1.0')
+                print('volume fractions add up to ',sum(list_of_fractions))
                 sys.exit()
 
         else:
@@ -161,29 +167,33 @@ class Homogenised_mixture(NamedObject):
             #print(item.molar_mass_g)
             #print('    sum',sum(item.isotopes_atom_fractions))
 
+            if item.description=='Void':
+                material_card = material_card + comment + '\n' + comment + item.description + ' with a density of ' + str(item.density_g_per_cm3) + 'gcm-3 \n'
+                material_card = material_card + comment + 'volume fraction of ' + str(volume_fraction) + ' \n'
+                # makes no sense to have a void mass fraction material_card = material_card + comment + 'mass fraction of ' + str(mass_fraction) + ' \n'
+            else:
+                average_mass_of_one_atom = 0.0
+                for isotope, atom_fraction in zip(item.isotopes, item.isotopes_atom_fractions):
+                    print('    isotope.mass_amu * atom_fraction',isotope.mass_amu , atom_fraction)
+                    average_mass_of_one_atom = average_mass_of_one_atom + isotope.mass_amu * atom_fraction
+                number_of_atoms_per_cm3_of_item = item.density_g_per_cm3 / (average_mass_of_one_atom * 1.66054e-24)
 
-            average_mass_of_one_atom = 0.0
-            for isotope, atom_fraction in zip(item.isotopes, item.isotopes_atom_fractions):
-                print('    isotope.mass_amu * atom_fraction',isotope.mass_amu , atom_fraction)
-                average_mass_of_one_atom = average_mass_of_one_atom + isotope.mass_amu * atom_fraction
-            number_of_atoms_per_cm3_of_item = item.density_g_per_cm3 / (average_mass_of_one_atom * 1.66054e-24)
+                print('    number_of_atoms_per_cm3_of_item',number_of_atoms_per_cm3_of_item)
+                number_of_atoms_per_cm3_of_mix = number_of_atoms_per_cm3_of_item*volume_fraction/7.66e22
+                print('    number_of_atoms_per_cm3_of_mix',number_of_atoms_per_cm3_of_mix)
 
-            print('    number_of_atoms_per_cm3_of_item',number_of_atoms_per_cm3_of_item)
-            number_of_atoms_per_cm3_of_mix = number_of_atoms_per_cm3_of_item*volume_fraction/7.66e22
-            print('    number_of_atoms_per_cm3_of_mix',number_of_atoms_per_cm3_of_mix)
-
-            material_card = material_card + comment+'\n'+comment + item.description + ' with a density of '+ str(item.density_g_per_cm3) +'gcm-3 \n'
-            material_card = material_card + comment+ 'volume fraction of ' + str(volume_fraction) + ' \n'
-            material_card = material_card + comment+ 'mass fraction of ' + str(mass_fraction) + ' \n'
-            for zaid, isotopes_atom_fraction in zip(item.zaids, item.isotopes_atom_fractions):
-        #
-        #
-        #          print(zaid,isotopes_atom_fraction,volume_fraction)
-                  if zaid.startswith('160'):
-                      material_card = material_card + ('    '+zaid + '.03c ' + str(isotopes_atom_fraction*number_of_atoms_per_cm3_of_mix) + '\n')
-                  else:
-                      material_card = material_card + ('    '+zaid + '.31c ' + str(isotopes_atom_fraction*number_of_atoms_per_cm3_of_mix) + '\n')
-        #
+                material_card = material_card + comment+'\n'+comment + item.description + ' with a density of '+ str(item.density_g_per_cm3) +'gcm-3 \n'
+                material_card = material_card + comment+ 'volume fraction of ' + str(volume_fraction) + ' \n'
+                material_card = material_card + comment+ 'mass fraction of ' + str(mass_fraction) + ' \n'
+                for zaid, isotopes_atom_fraction in zip(item.zaids, item.isotopes_atom_fractions):
+            #
+            #
+            #          print(zaid,isotopes_atom_fraction,volume_fraction)
+                      if zaid.startswith('160'):
+                          material_card = material_card + ('    '+zaid + '.03c ' + str(isotopes_atom_fraction*number_of_atoms_per_cm3_of_mix) + '\n')
+                      else:
+                          material_card = material_card + ('    '+zaid + '.31c ' + str(isotopes_atom_fraction*number_of_atoms_per_cm3_of_mix) + '\n')
+            #
         return material_card
 
 
