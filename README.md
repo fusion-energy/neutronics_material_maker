@@ -1,8 +1,11 @@
 [![N|Python](https://www.python.org/static/community_logos/python-powered-w-100x40.png)](https://www.python.org)
 [![Build Status](https://travis-ci.org/ukaea/neutronics_material_maker.svg?branch=master)](https://travis-ci.org/ukaea/neutronics_material_maker)
+
+[Design goals](#design-goals)
+
 # Design goals
 The material composition impacts the transport of neutrons and photons through the material. Neutronics codes attempt to simulate the transport of particles through matter and therefore require the material composition. This software aims to ease the creation of customisable materials for use in neutronics codes
-
+#### <a name="design-goals"></a>Design Goals
 # Features
 - Generate isotopes, materials, **chemical compounds** and homogenised mixtures
 - Retrieve isotope compositions, isotopes fractions and material density and **material cards for Serpent**
@@ -301,7 +304,8 @@ $ new_mat_mix.density_g_per_cm3
 
 ### Todos
  - Write MORE Tests and improve code coverage
- - Improve gas Compounds and Materials
+ - Improve gas Compounds (
+ - Improve Materials (allow material made of isotopes aswell as elements)
  - Add some more Materials to the collection
  - Combine with engineering materials database
  - Make a GUI
