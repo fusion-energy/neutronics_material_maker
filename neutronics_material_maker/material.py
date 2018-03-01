@@ -374,9 +374,9 @@ class Material(NamedObject):
 
         density = self.atom_density_per_barn_per_cm
         if density == None :
-            -1 * self.density_g_per_cm3
+            density = -1 * self.density_g_per_cm3
 
-        material_card = 'mat ' + self.description + ' -' + str(self.density_g_per_cm3) + '\n'
+        material_card = 'mat ' + self.description + ' ' + str(density) + '\n'
 
 
 
