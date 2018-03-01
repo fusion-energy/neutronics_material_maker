@@ -2,34 +2,44 @@ import neutronics_material_maker as nmm
 import sys
 #from pyne.material import Material
 
+
+
+
+
+a=nmm.Compound('Pb84.2Li15.8')  
+print(a.density_g_per_cm3)  
+
+a=nmm.Compound('Li4SiO4')  
+print(a.density_g_per_cm3)                           
+
 # divertor_layer_1_m15 = nmm.Compound('W',density_g_per_cm3=19.2500)
 # print(divertor_layer_1_m15.serpent_material_card)
 #
 
 
-#
+# mat_Tungsten = nmm.Material('Tungsten')
+# print(mat_Tungsten.serpent_material_card)
+# input()
+# #
 # mat_Epoxy = nmm.Material('r-epoxy')
 # mat_copper = nmm.Compound('Cu',density_g_per_cm3=8.96)
-mat_Nb3Sn = nmm.Compound('Nb3Sn',density_g_per_cm3=8.91) #'Nb0.746Sn0.254' density assumes perfect latice
+# mat_Nb3Sn = nmm.Compound('Nb3Sn',density_g_per_cm3=8.91) #'Nb0.746Sn0.254' density assumes perfect latice
 # mat_liqHe = nmm.Compound('He',density_g_per_cm3=0.125)
 # mat_ss316 = nmm.Material('SS-316LN-IG')
 # mat_bronze = nmm.Material('Bronze')
-#
-#
+# mat_void = nmm.Material('Void')
+
 # m25 =nmm.Homogenised_mixture([{'mix':mat_Epoxy, 'volume_fraction':0.18},
 #                               {'mix':mat_copper,'volume_fraction':0.1169},
 #                               {'mix':mat_Nb3Sn, 'volume_fraction':0.02895},
 #                               {'mix':mat_liqHe, 'volume_fraction':0.1682},
 #                               {'mix':mat_ss316, 'volume_fraction':0.4319},
-#                               {'mix':mat_bronze,'volume_fraction':0.0735},])
+#                               {'mix':mat_bronze,'volume_fraction':0.0735},
+#                               {'mix':mat_void , 'volume_fraction':0.00055}])
 
-m25 =nmm.Homogenised_mixture([{'mix':mat_Nb3Sn, 'volume_fraction':0.25},
-                              {'mix':mat_Nb3Sn, 'volume_fraction':0.25},
-                              {'mix':nmm.Material('Void'), 'volume_fraction':0.5}])
+# print(m25.serpent_material_card)
 
-print(m25.density_g_per_cm3)
 
-input()
 
 
 # mat_ss316 = nmm.Material('SS-316LN-IG')
@@ -49,24 +59,24 @@ input()
 #print(m5.serpent_material_card)
 
 
-def return_material_m60():
-    from pint import UnitRegistry
-    water_temperature = UnitRegistry().Quantity(200, UnitRegistry().degC)
-    water_temperature_K = water_temperature.to('degK').magnitude
-    water_pressure = UnitRegistry().Quantity(31, UnitRegistry().bar)
-    water_presssure_pa = water_pressure.to('pascal').magnitude
-    print('water_presssure_pa',water_presssure_pa)
-    print('water_temperature_K',water_temperature_K)
-    mat_water = nmm.Compound('H2O',state_of_matter='liquid',pressure_Pa=water_presssure_pa,temperature_K=water_temperature_K)
-    print(mat_water.density_g_per_cm3)
-    input()
-    mat_ss316 = nmm.Material('SS-316LN-IG')
-    m60 =nmm.Homogenised_mixture([{'mix':mat_ss316, 'volume_fraction':0.60},
-                                  {'mix':mat_water, 'volume_fraction': 0.40}])
+# def return_material_m60():
+#     from pint import UnitRegistry
+#     water_temperature = UnitRegistry().Quantity(200, UnitRegistry().degC)
+#     water_temperature_K = water_temperature.to('degK').magnitude
+#     water_pressure = UnitRegistry().Quantity(31, UnitRegistry().bar)
+#     water_presssure_pa = water_pressure.to('pascal').magnitude
+#     print('water_presssure_pa',water_presssure_pa)
+#     print('water_temperature_K',water_temperature_K)
+#     mat_water = nmm.Compound('H2O',state_of_matter='liquid',pressure_Pa=water_presssure_pa,temperature_K=water_temperature_K)
+#     print(mat_water.density_g_per_cm3)
+#     input()
+#     mat_ss316 = nmm.Material('SS-316LN-IG')
+#     m60 =nmm.Homogenised_mixture([{'mix':mat_ss316, 'volume_fraction':0.60},
+#                                   {'mix':mat_water, 'volume_fraction': 0.40}])
 
-    #print(m60.serpent_material_card)
+#     #print(m60.serpent_material_card)
 
-return_material_m60()
+# return_material_m60()
 
 
 

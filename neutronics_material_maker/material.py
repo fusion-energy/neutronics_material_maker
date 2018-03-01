@@ -336,10 +336,10 @@ class Material(NamedObject):
     def find_density_g_per_cm3(self):
 
         if self.description == 'Eurofer':
-            return 7.79800
+            return 7.87
 
         if self.description == 'Tungsten':
-            return 19.25
+            return 19.0
 
         if self.description == 'SS-316LN-IG':
             return 7.93
@@ -354,7 +354,7 @@ class Material(NamedObject):
             return 1.18
 
         if self.description == 'CuCrZr':
-            return 8.814
+            return 8.9
 
         if self.description == 'r-epoxy': #reference http://personalpages.to.infn.it/~tosello/EngMeet/ITSmat/SDD/CyanateEster.pdf
             return 1.207
@@ -424,3 +424,4 @@ class Material(NamedObject):
 #     print('element_mass_fractions',e)
 #
 # print(Material(mat_name).serpent_material_card)
+
