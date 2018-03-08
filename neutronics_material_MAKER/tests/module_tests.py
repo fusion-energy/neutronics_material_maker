@@ -1,9 +1,5 @@
 
-
-
-
-
-import neutronics_material_maker as nmm
+import neutronics_material_MAKER as nmm
 
 import random
 import unittest
