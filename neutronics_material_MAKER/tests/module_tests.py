@@ -29,8 +29,6 @@ class Tester(unittest.TestCase):
         new_isotope = nmm.Isotope('Li',7)    
         assert new_isotope.atomic_number == 7
 
-
-
     def test_element_protons(self):
         new_element = nmm.Element('Fe')
         assert new_element.protons == 26
@@ -90,7 +88,7 @@ class Tester(unittest.TestCase):
 
     def test_material_serpent_material_card_type(self):
         new_material = nmm.Material('SS-316LN-IG')
-        assert type(new_material.serpent_material_card) == str
+        assert type(new_material.serpent_material_card()) == str
 
     def test_material_atom_density_per_barn_per_cm(self):
         new_material = nmm.Material('SS-316LN-IG')
@@ -185,7 +183,8 @@ class Tester(unittest.TestCase):
 #test_all_elements_have_natural_isotope_fractions_summing_to_1()
 
 
-
+if __name__ is '__main__':
+    unittest.main()
 
 # todo more tests on compounds
 # theoretical_density

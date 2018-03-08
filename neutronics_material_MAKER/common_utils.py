@@ -1105,7 +1105,7 @@ def all_natural_elements_symbols():
                 'Y', 'Nb', 'Rh', 'I', 'Cs', 'Pr', 'Tb', 'Ho', 'Tm', 'Au', 'Bi', 'Th', 'Pa']
 
 def all_natural_elements():
-        from element import Element
+        from neutronics_material_MAKER.element import Element
         return [Element(e) for e in all_natural_elements_symbols()]
 # =============================================================================
 #         return [Element('Sn'), Element('Xe'), Element('Cd'), Element('Te'), Element('Ba'), Element('Dy'),
@@ -1125,8 +1125,8 @@ def all_natural_elements():
 # =============================================================================
 
 def all_natural_isotopes():
-    from element import Element
-    from isotope import Isotope
+    from neutronics_material_MAKER.element import Element
+    from neutronics_material_MAKER.isotope import Isotope
     isotope_list=[]
     for element in all_natural_elements():
         isotope_list= isotope_list+natural_isotopes_in_elements(element.symbol)
