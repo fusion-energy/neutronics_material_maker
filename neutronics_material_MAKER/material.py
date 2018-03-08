@@ -1,9 +1,11 @@
 
 import sys
+
 import numpy as np
 from neutronics_material_MAKER.isotope import Isotope
 from neutronics_material_MAKER.element import Element
 from neutronics_material_MAKER.jsonable_object import NamedObject
+from neutronics_material_MAKER.common_utils import read_in_xsdir_file
 
 
 #todo future work : allow conversion to pyne material and then exporting to hdf5 file for use in DAGMC
@@ -20,10 +22,11 @@ from neutronics_material_MAKER.jsonable_object import NamedObject
 class Material(NamedObject):
     def __init__(self, description,density_g_per_cm3=None,
                  atom_density_per_barn_per_cm=None,
+                 xsdir_filename= '/opt/serpent2/xsdir.serp',
                  elements_and_fractions=None, **kwargs):#,*enriched_isotopes):
         super(Material, self).__init__(**kwargs)
         self.description = description
-
+        self.xsdir_filename= xsdir_filename
         if elements_and_fractions==None:
             self.element_mixtures = self.find_material_mass_or_atom_faction_mixture(description)
         else:
@@ -196,7 +199,6 @@ class Material(NamedObject):
             list_of_elements.append(element_element_fractions['element'])
         return list_of_elements
 
-
     @property
     def isotopes(self):
         if self.verbose:
@@ -324,9 +326,9 @@ class Material(NamedObject):
 
         if self.description == 'Eurofer_DEMO_models':
             return  8.43211E-02
-        
-        print('material not found in atom_density_per_barn_per_cm function')
-        print('perhaps try density_g_per_cm3 property')
+        if self.verbose:        
+            print('material not found in atom_density_per_barn_per_cm function')
+            print('perhaps try density_g_per_cm3 property')
         return None  #sys.exit()
 
 
@@ -362,8 +364,8 @@ class Material(NamedObject):
         if self.description == 'Void':
             return 0.0
 
-        print('material '+self.description+' not found in density_g_per_cm3 function')
-        print('perhaps try atom_density_per_barn_per_cm property')
+        #print('material '+self.description+' not found in density_g_per_cm3 function')
+        #print('perhaps try atom_density_per_barn_per_cm property')
         return None #sys.exit()
     
     @staticmethod
@@ -375,6 +377,8 @@ class Material(NamedObject):
     #@property
     def serpent_material_card(self, **kwargs):
 
+        list_of_isotope_zaid_or_name, list_of_associated_libraries = read_in_xsdir_file(self.xsdir_filename)
+
         density = self.atom_density_per_barn_per_cm
         if density == None :
             density = -1 * self.density_g_per_cm3
@@ -382,13 +386,10 @@ class Material(NamedObject):
         color = ' rgb '+self._colr_kwarg(kwargs.get('color', [0, 128, 128]))
         material_card = 'mat ' + name + ' ' + str(density) + color + '\n'
 
-
-
         for counter, element_mixture in enumerate(self.element_mixtures):
             if self.verbose:
                 print(element_mixture)
                 print(type(element_mixture))
-
             element=element_mixture['element']
 
             if 'atom_fraction' in element_mixture.keys():
@@ -398,6 +399,7 @@ class Material(NamedObject):
             else:
                 if self.verbose:
                     print('using mass fraction')
+                element_mass_fraction = self.find_element_mass_fractions()[counter] #element_mixture['mass_fraction']/element.molar_mass_g
                 element_atom_fraction = self.find_element_mass_fractions()[counter]/element.molar_mass_g #element_mixture['mass_fraction']/element.molar_mass_g
             if self.verbose:
                 print('element.isotopes',element.isotopes)
@@ -405,12 +407,14 @@ class Material(NamedObject):
 
                 isotopes_atom_fraction=isotope.abundance * element_atom_fraction
                 if isotopes_atom_fraction>0:
-
-                    if isotope.zaid.startswith('160') :
-                        #todo Serpent appears to be not compatible with particular Fendl libraries, check the updated version of Serpent
-                        material_card = material_card + ('    ' + isotope.zaid + '.03c ' + str(isotopes_atom_fraction) + '\n')
+                    if isotope.zaid in list_of_isotope_zaid_or_name:
+                        index_of_zaid = list_of_isotope_zaid_or_name.index(isotope.zaid)
+                        lib= list_of_associated_libraries[index_of_zaid]
+                        material_card = material_card + ('    ' + (isotope.zaid +'.'+ lib).ljust(12)+ ' ' + str(isotopes_atom_fraction).ljust(25) + ' % '+isotope.symbol+' \n')
                     else:
-                        material_card = material_card + ('    ' + isotope.zaid + '.31c ' + str(isotopes_atom_fraction) + '\n')
+                        #print('isotope not found in xsdir, using default library ')
+                        #print('isotope.zaid=',isotope.zaid)
+                        material_card = material_card + ('    ' + (isotope.zaid).ljust(12)+' ' +str(isotopes_atom_fraction).ljust(25) + ' % '+isotope.symbol+' not in xsdir \n')
                 else:
                     if self.verbose:
                         print('isotope ', isotope.description, ' mass fraction is 0, so this is not being included in the material card')

@@ -712,6 +712,7 @@ def mass_amu(symbol,atomic_number):
         else:
             print('symbol atomic number combination not found no isotope mass to return ')
             print('symbol=',symbol,'atomic_number',atomic_number)
+            sys.exit()
 
 def natural_isotopes_in_elements(symbol):
         from neutronics_material_MAKER.isotope import Isotope
@@ -850,7 +851,7 @@ def natural_isotopes_in_elements(symbol):
         if symbol == 'Pa': return [Isotope(symbol, 231)]
 
         else:
-            print('natural composition of isotope not found', symbol)
+            print('natural composition of isotope not found for ', symbol)
             sys.exit()
 
 def find_symbol_from_protons(protons):
@@ -1131,3 +1132,23 @@ def all_natural_isotopes():
     for element in all_natural_elements():
         isotope_list= isotope_list+natural_isotopes_in_elements(element.symbol)
     return isotope_list
+
+def read_in_xsdir_file(filename):
+        list_of_isotope_zaid_or_name=[]
+        list_of_associated_libraries=[]
+        try:
+                fh = open(filename, "r")
+                contents = fh.readlines()
+
+                for line in contents:
+                        isotope_zaid_or_name, library_code = line.split()[0].split('.')
+                        if isotope_zaid_or_name not in list_of_isotope_zaid_or_name:
+                                #print(isotope_zaid_or_name, library_code)
+                                list_of_isotope_zaid_or_name.append(isotope_zaid_or_name)
+                                list_of_associated_libraries.append(library_code)
+        except:
+                print('xsdir file not found at ',filename)
+
+        return list_of_isotope_zaid_or_name,list_of_associated_libraries
+
+#read_in_xsdir_file('/opt/serpent2/xsdir.serp')
