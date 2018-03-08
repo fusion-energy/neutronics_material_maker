@@ -68,18 +68,18 @@ The software can be used to create isotopes, elements, compounds, materials or h
 After installation users must import the package
 
 ```python
-$ import neutronics_material_maker as nmm
+$ from neutronics_material_maker import *
 ```
 
 # <a name="making-isotopes"></a>Making Isotopes
 
 Isotopes form the basic building blocks of more complex objects (**Element**). An **Isotope** can be created by specifying the symbol and the atomic number
 ```python
-$ example_isotope = nmm.Isotope('Li',7)
+$ example_isotope = Isotope('Li',7)
 ```
 Isotope can also be created by specifying the proton number and the atomic number
 ```python
-$ example_isotope = nmm.Isotope(3,7)
+$ example_isotope = Isotope(3,7)
 ```
 
 Once an isotope is created it's properties can be queried.
@@ -101,10 +101,10 @@ $ example_isotope.description
 ```
 It is also possible to overwrite the natural abundance of an isotope upon creation. This comes in useful when creating enriched **Compounds** or **Materials** which is demonstrated later.
 ```python
-$ example_natural_isotope = nmm.Isotope('Li',7)
+$ example_natural_isotope = Isotope('Li',7)
 $ example_natural_isotope.abundance
 >>> 0.9241
-$ example_enriched_isotope = nmm.Isotope('Li',7,0.5)
+$ example_enriched_isotope = Isotope('Li',7,0.5)
 $ example_enriched_isotope.abundance
 >>> 0.5
 ```
@@ -112,7 +112,7 @@ $ example_enriched_isotope.abundance
 
 Elements form another building blocks of more complex objects (**Compounds** and **Materials**). Elements can be created by specifying the symbol and optional enrichment. A simple element construct can be achieved with ...
 ```python
-$ example_element = nmm.Element('Li')
+$ example_element = Element('Li')
 ```
 The natural abundance of an **Element** is known and the **Isotope** objects are created accordingly. Elemental properties can then be queried. In some cases lists of **Isotope** objects are returned
 
@@ -132,7 +132,7 @@ $ example_element.full_name
 Elements can also be created with enriched Isotope abundances.
 
 ```python
-$ example_element = nmm.Element('Li',enriched_isotopes=(nmm.Isotope('Li', 6, 0.9), nmm.Isotope('Li', 7, 0.1)))
+$ example_element = Element('Li',enriched_isotopes=(Isotope('Li', 6, 0.9), Isotope('Li', 7, 0.1)))
 ```
 
 # <a name="making-compounds"></a>Making Compounds
@@ -141,22 +141,22 @@ Chemical equations are referred to as Compounds by the software. Compounds can b
 
 Compounds can be created using the following command when both the compound chemical formula and the density in grams per cm3 are specified.
 ```python
-$ example_compound = nmm.Compound('C12H22O11',density_g_per_cm3=1.59)
+$ example_compound = Compound('C12H22O11',density_g_per_cm3=1.59)
 ```
 The software knows about the crystalline volume of some chemical formula (using a small internal material database) and can therefore create some compound without the density_g_per_cm3 argument. Compounds that the software knows the crystalline unit volume or atoms per cm3 for are mainly fusion relevant materials *Li4SiO4, Li2SiO3, Li2ZrO3, Li2TiO3, Be, Ba5Pb3, Nd5Pb4, Zr5Pb3, Zr5Pb4, Pb84.2Li15.8.* For these compounds they can be create without the density argument.
 ```python
-$ example_compound = nmm.Compound('Li4SiO4')
+$ example_compound = Compound('Li4SiO4')
 $ example_compound.density_g_per_cm3
 >>> 2.4136389927905504
 ```
 A **Compound** can also be enriched much like isotopes can. To enrich an **compound** the user must pass the desired abundances for the required isotopes in the element. Here is an example for enriched Li2ZrO3 with Li6 abundance set to 0.9 and Li7 abundance set to 0.1. You can see that **Isotope** objects are used for this procedure.
 ```python
-nmm.Compound('Li2ZrO3',enriched_isotopes=(nmm.Isotope('Li', 6, 0.9), nmm.Isotope('Li', 7, 0.1)))
+Compound('Li2ZrO3',enriched_isotopes=(Isotope('Li', 6, 0.9), Isotope('Li', 7, 0.1)))
 ```
 Other input options for creating a **Compound** include setting a **packing_fraction** and **theoretical_density** which both perform the same operation. The density of the resulting **Compound** is multiplied by the input packing fraction or theoretical density. Both are included to allow pebble beds to be created which are made of pebbles that are not at 100% density.
 ```python
-$ solid_ceramic = nmm.Compound('Be12Ti')
-$ pebble_bed_ceramic = nmm.Compound('Be12Ti',packing_fraction=0.64)
+$ solid_ceramic = Compound('Be12Ti')
+$ pebble_bed_ceramic = Compound('Be12Ti',packing_fraction=0.64)
 ```
 The density of the Compounds can be found with the density_g_per_cm3 property. Here we can see that the density of the pebble bed is lower than the solid ceramic.
 ```python
@@ -173,24 +173,24 @@ pip install thermo
 The density of liquids and gases accounting for thermal expansion can then be found. To use the ideal gas equations the **state_of_matter** must be specified as 'gas'.
 
 ```python
-$ He_compound = nmm.Compound('He', pressure_Pa = 8.0E6, temperature_K = 823.0, state_of_matter='gas')
+$ He_compound = Compound('He', pressure_Pa = 8.0E6, temperature_K = 823.0, state_of_matter='gas')
 $ He_compound.density_g_per_cm3
 >>> 0.004682671945463105
 ```
 
 Other coolants can also accept different **pressure_Pa** and **temperature_K** values and the density changes accordingly. The **state_of_matter** must also be specified as 'liquid'. This example shows the resulting change in density for water at different temperatures and pressures.
 ```python
-$ water_compound = nmm.Compound('H2O', pressure_Pa = 3100000, temperature_K = 473.15, state_of_matter='liquid')
+$ water_compound = Compound('H2O', pressure_Pa = 3100000, temperature_K = 473.15, state_of_matter='liquid')
 $ water_compound.density_g_per_cm3
 >>> 0.8664202359381719
-$ water_compound = nmm.Compound('H2O', pressure_Pa = 101325, temperature_K = 293, state_of_matter='liquid')
+$ water_compound = Compound('H2O', pressure_Pa = 101325, temperature_K = 293, state_of_matter='liquid')
 $ water_compound.density_g_per_cm3
 >>> 0.9990449108576049
 ```
 
 Once a **Compound** has been created various properties can be extracted including material cards suitable for use in Serpent II simulations (**serpent_material_card**).
 ```python
-$ example_compound = nmm.Compound('Li4SiO4',enriched_isotopes=(nmm.Isotope('Li', 6, 0.9), nmm.Isotope('Li', 7, 0.1)))
+$ example_compound = Compound('Li4SiO4',enriched_isotopes=(Isotope('Li', 6, 0.9), Isotope('Li', 7, 0.1)))
 $ example_compound.enriched_isotopes
 >>> <__main__.Isotope object at 0x7f859e27dfd0>, <__main__.Isotope object at 0x7f859e28d2d0>
 $ example_compound.density_g_per_cm3
@@ -220,7 +220,7 @@ One novel feature of the software is the variations of the **Compound** object i
 
 ```python
 $ for enrichment in [0, 0.25, 0.5, 0.75, 1.0]:
-$    example_compound = nmm.Compound('Li4SiO4',enriched_isotopes=(nmm.Isotope('Li', 6, enrichment), nmm.Isotope('Li', 7, 1.0-enrichment)))
+$    example_compound = Compound('Li4SiO4',enriched_isotopes=(Isotope('Li', 6, enrichment), Isotope('Li', 7, 1.0-enrichment)))
 $    print('Li6 enrichment=',enrichment)
 $    example_compound.density_g_per_cm3
 $    example_compound.isotopes_atom_fractions
@@ -248,16 +248,16 @@ The above feature is the main motivation behind the software as it allows me to 
 A custom **Material** can be constructed by specifiying the material **description**, density and one or more **Element** in the **elements_and_fractions** parameter that make up the material. The density can be specified as **density_g_per_cm3** or **atom_density_per_barn_per_cm**. The **Elements** need to be specified with either a **mass_faction** or an **atom_fraction**. The following example makes a material called Steel which as 95% weight Iron and 5% weight Carbon with a density of 7.8g per cm3.
 
 ```python
-m5 = nmm.Material(description='Steel',
+m5 = Material(description='Steel',
                   density_g_per_cm3=7.8,
-                  elements_and_fractions=[{'element':nmm.Element('Fe'),'mass_fraction':0.95},
-                                          {'element':nmm.Element('C') ,'mass_fraction':0.05}])
+                  elements_and_fractions=[{'element':Element('Fe'),'mass_fraction':0.95},
+                                          {'element':Element('C') ,'mass_fraction':0.05}])
 ```
 
 The software has a small internal database and knows the elemental composition and densities of some materials. The list of Materials can easily be expanded but currently includes **Bronze**, **Eurofer**, **SS-316LN-IG**, **DT-plasma**,  **CuCrZr**, **Glass-fibre**, **Epoxy**, **Glass-fibre** and **Tungten**. Here is an example of DT-plasma.
 
 ```python
-$ example_mat1 = nmm.Material('DT_plasma')
+$ example_mat1 = Material('DT_plasma')
 $ example_mat1.atom_density_per_barn_per_cm
 >>> 1e-20
 $ example_mat1.serpent_material_card
@@ -267,7 +267,7 @@ $ example_mat1.serpent_material_card
 ```
 The other materials available are considerably more detailed in their isotope description. To keep this user manual concise only Glass-fibre and DT_plasma have been demonstrated. One difference between Materials is the known density, the software has materials with density in **atom_density_per_barn_per_cm** which is useful for Materials such as DT-plasma or **density_g_per_cm3** which is useful for Materials such as Glass-fibre. Neutronics codes such as Serpent can accept both options so this is not a problem (density in g/cm3 has a **-** flag to indicate the units).
 ```python
-$ example_mat2 = nmm.Material('Glass-fibre')
+$ example_mat2 = Material('Glass-fibre')
 $ example_mat2.density_g_per_cm3
 >>> 2.49
 $ example_mat2.serpent_material_card
@@ -293,20 +293,20 @@ $ example_mat2.serpent_material_card
 Materials and Compounds can be combined to form a **Homogenised_mixture**. Any number of Materials and Compounds can be combined but they must combine to give a volume fraction of 1.0. Here are some examples ...
 
 ```python
-$ mat_bronze = nmm.Material('Bronze')
+$ mat_bronze = Material('Bronze')
 $ mat_bronze.density_g_per_cm3
 >>> 8.8775
-$ mat_water = nmm.Compound('H2O',density_g_per_cm3=0.926)
+$ mat_water = Compound('H2O',density_g_per_cm3=0.926)
 $ mat_water.density_g_per_cm3
 >>> 0.926
-$ mat_CuCrZr = nmm.Compound('CuCrZr',density_g_per_cm3=8.814)
+$ mat_CuCrZr = Compound('CuCrZr',density_g_per_cm3=8.814)
 $ mat_CuCrZr.density_g_per_cm3
 >>> 8.814
 ```
 
 The two Compounds and 1 Material can then be mixed with **volume_fraction** the following way. This Homogenised_mixture contains 20% volume Water, 30% volume CuCrZr and 50% Bronze.
 ```python
-$ mat_mix = nmm.Homogenised_mixture([{'mix':mat_water,'volume_fraction':0.20},
+$ mat_mix = Homogenised_mixture([{'mix':mat_water,'volume_fraction':0.20},
                                      {'mix':mat_CuCrZr,'volume_fraction':0.30},
                                      {'mix':mat_bronze,'volume_fraction':0.5}])
 $ mat_mix.density_g_per_cm3
@@ -362,7 +362,7 @@ $ mat_mix.serpent_material_card
 
 Homogenised_mixture can also be formed from Compounds and Materials based on **mass_fraction**. The two Compounds and 1 Material are mixed with **mass_fraction** in the following way. This Homogenised_mixture contains 20% mass Water and 30% mass CuCrZr.
 ```python
-$ new_mat_mix = nmm.Homogenised_mixture([{'mix':mat_water,'mass_fraction':0.5},
+$ new_mat_mix = Homogenised_mixture([{'mix':mat_water,'mass_fraction':0.5},
                                          {'mix':mat_CuCrZr,'mass_fraction':0.5}])
 $ new_mat_mix.density_g_per_cm3
 >>> 1.6759268993839835
@@ -370,10 +370,10 @@ $ new_mat_mix.density_g_per_cm3
 
 Void fractions can also be inserted into a **Homogenised_mixture**. In the example below a new materials is made from 50% volume fraction Nb3Sn and 50% void. The density of the Nb3Sn is specified as 8.91g per cm3 and a void is 0g per cm3. The resulting example material has a desnity of 4.455g per cm3 as expected.
 ```python
-$ mat_Nb3Sn = nmm.Compound('Nb3Sn',density_g_per_cm3=8.91)
-$ mat_void = nmm.Material('Void')
+$ mat_Nb3Sn = Compound('Nb3Sn',density_g_per_cm3=8.91)
+$ mat_void = Material('Void')
 
-$ example_mat =nmm.Homogenised_mixture([{'mix':mat_Nb3Sn, 'volume_fraction':0.5},
+$ example_mat =Homogenised_mixture([{'mix':mat_Nb3Sn, 'volume_fraction':0.5},
                                         {'mix':mat_void, 'volume_fraction':0.5}])
 
 $ example_mat.density_g_per_cm3
