@@ -7,15 +7,22 @@ import pprint
 from neutronics_material_maker.common_utils import is_number
 from neutronics_material_maker.element import Element
 from neutronics_material_maker.common_utils import natural_isotopes_in_elements
+from neutronics_material_maker.common_utils import read_in_xsdir_file
 
 from neutronics_material_maker.jsonable_object import NamedObject
 
 class Compound(NamedObject):
-    def __init__(self, chemical_equation, packing_fraction=1, theoretical_density=1,
-                 pressure_Pa=8.0E6, temperature_K=823.0, enriched_isotopes='Natural',
-                 density_g_per_cm3=None, state_of_matter='solid'):
+    def __init__(self, chemical_equation,
+                 packing_fraction=1,
+                 theoretical_density=1,
+                 pressure_Pa=8.0E6,
+                 temperature_K=823.0, enriched_isotopes='Natural',
+                 density_g_per_cm3=None,
+                 state_of_matter='solid',
+                 xsdir_filename='/opt/serpent2/xsdir.serp'):
         super(Compound, self).__init__()
 
+        self.xsdir_filename= xsdir_filename
         self.state_of_matter = state_of_matter
         self.chemical_equation = chemical_equation
         self.list = [a for a in re.split(r'([A-Z][a-z]*)', chemical_equation) if a]
@@ -147,14 +154,33 @@ class Compound(NamedObject):
 
     @property
     def serpent_material_card(self):
+
+        list_of_isotope_zaid_or_name, list_of_associated_libraries = read_in_xsdir_file(self.xsdir_filename)
+
         #print('checking for density')
         material_card = 'mat ' + self.description + ' -' + str(self.density_g_per_cm3) + '\n'
-        for zaid, isotopes_mass_fraction in zip(self.zaids, self.isotopes_atom_fractions):
-            if isotopes_mass_fraction > 0:
-                if zaid.startswith('160'):
-                    material_card = material_card +'    '+ zaid + '.03c ' + str(isotopes_mass_fraction) + '\n'
+        #for zaid, isotopes_atom_fraction in zip(self.zaids, self.isotopes_atom_fractions):
+        for isotope, isotopes_atom_fraction in zip(self.isotopes, self.isotopes_atom_fractions):
+
+            if isotopes_atom_fraction > 0:
+                if isotope.zaid in list_of_isotope_zaid_or_name:
+                    index_of_zaid = list_of_isotope_zaid_or_name.index(isotope.zaid)
+                    lib = list_of_associated_libraries[index_of_zaid]
+                    material_card = material_card + ('    ' + (isotope.zaid + '.' + lib).ljust(12) + ' ' + str(isotopes_atom_fraction).ljust(25) + ' % ' + isotope.symbol + ' \n')
                 else:
-                    material_card = material_card +'    '+ zaid + '.31c ' + str(isotopes_mass_fraction) + '\n'
+                    #print('isotope not found in xsdir, using default library ')
+                    #print('isotope.zaid=', isotope.zaid)
+                    material_card = material_card + ('    ' + (isotope.zaid).ljust(12) + ' ' + str(isotopes_atom_fraction).ljust(25) + ' % ' + isotope.symbol + ' not in xsdir \n')
+            else:
+                print('isotope ', isotope.description,' mass fraction is 0, so this is not being included in the material card')
+
+
+            #
+            # if isotopes_atom_fraction > 0:
+            #     if zaid.startswith('160'):
+            #         material_card = material_card +'    '+ zaid + '.03c ' + str(isotopes_atom_fraction) + '\n'
+            #     else:
+            #         material_card = material_card +'    '+ zaid + '.31c ' + str(isotopes_atom_fraction) + '\n'
         return material_card
 
     @property
