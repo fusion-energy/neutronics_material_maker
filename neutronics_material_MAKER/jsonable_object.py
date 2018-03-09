@@ -2,8 +2,9 @@ import json
 
 
 class NamedObject(object):
-    def __init__(self):
+    def __init__(self, **kwargs):
         self.classname = self.__class__.__name__
+        self.verbose = kwargs.get('verbose', False)
 
     def to_dict(self):
 

@@ -1,13 +1,12 @@
 
-import re
 import sys
-import json
-import pprint
 
-from neutronics_material_maker.isotope import Isotope
-from neutronics_material_maker.element import Element
-from neutronics_material_maker.jsonable_object import NamedObject
-from neutronics_material_maker.common_utils import read_in_xsdir_file
+import numpy as np
+from neutronics_material_MAKER.isotope import Isotope
+from neutronics_material_MAKER.element import Element
+from neutronics_material_MAKER.jsonable_object import NamedObject
+from neutronics_material_MAKER.common_utils import read_in_xsdir_file
+
 
 #todo future work : allow conversion to pyne material and then exporting to hdf5 file for use in DAGMC
 # from pyne import material
@@ -20,15 +19,12 @@ from neutronics_material_maker.common_utils import read_in_xsdir_file
 # mat = Material()
 # mat.from_atom_frac(nucvec) #converts to volume fraction
 
-
-
-
 class Material(NamedObject):
     def __init__(self, description,density_g_per_cm3=None,
                  atom_density_per_barn_per_cm=None,
-                 elements_and_fractions=None,
-                 xsdir_filename= '/opt/serpent2/xsdir.serp'):#,*enriched_isotopes):
-        #super(Material, self).__init__()
+                 xsdir_filename= '/opt/serpent2/xsdir.serp',
+                 elements_and_fractions=None, **kwargs):#,*enriched_isotopes):
+        super(Material, self).__init__(**kwargs)
         self.description = description
         self.xsdir_filename= xsdir_filename
         if elements_and_fractions==None:
@@ -43,8 +39,6 @@ class Material(NamedObject):
         self.atom_density_per_barn_per_cm = atom_density_per_barn_per_cm
         if atom_density_per_barn_per_cm == None:
             self.atom_density_per_barn_per_cm = self.find_atom_density_per_barn_per_cm()
-
-
 
         self.elements = self.find_elements_in_material()
 
@@ -207,8 +201,9 @@ class Material(NamedObject):
 
     @property
     def isotopes(self):
-        #print(self.description)
-        #print(self.element_atom_fractions)
+        if self.verbose:
+            print(self.description)
+            print(self.element_atom_fractions)
         list_of_isotopes = []
         for fractions, element in zip(self.element_atom_fractions, self.elements):
             for isotope in element.isotopes:
@@ -221,8 +216,9 @@ class Material(NamedObject):
 
         if self.description == 'Void':
             return []
-        #print(self.description)
-        #print(self.element_atom_fractions)
+        if self.verbose:
+            print(self.description)
+            print(self.element_atom_fractions)
         list_of_fractions = []
         for fractions, element in zip(self.element_atom_fractions, self.elements):
             for isotope in element.isotopes:
@@ -271,11 +267,10 @@ class Material(NamedObject):
         rtol = 1e-6
 
         if not abs(a - b) <= rtol * max(abs(a), abs(b)):
-
-            #print('element mass fractions within a material must sum to 1')
-            #print('current mass factions are ',list_of_fractions)
-            #print('which sums to ',sum(list_of_fractions))
-            #print('normalising ...')
+            if self.verbose:
+                print('element mass fractions within a material must sum to 1')
+                print('current mass factions are ',list_of_fractions)
+                print('which sums to ',sum(list_of_fractions))
             normalised_list_of_fractions = []
             normalisation_factor = 1.0 / sum(list_of_fractions)
             for fraction in list_of_fractions:
@@ -307,15 +302,16 @@ class Material(NamedObject):
         rtol=1e-6
 
         if not abs(a - b) <= rtol * max(abs(a), abs(b)):
-
-            #print("element atom fractions within a material don't sum to 1")
-            #print('current atom factions are ',list_of_fractions)
-            #print('which sums to ',sum(list_of_fractions))
+            if self.verbose:
+                print("element atom fractions within a material don't sum to 1")
+                print('current atom factions are ',list_of_fractions)
+                print('which sums to ',sum(list_of_fractions))
             normalised_list_of_fractions=[]
             normalisation_factor = 1.0 / sum(list_of_fractions)
             for fraction in list_of_fractions:
                 normalised_list_of_fractions.append(normalisation_factor*fraction)
-            #print('normalizing to ', normalised_list_of_fractions)
+            if self.verbose:
+                print('normalizing to ', normalised_list_of_fractions)
             return normalised_list_of_fractions
 
         return list_of_fractions
@@ -330,9 +326,9 @@ class Material(NamedObject):
 
         if self.description == 'Eurofer_DEMO_models':
             return  8.43211E-02
-
-        #print('material not found in atom_density_per_barn_per_cm function')
-        #print('perhaps try density_g_per_cm3 property')
+        if self.verbose:        
+            print('material not found in atom_density_per_barn_per_cm function')
+            print('perhaps try density_g_per_cm3 property')
         return None  #sys.exit()
 
 
@@ -371,34 +367,42 @@ class Material(NamedObject):
         #print('material '+self.description+' not found in density_g_per_cm3 function')
         #print('perhaps try atom_density_per_barn_per_cm property')
         return None #sys.exit()
+    
+    @staticmethod
+    def _colr_kwarg(rgblist):
+        if type(rgblist) not in (tuple, list, np.ndarray) or len(rgblist) != 3:
+            raise ValueError("3-length RGB color tuple please.")
+        return ' '.join([str(i) for i in np.array(rgblist).clip(0, 255)])
 
-    @property
-    def serpent_material_card(self):
+    #@property
+    def serpent_material_card(self, **kwargs):
 
         list_of_isotope_zaid_or_name, list_of_associated_libraries = read_in_xsdir_file(self.xsdir_filename)
 
         density = self.atom_density_per_barn_per_cm
         if density == None :
             density = -1 * self.density_g_per_cm3
-
-        material_card = 'mat ' + self.description + ' ' + str(density) + '\n'
+        name = kwargs.get('name', self.description)
+        color = ' rgb '+self._colr_kwarg(kwargs.get('color', [0, 128, 128]))
+        material_card = 'mat ' + name + ' ' + str(density) + color + '\n'
 
         for counter, element_mixture in enumerate(self.element_mixtures):
-
-            #print(element_mixture)
-            #print(type(element_mixture))
-
+            if self.verbose:
+                print(element_mixture)
+                print(type(element_mixture))
             element=element_mixture['element']
 
             if 'atom_fraction' in element_mixture.keys():
-                #print('using atom fraction')
+                if self.verbose:
+                    print('using atom fraction')
                 element_atom_fraction = self.find_element_atom_fractions()[counter] #element_mixture['atom_fraction']
             else:
-                #print('using mass fraction')
+                if self.verbose:
+                    print('using mass fraction')
                 element_mass_fraction = self.find_element_mass_fractions()[counter] #element_mixture['mass_fraction']/element.molar_mass_g
-                element_atom_fraction = element_mass_fraction/element.molar_mass_g
-
-            #print('element.isotopes',element.isotopes)
+                element_atom_fraction = self.find_element_mass_fractions()[counter]/element.molar_mass_g #element_mixture['mass_fraction']/element.molar_mass_g
+            if self.verbose:
+                print('element.isotopes',element.isotopes)
             for isotope in element.isotopes:
 
                 isotopes_atom_fraction=isotope.abundance * element_atom_fraction
@@ -412,7 +416,8 @@ class Material(NamedObject):
                         #print('isotope.zaid=',isotope.zaid)
                         material_card = material_card + ('    ' + (isotope.zaid).ljust(12)+' ' +str(isotopes_atom_fraction).ljust(25) + ' % '+isotope.symbol+' not in xsdir \n')
                 else:
-                    print('isotope ', isotope.description, ' mass fraction is 0, so this is not being included in the material card')
+                    if self.verbose:
+                        print('isotope ', isotope.description, ' mass fraction is 0, so this is not being included in the material card')
 
         return material_card
 

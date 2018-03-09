@@ -715,7 +715,7 @@ def mass_amu(symbol,atomic_number):
             sys.exit()
 
 def natural_isotopes_in_elements(symbol):
-        from neutronics_material_maker.isotope import Isotope
+        from neutronics_material_MAKER.isotope import Isotope
         if symbol == 'Sn': return [Isotope(symbol, 112), Isotope(symbol, 114), Isotope(symbol, 115),
                                         Isotope(symbol, 116), Isotope(symbol, 117),
                                         Isotope(symbol, 118), Isotope(symbol, 119), Isotope(symbol, 120),
@@ -1106,25 +1106,28 @@ def all_natural_elements_symbols():
                 'Y', 'Nb', 'Rh', 'I', 'Cs', 'Pr', 'Tb', 'Ho', 'Tm', 'Au', 'Bi', 'Th', 'Pa']
 
 def all_natural_elements():
-        from neutronics_material_maker.element import Element
-        return [Element('Sn'), Element('Xe'), Element('Cd'), Element('Te'), Element('Ba'), Element('Dy'),
-                Element('Gd'), Element('Hg'), Element('Mo'), Element('Nd'), Element('Os'), Element('Ru'),
-                Element('Sm'), Element('Yb'), Element('Ca'), Element('Er'), Element('Hf'), Element('Kr'),
-                Element('Pd'), Element('Pt'), Element('Se'), Element('Ge'), Element('Ni'), Element('Ti'),
-                Element('W'), Element('Zn'), Element('Zr'), Element('Ce'), Element('Cr'), Element('Fe'),
-                Element('Pb'), Element('S'), Element('Sr'), Element('Ar'), Element('C'), Element('K'),
-                Element('Mg'), Element('Ne'), Element('Si'), Element('U'), Element('Ag'), Element('B'),
-                Element('Br'), Element('Cl'), Element('Cu'), Element('Eu'), Element('Ga'), Element('H'),
-                Element('He'), Element('In'), Element('Ir'), Element('La'), Element('Li'), Element('Lu'),
-                Element('N'), Element('Rb'), Element('Re'), Element('Sb'), Element('Ta'), Element('Tl'),
-                Element('V'), Element('Be'), Element('O'), Element('F'), Element('Na'), Element('Al'),
-                Element('P'), Element('Sc'), Element('Mn'), Element('Co'), Element('As'), Element('Y'),
-                Element('Nb'), Element('Rh'), Element('I'), Element('Cs'), Element('Pr'), Element('Tb'),
-                Element('Ho'), Element('Tm'), Element('Au'), Element('Bi'), Element('Th'), Element('Pa')]
+        from neutronics_material_MAKER.element import Element
+        return [Element(e) for e in all_natural_elements_symbols()]
+# =============================================================================
+#         return [Element('Sn'), Element('Xe'), Element('Cd'), Element('Te'), Element('Ba'), Element('Dy'),
+#                 Element('Gd'), Element('Hg'), Element('Mo'), Element('Nd'), Element('Os'), Element('Ru'),
+#                 Element('Sm'), Element('Yb'), Element('Ca'), Element('Er'), Element('Hf'), Element('Kr'),
+#                 Element('Pd'), Element('Pt'), Element('Se'), Element('Ge'), Element('Ni'), Element('Ti'),
+#                 Element('W'), Element('Zn'), Element('Zr'), Element('Ce'), Element('Cr'), Element('Fe'),
+#                 Element('Pb'), Element('S'), Element('Sr'), Element('Ar'), Element('C'), Element('K'),
+#                 Element('Mg'), Element('Ne'), Element('Si'), Element('U'), Element('Ag'), Element('B'),
+#                 Element('Br'), Element('Cl'), Element('Cu'), Element('Eu'), Element('Ga'), Element('H'),
+#                 Element('He'), Element('In'), Element('Ir'), Element('La'), Element('Li'), Element('Lu'),
+#                 Element('N'), Element('Rb'), Element('Re'), Element('Sb'), Element('Ta'), Element('Tl'),
+#                 Element('V'), Element('Be'), Element('O'), Element('F'), Element('Na'), Element('Al'),
+#                 Element('P'), Element('Sc'), Element('Mn'), Element('Co'), Element('As'), Element('Y'),
+#                 Element('Nb'), Element('Rh'), Element('I'), Element('Cs'), Element('Pr'), Element('Tb'),
+#                 Element('Ho'), Element('Tm'), Element('Au'), Element('Bi'), Element('Th'), Element('Pa')]
+# =============================================================================
 
 def all_natural_isotopes():
-    from neutronics_material_maker.element import Element
-    from neutronics_material_maker.isotope import Isotope
+    from neutronics_material_MAKER.element import Element
+    from neutronics_material_MAKER.isotope import Isotope
     isotope_list=[]
     for element in all_natural_elements():
         isotope_list= isotope_list+natural_isotopes_in_elements(element.symbol)

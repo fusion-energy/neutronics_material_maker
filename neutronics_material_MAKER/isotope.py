@@ -1,21 +1,16 @@
 
-import re
-import sys
-import json
-import pprint
-
-from neutronics_material_maker.common_utils import full_name
-from neutronics_material_maker.common_utils import natural_abundance
-from neutronics_material_maker.common_utils import mass_amu
-from neutronics_material_maker.common_utils import natural_isotopes_in_elements
-from neutronics_material_maker.common_utils import find_symbol_from_protons
-from neutronics_material_maker.common_utils import find_protons_from_symbol
-  
-from neutronics_material_maker.jsonable_object import NamedObject
+from neutronics_material_MAKER.common_utils import (full_name,
+                                                    natural_abundance,
+                                                    mass_amu,
+                                                    natural_isotopes_in_elements,
+                                                    find_symbol_from_protons,
+                                                    find_protons_from_symbol)  
+from neutronics_material_MAKER.jsonable_object import NamedObject
 
 class Isotope(NamedObject):
-    def __init__(self, symbol_or_proton, atomic_number, abundance='Natural'):
-        super(Isotope, self).__init__()
+    def __init__(self, symbol_or_proton, atomic_number, abundance='Natural',
+                 **kwargs):
+        super(Isotope, self).__init__(**kwargs)
 
         if type(symbol_or_proton) == int or symbol_or_proton.isdigit():
             self.protons = symbol_or_proton
@@ -49,7 +44,7 @@ class Isotope(NamedObject):
         return {'isotope ': self.symbol,
                'atomic_number ':self.atomic_number,
                'abundance':self.abundance,
-               'abundance':self.abundance,
+               'abundance':self.abundance,  # TODO: why doubled? - mc
                'mass_amu':self.mass_amu,
                'protons':self.protons,
                'neutrons':self.neutrons

@@ -4,18 +4,19 @@ import sys
 import json
 import pprint
 
-from neutronics_material_maker.isotope import Isotope
-from neutronics_material_maker.common_utils import find_symbol_from_protons
-from neutronics_material_maker.common_utils import find_protons_from_symbol
-from neutronics_material_maker.common_utils import natural_isotopes_in_elements
-from neutronics_material_maker.common_utils import full_name
+from neutronics_material_MAKER.isotope import Isotope
+from neutronics_material_MAKER.common_utils import find_symbol_from_protons
+from neutronics_material_MAKER.common_utils import find_protons_from_symbol
+from neutronics_material_MAKER.common_utils import natural_isotopes_in_elements
+from neutronics_material_MAKER.common_utils import full_name
 
-from neutronics_material_maker.jsonable_object import NamedObject
+from neutronics_material_MAKER.jsonable_object import NamedObject
 
 class Element(NamedObject):
 
-    def __init__(self, symbol_or_proton, enriched_isotopes='Natural',density_g_per_cm3=None):
-        super(Element, self).__init__()
+    def __init__(self, symbol_or_proton, enriched_isotopes='Natural',
+                 density_g_per_cm3=None, **kwargs):
+        super(Element, self).__init__(**kwargs)
 
         if type(symbol_or_proton) == int or symbol_or_proton.isdigit():
             self.protons = symbol_or_proton
@@ -39,7 +40,8 @@ class Element(NamedObject):
         element_mass = 0
         for isotope in self.isotopes:
             # isotope.print_details
-            #print('element_mass',element_mass,'isotope.abundance',isotope.abundance, 'isotope.mass_amu',isotope.mass_amu)
+            if self.verbose:
+                print('element_mass',element_mass,'isotope.abundance',isotope.abundance, 'isotope.mass_amu',isotope.mass_amu)
             element_mass = element_mass + isotope.abundance * isotope.mass_amu
         return element_mass
 
