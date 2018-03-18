@@ -1100,6 +1100,15 @@ class Natural_Elements():
 
         self.all_natural_elements = self.find_all_natural_elements()
 
+        self.all_natural_element_symbols = self.find_all_natural_element_symbols()
+
+    def find_all_natural_element_symbols(self):
+        return ['Sn', 'Xe', 'Cd', 'Te', 'Ba', 'Dy', 'Gd', 'Hg', 'Mo', 'Nd', 'Os', 'Ru', 'Sm', 'Yb', 'Ca', 'Er', 'Hf',
+                'Kr', 'Pd', 'Pt', 'Se', 'Ge', 'Ni', 'Ti', 'W', 'Zn', 'Zr', 'Ce', 'Cr', 'Fe', 'Pb', 'S', 'Sr', 'Ar', 'C',
+                'K', 'Mg', 'Ne', 'Si', 'U', 'Ag', 'B', 'Br', 'Cl', 'Cu', 'Eu', 'Ga', 'H', 'He', 'In', 'Ir', 'La', 'Li',
+                'Lu', 'N', 'Rb', 'Re', 'Sb', 'Ta', 'Tl', 'V', 'Be', 'O', 'F', 'Na', 'Al', 'P', 'Sc', 'Mn', 'Co', 'As',
+                'Y', 'Nb', 'Rh', 'I', 'Cs', 'Pr', 'Tb', 'Ho', 'Tm', 'Au', 'Bi', 'Th', 'Pa']
+
     def find_all_natural_elements(self):
         return [Element(symbol='Sn'),
                 Element(symbol='Xe'),

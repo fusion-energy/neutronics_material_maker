@@ -313,7 +313,7 @@ class Material_tests(unittest.TestCase):
 
 
     def test_all_natural_elements(self):
-        all_elements = all_natural_elements_symbols()
+        all_elements = Natural_Elements().all_natural_element_symbols
         for fuss_test in range(0,1500):
             chemical_equation_to_test = ''
             equation_length = random.randint(1, 5)
@@ -331,7 +331,7 @@ class Material_tests(unittest.TestCase):
                 try:
                     test_mat_card = fuzzy_test_compound.serpent_material_card
                     assert fuzzy_test_compound.chemical_equation == chemical_equation_to_test
-                    assert type(fuzzy_test_compound.serpent_material_card) == str
+                    assert type(fuzzy_test_compound.serpent_material_card()) == str
                     assert fuzzy_test_compound.density_g_per_cm3 == random_density
                 except:
                     assert False
