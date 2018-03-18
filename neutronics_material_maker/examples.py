@@ -327,6 +327,14 @@ mat_r_epoxy = Material(material_card_name='r-epoxy',
                                     ]
                      )
 
+mat_DT_plasma = Material(material_card_name='DT-plasma',
+                     density_g_per_cm3=1.207,
+                     elements=[Element(1,enriched_isotopes=[Isotope('H',2,abundance=0.5),
+                                                            Isotope('H',3,abundance=0.5)])
+                                ],
+                     atom_fractions=[1.0]
+                     )
+
 
 
 mat_Void = Material(material_card_name='Void',

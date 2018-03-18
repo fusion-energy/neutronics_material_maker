@@ -1025,22 +1025,28 @@ class Isotope:
             return None
 
     def find_prefered_library(self,zaid,xsdir):
-        xsdir_contents = open(xsdir, "r").readlines() 
-        for line in xsdir_contents:
-            choped_up_line = line.split()[0].split('.')
-            if choped_up_line[0] == zaid:
-                return '.'+choped_up_line[1]
-        return ''
+        try:
+            xsdir_contents = open(xsdir, "r").readlines()
+            for line in xsdir_contents:
+                choped_up_line = line.split()[0].split('.')
+                if choped_up_line[0] == zaid:
+                    return '.'+choped_up_line[1]
+            return ''
+        except:
+            return ''
 
     def find_prefered_library_file(self,zaid,xsdir):
-        xsdir_contents = open(xsdir, "r").readlines() 
-        for line in xsdir_contents:
-            choped_up_line = line.split()
+        try:
+        xsdir_contents = open(xsdir, "r").readlines()
+            for line in xsdir_contents:
+                choped_up_line = line.split()
 
-            if choped_up_line[0].split('.')[0] == zaid:
-                #print('line = ',choped_up_line[-1])
-                return choped_up_line[-1]
-        return ''        
+                if choped_up_line[0].split('.')[0] == zaid:
+                    #print('line = ',choped_up_line[-1])
+                    return choped_up_line[-1]
+            return ''
+        except:
+            return '' 
 
     def serpent_material_card(self):
 
