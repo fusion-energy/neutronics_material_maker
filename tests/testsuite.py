@@ -3,10 +3,10 @@
 
 # to run type
 
-# python -m pytest testsuite.py
-# python3 -m pytest testsuite.py
+# python -m pytest tests/testsuite.py
+# python3 -m pytest tests/testsuite.py
 # 
-# coverage run testsuite.py
+# coverage run tests/testsuite.py
 # py.test --cov=neutronics_material_maker testsuite.py 
 
 #  pytest --cov=./neutronics_material_maker tests/testsuite.py 
@@ -15,7 +15,10 @@
 
 import unittest
 
-from module_tests import Tester
+from module_tests import Isotope_tests
+from module_tests import Element_tests
+from module_tests import Material_tests
+from module_tests import Compound_tests
 
 def main():
     unittest.TextTestRunner(verbosity=3).run(unittest.TestSuite())

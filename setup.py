@@ -13,17 +13,17 @@ from setuptools import setup
 
 
 setup(name='neutronics_material_maker',
-      version='0.1231',
+      version='0.1233',
       summary='Package for making material cards for neutronic codes such as Serpent',
       description='Create isotopes, elements, materials, chemical compounds and homogenised mixtures for use in neutronics codes',
       url='https://github.com/ukaea/neutronics_material_maker',
       author='Jonathan Shimwell',
       author_email='jonathan.shimwell@ukaea.uk',
       license='Apache 2.0',
-      packages=['neutronics_material_MAKER'],
-      test_suite='neutronics_material_MAKER.tests.module_tests',
+      packages=['neutronics_material_maker'],
+      test_suite='tests.module_tests',
       zip_safe=True,
-      package_data={'':['requirements.txt', 'README.md', 'LICENSE']},
+      package_data={'':['requirements.txt', 'README.md','README.md.html', 'LICENSE']},
       #install_requires=requirements,
       #setup_requires=['pytest-runner'],
       tests_require=['pytest']
