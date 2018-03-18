@@ -1037,7 +1037,7 @@ class Isotope:
 
     def find_prefered_library_file(self,zaid,xsdir):
         try:
-        xsdir_contents = open(xsdir, "r").readlines()
+            xsdir_contents = open(xsdir, "r").readlines()
             for line in xsdir_contents:
                 choped_up_line = line.split()
 
