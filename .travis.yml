@@ -4,6 +4,7 @@
   install:
     - pip install numpy 
     - pip install pprint 
+    - pip install pandas
     - pip install codecov pytest-cov pylint
     #re json sys
   script:
