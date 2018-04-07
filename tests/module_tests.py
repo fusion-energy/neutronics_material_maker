@@ -314,7 +314,7 @@ class Material_tests(unittest.TestCase):
 
     def test_all_natural_elements(self):
         all_elements = Natural_Elements().all_natural_element_symbols
-        for fuss_test in range(0,1500):
+        for fuss_test in range(0,500):
             chemical_equation_to_test = ''
             equation_length = random.randint(1, 5)
             for x in range(0, random.randint(1, equation_length)):

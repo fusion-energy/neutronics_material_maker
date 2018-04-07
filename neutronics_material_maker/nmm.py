@@ -1095,6 +1095,14 @@ class Natural_Isotopes():
         return all_isotopes
             #self.find_natural_isotopes_from_symbol(element.symbol) for element in ]
 
+
+
+NAT_ELEMENT_SYMBOLS = ['Sn', 'Xe', 'Cd', 'Te', 'Ba', 'Dy', 'Gd', 'Hg', 'Mo', 'Nd', 'Os', 'Ru', 'Sm', 'Yb', 'Ca', 'Er', 'Hf', 'Kr', 'Pd', 'Pt', 'Se', 'Ge', 'Ni', 'Ti', 'W', 'Zn', 'Zr', 'Ce', 'Cr', 'Fe', 'Pb', 'S', 'Sr', 'Ar', 'C',
+                        'K', 'Mg', 'Ne', 'Si', 'U', 'Ag', 'B', 'Br', 'Cl', 'Cu', 'Eu', 'Ga', 'H', 'He', 'In', 'Ir', 'La', 'Li',
+                        'Lu', 'N', 'Rb', 'Re', 'Sb', 'Ta', 'Tl', 'V', 'Be', 'O', 'F', 'Na', 'Al', 'P', 'Sc', 'Mn', 'Co', 'As',
+                        'Y', 'Nb', 'Rh', 'I', 'Cs', 'Pr', 'Tb', 'Ho', 'Tm', 'Au', 'Bi', 'Th', 'Pa']
+
+
 class Natural_Elements():
     def __init__(self,**kwargs):
 
@@ -1102,99 +1110,12 @@ class Natural_Elements():
 
         self.all_natural_element_symbols = self.find_all_natural_element_symbols()
 
+
     def find_all_natural_element_symbols(self):
-        return ['Sn', 'Xe', 'Cd', 'Te', 'Ba', 'Dy', 'Gd', 'Hg', 'Mo', 'Nd', 'Os', 'Ru', 'Sm', 'Yb', 'Ca', 'Er', 'Hf',
-                'Kr', 'Pd', 'Pt', 'Se', 'Ge', 'Ni', 'Ti', 'W', 'Zn', 'Zr', 'Ce', 'Cr', 'Fe', 'Pb', 'S', 'Sr', 'Ar', 'C',
-                'K', 'Mg', 'Ne', 'Si', 'U', 'Ag', 'B', 'Br', 'Cl', 'Cu', 'Eu', 'Ga', 'H', 'He', 'In', 'Ir', 'La', 'Li',
-                'Lu', 'N', 'Rb', 'Re', 'Sb', 'Ta', 'Tl', 'V', 'Be', 'O', 'F', 'Na', 'Al', 'P', 'Sc', 'Mn', 'Co', 'As',
-                'Y', 'Nb', 'Rh', 'I', 'Cs', 'Pr', 'Tb', 'Ho', 'Tm', 'Au', 'Bi', 'Th', 'Pa']
+        return NAT_ELEMENT_SYMBOLS
 
     def find_all_natural_elements(self):
-        return [Element(symbol='Sn'),
-                Element(symbol='Xe'),
-                Element(symbol='Cd'),
-                Element(symbol='Te'),
-                Element(symbol='Ba'),
-                Element(symbol='Dy'),
-                Element(symbol='Gd'),
-                Element(symbol='Hg'),
-                Element(symbol='Mo'),
-                Element(symbol='Nd'),
-                Element(symbol='Os'),
-                Element(symbol='Ru'),
-                Element(symbol='Sm'),
-                Element(symbol='Yb'),
-                Element(symbol='Ca'),
-                Element(symbol='Er'),
-                Element(symbol='Hf'),
-                Element(symbol='Kr'),
-                Element(symbol='Pd'),
-                Element(symbol='Pt'),
-                Element(symbol='Se'),
-                Element(symbol='Ge'),
-                Element(symbol='Ni'),
-                Element(symbol='Ti'),
-                Element(symbol='W'),
-                Element(symbol='Zn'),
-                Element(symbol='Zr'),
-                Element(symbol='Ce'),
-                Element(symbol='Cr'),
-                Element(symbol='Fe'),
-                Element(symbol='Pb'),
-                Element(symbol='S'),
-                Element(symbol='Sr'),
-                Element(symbol='Ar'),
-                Element(symbol='C'),
-                Element(symbol='K'),
-                Element(symbol='Mg'),
-                Element(symbol='Ne'),
-                Element(symbol='Si'),
-                Element(symbol='U'),
-                Element(symbol='Ag'),
-                Element(symbol='B'),
-                Element(symbol='Br'),
-                Element(symbol='Cl'),
-                Element(symbol='Cu'),
-                Element(symbol='Eu'),
-                Element(symbol='Ga'),
-                Element(symbol='H'),
-                Element(symbol='He'),
-                Element(symbol='In'),
-                Element(symbol='Ir'),
-                Element(symbol='La'),
-                Element(symbol='Li'),
-                Element(symbol='Lu'),
-                Element(symbol='N'),
-                Element(symbol='Rb'),
-                Element(symbol='Re'),
-                Element(symbol='Sb'),
-                Element(symbol='Ta'),
-                Element(symbol='Tl'),
-                Element(symbol='V'),
-                Element(symbol='Be'),
-                Element(symbol='O'),
-                Element(symbol='F'),
-                Element(symbol='Na'),
-                Element(symbol='Al'),
-                Element(symbol='P'),
-                Element(symbol='Sc'),
-                Element(symbol='Mn'),
-                Element(symbol='Co'),
-                Element(symbol='As'),
-                Element(symbol='Y'),
-                Element(symbol='Nb'),
-                Element(symbol='Rh'),
-                Element(symbol='I'),
-                Element(symbol='Cs'),
-                Element(symbol='Pr'),
-                Element(symbol='Tb'),
-                Element(symbol='Ho'),
-                Element(symbol='Tm'),
-                Element(symbol='Au'),
-                Element(symbol='Bi'),
-                Element(symbol='Th'),
-                Element(symbol='Pa')
-                ]        
+        return [Element(e) for e in NAT_ELEMENT_SYMBOLS]
 
 class Element(Isotope):
     def __init__(self,*args,**kwargs):
@@ -1475,12 +1396,10 @@ class Material():
         self.material_card_name = kwargs.get('material_card_name',self.description)
 
         if self.elements == None:
-            print('A list of elements present within the material must be specified')
-            sys.exit()
+            raise ValueError('A list of elements present within the material must be specified')
 
         if self.atom_fractions == None and self.mass_fractions == None:
-            print('To make a material either atom_fractions or mass_fractions must be provided')
-            sys.exit()
+            raise ValueError('To make a material either atom_fractions or mass_fractions must be provided')
 
         if self.atom_fractions == None:
             self.atom_fractions  = self.find_atom_fractions_from_mass_fractions()
@@ -1489,8 +1408,7 @@ class Material():
             self.mass_fractions = self.find_mass_fractions_from_atom_fractions()
 
         if len(self.elements)!=len(self.atom_fractions):
-            print('When making a material please provide the same number of elements and atom/mass fractions')
-            sys.exit()
+            raise ValueError('When making a material please provide the same number of elements and atom/mass fractions')
 
         #if self.isotopes == None:
         self.isotopes = []
@@ -1564,7 +1482,7 @@ class Compound():
 
         self.fractions_coefficients= self.find_fractions_coefficients_in_chemical_equation(self.chemical_equation)
 
-        self.enriched_isotopes=kwargs.get('enriched_isotopes')
+        self.enriched_isotopes=kwargs.get('enriched_isotopes',None)
 
         self.elements = self.find_elements_in_chemical_equation(chemical_equation)
 

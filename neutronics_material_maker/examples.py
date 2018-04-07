@@ -427,6 +427,25 @@ Central_solenoid_m25=TF_Magnet_m25
 
 
 
+mat_He_in_coolant_plates = Compound('He',pressure_Pa=8.0E6,temperature_K=823 ,state_of_matter='liquid')
+mat_He_in_end_caps = mat_He_in_coolant_plates
+mat_He_in_first_walls = mat_He_in_coolant_plates
+mat_He_coolant_back_plate=mat_He_in_coolant_plates
+
+mat_cooling_plates_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_coolant_plates],
+                                                    volume_fractions=[0.727,0.273])
+
+print(mat_cooling_plates_homogenised.serpent_material_card())
+
+
+mat_end_caps_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_end_caps],
+                                              volume_fractions=[0.9,0.1])
+
+
+mat_first_wall_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_first_walls],
+                                                    volume_fractions=[0.727,0.273])
+
+
 
 
 
