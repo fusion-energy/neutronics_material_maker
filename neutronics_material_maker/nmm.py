@@ -302,8 +302,7 @@ class Isotope:
         if protons ==  116 : return 'Lv'
         if protons ==  117 : return 'Ts'
         if protons ==  118 : return 'Og'
-        print('proton number ' + str(protons) + ' not found')
-        sys.exit()
+        raise ValueError('proton number ' + str(protons) + ' not found')
 
     def find_protons_from_symbol(self,symbol):
         #print(symbol)
@@ -1093,8 +1092,7 @@ class Material():
 
     def serpent_material_card(self):
         if self.material_card_name == None:
-            print('material_card_name must be provided when making a serpent_material_card from a material')
-            sys.exit()
+            raise ValueError('material_card_name must be provided when making a serpent_material_card from a material')
 
         if self.density_g_per_cm3 == None and self.density_atoms_per_barn_per_cm == None:
 
@@ -1361,8 +1359,7 @@ class Homogenised_mixture():
         self.volume_fractions=kwargs.get('volume_fractions')
 
         if self.volume_fractions == None and self.mass_fractions == None:
-            print('volume_fractions or mass_fractions must be provided')
-            sys.exit()
+            raise ValueError('volume_fractions or mass_fractions must be provided')
 
         if self.volume_fractions == None:
             self.volume_fractions = self.find_volume_fractions_from_mass_fractions()
@@ -1378,8 +1375,7 @@ class Homogenised_mixture():
         
     def find_volume_fractions_from_mass_fractions(self):
         if sum(self.mass_fractions) > 1.0:
-            print('provided mass fractions should sum to 1 not ', sum(self.volume_fractions))
-            sys.exit()
+            raise ValueError('provided mass fractions should sum to 1 not ', sum(self.volume_fractions))
 
         list_of_non_normalised_volume_fractions = []
         cumlative_vol_fraction=0
@@ -1396,8 +1392,7 @@ class Homogenised_mixture():
         
     def find_mass_fractions_from_volume_fractions(self):
         if sum(self.volume_fractions) > 1.0:
-            print('provided volume fractions should sum to 1 not ',sum(self.volume_fractions))
-            sys.exit()
+            raise ValueError('provided volume fractions should sum to 1 not ',sum(self.volume_fractions))
 
         list_of_non_normalised_mass_fractions = []
         cumlative_mass_fraction = 0
