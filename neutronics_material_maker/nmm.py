@@ -1475,12 +1475,12 @@ class Material():
         self.material_card_name = kwargs.get('material_card_name',self.description)
 
         if self.elements == None:
-            print('A list of elements present within the material must be specified')
-            sys.exit()
+            raise ValueError('A list of elements present within the material '
+                             'must be specified')
 
         if self.atom_fractions == None and self.mass_fractions == None:
-            print('To make a material either atom_fractions or mass_fractions must be provided')
-            sys.exit()
+            raise ValueError('To make a material either atom_fractions or '
+                             'mass_fractions must be provided')
 
         if self.atom_fractions == None:
             self.atom_fractions  = self.find_atom_fractions_from_mass_fractions()
@@ -1489,9 +1489,8 @@ class Material():
             self.mass_fractions = self.find_mass_fractions_from_atom_fractions()
 
         if len(self.elements)!=len(self.atom_fractions):
-            print('When making a material please provide the same number of elements and atom/mass fractions')
-            sys.exit()
-
+            raise ValueError('When making a material please provide the same '
+                             'number of elements and atom/mass fractions')
         #if self.isotopes == None:
         self.isotopes = []
         for element in self.elements:
@@ -1863,6 +1862,7 @@ class Homogenised_mixture():
             description_to_return = description_to_return + item.material_card_name + '_mf_' + str(frac)+'_'
         return description_to_return[:-1]
 
+    @classmethod
     def serpent_material_card(self):
         comment = '%  '
 
