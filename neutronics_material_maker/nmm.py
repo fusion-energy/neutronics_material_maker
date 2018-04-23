@@ -178,10 +178,13 @@ class Isotope:
         nat_abun = elements_df.loc[elements_df['symbol']==symbol]['natural_adundance']
         nat_atom =elements_df.loc[elements_df['symbol']==symbol]['natural_atomic_number']
         nat_atom= list(nat_atom.values)[0]
-        index = nat_atom.index(atomic_number)
-        nat_abun = list(nat_abun.values)[0]
+        if atomic_number in nat_atom:
+            index = nat_atom.index(atomic_number)
+            nat_abun = list(nat_abun.values)[0]
 
-        return nat_abun[index]
+            return nat_abun[index]
+        else:
+            return 0.0
 
     def find_symbol_from_protons(self,protons):
         if protons ==  1 : return 'H'

@@ -12,6 +12,7 @@
 - [Making Compounds](#making-compounds)
 - [Making Materials](#making-materials)
 - [Making Homogenised_mixtures](#making-homogenised_mixtures)
+- [Examples](#examples)
 - [Todo](#todo)
 
 
@@ -439,6 +440,15 @@ $ example_mat =Homogenised_mixture(mixtures=[mat_Nb3Sn,mat_void],
 $ example_mat.density_g_per_cm3
 >>>4.455
 ```
+
+# <a name="examples"></a>Examples
+Some example materials are available for importing
+
+```python
+$ from neutronics_material_maker.examples import *
+```
+
+The examples include Li4SiO4, Li2SiO3, Li2ZrO3, Li2TiO3, Be12Ti, Ba5Pb3, Nd5Pb4, Zr5Pb3, Lithium_Lead, Tungsten, Eurofer, SS316LN_IG, Bronze, Glass_fibre, Epoxy, CuCrZr, DT plasma and Void. The construction of these materials can be seen in the [examples.py](https://github.com/ukaea/neutronics_material_maker/blob/master/neutronics_material_maker/examples.py) file
 
 # <a name="todo"></a>Todos
  - Write MORE Tests and improve code coverage

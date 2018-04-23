@@ -1,6 +1,6 @@
 
-from nmm import *
-#from neutronics_material_maker.nmm import *
+# from nmm import *
+from neutronics_material_maker.nmm import *
 
 
 
