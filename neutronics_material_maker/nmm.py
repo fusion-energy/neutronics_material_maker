@@ -914,10 +914,6 @@ class Natural_Isotopes():
         return all_isotopes
             #self.find_natural_isotopes_from_symbol(element.symbol) for element in ]
 
-
-
-
-
 class Natural_Elements():
     def __init__(self,**kwargs):
 
