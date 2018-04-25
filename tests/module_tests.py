@@ -7,6 +7,7 @@ from neutronics_material_maker.nmm import *
 import random
 import unittest
 import pytest
+import math
 
 
 
@@ -14,7 +15,7 @@ import pytest
 class Isotope_tests(unittest.TestCase):
 
     def test_isotopes_class_name(self):
-        example_iso = Isotope(symbol='Li',atomic_number=6)
+        example_iso = Isotope(symbol='Li',nucleons=6)
         print(example_iso.classname)
         assert example_iso.classname=='Isotope'
 
@@ -40,7 +41,7 @@ class Isotope_tests(unittest.TestCase):
 
     def test_isotope_atomic_number(self):
         new_isotope = Isotope('Li',7)    
-        assert new_isotope.atomic_number == 7
+        assert new_isotope.nucleons == 7
 
     # def test_isotope_symbol_setting():
 
@@ -49,12 +50,12 @@ class Isotope_tests(unittest.TestCase):
     # def test_isotope_protons_setting():
 
     def test_material_card_name(self):
-        example_iso = Isotope(symbol='Li',atomic_number=6)
+        example_iso = Isotope(symbol='Li',nucleons=6)
         assert example_iso.material_card_name == 'Lithium_6'
 
     def test_failed_isotope_creation(self):
         with pytest.raises(ValueError):
-            example_iso = Isotope(atomic_number=6) # not enough information provided, should fail
+            example_iso = Isotope(nucleons=6) # not enough information provided, should fail
 
 class Element_tests(unittest.TestCase):
 
@@ -73,7 +74,7 @@ class Element_tests(unittest.TestCase):
 
     def test_element_molar_mass_g(self):
         new_element = Element('Fe')
-        assert new_element.molar_mass_g == 55.845144433865904
+        assert math.isclose(new_element.molar_mass_g, 55.845144433865904)
 
     def test_element_isotopes(self):
         new_element = Element('Fe')
@@ -127,7 +128,7 @@ class Compound_tests(unittest.TestCase):
         assert new_compound.packing_fraction == 0.64
 
     def test_compound_creation_broken(self):
-        with pytest.raises(ValueError):
+        with pytest.raises(KeyError):
             z = Compound('zzzz', density_g_per_cm3=1)
             test_mat_card = z.serpent_material_card()
 
