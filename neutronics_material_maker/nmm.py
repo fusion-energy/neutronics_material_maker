@@ -106,8 +106,8 @@ class Isotope(Base):
         if self.symbol is None:
             self.symbol = self.find_symbol_from_protons()
         self.element_name = self.find_element_name()       
-        self.name = self.element_name +'_'+ str(self.nucleons)
-        self.material_card_name = self.name  #TODO
+        self.name = self.element_name+'_'+str(self.nucleons)
+        self.material_card_name = self.name  # TODO
         self.neutrons = self.nucleons-self.protons
         self.mass_amu = NDATA[(NDATA['Proton number'] == self.protons) & 
                               (NDATA['Nucleon number'] == self.nucleons)]['Mass amu'][0]
