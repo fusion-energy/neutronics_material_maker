@@ -184,7 +184,7 @@ class Isotope(Base):
 
 
 class Element(Isotope):
-    def __init__(self,*args,**kwargs):
+    def __init__(self, *args, **kwargs):
 
         if len(args)==1:
             protons_or_symbol=args[0]
@@ -239,7 +239,7 @@ class Element(Isotope):
                              'abundance must sum to 1.0')
         return self.isotopes
 
-    def find_natural_isotopes_in_element_from_symbol(self,symbol):
+    def find_natural_isotopes_in_element_from_symbol(self, symbol):
         isotopes_to_return = []
         isotopes = NAT_NDATA.loc[self.symbol]['Nucleon number']
         if isinstance(isotopes, np.float64):
@@ -285,7 +285,13 @@ class Material(Base):
             raise ValueError('A list of elements present within the material '
                              'must be specified.')
 
-        if self.atom_fractions is None and self.mass_fractions is None:
+        self.material_card_name = kwargs.get('material_card_name',self.description)
+
+        if self.elements == None:
+            raise ValueError('A list of elements present within the material '
+                             'must be specified.')
+
+        if self.atom_fractions == None and self.mass_fractions == None:
             raise ValueError('To make a material either atom_fractions or '
                              'mass_fractions must be provided.')
 
@@ -555,7 +561,7 @@ class Homogenised_mixture(Base):
         cumlative_density = 0
         for mixture, volume in zip(mixtures,volume_fractions):
             cumlative_density = cumlative_density + (mixture.density_g_per_cm3 * volume)
-        # todo allow density combinations involving atom_per_barn_cm2
+        # TODO: allow density combinations involving atom_per_barn_cm2
         return cumlative_density
 
     def find_material_card_name_with_volume_fractions(self):
@@ -589,7 +595,7 @@ class Homogenised_mixture(Base):
                 n_a_item = item.density_g_per_cm3/(a*1.66054e-24)
                 # Number_of_atoms_per_cm3_of_mix
                 n_a_mix = n_a_item*v_f/7.66e22
-                mat_card += comment+'\n'+comment+mix.material_card_name + \
+                mat_card += comment+'\n'+comment+item.material_card_name + \
                     ' with a density of '+str(item.density_g_per_cm3) + \
                     ' g per cm3 \n'
                 mat_card += comment+'volume fraction of '+str(v_f)+' \n'
