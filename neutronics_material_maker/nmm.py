@@ -1,5 +1,6 @@
 import re
 import numpy as np
+import math
 from pandas import DataFrame
 
 NDATA = DataFrame.from_csv('nuclear_data.csv', index_col='Symbol')
@@ -55,8 +56,7 @@ class Base(object):
                              'density_g_per_cm3 or '
                              'density_atoms_per_barn_per_cm must be provided.')
         if self.density_g_per_cm3 is None:
-            density = '  '+str(self.density_atoms_per_barn_per_cm *
-                               self.packing_fraction)
+            density = '  '+str(self.density_atoms_per_barn_per_cm*self.packing_fraction)
         else:
             density = '  '+str(self.density_g_per_cm3*self.packing_fraction)
         color = color_manager(color)
@@ -212,6 +212,7 @@ class Element(Isotope):
         else:
             self.isotopes = self.check_enriched_isotopes_in_element()
 
+        self.packing_fraction=kwargs.get('packing_fraction', 1.0)
         self.density_g_per_cm3 = kwargs.get('density_g_per_cm3')
         self.density_atoms_per_barn_per_cm = kwargs.get('density_atoms_per_barn_per_cm')
 
@@ -509,6 +510,8 @@ class Homogenised_mixture(Base):
         self.mixtures = mixtures
         self.mass_fractions = kwargs.get('mass_fractions')
         self.volume_fractions = kwargs.get('volume_fractions')
+        self.packing_fraction=kwargs.get('packing_fraction', 1.0)
+        # self.packing_fractions=self.find_packing_fractions_of_mixtures(self.mixtures)
 
         if self.volume_fractions is None and self.mass_fractions is None:
             raise ValueError('volume_fractions or mass_fractions must be '
@@ -523,8 +526,8 @@ class Homogenised_mixture(Base):
         self.density_g_per_cm3 = self.find_density_g_per_cm3(self.mixtures,self.volume_fractions)
         
     def find_volume_fractions_from_mass_fractions(self):
-        if sum(self.mass_fractions) != 1.0:
-            raise ValueError('Provided mass fractions should sum to 1 not ',
+        if math.isclose(sum(self.mass_fractions), 1.0,rel_tol=1e-09)==False:
+            raise ValueError('The provided mass fractions should sum to 1 not ',
                              sum(self.volume_fractions))
 
         list_of_non_normalised_volume_fractions = []
@@ -541,8 +544,9 @@ class Homogenised_mixture(Base):
         return normalised_volume_fractions
         
     def find_mass_fractions_from_volume_fractions(self):
-        if sum(self.volume_fractions) != 1.0:
-            raise ValueError('provided volume fractions should sum to 1 not ',
+        if math.isclose(sum(self.volume_fractions), 1.0,rel_tol=1e-09)==False:
+        #if sum(self.volume_fractions) != 1.0:
+            raise ValueError('The provided volume fractions should sum to 1 not ',
                              sum(self.volume_fractions))
         list_of_non_normalised_mass_fractions = []
         cumlative_mass_fraction = 0
@@ -560,7 +564,7 @@ class Homogenised_mixture(Base):
     def find_density_g_per_cm3(self,mixtures,volume_fractions):
         cumlative_density = 0
         for mixture, volume in zip(mixtures,volume_fractions):
-            cumlative_density = cumlative_density + (mixture.density_g_per_cm3 * volume)
+            cumlative_density = cumlative_density + (mixture.density_g_per_cm3 * volume *mixture.packing_fraction)
         # TODO: allow density combinations involving atom_per_barn_cm2
         return cumlative_density
 
@@ -569,6 +573,13 @@ class Homogenised_mixture(Base):
         for item, vol_frac in zip(self.mixtures,self.volume_fractions):
             description_to_return += item.material_card_name+'_vf_'+str(vol_frac)+'_'
         return  description_to_return[:-1]
+
+    # def find_packing_fractions_of_mixtures(self,mixtures):
+    #     packing_fractions=[]
+    #     print(self.mixtures)
+    #     for mixture, in mixtures:
+    #         packing_fractions.append(mixture.packing_fraction)
+    #     return  packing_fractions      
 
     def find_material_card_name_with_mass_fractions(self):
         description_to_return = ''
@@ -598,6 +609,7 @@ class Homogenised_mixture(Base):
                 mat_card += comment+'\n'+comment+item.material_card_name + \
                     ' with a density of '+str(item.density_g_per_cm3) + \
                     ' g per cm3 \n'
+                mat_card += comment+'packing fraction of '+str(item.packing_fraction)+' \n'
                 mat_card += comment+'volume fraction of '+str(v_f)+' \n'
                 mat_card += comment+'mass fraction of '+str(m_f)+' \n'
                 for i, a_f in zip(item.isotopes, item.isotope_fractions):
