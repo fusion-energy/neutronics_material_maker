@@ -97,7 +97,7 @@ class Isotope(Base):
         if self.nucleons is None:
             raise ValueError('To create an Isotope provide an nucleon number.')
 
-        if self.protons is None and self.symbol is None: 
+        if self.protons is None and self.symbol is None:
             raise ValueError('To create an Isotope provide either protons or '
                              'symbol please.')
         if self.protons is None:
@@ -105,7 +105,7 @@ class Isotope(Base):
         self._sanity()
         if self.symbol is None:
             self.symbol = self.find_symbol_from_protons()
-        self.element_name = self.find_element_name()       
+        self.element_name = self.find_element_name()
         self.name = self.element_name+'_'+str(self.nucleons)
         self.material_card_name = self.name  # TODO
         self.neutrons = self.nucleons-self.protons

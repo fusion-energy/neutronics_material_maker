@@ -371,8 +371,16 @@ class PureCopper(MfMaterial):
         '''
         T = KtoC(T)
         return 584-5.04e-2*T-5e-6*T**2
-    
-    
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(950))
+    def Su(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 92
+        '''
+        T = KtoC(T)
+        return 212-2.94e-1*T+8.17e-5*T**2
+
 
 class CuCrZr(MfMaterial):
     '''
@@ -383,7 +391,7 @@ class CuCrZr(MfMaterial):
           'Cr': 0.1,
           'Zr': 0.1}
     brho = None
-    rho = None
+    rho = 8.9
 
     @staticmethod
     @matproperty(Tmin=CtoK(20), Tmax=CtoK(700))
@@ -423,20 +431,6 @@ class CuCrZr(MfMaterial):
         '''
         T = KtoC(T)
         return 2.11e-7*T**3-2.83e-4*T**2-1.38e-1*T+323
-
-    @staticmethod
-    @matproperty(Tmin=CtoK(20), Tmax=CtoK(700))
-    def E(T: 'Kelvin'):
-        '''
-        ITER_D_222RLN v3.3 Equation 96
-        '''
-        T = KtoC(T)
-        return
-
-
-
-
-
 
 
 class Tungsten(MfMaterial):
