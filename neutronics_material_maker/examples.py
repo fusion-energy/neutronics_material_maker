@@ -5,6 +5,9 @@ from neutronics_material_maker.nmm import *
 
 
 
+
+
+
 mat_Li4SiO4 = Compound('Li4SiO4',
                        volume_of_unit_cell_cm3=1.1543e-21,
                        atoms_per_unit_cell=14,
@@ -432,9 +435,23 @@ mat_He_in_end_caps = mat_He_in_coolant_plates
 mat_He_in_first_walls = mat_He_in_coolant_plates
 mat_He_coolant_back_plate=mat_He_in_coolant_plates
 
+
+mat_mixed_pebble_bed = Homogenised_mixture(mixtures=[mat_Be,mat_Li4SiO4],
+                                            volume_fractions=[0.5,0.5])
+
+
+print('density = ',mat_Be.density_g_per_cm3)
+print('density = ',mat_Li4SiO4.density_g_per_cm3)
+print('density = ',mat_mixed_pebble_bed.density_g_per_cm3)
+print(mat_mixed_pebble_bed.serpent_material_card())
+print(mat_mixed_pebble_bed.packing_fraction)
+
+
+
 mat_cooling_plates_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_coolant_plates],
                                                     volume_fractions=[0.727,0.273])
 
+print('density = ',mat_cooling_plates_homogenised.density_g_per_cm3)
 print(mat_cooling_plates_homogenised.serpent_material_card())
 
 
@@ -446,13 +463,16 @@ mat_first_wall_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_
                                                     volume_fractions=[0.727,0.273])
 
 
+Element(symbol='W',density_g_per_cm3=5, packing_fraction=0.9).serpent_material_card()
 
 
-
-
-
-
-
+mat_mixed_pebble_bed = Homogenised_mixture(mixtures=[mat_Be,mat_Li4SiO4],
+                                            volume_fractions=[0.6,0.4])
+mix1 = mat_Be.density_g_per_cm3*mat_Be.packing_fraction*0.6
+mix2 = mat_Li4SiO4.density_g_per_cm3*mat_Li4SiO4.packing_fraction*0.4
+print(mat_mixed_pebble_bed.density_g_per_cm3 )
+print(mix1+mix2)
+    
 
 # ace_files_needed = []
 # for mat in [Central_solenoid_m25,TF_Casing_m50,TF_Magnet_m25,ShieldPort_m60,VV_Body_m60,divertor_layer_4_m75,divertor_layer_2_m74,divertor_layer_1_m15]:

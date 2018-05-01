@@ -19,6 +19,7 @@ from tests.module_tests import Isotope_tests
 from tests.module_tests import Element_tests
 from tests.module_tests import Material_tests
 from tests.module_tests import Compound_tests
+from tests.module_tests import Homogenised_mixture_tests
 
 def main():
     unittest.TextTestRunner(verbosity=3).run(unittest.TestSuite())
