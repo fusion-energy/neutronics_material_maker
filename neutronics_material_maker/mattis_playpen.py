@@ -76,6 +76,12 @@ class MfMaterial(Material):
                          elements=[Element(e) for e in self.mf.keys()],
                          mass_fractions=self.mf.values())
 
+    def mu(T):
+        '''
+        Poisson's ratio
+        '''
+        return 0.33
+
     def k(T):
         '''
         Thermal conductivity in W.m/K
@@ -105,10 +111,28 @@ class MfMaterial(Material):
         Mass density in kg/m**3
         '''
         raise NotImplementedError
-        
+
     def Sy(T):
         '''
         Minimum yield stress in MPa
+        '''
+        raise NotImplementedError
+
+    def Savg(T):
+        '''
+        Average yield stress in MPa
+        '''
+        raise NotImplementedError
+
+    def Su(T):
+        '''
+        Minimum ultimate tensile stress in MPa
+        '''
+        raise NotImplementedError
+
+    def Suavg(T):
+        '''
+        Average ultimate tensile stress in MPa
         '''
         raise NotImplementedError
 
@@ -235,6 +259,185 @@ class SS316LN(MfMaterial):
         return (225.75-0.73683*T+2.5036e-3*T**2-5.4546e-6*T**3 +
                 6.4366e-9*T**4-3.029e-12*T**5)
 
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(700))
+    def Syavg(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 44
+        '''
+        T = KtoC(T)
+        return 1.28*(225.75-0.73683*T+2.5036e-3*T**2-5.4546e-6*T**3 +
+                     6.4366e-9*T**4-3.029e-12*T**5)
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(50), Tmax=CtoK(650))
+    def Su(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 47
+        '''
+        T = KtoC(T)
+        return (529.75-0.95180*T+2.5732e-3*T**2-2.3316e-6*T**3-4.3944e-10*T**4
+                + 3.4942e-13*T**5)
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(50), Tmax=CtoK(650))
+    def Suavg(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 47
+        '''
+        T = KtoC(T)
+        return (529.75-0.95180*T+2.5732e-3*T**2-2.3316e-6*T**3-4.3944e-10*T**4
+                + 3.4942e-13*T**5)*1.112
+
+
+class PureCopper(MfMaterial):
+    '''
+    Pure Copper as per ITER materials.
+    '''
+    name = 'Pure Cu'
+    mf = {'Cu': 0.9999075,
+          'Sb': 4e-6,
+          'As': 5e-6,
+          'Bi': 1e-6,
+          'Cd': 1e-6,
+          'Fe': 10e-6,
+          'Pb': 5e-6,
+          'Mn': 0.5e-6,
+          'Ni': 10e-6,
+          'O': 5e-6,
+          'P': 3e-6,
+          'Se': 3e-6,
+          'Ag': 25e-6,
+          'S': 15e-6,
+          'Te': 2e-6,
+          'Sn': 2e-6,
+          'Zn': 1e-6}
+    rho = None
+    brho = None
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(900))
+    def CTE(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 83
+        '''
+        T = KtoC(T)
+        return 16.73+5.26e-3*T-5.53e-6*T**2+4.2e-9*T**3
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(400))
+    def E(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 84
+        '''
+        T = KtoC(T)
+        return 117-2.17e-2*T-6.29e-5*T**2
+
+    @staticmethod
+    def mu(T): return 0.33
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(900))
+    def rho(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 85
+        '''
+        T = KtoC(T)
+        return (T-20)*8490*(1-3e-6*()-2.49e-9*T**3+8.18e-6*T**2+3.16e-3*T+168)
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(1000))
+    def k(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 86
+        '''
+        T = KtoC(T)
+        return 402+2.46e-6*T**2-7.08e-2*T
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(1000))
+    def Cp(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 87
+        '''
+        T = KtoC(T)
+        return 387+4.36e-5*T**2+6.35e-2*T
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(950))
+    def Sy(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 91
+        '''
+        T = KtoC(T)
+        return 584-5.04e-2*T-5e-6*T**2
+    
+    
+
+class CuCrZr(MfMaterial):
+    '''
+    Copper-Chrome-Zirconium alloy - ITER-grade
+    '''
+    name = 'CuCrZr'
+    mf = {'Cu': 0.8,  # TOTAL GUESS - SEEMS TO BE NO STANDARD???
+          'Cr': 0.1,
+          'Zr': 0.1}
+    brho = None
+    rho = None
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(700))
+    def E(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 96
+        '''
+        T = KtoC(T)
+        return 128-2.59e-2*T-4.87e-5*T**2
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(600))
+    def CTE(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Table A.S31.2.1-1
+        '''
+        T = KtoC(T)
+        t = [20, 50, 100, 150, 200, 250, 300, 400, 450, 500, 550, 600]
+        a = [16.7, 17, 17.3, 17.5, 17.7, 17.8, 18, 18.1, 18.2, 18.4, 18.5,
+             18.6]
+        return interp_1D(CtoK(t), a, T)
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(700))
+    def rho(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 97
+        '''
+        T = KtoC(T)
+        return (T-20)*8900*(1-3e-6*(7.2e-9*T**3-9.05e-6*T**2+6.24e-3*T+16.6))
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(700))
+    def k(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 98
+        '''
+        T = KtoC(T)
+        return 2.11e-7*T**3-2.83e-4*T**2-1.38e-1*T+323
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(700))
+    def E(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 96
+        '''
+        T = KtoC(T)
+        return
+
+
+
+
+
+
 
 class Tungsten(MfMaterial):
     name = 'Tungsten'
@@ -356,9 +559,6 @@ class test_property(unittest.TestCase):
         a = self.S.rho([300, 400, 500])
         b = self.S.rho(np.array([300, 400, 500]))
         self.assertTrue((a-b).all() == 0)
-        
-    def test_values(self):
-        self.assertTrue(np.isclose(self.S.Sy(CtoK(100)), 172))
 
 
 
