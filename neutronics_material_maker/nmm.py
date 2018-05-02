@@ -1,9 +1,13 @@
 import re
 import numpy as np
 import math
+import pandas as pd
 from pandas import DataFrame
 
-NDATA = DataFrame.from_csv('nuclear_data.csv', index_col='Symbol')
+import pkg_resources
+
+nuclear_data_file_path=pkg_resources.resource_filename('neutronics_material_maker','nuclear_data.csv')
+NDATA = pd.read_csv(nuclear_data_file_path, index_col='Symbol')
 NAT_NDATA = NDATA[NDATA['Natural']]
 
 
@@ -13,6 +17,24 @@ def is_number(s):
         return True
     except (ValueError, TypeError) as e:
         return False
+
+
+
+def arevaluesthesame(value1, value2, relative_tolerance):
+
+    # Use math.isclose algorithm, it is better than numpy.isclose method.
+
+    # See https://github.com/numpy/numpy/issues/10161 for more on the discussion
+
+    # Since some python version don't come with math.isclose we implement it here directly
+
+    # ToDo: allow absolute_tolerance as input
+
+    absolute_tolerance = 0.0
+
+    return abs(value1 - value2) <= max(relative_tolerance * max(abs(value1), abs(value2)), absolute_tolerance)
+
+ 
 
 
 def find_prefered_library(zaid, xsdir):
@@ -177,7 +199,7 @@ class Isotope(Base):
             return n.unique()[0]
 
     def serpent_material_card(self, name=None, color=None):
-        mat_card = super().serpent_header(name, color)
+        mat_card = super(Isotope,self).serpent_header(name, color)
         mat_card += '   '+(self.zaid+self.nuclear_library).ljust(11) +\
             ' 1'.ljust(22)+' % '+self.name+'\n'
         return mat_card
@@ -261,7 +283,7 @@ class Element(Isotope):
         return element_mass
 
     def serpent_material_card(self, name=None, color=None):
-        mat_card = super().serpent_header(name, color)
+        mat_card = super(Element,self).serpent_header(name, color)
         for i in self.isotopes:
             mat_card += '   '+(i.zaid+i.nuclear_library).ljust(11)+' ' + \
                 str(i.abundance).ljust(22)+' % '+i.material_card_name+'\n'
@@ -327,7 +349,7 @@ class Material(Base):
         return list_of_mass_fractions
 
     def serpent_material_card(self, name=None, color=None):
-        mat_card = super().serpent_header(name, color)
+        mat_card = super(Material,self).serpent_header(name, color)
         for i, i_f in zip(self.isotopes, self.isotope_fractions):
             mat_card += '   '+(i.zaid + i.nuclear_library).ljust(11)+' ' + \
                 str(i_f).ljust(22)+' % '+i.name+'\n'
@@ -349,8 +371,8 @@ class Compound(Base):
         self.atoms_per_unit_cell = kwargs.get('atoms_per_unit_cell')
         self.temperature_K = kwargs.get('temperature_K')
         self.pressure_Pa = kwargs.get('pressure_Pa')
-        self.density_g_per_cm3 = kwargs.get('density_g_per_cm3')
-        self.density_atoms_per_barn_per_cm = kwargs.get('density_atoms_per_barn_per_cm')
+        self.density_g_per_cm3 = kwargs.get('density_g_per_cm3', None)
+        self.density_atoms_per_barn_per_cm = kwargs.get('density_atoms_per_barn_per_cm', None)
 
         self.fractions_coefficients = self.find_fractions_coefficients_in_chemical_equation(self.chemical_equation)
         self.elements = self.find_elements_in_chemical_equation(chemical_equation)
@@ -361,9 +383,9 @@ class Compound(Base):
         self.molar_mass = self.find_molar_mass()
 
         self.average_atom_mass = self.find_average_atom_mass()
-        if self.density_g_per_cm3 is None:
+        if self.density_g_per_cm3 == None:
             self.density_g_per_cm3 = self.find_density_g_per_cm3()
-        if self.density_atoms_per_barn_per_cm is None:
+        if self.density_atoms_per_barn_per_cm == None:
             self.density_atoms_per_barn_per_cm = self.find_density_atoms_per_barn_per_cm()
 
     def find_isotope_fractions_in_chemical_equation(self):
@@ -381,7 +403,7 @@ class Compound(Base):
         return isotopes
 
     def serpent_material_card(self, name=None, color=None):
-        mat_card = super().serpent_header(name, color)
+        mat_card = super(Compound,self).serpent_header(name, color)
         for i, i_f in zip(self.isotopes, self.isotope_fractions):
             mat_card += '   '+(i.zaid+i.nuclear_library).ljust(11)+' ' + \
                 str(i_f).ljust(22)+' % '+i.material_card_name+'\n'
@@ -526,7 +548,7 @@ class Homogenised_mixture(Base):
         self.density_g_per_cm3 = self.find_density_g_per_cm3(self.mixtures,self.volume_fractions)
         
     def find_volume_fractions_from_mass_fractions(self):
-        if math.isclose(sum(self.mass_fractions), 1.0,rel_tol=1e-09)==False:
+        if arevaluesthesame(sum(self.mass_fractions), 1.0,1e-09)==False:
             raise ValueError('The provided mass fractions should sum to 1 not ',
                              sum(self.volume_fractions))
 
@@ -544,7 +566,7 @@ class Homogenised_mixture(Base):
         return normalised_volume_fractions
         
     def find_mass_fractions_from_volume_fractions(self):
-        if math.isclose(sum(self.volume_fractions), 1.0,rel_tol=1e-09)==False:
+        if arevaluesthesame(sum(self.volume_fractions), 1.0,1e-09)==False:
         #if sum(self.volume_fractions) != 1.0:
             raise ValueError('The provided volume fractions should sum to 1 not ',
                              sum(self.volume_fractions))
@@ -589,7 +611,7 @@ class Homogenised_mixture(Base):
 
     def serpent_material_card(self, name=None, color=None):
         comment = '%  '
-        mat_card = super().serpent_header(name, color)
+        mat_card = super(Homogenised_mixture,self).serpent_header(name, color)
         for item, v_f, m_f in zip(self.mixtures, self.volume_fractions,
                                   self.mass_fractions):
             if item.isotopes == []:
