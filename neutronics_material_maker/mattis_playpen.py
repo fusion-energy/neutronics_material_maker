@@ -11,6 +11,8 @@ import unittest
 import numpy as np
 from functools import wraps  # TODO: Improve wrapper syntax. Looks ugly
 from scipy.interpolate import interp1d
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 
 def list_array(list_):
@@ -135,6 +137,200 @@ class MfMaterial(Material):
         Average ultimate tensile stress in MPa
         '''
         raise NotImplementedError
+
+
+class NbTiSuperconductor(MfMaterial):
+    mf = None
+    name = None
+    rho = None
+    brho = None
+    # Superconducting parameterisation
+    C_0 = None
+    Bc_20 = None
+    Tc_0 = None
+    alpha = None
+    beta = None
+    gamma = None
+
+    def Bc2(self, T):
+        return self.Bc_20*(1-(T/self.Tc_0)**1.7)
+
+    def Jc(self, B, T):
+        '''
+        Critical current
+        '''
+        return (self.C_0/B*(1-(T/self.Tc_0)**1.7)**self.gamma *
+                (B/self.Bc2(T))**self.alpha *
+                (1-(B/self.Bc2(T)))**self.beta)
+
+    def plot_SC(self, Bmin, Bmax, Tmin, Tmax, n=101, m=100):
+        jc = np.zeros([m, n])
+        B = np.linspace(Bmin, Bmax, n)
+        T = np.linspace(Tmin, Tmax, m)
+        for j, b in enumerate(B):
+            for i, t in enumerate(T):
+                jc[i, j] = self.Jc(b, t)
+        fig = plt.figure()
+        B, T = np.meshgrid(B, T)
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(B, T, jc, cmap=plt.cm.viridis)
+        ax.view_init(30, 45)
+
+class NbTi(NbTiSuperconductor):
+    mf = {'Al': 1}
+    name = 'NbTi'
+    rho = None
+    brho = None
+    # Superconducting parameterisation
+    C_0 = 168512
+    Bc_20 = 14.61
+    Tc_0 = 9.03
+    alpha = 1
+    beta = 1.54
+    gamma = 2.1
+
+
+class NbSnSuperconductor(MfMaterial):
+    mf = None
+    name = None
+    rho = None
+    brho = None
+    # Superconducting parameterisation
+    C_a1 = None
+    C_a2 = None
+    eps_0a = None
+    eps_m = None
+    B_c20m = None
+    T_c0max = None
+    C = None
+    p = None
+    q = None
+
+    def __init__(self):
+        super().__init__()
+        self.eps_sh = self.C_a2*self.eps_0a/np.sqrt(self.C_a1**2-self.C_a2**2)
+
+    def Tc_star(self, B, eps):
+        '''
+        Critical temperature \n
+        :math:`T_{C}^{*}(B, {\epsilon}) = T_{C0max}^{*}s({\epsilon})^{1/3}
+        (1-b_{0})^{1/1.52}`
+        '''
+        if B == 0:
+            return self.T_c0max*self.s(eps)**(1/3)
+        else:
+            b = (1-self.Bc2_star(0, eps))**(1/1.52j)
+            b = self._handle_ij(b)
+            return self.T_c0max*self.s(eps)**(1/3) * b
+
+    def Bc2_star(self, T, eps):
+        '''
+        Critical field \n
+        :math:`B_{C}^{*}(T, {\epsilon}) = B_{C20max}^{*}s({\epsilon})
+        (1-t^{1.52})`
+        '''
+        if T == 0:
+            return self.B_c20m*self.s(eps)
+        else:
+            return self.B_c20m*self.s(eps)*(1-(self.t152(T, eps)))
+
+    def Jc(self, B, T, eps):
+        '''
+        Critical current \n
+        :math:`j_{c} = \\frac{C}{B}s({\epsilon})(1-t^{1.52})(1-t^{2})b^{p}
+        (1-b)^{q}`
+        '''
+        b = self.b(B, T, eps)
+        t = self.t(T, eps)
+        return ((self.C/B*self.s(eps)*(1-self.t152(T, eps)) *
+                 (1-t**2)*b**self.p)*(1-b**self.q))
+
+    def t152(self, T, eps):
+        # 1.52 = 30000/19736
+        t = self.t(T, eps)**1.52j
+        t = self._handle_ij(t)
+        return t
+
+    def t(self, T, eps):
+        '''
+        Reduced temperature \n
+        :math:`t = \\frac{T}{T_{C}^{*}(0, {\epsilon})}`
+        '''
+        return T/self.Tc_star(0, eps)
+
+    def b(self, B, T, eps):
+        '''
+        Reduced magnetic field \n
+        :math:`b = \\frac{B}{B_{C2}^{*}(0,{\epsilon})}`
+        '''
+        return B/self.Bc2_star(T, eps)
+
+    def s(self, eps):
+        '''
+        Strain function \n
+        :math:`s({\epsilon}) = 1+ \\frac{1}{1-C_{a1}{\epsilon}_{0,a}}[C_{a1}
+        (\sqrt{{\epsilon}_{sk}^{2}+{\epsilon}_{0,a}^{2}}-\sqrt{({\epsilon}-
+        {\epsilon}_{sk})^{2}+{\epsilon}_{0,a}^{2}})-C_{a2}{\epsilon}]`
+        '''
+        return (1+1/(1-self.C_a1*self.eps_0a)*(self.C_a1 *
+                (np.sqrt(self.eps_sh**2+self.eps_0a**2) -
+                 np.sqrt((eps-self.eps_sh)**2+self.eps_0a**2)) -
+                 self.C_a2*eps))
+
+    @staticmethod
+    def _handle_ij(number):
+        '''
+        Takes the real part of the imagniary number that results from
+        exponing a negative number with a fraction
+        '''
+        return number.real
+        #return np.sqrt(number.real**2+number.imag**2)
+
+    def plot_SC(self, Bmin, Bmax, Tmin, Tmax, eps, n=101, m=100):
+        jc = np.zeros([m, n])
+        B = np.linspace(Bmin, Bmax, n)
+        T = np.linspace(Tmin, Tmax, m)
+        for j, b in enumerate(B):
+            for i, t in enumerate(T):
+                jc[i, j] = self.Jc(b, t, eps)
+        fig = plt.figure()
+        B, T = np.meshgrid(B, T)
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(B, T, jc, cmap=plt.cm.viridis)
+        ax.view_init(30, 45)
+
+
+class Nb3Sn(NbSnSuperconductor):
+    name = 'Nb3Sn - WST'
+    mf = {'Al': 1}
+    rho = None
+    brho = None
+    # WST strand
+    C_a1 = 50.06
+    C_a2 = 0
+    eps_0a = 0.312
+    eps_m = -0.059
+    B_c20m = 33.24
+    T_c0max = 16.34
+    C = 83075
+    p = .593
+    q = 2.156
+    
+class Nb3Sn_2(NbSnSuperconductor):
+    name = 'Nb3Sn - EUTF4'
+    mf = {'Al': 1}
+    rho = None
+    brho = None
+    # EUTF4 strand
+    C_a1 = 45.74
+    C_a2 = 0
+    eps_0a = 0.256
+    eps_m = -0.110
+    B_c20m = 32.97
+    T_c0max = 16.06
+    C = 76189
+    p = .63
+    q = 2.1
 
 
 class EUROfer(MfMaterial):
@@ -544,7 +740,7 @@ class test_property(unittest.TestCase):
             a = self.W.k(CtoK([19, 30, 400, 1000, 1000]))
         with self.assertRaises(ValueError):
             a = self.W.k(CtoK([19, 30, 400, 1000, 1001]))
-            
+
     def test_interp(self):
         self.S.rho([300])
         self.S.rho(300)
@@ -560,8 +756,14 @@ if __name__ is '__main__':
     unittest.main()
     W = Tungsten()
     S = SS316LN()
-    #EUROfer.Cp(400)
-    #EUROfer.Cp(490)
-    #EUROfer.Cp(4000)
-    pass
+    N = Nb3Sn()
+    N_2 = Nb3Sn_2()
+    NT = NbTi()
+    
+    Bmin, Bmax = 3, 16
+    Tmin, Tmax = 2, 6
+    eps = -.66
+    N.plot_SC(Bmin, Bmax, Tmin, Tmax, eps)
+    N_2.plot_SC(Bmin, Bmax, Tmin, Tmax, eps)
+    NT.plot_SC(Bmin, Bmax, Tmin, Tmax)
     
