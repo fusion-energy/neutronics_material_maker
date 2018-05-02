@@ -153,11 +153,18 @@ class NbTiSuperconductor(MfMaterial):
     gamma = None
 
     def Bc2(self, T):
+        '''
+        Critical field \n
+        :math:`B_{C2}^{*}(T) = B_{C20}(1-(\\frac{T}{T_{C0}})^{1.7})`
+        '''
         return self.Bc_20*(1-(T/self.Tc_0)**1.7)
 
     def Jc(self, B, T):
         '''
-        Critical current
+        Critical current \n
+        :math:`j_{c}(B, T) = \\frac{C_{0}}{B}(1-(\\frac{T}{T_{C0}})^{1.7})
+        ^{\gamma}(\\frac{B}{B_{C2}(T)})^{\\alpha}(1-(\\frac{B}{B_{C2}(T)}))
+        ^{\\beta}`
         '''
         return (self.C_0/B*(1-(T/self.Tc_0)**1.7)**self.gamma *
                 (B/self.Bc2(T))**self.alpha *
