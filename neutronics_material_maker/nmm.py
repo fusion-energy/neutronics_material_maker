@@ -1,9 +1,13 @@
 import re
 import numpy as np
 import math
+import pandas as pd
 from pandas import DataFrame
 
-NDATA = DataFrame.from_csv('nuclear_data.csv', index_col='Symbol')
+import pkg_resources
+
+nuclear_data_file_path=pkg_resources.resource_filename('neutronics_material_maker','nuclear_data.csv')
+NDATA = pd.read_csv(nuclear_data_file_path, index_col='Symbol')
 NAT_NDATA = NDATA[NDATA['Natural']]
 
 
@@ -349,8 +353,8 @@ class Compound(Base):
         self.atoms_per_unit_cell = kwargs.get('atoms_per_unit_cell')
         self.temperature_K = kwargs.get('temperature_K')
         self.pressure_Pa = kwargs.get('pressure_Pa')
-        self.density_g_per_cm3 = kwargs.get('density_g_per_cm3')
-        self.density_atoms_per_barn_per_cm = kwargs.get('density_atoms_per_barn_per_cm')
+        self.density_g_per_cm3 = kwargs.get('density_g_per_cm3', None)
+        self.density_atoms_per_barn_per_cm = kwargs.get('density_atoms_per_barn_per_cm', None)
 
         self.fractions_coefficients = self.find_fractions_coefficients_in_chemical_equation(self.chemical_equation)
         self.elements = self.find_elements_in_chemical_equation(chemical_equation)
@@ -361,9 +365,9 @@ class Compound(Base):
         self.molar_mass = self.find_molar_mass()
 
         self.average_atom_mass = self.find_average_atom_mass()
-        if self.density_g_per_cm3 is None:
+        if self.density_g_per_cm3 == None:
             self.density_g_per_cm3 = self.find_density_g_per_cm3()
-        if self.density_atoms_per_barn_per_cm is None:
+        if self.density_atoms_per_barn_per_cm == None:
             self.density_atoms_per_barn_per_cm = self.find_density_atoms_per_barn_per_cm()
 
     def find_isotope_fractions_in_chemical_equation(self):

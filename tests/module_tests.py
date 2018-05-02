@@ -136,6 +136,12 @@ class Compound_tests(unittest.TestCase):
             z = Compound('zzzz', density_g_per_cm3=1)
             test_mat_card = z.serpent_material_card()
 
+    def test_compound_material_card_creation(self):
+        new_compound = Compound('Li4SiO4',
+                       volume_of_unit_cell_cm3=1.1543e-21,
+                       atoms_per_unit_cell=14)
+        assert type(new_compound.serpent_material_card()) == str           
+
 
 
 class Material_tests(unittest.TestCase):

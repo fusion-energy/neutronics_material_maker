@@ -1,10 +1,5 @@
 
-# from nmm import *
 from neutronics_material_maker.nmm import *
-
-
-
-
 
 
 
@@ -13,7 +8,8 @@ mat_Li4SiO4 = Compound('Li4SiO4',
                        atoms_per_unit_cell=14,
                        packing_fraction=0.6,
                        enriched_isotopes=[Isotope('Li',7,abundance=0.6),Isotope('Li',6,abundance=0.4)])
-print(mat_Li4SiO4.serpent_material_card())
+print(type(mat_Li4SiO4.serpent_material_card()))
+
 
 mat_Li2SiO3 = Compound('Li2SiO3',
                        volume_of_unit_cell_cm3=0.23632e-21,
