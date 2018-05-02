@@ -1,6 +1,6 @@
 
 from neutronics_material_maker.nmm import *
-
+from pint import UnitRegistry
 
 
 mat_Li4SiO4 = Compound('Li4SiO4',
@@ -8,7 +8,7 @@ mat_Li4SiO4 = Compound('Li4SiO4',
                        atoms_per_unit_cell=14,
                        packing_fraction=0.6,
                        enriched_isotopes=[Isotope('Li',7,abundance=0.6),Isotope('Li',6,abundance=0.4)])
-print(type(mat_Li4SiO4.serpent_material_card()))
+#print(type(mat_Li4SiO4.serpent_material_card()))
 
 
 mat_Li2SiO3 = Compound('Li2SiO3',
@@ -16,14 +16,14 @@ mat_Li2SiO3 = Compound('Li2SiO3',
                        atoms_per_unit_cell=4,
                        packing_fraction=0.6,
                        enriched_isotopes=[Isotope('Li',7,abundance=0.6),Isotope('Li',6,abundance=0.4)])
-print(mat_Li2SiO3.serpent_material_card())
+#print(mat_Li2SiO3.serpent_material_card())
 
 mat_Li2ZrO3 = Compound('Li2ZrO3',
                        volume_of_unit_cell_cm3=0.24479e-21,
                        atoms_per_unit_cell=4,
                        packing_fraction=0.6,
                        enriched_isotopes=[Isotope('Li',7,abundance=0.6),Isotope('Li',6,abundance=0.4)])
-print(mat_Li2ZrO3.serpent_material_card())
+#print(mat_Li2ZrO3.serpent_material_card())
 
 
 mat_Li2TiO3 = Compound('Li2TiO3',
@@ -31,14 +31,14 @@ mat_Li2TiO3 = Compound('Li2TiO3',
                        atoms_per_unit_cell=8,
                        packing_fraction=0.6,
                        enriched_isotopes=[Isotope('Li',7,abundance=0.6),Isotope('Li',6,abundance=0.4)])
-print(mat_Li2TiO3.serpent_material_card())
+#print(mat_Li2TiO3.serpent_material_card())
 
 
 mat_Be = Compound('Be',
                   volume_of_unit_cell_cm3=0.01622e-21,
                   atoms_per_unit_cell=2,
                   packing_fraction=0.6)
-print(mat_Be.serpent_material_card())
+#print(mat_Be.serpent_material_card())
 
 
 mat_Be12Ti = Compound('Be12Ti',
@@ -46,7 +46,7 @@ mat_Be12Ti = Compound('Be12Ti',
                       atoms_per_unit_cell=2,
                       packing_fraction=0.6,
                       enriched_isotopes=[Isotope('Li',7,abundance=0.6),Isotope('Li',6,abundance=0.4)])
-print(mat_Be12Ti.serpent_material_card())
+#print(mat_Be12Ti.serpent_material_card())
 
 
 mat_Ba5Pb3 = Compound('Ba5Pb3',
@@ -54,7 +54,7 @@ mat_Ba5Pb3 = Compound('Ba5Pb3',
                       atoms_per_unit_cell=4,
                       packing_fraction=0.6,
                       enriched_isotopes=[Isotope('Li',7,abundance=0.6),Isotope('Li',6,abundance=0.4)])
-print(mat_Ba5Pb3.serpent_material_card())
+#print(mat_Ba5Pb3.serpent_material_card())
 
 
 mat_Nd5Pb4 = Compound('Nd5Pb4',
@@ -62,7 +62,7 @@ mat_Nd5Pb4 = Compound('Nd5Pb4',
                       atoms_per_unit_cell=4,
                       packing_fraction=0.6,
                       enriched_isotopes=[Isotope('Li',7,abundance=0.6),Isotope('Li',6,abundance=0.4)])
-print(mat_Nd5Pb4.serpent_material_card())
+#print(mat_Nd5Pb4.serpent_material_card())
 
 
 mat_Zr5Pb3 = Compound('Zr5Pb3',
@@ -70,7 +70,7 @@ mat_Zr5Pb3 = Compound('Zr5Pb3',
                       atoms_per_unit_cell=2,
                       packing_fraction=0.6,
                       enriched_isotopes=[Isotope('Li',7,abundance=0.6),Isotope('Li',6,abundance=0.4)])
-print(mat_Zr5Pb3.serpent_material_card())
+#print(mat_Zr5Pb3.serpent_material_card())
 
 
 mat_Zr5Pb4 = Compound('Zr5Pb4',
@@ -78,19 +78,14 @@ mat_Zr5Pb4 = Compound('Zr5Pb4',
                       atoms_per_unit_cell=2,
                       packing_fraction=0.6,
                       enriched_isotopes=[Isotope('Li',7,abundance=0.6),Isotope('Li',6,abundance=0.4)])
-print(mat_Zr5Pb4.serpent_material_card())
+#print(mat_Zr5Pb4.serpent_material_card())
 
 
 mat_Lithium_Lead = Compound('Pb84.2Li15.8',
                             density_atoms_per_barn_per_cm=3.2720171E-2,
                             enriched_isotopes=[Isotope('Li',7,abundance=0.247317371169),
                                                Isotope('Li',6,abundance=0.752682628831)])
-print(mat_Lithium_Lead.serpent_material_card())
-
-
-
-
-
+#print(mat_Lithium_Lead.serpent_material_card())
 
 
 mat_Tungsten = Material(material_card_name='Tungsten',
@@ -258,7 +253,6 @@ mat_Bronze = Material(material_card_name='Bronze',
 
 #print(mat_Bronze.serpent_material_card())
 
-#
 mat_Glass_fibre = Material(material_card_name='Glass-fibre',
                     density_g_per_cm3=2.49,
                     elements=[Element('H'),
@@ -327,14 +321,12 @@ mat_r_epoxy = Material(material_card_name='r-epoxy',
                      )
 
 mat_DT_plasma = Material(material_card_name='DT-plasma',
-                     density_g_per_cm3=1.207,
+                     density_atoms_per_barn_per_cm=1e20,
                      elements=[Element(1,enriched_isotopes=[Isotope('H',2,abundance=0.5),
                                                             Isotope('H',3,abundance=0.5)])
                                 ],
                      atom_fractions=[1.0]
                      )
-
-
 
 mat_Void = Material(material_card_name='Void',
                      density_g_per_cm3=0,
@@ -342,17 +334,14 @@ mat_Void = Material(material_card_name='Void',
                      mass_fractions=[  ]
                     )
 
-
-
-comp_water = Compound('H2O',density_g_per_cm3=0.926)
+mat_water_by_density = Compound('H2O',density_g_per_cm3=0.926)
 
 mat_copper = Compound('Cu',density_g_per_cm3=8.96)
 
+mat_divertor_layer_1_m15=mat_Tungsten
 
-divertor_layer_1_m15=mat_Tungsten
-
-divertor_layer_2_m74= Homogenised_mixture(mixtures=[mat_Tungsten,
-                                                    comp_water,
+mat_divertor_layer_2_m74= Homogenised_mixture(mixtures=[mat_Tungsten,
+                                                    mat_water_by_density,
                                                     mat_CuCrZr,
                                                     mat_copper
                                                     ],
@@ -365,43 +354,41 @@ divertor_layer_2_m74= Homogenised_mixture(mixtures=[mat_Tungsten,
 
 #print(divertor_layer_2_m74.serpent_material_card())
 
-divertor_layer_3_m15 = divertor_layer_1_m15
+mat_divertor_layer_3_m15 = mat_divertor_layer_1_m15
 
-
-divertor_layer_4_m75= Homogenised_mixture(mixtures=[mat_Eurofer,
-                                                    comp_water,
-                                                    ],
-                                           volume_fractions=[0.54,
-                                                             0.46
-                                                            ]
-                                          )
-
+mat_divertor_layer_4_m75= Homogenised_mixture(mixtures=[mat_Eurofer,
+                                                        mat_water_by_density],
+                                              volume_fractions=[0.54,
+                                                                0.46]
+                                              )
 
 #print(divertor_layer_4_m75.serpent_material_card())
 
-
-
-from pint import UnitRegistry
 water_temperature = UnitRegistry().Quantity(200, UnitRegistry().degC)
+
 water_temperature_K = water_temperature.to('degK').magnitude
+
 water_pressure = UnitRegistry().Quantity(31, UnitRegistry().bar)
+
 water_presssure_pa = water_pressure.to('pascal').magnitude
-mat_water = Compound(chemical_equation='H2O',
-                     state_of_matter='liquid',
-                     pressure_Pa=water_presssure_pa,
-                     temperature_K=water_temperature_K)
-VV_Body_m60 = Homogenised_mixture(mixtures=[mat_SS316LN_IG,mat_water],
+
+mat_water_by_pres_temp = Compound(chemical_equation='H2O',
+                                  state_of_matter='liquid',
+                                  pressure_Pa=water_presssure_pa,
+                                  temperature_K=water_temperature_K)
+
+mat_VV_Body_m60 = Homogenised_mixture(mixtures=[mat_SS316LN_IG,mat_water_by_pres_temp],
                                   volume_fractions=[0.60,0.40])
 #print(VV_Body_m60.serpent_material_card())
 
-VV_Shell_m50 = mat_SS316LN_IG
+mat_VV_Shell_m50 = mat_SS316LN_IG
 
-ShieldPort_m60 = VV_Body_m60
+mat_ShieldPort_m60 = mat_VV_Body_m60
 
 mat_Nb3Sn = Compound('Nb3Sn',density_g_per_cm3=8.91)
 mat_liqHe = Compound('He',density_g_per_cm3=0.125)
 
-TF_Magnet_m25=Homogenised_mixture(mixtures=[mat_r_epoxy,
+mat_TF_Magnet_m25=Homogenised_mixture(mixtures=[mat_r_epoxy,
                                             mat_copper,
                                             mat_Nb3Sn,
                                             mat_liqHe,
@@ -420,15 +407,16 @@ TF_Magnet_m25=Homogenised_mixture(mixtures=[mat_r_epoxy,
 
 #print(TF_Magnet_m25.serpent_material_card())
 
-TF_Casing_m50=mat_SS316LN_IG
+mat_TF_Casing_m50=mat_SS316LN_IG
 
-Central_solenoid_m25=TF_Magnet_m25
-
-
+mat_central_solenoid_m25=mat_TF_Magnet_m25
 
 mat_He_in_coolant_plates = Compound('He',pressure_Pa=8.0E6,temperature_K=823 ,state_of_matter='liquid')
+
 mat_He_in_end_caps = mat_He_in_coolant_plates
+
 mat_He_in_first_walls = mat_He_in_coolant_plates
+
 mat_He_coolant_back_plate=mat_He_in_coolant_plates
 
 
@@ -436,19 +424,8 @@ mat_mixed_pebble_bed = Homogenised_mixture(mixtures=[mat_Be,mat_Li4SiO4],
                                             volume_fractions=[0.5,0.5])
 
 
-print('density = ',mat_Be.density_g_per_cm3)
-print('density = ',mat_Li4SiO4.density_g_per_cm3)
-print('density = ',mat_mixed_pebble_bed.density_g_per_cm3)
-print(mat_mixed_pebble_bed.serpent_material_card())
-print(mat_mixed_pebble_bed.packing_fraction)
-
-
-
 mat_cooling_plates_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_coolant_plates],
                                                     volume_fractions=[0.727,0.273])
-
-print('density = ',mat_cooling_plates_homogenised.density_g_per_cm3)
-print(mat_cooling_plates_homogenised.serpent_material_card())
 
 
 mat_end_caps_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_end_caps],
@@ -459,57 +436,6 @@ mat_first_wall_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_
                                                     volume_fractions=[0.727,0.273])
 
 
-Element(symbol='W',density_g_per_cm3=5, packing_fraction=0.9).serpent_material_card()
-
-
 mat_mixed_pebble_bed = Homogenised_mixture(mixtures=[mat_Be,mat_Li4SiO4],
                                             volume_fractions=[0.6,0.4])
-mix1 = mat_Be.density_g_per_cm3*mat_Be.packing_fraction*0.6
-mix2 = mat_Li4SiO4.density_g_per_cm3*mat_Li4SiO4.packing_fraction*0.4
-print(mat_mixed_pebble_bed.density_g_per_cm3 )
-print(mix1+mix2)
-    
 
-# ace_files_needed = []
-# for mat in [Central_solenoid_m25,TF_Casing_m50,TF_Magnet_m25,ShieldPort_m60,VV_Body_m60,divertor_layer_4_m75,divertor_layer_2_m74,divertor_layer_1_m15]:
-#     if mat.classname == 'Homogenised_mixture':
-#         for item in mat.mixtures:
-#             for isotope in item.isotopes:
-#                 if isotope.nuclear_library_file not in ace_files_needed:
-#                     ace_files_needed.append(isotope.nuclear_library_file)
-
-#     else:
-#         for isotope in mat.isotopes:
-#             if isotope.nuclear_library_file not in ace_files_needed:
-#                 ace_files_needed.append(isotope.nuclear_library_file)
-
-
-
-#print(Isotope(symbol='U',atomic_number=235,color=(0,128,128),density_g_per_cm3=12).serpent_material_card())
-#print(Element(symbol='U',density_g_per_cm3=12,color=(0,128,128)).serpent_material_card()) #color=(0,128,128)
-
-
-#print((Element(symbol='U',
-               # isotopes=[Isotope(symbol='U',
-               #                   atomic_number = 238,
-               #                   abundance=0.5),
-               #           Isotope(symbol='U' ,
-               #                   atomic_number = 235,
-               #                   abundance=0.4)],
-               # density_g_per_cm3=12)
-               # ).serpent_material_card())
-
-
-# print(Isotope('Li',9,density_g_per_cm3=6).serpent_material_card())
-# print(Isotope(3,9,density_g_per_cm3=6).serpent_material_card())
-# print(Isotope('Li',3,9,density_g_per_cm3=6).serpent_material_card())
-
-#
-# comp_Li4SiO4 = Compound(chemical_equation='Li4SiO4',packing_fraction=0.5,volume_of_unit_cell_cm3=1.1543e-21,atoms_per_unit_cell=14)
-#
-# print(comp_Li4SiO4.molar_mass)
-# print(comp_Li4SiO4.serpent_material_card())
-#
-
-# for isotope in Tungsten.isotopes:
-#     print(isotope.nuclear_library_file)

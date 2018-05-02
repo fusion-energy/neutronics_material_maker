@@ -3,6 +3,7 @@
 
 
 from neutronics_material_maker.nmm import *
+from neutronics_material_maker.examples import *
 
 import random
 import unittest
@@ -421,3 +422,52 @@ class Homogenised_mixture_tests(unittest.TestCase):
     mix2 = mat_Li4SiO4.density_g_per_cm3*mat_Li4SiO4.packing_fraction*0.4
 
     assert mat_mixed_pebble_bed.density_g_per_cm3 == mix1+mix2
+
+class Example_materials_tests(unittest.TestCase):
+
+  def test_material_example_materials(self):
+    assert type(mat_Li4SiO4.serpent_material_card())==str
+    assert type(mat_Li2SiO3.serpent_material_card())==str
+    assert type(mat_Li2ZrO3.serpent_material_card())==str
+    assert type(mat_Li2TiO3.serpent_material_card())==str
+    assert type(mat_Be.serpent_material_card())==str
+    assert type(mat_Be12Ti.serpent_material_card())==str
+    assert type(mat_Ba5Pb3.serpent_material_card())==str
+    assert type(mat_Nd5Pb4.serpent_material_card())==str
+    assert type(mat_Zr5Pb3.serpent_material_card())==str
+    assert type(mat_Zr5Pb4.serpent_material_card())==str
+    assert type(mat_Lithium_Lead.serpent_material_card())==str
+    assert type(mat_Tungsten.serpent_material_card())==str
+    assert type(mat_Eurofer.serpent_material_card())==str
+    assert type(mat_SS316LN_IG.serpent_material_card())==str
+    assert type(mat_Bronze.serpent_material_card())==str
+    assert type(mat_Glass_fibre.serpent_material_card())==str
+    assert type(mat_Epoxy.serpent_material_card())==str
+    assert type(mat_CuCrZr.serpent_material_card())==str
+    assert type(mat_r_epoxy.serpent_material_card())==str
+    assert type(mat_DT_plasma.serpent_material_card())==str
+    assert type(mat_Void.serpent_material_card())==str
+    assert type(mat_water_by_density.serpent_material_card())==str
+    assert type(mat_copper.serpent_material_card())==str
+    assert type(mat_divertor_layer_1_m15.serpent_material_card())==str
+    assert type(mat_divertor_layer_2_m74.serpent_material_card())==str
+    assert type(mat_divertor_layer_3_m15.serpent_material_card())==str
+    assert type(mat_divertor_layer_4_m75.serpent_material_card())==str
+    assert type(mat_water_by_pres_temp.serpent_material_card())==str
+    assert type(mat_VV_Body_m60.serpent_material_card())==str
+    assert type(mat_VV_Shell_m50.serpent_material_card())==str
+    assert type(mat_ShieldPort_m60.serpent_material_card())==str
+    assert type(mat_Nb3Sn.serpent_material_card())==str
+    assert type(mat_liqHe.serpent_material_card())==str
+    assert type(mat_TF_Magnet_m25.serpent_material_card())==str
+    assert type(mat_TF_Casing_m50.serpent_material_card())==str
+    assert type(mat_central_solenoid_m25.serpent_material_card())==str
+    assert type(mat_He_in_coolant_plates.serpent_material_card())==str
+    assert type(mat_He_in_end_caps.serpent_material_card())==str
+    assert type(mat_He_in_first_walls.serpent_material_card())==str
+    assert type(mat_He_coolant_back_plate.serpent_material_card())==str
+    assert type(mat_mixed_pebble_bed.serpent_material_card())==str
+    assert type(mat_cooling_plates_homogenised.serpent_material_card())==str
+    assert type(mat_end_caps_homogenised.serpent_material_card())==str
+    assert type(mat_first_wall_homogenised.serpent_material_card())==str
+    assert type(mat_mixed_pebble_bed.serpent_material_card())==str
