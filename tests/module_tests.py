@@ -3,6 +3,8 @@
 
 
 from neutronics_material_maker.nmm import *
+#from neutronics_material_maker.utilities import *
+
 from neutronics_material_maker.examples import *
 
 import random

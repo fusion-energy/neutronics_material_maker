@@ -1,40 +1,17 @@
 import re
 import numpy as np
-import math
 import pandas as pd
-from pandas import DataFrame
+
+from neutronics_material_maker.utilities import (is_number, arevaluesthesame,
+                                                 color_manager)
 
 import pkg_resources
 
-nuclear_data_file_path=pkg_resources.resource_filename('neutronics_material_maker','nuclear_data.csv')
+#TODO: This is cool! How does it work?
+nuclear_data_file_path = pkg_resources.resource_filename('neutronics_material_maker','nuclear_data.csv')
 NDATA = pd.read_csv(nuclear_data_file_path, index_col='Symbol')
 NAT_NDATA = NDATA[NDATA['Natural']]
 
-
-def is_number(s):
-    try:
-        float(s)
-        return True
-    except (ValueError, TypeError) as e:
-        return False
-
-
-
-def arevaluesthesame(value1, value2, relative_tolerance):
-
-    # Use math.isclose algorithm, it is better than numpy.isclose method.
-
-    # See https://github.com/numpy/numpy/issues/10161 for more on the discussion
-
-    # Since some python version don't come with math.isclose we implement it here directly
-
-    # ToDo: allow absolute_tolerance as input
-
-    absolute_tolerance = 0.0
-
-    return abs(value1 - value2) <= max(relative_tolerance * max(abs(value1), abs(value2)), absolute_tolerance)
-
- 
 
 
 def find_prefered_library(zaid, xsdir):
@@ -59,14 +36,6 @@ def find_prefered_library_file(zaid, xsdir):
         return ''
     except:
         return ''
-
-
-def color_manager(color):
-        if type(color) not in (tuple, list, np.ndarray) or len(color) != 3:
-            raise ValueError("3-length RGB color tuple please. "
-                             "Not: ".format(color))
-        return ' rgb ' + ' '.join([str(i) for i in np.array(color).clip(0,
-                                   255)])
 
 
 class Base(object):
@@ -311,9 +280,12 @@ class Material(Base):
 
         self.material_card_name = kwargs.get('material_card_name',self.description)
 
-        if self.elements == None:
-            raise ValueError('A list of elements present within the material '
-                             'must be specified.')
+# TODO: Confirm duplication
+# =============================================================================
+#         if self.elements == None:
+#             raise ValueError('A list of elements present within the material '
+#                              'must be specified.')
+# =============================================================================
 
         if self.atom_fractions == None and self.mass_fractions == None:
             raise ValueError('To make a material either atom_fractions or '
