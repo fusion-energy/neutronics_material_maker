@@ -131,6 +131,7 @@ class Isotope(Base):
         self.name = self.element_name+'_'+str(self.nucleons)
         self.material_card_name = self.name  # TODO
         self.neutrons = self.nucleons-self.protons
+        self.packing_fraction=kwargs.get('packing_fraction', 1.0)
         self.mass_amu = NDATA[(NDATA['Proton number'] == self.protons) & 
                               (NDATA['Nucleon number'] == self.nucleons)]['Mass amu'][0]
         self.natural_abundance = NDATA[(NDATA['Proton number'] == self.protons) & 
