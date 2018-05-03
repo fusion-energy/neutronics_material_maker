@@ -1,0 +1,5 @@
+numpy 
+pprint 
+pandas
+thermo
+pint
