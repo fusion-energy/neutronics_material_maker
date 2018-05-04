@@ -17,7 +17,7 @@ import numpy as np
 class NbTi(NbTiSuperconductor):
     mf = {'Al': 1}
     name = 'NbTi'
-    rho = None
+    density = None
     brho = None
     # Superconducting parameterisation
     C_0 = 168512
@@ -31,7 +31,7 @@ class NbTi(NbTiSuperconductor):
 class Nb3Sn(NbSnSuperconductor):
     name = 'Nb3Sn - WST'
     mf = {'Al': 1}
-    rho = None
+    density = None
     brho = None
     # WST strand
     C_a1 = 50.06
@@ -48,7 +48,7 @@ class Nb3Sn(NbSnSuperconductor):
 class Nb3Sn_2(NbSnSuperconductor):
     name = 'Nb3Sn - EUTF4'
     mf = {'Al': 1}
-    rho = None
+    density = None
     brho = None
     # EUTF4 strand
     C_a1 = 45.74
@@ -60,6 +60,19 @@ class Nb3Sn_2(NbSnSuperconductor):
     C = 76189
     p = .63
     q = 2.1
+
+
+class EpoxyResin(MfMaterial):
+    name = 'Epoxy resin'
+    mf = {'Al': 0.0007074,
+          'C': 0.0034056,
+          'H': 0.0038934,
+          'Mg': 0.0002142004,
+          'N': 0.0003708,
+          'O': 0.0048708,
+          'S': 9.179996e-05,
+          'Si': 0.0058552000000000005}
+    density = 1207
 
 
 class EUROfer(MfMaterial):
@@ -84,7 +97,7 @@ class EUROfer(MfMaterial):
           'Mo': 3e-05,
           'Ta': 0.0012,
           'W': 0.011}
-    rho = 7.87  # g/cm^3
+    density = 7870
     brho = 8.43211E-02  # barn/cm
 
     @staticmethod
@@ -122,7 +135,7 @@ class SS316LN(MfMaterial):
           'S': 0.0001,
           'Si': 0.005,
           'Ta': 0.0001}
-    rho = 7.93
+    density = 7930
     brho = 8.58294E-02
 
     @staticmethod
@@ -237,7 +250,7 @@ class PureCopper(MfMaterial):
           'Te': 2e-6,
           'Sn': 2e-6,
           'Zn': 1e-6}
-    rho = None
+    density = 8940
     brho = None
 
     @staticmethod
@@ -268,7 +281,7 @@ class PureCopper(MfMaterial):
         ITER_D_222RLN v3.3 Equation 85
         '''
         T = KtoC(T)
-        return (T-20)*8490*(1-3e-6*()-2.49e-9*T**3+8.18e-6*T**2+3.16e-3*T+168)
+        return 8940*(1-3e-6*(T-20)*(-2.49e-9*T**3+8.18e-6*T**2+3.16e-3*T+16.8))
 
     @staticmethod
     @matproperty(Tmin=CtoK(20), Tmax=CtoK(1000))
@@ -312,11 +325,11 @@ class CuCrZr(MfMaterial):
     Copper-Chrome-Zirconium alloy - ITER-grade
     '''
     name = 'CuCrZr'
-    mf = {'Cu': 0.8,  # TOTAL GUESS - SEEMS TO BE NO STANDARD???
+    mf = {'Cu': 0.8,  # TODO: TOTAL GUESS - SEEMS TO BE NO STANDARD???
           'Cr': 0.1,
           'Zr': 0.1}
     brho = None
-    rho = 8.9
+    density = 8900
 
     @staticmethod
     @matproperty(Tmin=CtoK(20), Tmax=CtoK(700))
@@ -346,7 +359,7 @@ class CuCrZr(MfMaterial):
         ITER_D_222RLN v3.3 Equation 97
         '''
         T = KtoC(T)
-        return (T-20)*8900*(1-3e-6*(7.2e-9*T**3-9.05e-6*T**2+6.24e-3*T+16.6))
+        return 8900*(1-3e-6*(T-20)*(7.2e-9*T**3-9.05e-6*T**2+6.24e-3*T+16.6))
 
     @staticmethod
     @matproperty(Tmin=CtoK(20), Tmax=CtoK(700))
@@ -390,7 +403,7 @@ class Tungsten(MfMaterial):
           'W': 0.999595,
           'Zn': 5e-06,
           'Zr': 5e-06}
-    rho = 19.0
+    density = 19000
     brho = None
 
     @staticmethod
@@ -443,6 +456,8 @@ class test_property(unittest.TestCase):
     E = EUROfer()
     W = Tungsten()
     S = SS316LN()
+    C = PureCopper()
+    CCZ = CuCrZr()
 
     def test_property(self):
         with self.assertRaises(ValueError):
@@ -480,6 +495,11 @@ class test_property(unittest.TestCase):
         b = self.S.rho(np.array([300, 400, 500]))
         self.assertTrue((a-b).all() == 0)
 
+    def test_Curho(self):
+        self.assertEqual(self.C.rho(CtoK(20)), 8940)  # Eq check
+
+    def test_CuCrZrrho(self):
+        self.assertEqual(self.CCZ.rho(CtoK(20)), 8900)  # Eq check
 
 
 if __name__ is '__main__':
@@ -489,11 +509,9 @@ if __name__ is '__main__':
     N = Nb3Sn()
     N_2 = Nb3Sn_2()
     NT = NbTi()
-    
     Bmin, Bmax = 3, 16
     Tmin, Tmax = 2, 6
     eps = -.66
     N.plot_SC(Bmin, Bmax, Tmin, Tmax, eps)
     N_2.plot_SC(Bmin, Bmax, Tmin, Tmax, eps)
     NT.plot_SC(Bmin, Bmax, Tmin, Tmax)
-    

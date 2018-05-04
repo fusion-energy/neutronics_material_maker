@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 from neutronics_material_maker.nmm import Material, Element
-from neutronics_material_maker.utilities import list_array
+from neutronics_material_maker.utilities import list_array, kgm3togcm3
 
 
 def matproperty(Tmin, Tmax):
@@ -27,6 +27,7 @@ def matproperty(Tmin, Tmax):
     def decorator(f):
         def wrapper(*args, **kwargs):
             T = list_array(args[0])
+
             if not (T <= Tmax).all():
                 raise ValueError('Material property not valid outside of tempe'
                                  f'rature range: {T} > Tmax = {Tmax}')
@@ -41,7 +42,7 @@ def matproperty(Tmin, Tmax):
 class MfMaterial(Material):
     def __init__(self):
         super().__init__(material_card_name=self.name,
-                         density_g_per_cm3=self.rho,
+                         density_g_per_cm3=kgm3togcm3(self.density),
                          density_atoms_per_barn_per_cm=self.brho,
                          elements=[Element(e) for e in self.mf.keys()],
                          mass_fractions=self.mf.values())
