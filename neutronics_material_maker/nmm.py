@@ -1,7 +1,7 @@
 import re
 import numpy as np
 import pandas as pd
-
+import thermo
 from neutronics_material_maker.utilities import (is_number, arevaluesthesame,
                                                  color_manager)
 
@@ -376,7 +376,7 @@ class Compound(Base):
         return isotopes
 
     def serpent_material_card(self, name=None, color=None):
-        mat_card = super(Compound,self).serpent_header(name, color)
+        mat_card = super(Compound, self).serpent_header(name, color)
         for i, i_f in zip(self.isotopes, self.isotope_fractions):
             mat_card += '   '+(i.zaid+i.nuclear_library).ljust(11)+' ' + \
                 str(i_f).ljust(22)+' % '+i.material_card_name+'\n'

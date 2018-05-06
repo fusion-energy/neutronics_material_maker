@@ -6,7 +6,6 @@ Created on Thu May  3 20:38:10 2018
 """
 
 import numpy as np
-from scipy.interpolate import interp1d
 import unittest
 # =============================================================================
 # A collection of utility scripts
@@ -91,10 +90,6 @@ def kgm3togcm3(density):
 def gcm3tokgm3(density):
     if density:
         return density*1000
-
-
-def interp_1D(t, prop, T):
-    return interp1d(t, prop)(T)
 
 
 def color_manager(color):

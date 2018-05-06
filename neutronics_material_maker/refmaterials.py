@@ -6,12 +6,14 @@ Created on Fri Apr  6 18:16:19 2018
 @author: mc2056
 """
 
-from neutronics_material_maker.utilities import CtoK, KtoC, interp_1D
+from neutronics_material_maker.utilities import (CtoK, KtoC, is_number,
+                                                 kgm3togcm3)
 from neutronics_material_maker.material import (MfMaterial, NbSnSuperconductor,
-                                                NbTiSuperconductor,
+                                                NbTiSuperconductor, Liquid,
                                                 matproperty)
 import unittest
 import numpy as np
+from scipy.interpolate import interp1d
 
 
 class NbTi(NbTiSuperconductor):
@@ -27,11 +29,15 @@ class NbTi(NbTiSuperconductor):
     beta = 1.54
     gamma = 2.1
 
+    @staticmethod
+    def rho(T: 'Kelvin'):
+        return None
+
 
 class Nb3Sn(NbSnSuperconductor):
     name = 'Nb3Sn - WST'
     mf = {'Al': 1}
-    density = None
+    density = 8910
     brho = None
     # WST strand
     C_a1 = 50.06
@@ -44,11 +50,15 @@ class Nb3Sn(NbSnSuperconductor):
     p = .593
     q = 2.156
 
+    @staticmethod
+    def rho(T: 'Kelvin'):
+        return 8910
+
 
 class Nb3Sn_2(NbSnSuperconductor):
     name = 'Nb3Sn - EUTF4'
     mf = {'Al': 1}
-    density = None
+    density = 8910
     brho = None
     # EUTF4 strand
     C_a1 = 45.74
@@ -60,6 +70,18 @@ class Nb3Sn_2(NbSnSuperconductor):
     C = 76189
     p = .63
     q = 2.1
+
+    @staticmethod
+    def rho(T: 'Kelvin'):
+        return 8910
+
+
+class Bronze(MfMaterial):
+    name = 'Bronze'
+    density = 8877.5
+    mf = {'Cu': 0.95,
+          'Sn': 0.05}
+    brho = None
 
 
 class EpoxyResin(MfMaterial):
@@ -167,7 +189,7 @@ class SS316LN(MfMaterial):
                7724, 7701, 7677, 7654, 7630, 7606, 7582]
         t = [20, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600,
              650, 700, 750, 800]
-        return interp_1D(CtoK(t), rho, T)
+        return interp1d(CtoK(t), rho)(T)
 
     @staticmethod
     @matproperty(Tmin=CtoK(20), Tmax=CtoK(800))
@@ -350,7 +372,7 @@ class CuCrZr(MfMaterial):
         t = [20, 50, 100, 150, 200, 250, 300, 400, 450, 500, 550, 600]
         a = [16.7, 17, 17.3, 17.5, 17.7, 17.8, 18, 18.1, 18.2, 18.4, 18.5,
              18.6]
-        return interp_1D(CtoK(t), a, T)
+        return interp1d(CtoK(t), a)(T)
 
     @staticmethod
     @matproperty(Tmin=CtoK(20), Tmax=CtoK(700))
@@ -452,6 +474,104 @@ class Tungsten(MfMaterial):
         return 128.308+3.2797e-2*T-3.4097e-6*T**2
 
 
+class Beryllium(MfMaterial):
+    '''
+    Properties and composition taken from ITER_D_222RLN v3.3
+    '''
+    name = 'Be'
+    mf = {'Be': 0.99637,
+          'Al': 0.06e-2,
+          'C': 0.1e-2,
+          'Fe': 0.08e-2,
+          'Mg': 0.06e-2,
+          'Si': 0.06e-2,
+          'U': 0.003e-2}
+    density = None
+    brho = None
+
+    @staticmethod
+    def mu(T):
+        '''
+        Poisson's ratio
+        '''
+        return 0.1
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(1000))
+    def CTE(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 127
+        '''
+        T = KtoC(T)
+        return 4.1e-9*T**3-1.2e-5*T**2+1.33e-2*T+11.3
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(800))
+    def E(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 128
+        '''
+        T = KtoC(T)
+        return 306.78-2.9281e-2*T-4.5069e-5*T**2
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(800))
+    def rho(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 129
+        '''
+        T = KtoC(T)
+        return 1830*(1-3e-6*(4.1e-9*T**3-1.2e-5*T**2+1.33E-2*T+11.3)*(T-20))
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(800))
+    def k(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 130
+        '''
+        T = KtoC(T)
+        return 209-4.8e-1*T+9.38E-4*T**2-9.37e-7*T**3+3.34e-10*T**4
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(500))
+    def Cp(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Table A.A01.2.6-1
+        '''
+        T = KtoC(T)
+        t = [20, 100, 200, 300, 400, 500, 600, 700, 800]
+        cp = [1807, 2046, 2295, 2497, 2660, 2791, 2998, 2989, 3071]
+        return interp1d(t, cp)(T)
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(650))
+    def Sy(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 131
+        '''
+        T = KtoC(T)
+        return 252.2-1.524e-1*T-1.45E-4*T**2
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(950))
+    def Su(T: 'Kelvin'):
+        '''
+        ITER_D_222RLN v3.3 Equation 132
+        '''
+        T = KtoC(T)
+        return 392.8-3.023e-1*T-2.011e-4*T**2
+
+
+class H2O(Liquid):
+    symbol = 'H2O'
+    
+
+class Helium(Liquid):
+    symbol = 'He'
+    T0 = 4.5
+    P0 = 6e5
+
+
 class test_property(unittest.TestCase):
     E = EUROfer()
     W = Tungsten()
@@ -502,16 +622,81 @@ class test_property(unittest.TestCase):
         self.assertEqual(self.CCZ.rho(CtoK(20)), 8900)  # Eq check
 
 
-if __name__ is '__main__':
-    unittest.main()
+class test_materials(unittest.TestCase):
+    Be = Beryllium()
     W = Tungsten()
     S = SS316LN()
     N = Nb3Sn()
     N_2 = Nb3Sn_2()
     NT = NbTi()
-    Bmin, Bmax = 3, 16
-    Tmin, Tmax = 2, 6
-    eps = -.66
-    N.plot_SC(Bmin, Bmax, Tmin, Tmax, eps)
-    N_2.plot_SC(Bmin, Bmax, Tmin, Tmax, eps)
-    NT.plot_SC(Bmin, Bmax, Tmin, Tmax)
+    plot = False
+
+    def test_density_load(self):
+        self.Be.density_g_per_cm3 = None  # Force raise
+        with self.assertRaises(ValueError):
+            self.Be.serpent_header('Be', (0, 1, 2))
+        self.Be.T = 300
+        self.assertTrue(hasattr(self.Be, 'density'))
+        self.assertTrue(is_number(self.Be.density))
+        self.assertTrue(type(self.Be.density) == float)
+        s = self.Be.serpent_header('Be', (0, 1, 2))
+        # Check serpent header updated with correct density
+        self.assertTrue(float(s.split(' ')[3]) == self.Be.density_g_per_cm3)
+
+    def test_default(self):
+
+        class Dummy(MfMaterial):
+            name = 'test'
+            density = None
+            mf = {'Al': 1}
+            brho = None
+
+            @staticmethod
+            def rho(T):
+                return T*300-100
+        D = Dummy()
+        self.assertTrue(D.T == 293.15)
+        self.assertTrue(D.density == D.T*300-100)
+        self.assertTrue(D.density_g_per_cm3 == kgm3togcm3(D.density))
+
+        class Dummy(MfMaterial):
+            name = 'test'
+            density = None
+            mf = {'Al': 1}
+            brho = None
+            T0 = 500
+
+            @staticmethod
+            def rho(T):
+                return T*300-100
+        D = Dummy()
+        self.assertTrue(D.T == 500)
+        self.assertTrue(D.density == D.T*300-100)
+        self.assertTrue(D.density_g_per_cm3 == kgm3togcm3(D.density))
+
+    def test_SC_plot(self):
+        if self.plot:
+            Bmin, Bmax = 3, 16
+            Tmin, Tmax = 2, 6
+            eps = -.66
+            self.N.plot_SC(Bmin, Bmax, Tmin, Tmax, eps)
+            self.N_2.plot_SC(Bmin, Bmax, Tmin, Tmax, eps)
+            self.NT.plot_SC(Bmin, Bmax, Tmin, Tmax)
+
+
+class test_liquids(unittest.TestCase):
+    H = H2O()
+
+    def test_TP(self):
+        self.assertTrue(self.H.T == 293.15)
+        self.assertTrue(self.H.P == 101325)
+        self.assertTrue(self.H.density == 998.987347802)
+        self.H.T, self.H.P = 500, 200000
+        s = self.H.serpent_header('H2O', (0, 1, 2))
+        self.assertTrue(float(s.split(' ')[3]) == self.H.density_g_per_cm3)
+        
+
+
+if __name__ is '__main__':
+    unittest.main()
+

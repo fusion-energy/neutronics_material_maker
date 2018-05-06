@@ -14,7 +14,8 @@ from functools import wraps  # TODO: Improve wrapper syntax. Looks ugly
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-from neutronics_material_maker.nmm import Material, Element
+from neutronics_material_maker.nmm import Material, Element, Compound
+from thermo import Chemical
 from neutronics_material_maker.utilities import list_array, kgm3togcm3
 
 
@@ -39,73 +40,112 @@ def matproperty(Tmin, Tmax):
     return decorator
 
 
+def __raiseError__():
+    raise NotImplementedError('This Material has not yet been given this '
+                              'property. Please add it.')
+
+
 class MfMaterial(Material):
+    T0 = 293.15  # Default temperature for all materials
+
     def __init__(self):
         super().__init__(material_card_name=self.name,
                          density_g_per_cm3=kgm3togcm3(self.density),
                          density_atoms_per_barn_per_cm=self.brho,
                          elements=[Element(e) for e in self.mf.keys()],
                          mass_fractions=self.mf.values())
+        try:  # Set density if a rho property exists
+            self.density = self.rho(self.T0)
+            self.density_g_per_cm3 = kgm3togcm3(self.density)
+        except NotImplementedError:
+            pass
 
+    @staticmethod
     def mu(T):
         '''
         Poisson's ratio
         '''
         return 0.33
 
+    @staticmethod
     def k(T):
         '''
         Thermal conductivity in W.m/K
         '''
-        raise NotImplementedError
+        __raiseError__()
 
+    @staticmethod
     def E(T):
         '''
         Young's modulus in GPa
         '''
-        raise NotImplementedError
+        __raiseError__()
 
+    @staticmethod
     def Cp(T):
         '''
         Specific heat in J/kg/K
         '''
-        raise NotImplementedError
+        __raiseError__()
 
+    @staticmethod
     def CTE(T):
         '''
         Mean coefficient of thermal expansion in 10**-6/T
         '''
-        raise NotImplementedError
+        __raiseError__()
 
+    @staticmethod
     def rho(T):
         '''
         Mass density in kg/m**3
         '''
-        raise NotImplementedError
+        __raiseError__()
 
+    @staticmethod
     def Sy(T):
         '''
         Minimum yield stress in MPa
         '''
-        raise NotImplementedError
+        __raiseError__()
 
+    @staticmethod
     def Savg(T):
         '''
         Average yield stress in MPa
         '''
-        raise NotImplementedError
+        __raiseError__()
 
+    @staticmethod
     def Su(T):
         '''
         Minimum ultimate tensile stress in MPa
         '''
-        raise NotImplementedError
+        __raiseError__()
 
+    @staticmethod
     def Suavg(T):
         '''
         Average ultimate tensile stress in MPa
         '''
-        raise NotImplementedError
+        __raiseError__()
+
+    @property
+    def T(self):
+        '''
+        Temperature: this is a pythonic property, but not an actual material
+        property!
+        '''
+        return self.T0
+
+    @T.setter
+    def T(self, value: 'Kelvin'):
+        try:
+            self.density_g_per_cm3 = float(kgm3togcm3(self.rho(value)))
+            self.density = float(self.rho(value))
+        except NotImplementedError:
+            self.density_g_per_cm3 = float(kgm3togcm3(self.density))
+        self.T0 = value
 
 
 class Superconductor(object):
@@ -137,7 +177,7 @@ class Superconductor(object):
         ax.view_init(30, 45)
 
     def Jc(self):
-        raise NotImplementedError
+        __raiseError__()
 
     @staticmethod
     def _handle_ij(number):
@@ -145,8 +185,8 @@ class Superconductor(object):
         Takes the real part of the imagniary number that results from
         exponing a negative number with a fraction
         '''
+        # return np.sqrt(number.real**2+number.imag**2)
         return number.real
-        #return np.sqrt(number.real**2+number.imag**2)
 
 
 class NbTiSuperconductor(MfMaterial, Superconductor):
@@ -276,3 +316,61 @@ class NbSnSuperconductor(MfMaterial, Superconductor):
                 (np.sqrt(self.eps_sh**2+self.eps_0a**2) -
                  np.sqrt((eps-self.eps_sh)**2+self.eps_0a**2)) -
                  self.C_a2*eps))
+
+
+class Liquid(Compound):
+    '''
+    :param: T [K]
+    :param: P [Pa]
+    '''
+    symbol = None
+    T0 = 293.15  # Default temperature for all liquids [K]
+    P0 = 101325  # Default pressure for all liquids [Pa]
+
+    def __init__(self):
+        super().__init__(self.symbol, state_of_matter='liquid',
+                         temperature_K=self.T0, pressure_Pa=self.P0)
+        try:  # Set density if a rho property exists
+            self.density = self.rho(self.T0, self.P0)
+            self.density_g_per_cm3 = kgm3togcm3(self.density)
+        except NotImplementedError:
+            pass
+
+    def rho(self, T, P):
+        return Chemical(self.chemical_equation, T=T, P=P).rho
+
+    @property
+    def P(self):
+        '''
+        Pressure [Pa]: this is a pythonic property, but not an actual
+        material property!
+        '''
+        return self.P0
+
+    @P.setter
+    def P(self, value: 'Pascal'):
+        try:
+            rho = self.rho(self.T, value)
+            self.density_g_per_cm3 = float(kgm3togcm3(rho))
+            self.density = float(rho)
+        except NotImplementedError:
+            self.density_g_per_cm3 = float(kgm3togcm3(self.density))
+        self.T0 = value
+
+    @property
+    def T(self):
+        '''
+        Temperature [K]: this is a pythonic property, but not an actual
+        material property!
+        '''
+        return self.T0
+
+    @T.setter
+    def T(self, value: 'Kelvin'):
+        try:
+            rho = self.rho(value, self.P)
+            self.density_g_per_cm3 = float(kgm3togcm3(rho))
+            self.density = float(rho)
+        except NotImplementedError:
+            self.density_g_per_cm3 = float(kgm3togcm3(self.density))
+        self.T0 = value
