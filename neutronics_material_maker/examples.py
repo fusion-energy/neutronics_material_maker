@@ -439,3 +439,4 @@ mat_first_wall_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_
 mat_mixed_pebble_bed = Homogenised_mixture(mixtures=[mat_Be,mat_Li4SiO4],
                                             volume_fractions=[0.6,0.4])
 
+print('example materials imported')

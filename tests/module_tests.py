@@ -50,9 +50,13 @@ class Isotope_tests(unittest.TestCase):
 
     # def test_isotope_protons_setting():
 
-    def test_material_card_name(self):
+    def test_isotope_material_card_name(self):
         example_iso = Isotope(symbol='Li',nucleons=6)
         assert example_iso.material_card_name == 'Lithium_6'
+
+    def test_isotope_nuclear_library(self):
+        example_iso = Isotope(symbol='Li',nucleons=6)
+        assert example_iso.nuclear_library == '.31c'        
 
     def test_failed_isotope_creation(self):
         with pytest.raises(ValueError):
@@ -80,6 +84,11 @@ class Element_tests(unittest.TestCase):
     def test_element_isotopes(self):
         new_element = Element('Fe')
         assert len(new_element.isotopes) == 4
+
+    def test_element_nuclear_library(self):
+        new_element = Element('Fe')
+        for iso in new_element.isotopes:
+          assert iso.nuclear_library == '.31c'           
 
     def test_all_elements_have_natural_isotope_fractions_summing_to_1(self):
         all_elements = Natural_Elements().all_natural_elements
@@ -113,6 +122,8 @@ class Element_tests(unittest.TestCase):
         assert type(new_element.serpent_material_card())== str
 
 
+
+
 class Compound_tests(unittest.TestCase):
 
     def test_compound_class_name(self):
@@ -136,6 +147,11 @@ class Compound_tests(unittest.TestCase):
         with pytest.raises(KeyError):
             z = Compound('zzzz', density_g_per_cm3=1)
             test_mat_card = z.serpent_material_card()
+
+    def test_element_nuclear_library(self):
+        new_compound = Compound('Li2Fe2')
+        for iso in new_compound.isotopes:
+          assert iso.nuclear_library == '.31c'  
 
     def test_compound_material_card_creation(self):
         new_compound = Compound('Li4SiO4',
