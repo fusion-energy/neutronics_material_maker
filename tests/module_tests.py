@@ -56,7 +56,8 @@ class Isotope_tests(unittest.TestCase):
 
     def test_isotope_nuclear_library(self):
         example_iso = Isotope(symbol='Li',nucleons=6)
-        assert example_iso.nuclear_library == '.31c'        
+        options = ['','.31c']
+        assert example_iso.nuclear_library in options        
 
     def test_failed_isotope_creation(self):
         with pytest.raises(ValueError):
@@ -87,8 +88,9 @@ class Element_tests(unittest.TestCase):
 
     def test_element_nuclear_library(self):
         new_element = Element('Fe')
+        options = ['','.31c']
         for iso in new_element.isotopes:
-          assert iso.nuclear_library == '.31c'           
+          assert iso.nuclear_library in options             
 
     def test_all_elements_have_natural_isotope_fractions_summing_to_1(self):
         all_elements = Natural_Elements().all_natural_elements
@@ -150,8 +152,9 @@ class Compound_tests(unittest.TestCase):
 
     def test_element_nuclear_library(self):
         new_compound = Compound('Li2Fe2')
+        options = ['','.31c']
         for iso in new_compound.isotopes:
-          assert iso.nuclear_library == '.31c'  
+          assert iso.nuclear_library in options
 
     def test_compound_material_card_creation(self):
         new_compound = Compound('Li4SiO4',
