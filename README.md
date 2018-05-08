@@ -14,6 +14,7 @@
 - [Making Compounds](#making-compounds)
 - [Making Materials](#making-materials)
 - [Making Homogenised_mixtures](#making-homogenised_mixtures)
+- [Chainging the nuclear library](#chainging_the_nuclear_library)
 - [Examples](#examples)
 - [Todo](#todo)
 
@@ -47,20 +48,20 @@ Neutronics material maker is available here on the git repository or via the pyt
 
 - Install the package using pip.
 ```sh
-$ pip install neutronics_material_maker
+pip install neutronics_material_maker
 ```
 
 - Alternatively install the package by cloning this git repository and install locally.
 ```sh
-$ git clone git@github.com:ukaea/neutronics_material_maker.git
-$ cd neutronics_material_maker
-$ python setup.py install
+git clone git@github.com:ukaea/neutronics_material_maker.git
+cd neutronics_material_maker
+python setup.py install
 ```
 
 Should you wish you can also run the test suite. To do this you will need pytest installed.
 ```sh
-$ pip install pytest
-$ python setup.py test
+pip install pytest
+python setup.py test
 ```
 
 # <a name="getting-started"></a>Getting started
@@ -70,7 +71,7 @@ The software can be used to create: **Isotopes**, **Elements**, **Compounds**, *
 After installation try importing the package:
 
 ```python
-$ from neutronics_material_maker.nmm import *
+from neutronics_material_maker.nmm import *
 ```
 
 
@@ -79,60 +80,60 @@ $ from neutronics_material_maker.nmm import *
 
 Isotopes form the basic building blocks of more complex objects (**Element**). An **Isotope** can be created by specifying the symbol and the atomic number:
 ```python
-$ example_isotope = Isotope('Li',7)
+example_isotope = Isotope('Li',7)
 ```
 Isotopes can also be created by specifying the proton number and the atomic number.
 ```python
-$ example_isotope = Isotope(3,7)
+example_isotope = Isotope(3,7)
 ```
 
 Once an isotope is created its properties can be queried.
 ```python
-$ example_isotope.symbol
+example_isotope.symbol
 >>> Li
-$ example_isotope.atomic_number
+example_isotope.atomic_number
 >>> 7
-$ example_isotope.protons
+example_isotope.protons
 >>> 3
-$ example_isotope.neutrons
+example_isotope.neutrons
 >>> 4
-$ example_isotope.natural_abundance
+example_isotope.natural_abundance
 >>> 0.926
-$ example_isotope.mass_amu
+example_isotope.mass_amu
 >>> 7.0160034366
 ```
 It is also possible to overwrite the natural abundance of an isotope upon creation. This comes in useful when creating enriched **Compounds** or **Materials** which is demonstrated later.
 ```python
-$ example_natural_isotope = Isotope('Li',7)
-$ example_natural_isotope.abundance
+example_natural_isotope = Isotope('Li',7)
+example_natural_isotope.abundance
 >>> 0.9241
-$ example_enriched_isotope = Isotope('Li',7,abundance=0.5)
-$ example_enriched_isotope.abundance
+example_enriched_isotope = Isotope('Li',7,abundance=0.5)
+example_enriched_isotope.abundance
 >>> 0.5
 ```
 # <a name="making-elements"></a>Making Elements
 
 Elements form other building blocks of more complex objects (**Compounds** and **Materials**). Elements can be created by specifying the symbol and optional enrichment. A simple element construct can be achieved with:
 ```python
-$ example_element = Element('Li')
+example_element = Element('Li')
 ```
 The natural abundance of an **Element** is known and the **Isotope** objects are created accordingly. Elemental properties can then be queried. In some cases lists of **Isotope** objects are returned.
 
 ```python
-$ example_element.molar_mass_g
+example_element.molar_mass_g
 >>> 6.94003660292
-$ example_element.protons
+example_element.protons
 >>> 3
-$ example_element.isotopes
+example_element.isotopes
 >>> [<__main__.Isotope object at 0x7f23ba50bfd0>, <__main__.Isotope object at 0x7f23ba50bed0>]
-$ example_element.full_name
+example_element.full_name
 >>> Lithium
 ```
 
 Elements can also be created with enriched Isotope abundances.
 
 ```python
-$ example_element = Element('Li',enriched_isotopes=(Isotope('Li', 6, abundance=0.9), Isotope('Li', 7, abundance=0.1)))
+example_element = Element('Li',enriched_isotopes=(Isotope('Li', 6, abundance=0.9), Isotope('Li', 7, abundance=0.1)))
 ```
 
 # <a name="making-compounds"></a>Making Compounds
@@ -141,7 +142,7 @@ Chemical equations are referred to as a **Compound** by the software. Compounds 
 
 Compounds can be created using the following command, when both the compound chemical formula and the density in grams per cm3 are specified.
 ```python
-$ example_compound = Compound('C12H22O11',density_g_per_cm3=1.59)
+example_compound = Compound('C12H22O11',density_g_per_cm3=1.59)
 ```
 
 Compounds
@@ -156,10 +157,10 @@ mat_Li4SiO4 = Compound('Li4SiO4',
 
 Several fusion relevant compounds along with their crystalline volume can be found in the  **<a name="https://github.com/ukaea/neutronics_material_maker/blob/master/neutronics_material_maker/examples.py ">eamples.py</a>** file. Compounds included are: *Li4SiO4, Li2SiO3, Li2ZrO3, Li2TiO3, Be, Ba5Pb3, Nd5Pb4, Zr5Pb3, Zr5Pb4, Pb84.2Li15.8.*
 ```python
-$ example_compound = Compound(chemical_equation = 'Li4SiO4',
+example_compound = Compound(chemical_equation = 'Li4SiO4',
                               volume_of_unit_cell_cm3 = 1.1543e-21,
                               atoms_per_unit_cell = 14)
-$ example_compound.density_g_per_cm3
+example_compound.density_g_per_cm3
 >>> 2.4136389927905504
 ```
 A **Compound** can also be enriched much like isotopes can. To enrich an **compound** the user must pass the desired abundances for the required isotopes in the element. Here is an example for enriched Li4SiO4 with Li6 abundance set to 0.6 and Li7 abundance set to 0.4. You can see that **Isotope** objects are used for this procedure.
@@ -171,19 +172,19 @@ mat_Li4SiO4 = Compound('Li4SiO4',
 ```
 Other input options for creating a **Compound** include setting a **packing_fraction** . The density of the resulting **Compound** is multiplied by the input packing fraction. This property is included to allow pebble beds.
 ```python
-$ solid_ceramic = Compound('Be12Ti',
+solid_ceramic = Compound('Be12Ti',
                       volume_of_unit_cell_cm3= 0.22724e-21,
                       atoms_per_unit_cell=2)
-$ pebble_bed_ceramic = Compound('Be12Ti',
+pebble_bed_ceramic = Compound('Be12Ti',
                       volume_of_unit_cell_cm3= 0.22724e-21,
                       atoms_per_unit_cell=2,
                       packing_fraction=0.64)
 ```
 The density of the Compounds can be found with the density_g_per_cm3 property. Here we can see that the density of the pebble bed is lower than the solid ceramic.
 ```python
-$ solid_ceramic.density_g_per_cm3
+solid_ceramic.density_g_per_cm3
 >>>2.2801067618505506
-$ pebble_bed_ceramic.density_g_per_cm3
+pebble_bed_ceramic.density_g_per_cm3
 >>>1.4592683275843523
 ```
 Other input options for Compounds include **pressure_Pa** and **temperature_K** which are used when calculating the density of ideal gases and liquids. To make use of this feature the thermo package must be installed.
@@ -194,48 +195,48 @@ pip install thermo
 The density of liquids and gases accounting for thermal expansion can then be found. To use the ideal gas equations the **state_of_matter** must be specified as 'gas'.
 
 ```python
-$ He_compound = Compound('He',
+He_compound = Compound('He',
                          pressure_Pa = 8.0E6,
                          temperature_K = 823.0,
                          state_of_matter='gas')
-$ He_compound.density_g_per_cm3
+He_compound.density_g_per_cm3
 >>> 0.004682671945463105
 ```
 
 Other coolants can also accept different **pressure_Pa** and **temperature_K** values and the density changes accordingly. The **state_of_matter** must also be specified as 'liquid'. This example shows the resulting change in density for water at different temperatures and pressures.
 ```python
-$ water_compound = Compound('H2O',
+water_compound = Compound('H2O',
                             pressure_Pa = 3100000,
                             temperature_K = 473.15,
                             state_of_matter='liquid')
-$ water_compound.density_g_per_cm3
+water_compound.density_g_per_cm3
 >>> 0.8664202359381719
-$ water_compound = Compound('H2O',
+water_compound = Compound('H2O',
                             pressure_Pa = 101325,
                             temperature_K = 293,
                             state_of_matter='liquid')
-$ water_compound.density_g_per_cm3
+water_compound.density_g_per_cm3
 >>> 0.9990449108576049
 ```
 
 Once a **Compound** has been created various properties can be extracted including material cards suitable for use in Serpent II simulations with the **serpent_material_card()** method.
 ```python
-$ example_compound = Compound('Li4SiO4',enriched_isotopes=(Isotope('Li', 6, 0.9), Isotope('Li', 7, 0.1)))
-$ example_compound.enriched_isotopes
+example_compound = Compound('Li4SiO4',enriched_isotopes=(Isotope('Li', 6, 0.9), Isotope('Li', 7, 0.1)))
+example_compound.enriched_isotopes
 >>> <__main__.Isotope object at 0x7f859e27dfd0>, <__main__.Isotope object at 0x7f859e28d2d0>
-$ example_compound.density_g_per_cm3
+example_compound.density_g_per_cm3
 >>> 2.4132772544935666
-$ example_compound.description
+example_compound.description
 >>> Li4SiO4__Li6_0.9_Li7_0.1
-$ example_compound.isotopes_atom_fractions
+example_compound.isotopes_atom_fractions
 >>> [0.39999999999999997, 0.044444444444444446, 0.10246999999999999, 0.005205555555555555, 0.0034355555555555554, 0.4433644444444444, 0.00016888888888888889, 0.0009111111111111111]
-$ example_compound.volume_m3
+example_compound.volume_m3
 >>> 8.245e-29
-$ example_compound.molar_mass
+example_compound.molar_mass
 >>> 116.526000953
-$ example_compound.elements
+example_compound.elements
 >>> [<__main__.Element object at 0x7fea0f159350>, <__main__.Element object at 0x7fea0f159290>, <__main__.Element object at 0x7fea0f1590d0>]
-$ example_compound.serpent_material_card()
+example_compound.serpent_material_card()
 >>> mat Li4SiO4__Li6_0.9_Li7_0.1 -2.34719115762
 >>>    3006.31c 0.4
 >>>    3007.31c 0.0444444444444
@@ -249,11 +250,11 @@ $ example_compound.serpent_material_card()
 One novel feature of the software is the variations of the density of **Compounds** with isotope enrichment, the density and atom fractions are based on the actual isotopes present within the cryslaine latic. Creating different Compounds for use in parameter studies is easy with a for loop. Here the enrichment of Li6 is changed from 0.25 to 0.5, 0.75 then 1.0 and the calculated density of the resulting Li4SiO4 and normalised atom fractions are printed out each iteration of the loop. The density decreases slowly as Li7 atoms are replaced with Li6. The **serpent_material_card()** also changes accordingly. These density and atom fractions can then be input into other Material makers for codes such as [OpenMC](https://openmc.readthedocs.io/en/stable/pythonapi/generated/openmc.Material.html#openmc.Material) or [Pyne](http://pyne.io/usersguide/material.html).
 
 ```python
-$ for enrichment in [0, 0.25, 0.5, 0.75, 1.0]:
-$    example_compound = Compound('Li4SiO4',enriched_isotopes=(Isotope('Li', 6, abundance=enrichment), Isotope('Li', 7, abundance=1.0-enrichment)))
-$    print('Li6 enrichment=',enrichment)
-$    example_compound.density_g_per_cm3
-$    example_compound.isotopes_atom_fractions
+for enrichment in [0, 0.25, 0.5, 0.75, 1.0]:
+   example_compound = Compound('Li4SiO4',enriched_isotopes=(Isotope('Li', 6, abundance=enrichment), Isotope('Li', 7, abundance=1.0-enrichment)))
+   print('Li6 enrichment=',enrichment)
+   example_compound.density_g_per_cm3
+   example_compound.isotopes_atom_fractions
 >>> Li6 enrichment= 0
 >>> 2.419758869855734
 >>> [0.0, 0.4444444444444444, 0.10246999999999999, 0.005205555555555555, 0.0034355555555555554, 0.4433644444444444, 0.00016888888888888889, 0.0009111111111111111]
@@ -290,7 +291,7 @@ mat_Steel= Material(material_card_name='Steel',
 The software has a some example **Materials** in the **<a name="https://github.com/ukaea/neutronics_material_maker/blob/master/neutronics_material_maker/examples.py ">eamples.py</a>** file. The elemental composition and densities of **Bronze**, **Eurofer**, **SS-316LN-IG**, **DT-plasma**,  **CuCrZr**, **Glass-fibre**, **Epoxy**, **Glass-fibre** and **Tungten** are included. Here is an example of DT-plasma.
 
 ```python
-$ example_mat1 = Material(material_card_name='DT-plasma',
+example_mat1 = Material(material_card_name='DT-plasma',
                           density_atoms_per_barn_per_cm=1e20,
                           elements=[Element(symbol='H',
                                             enriched_isotopes=[Isotope('H',2,abundance=0.5),
@@ -298,14 +299,14 @@ $ example_mat1 = Material(material_card_name='DT-plasma',
                                     ],
                          atom_fractions=[1.0]
                         )
-$ example_mat1.serpent_material_card()
+example_mat1.serpent_material_card()
 >>> mat DT_plasma 1e-20
 >>>     1002.31c 0.5
 >>>     1003.31c 0.5
 ```
 The other materials available are considerably more detailed in their isotope description. To keep this user manual concise only Glass-fibre and DT_plasma have been demonstrated. One difference between Materials is the known density, the software has materials with density in **atom_density_per_barn_per_cm** which is useful for Materials such as DT-plasma or **density_g_per_cm3** which is useful for Materials such as Glass-fibre. Neutronics codes such as Serpent can accept both options so this is not a problem (density in g/cm3 has a **-** flag to indicate the units).
 ```python
-$ mat_Glass_fibre = Material(material_card_name='Glass-fibre',
+mat_Glass_fibre = Material(material_card_name='Glass-fibre',
                     density_g_per_cm3=2.49,
                     elements=[Element('H'),
                               Element('O'),
@@ -319,9 +320,9 @@ $ mat_Glass_fibre = Material(material_card_name='Glass-fibre',
                                     0.1026861642,
                                     0.2144707015
                                     ])
-$ example_mat2.density_g_per_cm3
+example_mat2.density_g_per_cm3
 >>> 2.49
-$ example_mat2.serpent_material_card()
+example_mat2.serpent_material_card()
 >>> mat Glass-fibre -2.49
 >>>     1001.31c 3.8390384598e-05
 >>>     1002.31c 4.415402e-09
@@ -344,38 +345,38 @@ $ example_mat2.serpent_material_card()
 Materials and Compounds can be combined to form a **Homogenised_mixture**. Any number of Materials and Compounds can be combined but they must combine to give a volume fraction of 1.0. Here are some examples:
 
 ```python
-$ mat_bronze = Material(material_card_name='Bronze',
+mat_bronze = Material(material_card_name='Bronze',
                         density_g_per_cm3=8.8775,
                         elements=[Element('Cu'),
                                   Element('Sn') ],
                         atom_fractions=[0.95,
                                         0.05 ])
-$ mat_bronze.density_g_per_cm3
+mat_bronze.density_g_per_cm3
 >>> 8.8775
-$ mat_water = Compound('H2O',density_g_per_cm3=0.926)
-$ mat_water.density_g_per_cm3
+mat_water = Compound('H2O',density_g_per_cm3=0.926)
+mat_water.density_g_per_cm3
 >>> 0.926
-$ mat_CuCrZr = Compound('CuCrZr',density_g_per_cm3=8.814)
-$ mat_CuCrZr.density_g_per_cm3
+mat_CuCrZr = Compound('CuCrZr',density_g_per_cm3=8.814)
+mat_CuCrZr.density_g_per_cm3
 >>> 8.814
 ```
 
 The two Compounds and 1 Material can then be mixed with **volume_fraction** the following way. This Homogenised_mixture contains 20% volume Water, 30% volume CuCrZr and 50% Bronze.
 ```python
-$ mat_mix = Homogenised_mixture(mixtures=[mat_water,
+mat_mix = Homogenised_mixture(mixtures=[mat_water,
                                           mat_CuCrZr,
                                           mat_bronze],
                                 volume_fraction=[0.20
                                                  0.30
                                                  0.5])
-$ mat_mix.density_g_per_cm3
+mat_mix.density_g_per_cm3
 >>> 7.26815
 ```
 
 The resulting material card comprises of the combined three material cards with modified atom fractions to account for the volume fraction of each component. The material name is also based on the combination of the three components along with their **volume_fractions**.
 
 ```python
-$ mat_mix.serpent_material_card()
+mat_mix.serpent_material_card()
 >>> mat H2O_vf_0.2_CuCrZr_vf_0.3_Bronze_vf_0.5  -7.26815
 >>> %   
 >>> %   H2O with a density of 0.926gcm-3
@@ -421,33 +422,48 @@ $ mat_mix.serpent_material_card()
 
 Homogenised_mixture can also be formed from Compounds and Materials based on **mass_fraction**. The two Compounds and 1 Material are mixed with **mass_fraction** in the following way. This Homogenised_mixture contains 20% mass Water and 30% mass CuCrZr.
 ```python
-$ new_mat_mix = Homogenised_mixture([{'mix':mat_water,'mass_fraction':0.5},
+new_mat_mix = Homogenised_mixture([{'mix':mat_water,'mass_fraction':0.5},
                                          {'mix':mat_CuCrZr,'mass_fraction':0.5}])
-$ new_mat_mix.density_g_per_cm3
+new_mat_mix.density_g_per_cm3
 >>> 1.6759268993839835
 ```
 
 Void fractions can also be inserted into a **Homogenised_mixture**. In the example below, a new material is made from 50% volume fraction Nb3Sn and 50% void. The density of the Nb3Sn is specified as 8.91g per cm3 and a void is 0g per cm3. The resulting example material has a desnity of 4.455g per cm3 as expected.
 ```python
-$ mat_Nb3Sn = Compound('Nb3Sn',density_g_per_cm3=8.91)
-$ mat_void= Material(material_card_name='Void',
+mat_Nb3Sn = Compound('Nb3Sn',density_g_per_cm3=8.91)
+mat_void= Material(material_card_name='Void',
                      density_g_per_cm3=0,
                      elements=[ ],
                      mass_fractions=[  ]
                     )
 
-$ example_mat =Homogenised_mixture(mixtures=[mat_Nb3Sn,mat_void],
+example_mat =Homogenised_mixture(mixtures=[mat_Nb3Sn,mat_void],
                                    volume_fractions=[0.5,0.5])
 
-$ example_mat.density_g_per_cm3
+example_mat.density_g_per_cm3
 >>>4.455
 ```
+
+# <a name="chainging_the_nuclear_library"></a>Chainging the nuclear library
+
+Serpent material cards can contain a pointer to the desired nuclear cross section file. The pointer is optinal but if included it appears after the zaid entry in the material card. When importing neutronics_material_maker it attempts to import a default Serpent 2 xsdir file and find the preferential nuclear library evaluation for each isotope present in the xsdir. If no file is found or the particular isotope is not found then the optional nuclear library is left blank in material cards. The default path of the xsdir file is **/opt/serpent2/xsdir.serp**, however this can be changed using the **set_xsdir(filename)** function as demonstrated below.
+
+```python
+from neutronics_material_maker.examples import *
+example_isotope = Isotope(3,6)
+example_isotope.nuclear_library
+>>> .31c
+set_xsdir('xsdir_TENDL.serp')
+example_isotope = Isotope(3,6)
+>>> .10c
+```
+
 
 # <a name="examples"></a>Examples
 Some example materials are available for importing
 
 ```python
-$ from neutronics_material_maker.examples import *
+from neutronics_material_maker.examples import *
 ```
 
 The examples include Li4SiO4, Li2SiO3, Li2ZrO3, Li2TiO3, Be12Ti, Ba5Pb3, Nd5Pb4, Zr5Pb3, Lithium_Lead, Tungsten, Eurofer, SS316LN_IG, Bronze, Glass_fibre, Epoxy, CuCrZr, DT plasma and Void. The construction of these materials can be seen in the [examples.py](https://github.com/ukaea/neutronics_material_maker/blob/master/neutronics_material_maker/examples.py) file
