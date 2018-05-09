@@ -53,7 +53,7 @@ pip install neutronics_material_maker
 
 - Alternatively install the package by cloning this git repository and install locally.
 ```sh
-git clone git@github.com:ukaea/neutronics_material_maker.git
+git clone https://github.com/ukaea/neutronics_material_maker.git
 cd neutronics_material_maker
 python setup.py install
 ```
@@ -366,7 +366,7 @@ The two Compounds and 1 Material can then be mixed with **volume_fraction** the 
 mat_mix = Homogenised_mixture(mixtures=[mat_water,
                                           mat_CuCrZr,
                                           mat_bronze],
-                                volume_fraction=[0.20
+                                volume_fractions=[0.20
                                                  0.30
                                                  0.5])
 mat_mix.density_g_per_cm3
