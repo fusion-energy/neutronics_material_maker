@@ -82,7 +82,7 @@ class Base(object):
         if self.density_g_per_cm3 is None:
             density = '  '+str(self.density_atoms_per_barn_per_cm*self.packing_fraction)
         else:
-            density = '  '+str(self.density_g_per_cm3*self.packing_fraction)
+            density = ' -'+str(self.density_g_per_cm3*self.packing_fraction)
         color = color_manager(color)
         mat_card = 'mat '+name+density+color+' \n'
         return mat_card
