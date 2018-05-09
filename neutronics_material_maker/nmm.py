@@ -84,7 +84,7 @@ class Base(object):
         else:
             density = ' -'+str(self.density_g_per_cm3*self.packing_fraction)
         color = color_manager(color)
-        mat_card = 'mat '+name+density+color+' \n'
+        mat_card = '%  ' + self.material_card_comment +'\n'+'mat '+name+density+color+' \n'
         return mat_card
 
     def mcnp_header(self, name, color):
@@ -98,7 +98,7 @@ class Base(object):
             density = '  '+str(self.density_atoms_per_barn_per_cm*self.packing_fraction)
         else:
             density = ' -'+str(self.density_g_per_cm3*self.packing_fraction)
-        mat_card = name+density+' \n'
+        mat_card = 'c  ' + self.material_card_comment +'\n'+name+density+' \n'
         return mat_card        
 
     def kwarg_handler(self, name, color):
@@ -147,6 +147,7 @@ class Isotope(Base):
         self.name = self.element_name+'_'+str(self.nucleons)
 
         self.material_card_name = kwargs.get('material_card_name')
+        self.material_card_comment = kwargs.get('material_card_comment','material card made with neutronics_material_maker')
         if self.material_card_name == None:
             self.material_card_name = self.name  # TODO
         self.neutrons = self.nucleons-self.protons
@@ -225,7 +226,7 @@ class Isotope(Base):
     def mcnp_material_card(self, name=None, color=None):
         mat_card = super(Isotope,self).mcnp_header(name, color)
         mat_card += '   '+(self.zaid+self.nuclear_library).ljust(11) +\
-            ' 1'.ljust(22)+' c '+self.name+'\n'
+            ' 1'.ljust(22)+' $ '+self.name+'\n'
         return mat_card
 
 
@@ -263,6 +264,7 @@ class Element(Isotope):
         self.density_atoms_per_barn_per_cm = kwargs.get('density_atoms_per_barn_per_cm')
 
         self.material_card_name = kwargs.get('material_card_name')
+        self.material_card_comment = kwargs.get('material_card_comment','material card made with neutronics_material_maker')
         if self.material_card_name == None:
 
             self.material_card_name = self.find_element_name()
@@ -318,7 +320,7 @@ class Element(Isotope):
         mat_card = super(Element,self).mcnp_header(name, color)
         for i in self.isotopes:
             mat_card += '   '+(i.zaid+i.nuclear_library).ljust(11)+' ' + \
-                str(i.abundance).ljust(22)+' c '+i.material_card_name+'\n'
+                str(i.abundance).ljust(22)+' $ '+i.material_card_name+'\n'
         return mat_card        
 
 
@@ -331,6 +333,7 @@ class Material(Base):
         self.description = kwargs.get('description')
         self.material_card_name = kwargs.get('material_card_name',
                                              self.description)
+        self.material_card_comment = kwargs.get('material_card_comment','material card made with neutronics_material_maker')
         self.packing_fraction=kwargs.get('packing_fraction', 1.0)
         self.density_g_per_cm3 = kwargs.get('density_g_per_cm3')
         self.density_atoms_per_barn_per_cm = kwargs.get('density_atoms_per_barn_per_cm')
@@ -391,7 +394,7 @@ class Material(Base):
         mat_card = super(Material,self).mcnp_header(name, color)
         for i, i_f in zip(self.isotopes, self.isotope_fractions):
             mat_card += '   '+(i.zaid + i.nuclear_library).ljust(11)+' ' + \
-                str(i_f).ljust(22)+' c '+i.name+'\n'
+                str(i_f).ljust(22)+' $ '+i.name+'\n'
         return mat_card
 
 class Compound(Base):
@@ -403,6 +406,7 @@ class Compound(Base):
         self.chemical_equation = chemical_equation
         self.material_card_name = kwargs.get('material_card_name',
                                              self.chemical_equation)
+        self.material_card_comment = kwargs.get('material_card_comment','material card made with neutronics_material_maker')
         self.state_of_matter = kwargs.get('state_of_matter', 'solid')
         self.enriched_isotopes = kwargs.get('enriched_isotopes', None)
         self.volume_of_unit_cell_cm3 = kwargs.get('volume_of_unit_cell_cm3')
@@ -451,7 +455,7 @@ class Compound(Base):
         mat_card = super(Compound,self).mcnp_header(name, color)
         for i, i_f in zip(self.isotopes, self.isotope_fractions):
             mat_card += '   '+(i.zaid+i.nuclear_library).ljust(11)+' ' + \
-                str(i_f).ljust(22)+' c '+i.material_card_name+'\n'
+                str(i_f).ljust(22)+' $ '+i.material_card_name+'\n'
         return mat_card       
 
     def find_average_atom_mass(self):
@@ -579,6 +583,7 @@ class Homogenised_mixture(Base):
         self.mass_fractions = kwargs.get('mass_fractions')
         self.volume_fractions = kwargs.get('volume_fractions')
         self.material_card_name = kwargs.get('material_card_name')
+        self.material_card_comment = kwargs.get('material_card_comment','material card made with neutronics_material_maker')
         self.packing_fraction=kwargs.get('packing_fraction', 1.0)
         # self.packing_fractions=self.find_packing_fractions_of_mixtures(self.mixtures)
 
@@ -716,7 +721,7 @@ class Homogenised_mixture(Base):
                 for i, a_f in zip(item.isotopes, item.isotope_fractions):
                     if a_f > 0:
                         mat_card += '   '+(i.zaid+i.nuclear_library).ljust(11) + \
-                            ' '+str(a_f*n_a_mix).ljust(22)+' % '+i.name + '\n'
+                            ' '+str(a_f*n_a_mix).ljust(22)+' $ '+i.name + '\n'
         return mat_card        
     
 # Presently unused?
