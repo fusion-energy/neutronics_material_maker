@@ -6,9 +6,37 @@ from pandas import DataFrame
 
 import pkg_resources
 
+
+    
 nuclear_data_file_path=pkg_resources.resource_filename('neutronics_material_maker','nuclear_data.csv')
 NDATA = pd.read_csv(nuclear_data_file_path, index_col='Symbol')
 NAT_NDATA = NDATA[NDATA['Natural']]
+
+xsdir_isotopes_and_nuclear_libraries_list=[]
+
+def set_xsdir(xsdir_file_path):
+    global xsdir_isotopes_and_nuclear_libraries_list
+    xsdir_isotopes_and_nuclear_libraries_list=[]
+    try:
+        #print('reading in ',xsdir_file_path)
+        filecontents = open(xsdir_file_path, "r").readlines()
+        for line in filecontents:
+            chopped_up_line = line.split()[0].split('.')
+            xsdir_isotopes_and_nuclear_libraries_list.append(chopped_up_line)
+    except:
+        print('Warning xsdir file not found in default path /opt/serpent2/xsdir.serp')
+        print('Setting all nuclear library extensions to blank entries')
+
+
+set_xsdir('/opt/serpent2/xsdir.serp')
+
+def find_prefered_library(zaid):
+    if len(xsdir_isotopes_and_nuclear_libraries_list)==0:
+        return ''
+    for isotope_and_nuclear_library in xsdir_isotopes_and_nuclear_libraries_list:
+        if isotope_and_nuclear_library[0] == zaid:
+                return '.'+isotope_and_nuclear_library[1]
+    return ''
 
 
 def is_number(s):
@@ -17,8 +45,6 @@ def is_number(s):
         return True
     except (ValueError, TypeError) as e:
         return False
-
-
 
 def arevaluesthesame(value1, value2, relative_tolerance):
 
@@ -34,31 +60,6 @@ def arevaluesthesame(value1, value2, relative_tolerance):
 
     return abs(value1 - value2) <= max(relative_tolerance * max(abs(value1), abs(value2)), absolute_tolerance)
 
- 
-
-
-def find_prefered_library(zaid, xsdir):
-    try:
-        xsdir_contents = open(xsdir, "r").readlines()
-        for line in xsdir_contents:
-            choped_up_line = line.split()[0].split('.')
-            if choped_up_line[0] == zaid:
-                return '.'+choped_up_line[1]
-        return ''
-    except:
-        return ''
-
-
-def find_prefered_library_file(zaid, xsdir):
-    try:
-        xsdir_contents = open(xsdir, "r").readlines()
-        for line in xsdir_contents:
-            choped_up_line = line.split()
-            if choped_up_line[0].split('.')[0] == zaid:
-                return choped_up_line[-1]
-        return ''
-    except:
-        return ''
 
 
 def color_manager(color):
@@ -76,11 +77,12 @@ class Base(object):
         if self.density_g_per_cm3 is None and self.density_atoms_per_barn_per_cm is None:
             raise ValueError('To produce a serpent material card the '
                              'density_g_per_cm3 or '
-                             'density_atoms_per_barn_per_cm must be provided.')
+                             'density_atoms_per_barn_per_cm must be provided. '
+                             ,name, ' has no density')
         if self.density_g_per_cm3 is None:
             density = '  '+str(self.density_atoms_per_barn_per_cm*self.packing_fraction)
         else:
-            density = '  '+str(self.density_g_per_cm3*self.packing_fraction)
+            density = ' -'+str(self.density_g_per_cm3*self.packing_fraction)
         color = color_manager(color)
         mat_card = 'mat '+name+density+color+' \n'
         return mat_card
@@ -174,12 +176,10 @@ class Isotope(Base):
                                                                self.protons))
 
     def _get_xs_files(self, **kwargs):
-        self.xsdir = kwargs.get('xsdir', '/opt/serpent2/xsdir.serp')
+        #self.xsdir = kwargs.get('xsdir', '/opt/serpent2/xsdir.serp')
         self.nuclear_library = kwargs.get('nuclear_library',
-                                          find_prefered_library(self.zaid,
-                                                                self.xsdir))
-        self.nuclear_library_file = find_prefered_library_file(self.zaid,
-                                                               self.xsdir)
+                                          find_prefered_library(self.zaid))
+
         self.material_card_name = self.name
 
     def find_symbol_from_protons(self):
@@ -270,6 +270,7 @@ class Element(Isotope):
             isotopes = [isotopes]
         else:
             isotopes = isotopes.values
+        isotopes=[int(i) for i in isotopes]
         for i in isotopes:
             isotopes_to_return.append(Isotope(symbol=symbol, nucleons=i))
         if len(isotopes_to_return) == 0:
