@@ -321,7 +321,7 @@ mat_r_epoxy = Material(material_card_name='r-epoxy',
                      )
 
 mat_DT_plasma = Material(material_card_name='DT-plasma',
-                     density_atoms_per_barn_per_cm=1e20,
+                     density_atoms_per_barn_per_cm=1e-20,
                      elements=[Element(1,enriched_isotopes=[Isotope('H',2,abundance=0.5),
                                                             Isotope('H',3,abundance=0.5)])
                                 ],
