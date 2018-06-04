@@ -189,7 +189,11 @@ class SS316LN(MfMaterial):
                7724, 7701, 7677, 7654, 7630, 7606, 7582]
         t = [20, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600,
              650, 700, 750, 800]
-        return interp1d(CtoK(t), rho)(T)
+        p = interp1d(CtoK(t), rho)(T)
+        if is_number(T):
+            return p[0]
+        else:
+            return p
 
     @staticmethod
     @matproperty(Tmin=CtoK(20), Tmax=CtoK(800))
@@ -564,7 +568,7 @@ class Beryllium(MfMaterial):
 
 class H2O(Liquid):
     symbol = 'H2O'
-    
+
 
 class Helium(Liquid):
     symbol = 'He'
@@ -694,9 +698,7 @@ class test_liquids(unittest.TestCase):
         self.H.T, self.H.P = 500, 200000
         s = self.H.serpent_header('H2O', (0, 1, 2))
         self.assertTrue(float(s.split(' ')[3]) == self.H.density_g_per_cm3)
-        
 
 
 if __name__ is '__main__':
     unittest.main()
-

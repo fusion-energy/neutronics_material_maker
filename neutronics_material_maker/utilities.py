@@ -13,6 +13,7 @@ import unittest
 
 ABS_ZEROC = -273.15  # In Celsius
 ABS_ZEROK = 0  # in Kelvin
+N_A = 6.022140857e23  # Nombre d'Avogadro [1/mol]
 
 
 def is_number(s):
@@ -92,11 +93,23 @@ def gcm3tokgm3(density):
         return density*1000
 
 
+def gcm3tobcm(density, molar_mass):
+    return N_A*1e-24*density/molar_mass
+
+
+def apuctobcm(a_puc, V_cell):
+    '''
+    Number of atoms per unit cell
+    Volume of unit cell [cm^3]
+    '''
+    return 1e-24*a_puc/V_cell
+
+
 def color_manager(color):
         if type(color) not in (tuple, list, np.ndarray) or len(color) != 3:
-            raise ValueError("3-length RGB color tuple please. "
+            raise ValueError("3-length RGB 0-255 color tuple please. "
                              "Not: ".format(color))
-        return ' rgb ' + ' '.join([str(i) for i in np.array(color).clip(0,
+        return ' rgb ' + ' '.join([str(int(i)) for i in np.array(color).clip(0,
                                    255)])
 
 

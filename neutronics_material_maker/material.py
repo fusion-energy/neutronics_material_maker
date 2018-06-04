@@ -16,7 +16,8 @@ from mpl_toolkits.mplot3d import Axes3D
 
 from neutronics_material_maker.nmm import Material, Element, Compound
 from thermo import Chemical
-from neutronics_material_maker.utilities import list_array, kgm3togcm3
+from neutronics_material_maker.utilities import (list_array, kgm3togcm3,
+                                                 gcm3tobcm, apuctobcm)
 
 
 def matproperty(Tmin, Tmax):

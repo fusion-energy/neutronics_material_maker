@@ -12,30 +12,33 @@ nuclear_data_file_path = pkg_resources.resource_filename('neutronics_material_ma
 NDATA = pd.read_csv(nuclear_data_file_path, index_col='Symbol')
 NAT_NDATA = NDATA[NDATA['Natural']]
 
+XSDIR = '/opt/serpent2/xsdir.serp'  # Default xsdir.serp file location
 
 
 def find_prefered_library(zaid, xsdir):
-    try:
-        xsdir_contents = open(xsdir, "r").readlines()
-        for line in xsdir_contents:
-            choped_up_line = line.split()[0].split('.')
-            if choped_up_line[0] == zaid:
-                return '.'+choped_up_line[1]
-        return ''
-    except:
-        return ''
+    with open(xsdir, 'r') as f:
+        for line in f.readlines():
+            line = line.split()[0].split('.')
+            if line[0] == zaid:
+                return '.'+line[1]
+        else:
+            raise FileNotFoundError(f'No entry in {xsdir} for a ZAID "{zaid}"')
 
 
 def find_prefered_library_file(zaid, xsdir):
-    try:
-        xsdir_contents = open(xsdir, "r").readlines()
-        for line in xsdir_contents:
-            choped_up_line = line.split()
-            if choped_up_line[0].split('.')[0] == zaid:
-                return choped_up_line[-1]
-        return ''
-    except:
-        return ''
+    with open(xsdir, 'r') as f:
+        for line in f.readlines():
+            line = line.split()
+            if line[0].split('.')[0] == zaid:
+                return line[-1]
+        else:
+            raise FileNotFoundError(f'No entry in {xsdir} for a ZAID "{zaid}"')
+
+
+def calculate_ZAID(Z, A):
+    Z, A = int(Z), int(A)  # String formatting for screwed up with e.g. 11.0
+    zaid = str(Z)+str(A).zfill(3)
+    return zaid
 
 
 class Base(object):
@@ -110,7 +113,7 @@ class Isotope(Base):
         if self.abundance and self.abundance > 1.0 or self.abundance < 0.0:
             raise ValueError('Abundance of isotope can not be greater than 1.0'
                              ' or less than 0.')
-        self.zaid = str(self.protons)+str(self.nucleons).zfill(3)
+        self.zaid = calculate_ZAID(self.protons, self.nucleons)
         self._get_xs_files()
 
     def _handle_kwargs(self, kwargs):
@@ -143,7 +146,7 @@ class Isotope(Base):
                                                                self.protons))
 
     def _get_xs_files(self, **kwargs):
-        self.xsdir = kwargs.get('xsdir', '/opt/serpent2/xsdir.serp')
+        self.xsdir = kwargs.get('xsdir', XSDIR)
         self.nuclear_library = kwargs.get('nuclear_library',
                                           find_prefered_library(self.zaid,
                                                                 self.xsdir))
@@ -169,7 +172,7 @@ class Isotope(Base):
             return n.unique()[0]
 
     def serpent_material_card(self, name=None, color=None):
-        mat_card = super(Isotope,self).serpent_header(name, color)
+        mat_card = super().serpent_header(name, color)
         mat_card += '   '+(self.zaid+self.nuclear_library).ljust(11) +\
             ' 1'.ljust(22)+' % '+self.name+'\n'
         return mat_card
@@ -178,7 +181,7 @@ class Isotope(Base):
 class Element(Isotope):
     def __init__(self, *args, **kwargs):
 
-        if len(args)==1:
+        if len(args) == 1:
             protons_or_symbol=args[0]
         self.classname = self.__class__.__name__
 
@@ -253,7 +256,7 @@ class Element(Isotope):
         return element_mass
 
     def serpent_material_card(self, name=None, color=None):
-        mat_card = super(Element,self).serpent_header(name, color)
+        mat_card = super().serpent_header(name, color)
         for i in self.isotopes:
             mat_card += '   '+(i.zaid+i.nuclear_library).ljust(11)+' ' + \
                 str(i.abundance).ljust(22)+' % '+i.material_card_name+'\n'
@@ -278,7 +281,8 @@ class Material(Base):
             raise ValueError('A list of elements present within the material '
                              'must be specified.')
 
-        self.material_card_name = kwargs.get('material_card_name',self.description)
+        self.material_card_name = kwargs.get('material_card_name',
+                                             self.description)
 
 # TODO: Confirm duplication
 # =============================================================================
