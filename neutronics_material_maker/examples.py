@@ -420,7 +420,7 @@ mat_He_in_first_walls = mat_He_in_coolant_plates
 mat_He_coolant_back_plate=mat_He_in_coolant_plates
 
 
-mat_mixed_pebble_bed = Homogenised_mixture(mixtures=[mat_Be,mat_Li4SiO4],
+mat_mixed_pebble_bed = Homogenised_mixture(mixtures=[mat_Be12Ti,mat_Li2TiO3],
                                             volume_fractions=[0.5,0.5])
 
 
@@ -436,7 +436,5 @@ mat_first_wall_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_
                                                     volume_fractions=[0.727,0.273])
 
 
-mat_mixed_pebble_bed = Homogenised_mixture(mixtures=[mat_Be,mat_Li4SiO4],
-                                            volume_fractions=[0.6,0.4])
 
 print('example materials imported')
