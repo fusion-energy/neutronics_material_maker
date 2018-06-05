@@ -28,6 +28,7 @@ def find_prefered_library(zaid, xsdir):
                 return '.'+line[1]
         else:
             warn(_xslibwarn(zaid, xsdir))
+            return ''
 
 
 def find_prefered_library_file(zaid, xsdir):
@@ -38,6 +39,7 @@ def find_prefered_library_file(zaid, xsdir):
                 return line[-1]
         else:
             warn(_xslibwarn(zaid, xsdir))
+            return ''
 
 
 def calculate_ZAID(Z, A):
