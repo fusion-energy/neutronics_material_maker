@@ -11,9 +11,35 @@ from neutronics_material_maker.utilities import (CtoK, KtoC, is_number,
 from neutronics_material_maker.material import (MfMaterial, NbSnSuperconductor,
                                                 NbTiSuperconductor, Liquid,
                                                 matproperty)
+from neutronics_material_maker.nmm import Material, Element, Isotope
 import unittest
 import numpy as np
 from scipy.interpolate import interp1d
+
+
+class DTPlasma(Material):
+    name = 'DT Plasma'
+    def __init__(self, rho_barns_cm2=1e20):
+        #TODO: Determine what this number is... not Na
+        amu = (0.5*2+0.5*3)
+        rho = rho_barns_cm2*1.66054e-24*amu
+        # TODO FIX HOOK
+        super().__init__(material_card_name=self.name, 
+                         density_g_per_cm3=.000001,
+                         elements=[Element('H',
+                                           enriched_isotopes=[Isotope('H', 2,
+                                                                      abundance=0.5),
+                                                              Isotope('H', 3,
+                                                                      abundance=0.5)])
+                                  ], atom_fractions= [1.])
+
+
+class DDPlasma(Material):
+    name = 'DD Plasma'
+    def __init__(self, rho_barns_cm2=1e20):
+        super().__init__(material_card_name=self.name, 
+                         density_atoms_per_barn_per_cm=rho_barns_cm2,
+                         elements=[Isotope('H', 2)], atom_fractions= [1.])
 
 
 class NbTi(NbTiSuperconductor):
@@ -74,6 +100,14 @@ class Nb3Sn_2(NbSnSuperconductor):
     @staticmethod
     def rho(T: 'Kelvin'):
         return 8910
+
+
+class Void(MfMaterial):
+    #TODO: FIX DUMMY VOID not writing serpent card
+    name = ' Void'
+    density = 0
+    mf = {}
+    brho = None
 
 
 class Bronze(MfMaterial):

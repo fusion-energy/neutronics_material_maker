@@ -84,12 +84,12 @@ def KtoC(T):
 
 
 def kgm3togcm3(density):
-    if density:
+    if density is not None:
         return density/1000
 
 
 def gcm3tokgm3(density):
-    if density:
+    if density is not None:
         return density*1000
 
 

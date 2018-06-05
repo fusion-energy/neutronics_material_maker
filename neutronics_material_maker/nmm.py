@@ -4,15 +4,20 @@ import pandas as pd
 import thermo
 from neutronics_material_maker.utilities import (is_number, arevaluesthesame,
                                                  color_manager)
-
+from warnings import warn
 import pkg_resources
 
 #TODO: This is cool! How does it work?
 nuclear_data_file_path = pkg_resources.resource_filename('neutronics_material_maker','nuclear_data.csv')
 NDATA = pd.read_csv(nuclear_data_file_path, index_col='Symbol')
 NAT_NDATA = NDATA[NDATA['Natural']]
-
 XSDIR = '/opt/serpent2/xsdir.serp'  # Default xsdir.serp file location
+
+
+def _xslibwarn(zaid, xsdir):
+    return (f'No entry in {xsdir} for a ZAID "{zaid}". \n '
+            f'\t\tPlease check xsdir path and that ZAID is valid. \n'
+            '\t\tIgnore if not using Serpent II on this machine.')
 
 
 def find_prefered_library(zaid, xsdir):
@@ -22,7 +27,7 @@ def find_prefered_library(zaid, xsdir):
             if line[0] == zaid:
                 return '.'+line[1]
         else:
-            raise FileNotFoundError(f'No entry in {xsdir} for a ZAID "{zaid}"')
+            warn(_xslibwarn(zaid, xsdir))
 
 
 def find_prefered_library_file(zaid, xsdir):
@@ -32,7 +37,7 @@ def find_prefered_library_file(zaid, xsdir):
             if line[0].split('.')[0] == zaid:
                 return line[-1]
         else:
-            raise FileNotFoundError(f'No entry in {xsdir} for a ZAID "{zaid}"')
+            warn(_xslibwarn(zaid, xsdir))
 
 
 def calculate_ZAID(Z, A):
