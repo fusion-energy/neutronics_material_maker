@@ -104,22 +104,17 @@ class Base(object):
     def find_density_of_atoms_per_cm3(self):
         if self.isotopes == []:
             return 0
+        if(self.density_g_per_cm3)==None:
+            return None
+        #todo use the density_g_per_barn_cm as an option if density_g_per_cm3 is not available
+
         a = 0.0  # Average_mass_of_one_atom
         for iso, a_f in zip(self.isotopes, self.isotope_fractions):
             a += iso.mass_amu*a_f
         # Number_of_atoms_per_cm3_of_item
+        
         number_of_atoms = self.density_g_per_cm3/(a*1.66054e-24)
         return number_of_atoms
-
-    def find_density_of_atoms_per_barn_per_barn(self):
-        if self.classname =='Isotope':
-            return self.density_g_per_cm3/(self.mass_amu*1.66054e-24)
-        a = 0.0  # Average_mass_of_one_atom
-        for iso, a_f in zip(self.isotopes, self.isotope_fractions):
-            a += iso.mass_amu*a_f
-        # Number_of_atoms_per_cm3_of_item
-        number_of_atoms = self.density_g_per_cm3/(a*1.66054e-24)
-        return number_of_atoms        
 
     def kwarg_handler(self, name, color):
         if name is None:
