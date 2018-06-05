@@ -420,6 +420,10 @@ mat_He_in_first_walls = mat_He_in_coolant_plates
 mat_He_coolant_back_plate=mat_He_in_coolant_plates
 
 
+mat_mixed_pebble_bed_combined = Homogenised_mixture(mixtures=[mat_Be12Ti,mat_Li2TiO3],
+                                            volume_fractions=[0.5,0.5],
+                                            combine=True)
+
 mat_mixed_pebble_bed = Homogenised_mixture(mixtures=[mat_Be12Ti,mat_Li2TiO3],
                                             volume_fractions=[0.5,0.5])
 

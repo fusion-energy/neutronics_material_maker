@@ -787,9 +787,8 @@ class Homogenised_mixture(Base):
         for item, v_f, m_f in zip(self.mixtures, self.volume_fractions,self.mass_fractions):
             if item.isotopes == []:
                 mat_card.append({'string':comment+'\n'+comment+item.material_card_name + \
-                    ' with a density of '+str(item.density_g_per_cm3) + \
-                    ' g per cm3 \n'})
-                mat_card.append({'string':comment+' volume fraction of '+str(v_f)+' \n'})
+                    ' with a density of '+str(item.density_g_per_cm3) +' g per cm3'})
+                mat_card.append({'string':comment+' volume fraction of '+str(v_f)})
                 # makes no sense to have a void mass fraction material_card = material_card + comment + 'mass fraction of ' + str(mass_fraction) + ' \n'
             else:
                 n_a_mix= item.density_atoms_per_cm3*v_f/7.66e22
@@ -813,20 +812,44 @@ class Homogenised_mixture(Base):
                 else:
                     line = '   '+item['zaid_lib'].ljust(11)+' '+str(item['isotope_fraction']).ljust(22)+ ' % ' + item['name']
                     mat_card_printed.append(line)
+            return '\n'.join(mat_card_printed)
+        else:
 
         # a method of combining identical zaids
         # else:
 
-        # list_of_strings = [{k:v for k, v in i.items() if k =='string'} for i in mat_card]
-        # list_of_zaids = [{k:v for k, v in i.items() if k !='string'} for i in mat_card]
+            list_of_strings = [{k:v for k, v in i.items() if k =='string'} for i in mat_card]
+            list_of_zaids = [{k:v for k, v in i.items() if k !='string'} for i in mat_card]
 
-        # zaids=[]
-        # for entry in list_of_zaids
-        #     if entry['zaid_lib'] in zaids:
-        #         index = zaids.index(entry['zaid_lib'])
-        #         now that th index is know it can be added to
+            #print(list_of_strings)
 
-        return mat_card_printed     
+            mat_card=''
+            for i in list_of_strings:
+                if i !={}:
+                    mat_card+=i['string']
+
+
+
+            zaids=[]
+            iso_frac=[]
+            names=[]
+            for entry in list_of_zaids:
+                if entry !={}:
+                    if entry['zaid_lib'] in zaids:
+                        index = zaids.index(entry['zaid_lib'])
+                        iso_frac[index]=iso_frac[index]+entry['isotope_fraction']
+                    else:
+                        zaids.append(entry['zaid_lib'])
+                        iso_frac.append(entry['isotope_fraction'])
+                        names.append(entry['name'])
+            
+
+            for i,j,k in zip(zaids,iso_frac,names):
+                mat_card += '   '+(i).ljust(11) + \
+                            ' '+str(j).ljust(22)+' % '+k + '\n'
+
+
+            return mat_card     
     
 # Presently unused?
 class Natural_Isotopes():
