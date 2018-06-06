@@ -119,9 +119,9 @@ class Element_tests(unittest.TestCase):
                 assert False
 
 
-    def test_element_serpent_material_card(self):
+    def test_element_material_card(self):
         new_element = Element('W',density_g_per_cm3=19.6)
-        assert type(new_element.serpent_material_card())== str
+        assert type(new_element.material_card())== str
 
 
 
@@ -148,7 +148,7 @@ class Compound_tests(unittest.TestCase):
     def test_compound_creation_broken(self):
         with pytest.raises(KeyError):
             z = Compound('zzzz', density_g_per_cm3=1)
-            test_mat_card = z.serpent_material_card()
+            test_mat_card = z.material_card()
 
     def test_element_nuclear_library(self):
         new_compound = Compound('Li2Fe2')
@@ -160,7 +160,7 @@ class Compound_tests(unittest.TestCase):
         new_compound = Compound('Li4SiO4',
                        volume_of_unit_cell_cm3=1.1543e-21,
                        atoms_per_unit_cell=14)
-        assert type(new_compound.serpent_material_card()) == str           
+        assert type(new_compound.material_card()) == str           
 
 
 
@@ -192,7 +192,7 @@ class Material_tests(unittest.TestCase):
                                          Element('Ta'),
                                          Element('W')
                                          ],
-                               mass_fractions=[0.88821,
+                               element_mass_fractions=[0.88821,
                                                0.00001,
                                                0.00105,
                                                0.00040,
@@ -214,7 +214,7 @@ class Material_tests(unittest.TestCase):
                                                0.01100
                                                ])
 
-        assert type(mat_Eurofer.serpent_material_card()) == str
+        assert type(mat_Eurofer.material_card()) == str
 
 
     def test_material_atom_density_g_per_cm3(self):
@@ -239,7 +239,7 @@ class Material_tests(unittest.TestCase):
                                             Element('Ti'),
                                             Element('Ta')
                                             ],
-                                  mass_fractions=[0.63684,
+                                  element_mass_fractions=[0.63684,
                                                   0.0003,
                                                   0.02,
                                                   0.0050,
@@ -281,7 +281,7 @@ class Material_tests(unittest.TestCase):
                                             Element('Ti'),
                                             Element('Ta')
                                             ],
-                                  mass_fractions=[0.63684,
+                                  element_mass_fractions=[0.63684,
                                                   0.0003,
                                                   0.02,
                                                   0.0050,
@@ -322,7 +322,7 @@ class Material_tests(unittest.TestCase):
                                             Element('Ti'),
                                             Element('Ta')
                                             ],
-                                  mass_fractions=[0.63684,
+                                  element_mass_fractions=[0.63684,
                                                   0.0003,
                                                   0.02,
                                                   0.0050,
@@ -360,9 +360,9 @@ class Material_tests(unittest.TestCase):
                 fuzzy_test_compound = Compound(chemical_equation_to_test, density_g_per_cm3=random_density)
                 #fuzzy_test_compound = Compound('zzzz', density_g_per_cm3=1)
                 try:
-                    test_mat_card = fuzzy_test_compound.serpent_material_card
+                    test_mat_card = fuzzy_test_compound.material_card
                     assert fuzzy_test_compound.chemical_equation == chemical_equation_to_test
-                    assert type(fuzzy_test_compound.serpent_material_card()) == str
+                    assert type(fuzzy_test_compound.material_card()) == str
                     assert fuzzy_test_compound.density_g_per_cm3 == random_density
                 except:
                     assert False
@@ -396,7 +396,7 @@ class Homogenised_mixture_tests(unittest.TestCase):
                                 Element('Ta'),
                                 Element('W')
                                 ],
-                      mass_fractions=[0.88821,
+                      element_mass_fractions=[0.88821,
                                       0.00001,
                                       0.00105,
                                       0.00040,
@@ -420,7 +420,7 @@ class Homogenised_mixture_tests(unittest.TestCase):
     mat_cooling_plates_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_coolant_plates],
                                                         volume_fractions=[0.727,0.273])
 
-    assert type(mat_cooling_plates_homogenised.serpent_material_card()) == str
+    assert type(mat_cooling_plates_homogenised.material_card()) == str
     assert type(mat_cooling_plates_homogenised.volume_fractions) == list
     assert type(mat_cooling_plates_homogenised.mixtures) == list
 
@@ -445,48 +445,48 @@ class Homogenised_mixture_tests(unittest.TestCase):
 class Example_materials_tests(unittest.TestCase):
 
   def test_material_example_materials(self):
-    assert type(mat_Li4SiO4.serpent_material_card())==str
-    assert type(mat_Li2SiO3.serpent_material_card())==str
-    assert type(mat_Li2ZrO3.serpent_material_card())==str
-    assert type(mat_Li2TiO3.serpent_material_card())==str
-    assert type(mat_Be.serpent_material_card())==str
-    assert type(mat_Be12Ti.serpent_material_card())==str
-    assert type(mat_Ba5Pb3.serpent_material_card())==str
-    assert type(mat_Nd5Pb4.serpent_material_card())==str
-    assert type(mat_Zr5Pb3.serpent_material_card())==str
-    assert type(mat_Zr5Pb4.serpent_material_card())==str
-    assert type(mat_Lithium_Lead.serpent_material_card())==str
-    assert type(mat_Tungsten.serpent_material_card())==str
-    assert type(mat_Eurofer.serpent_material_card())==str
-    assert type(mat_SS316LN_IG.serpent_material_card())==str
-    assert type(mat_Bronze.serpent_material_card())==str
-    assert type(mat_Glass_fibre.serpent_material_card())==str
-    assert type(mat_Epoxy.serpent_material_card())==str
-    assert type(mat_CuCrZr.serpent_material_card())==str
-    assert type(mat_r_epoxy.serpent_material_card())==str
-    assert type(mat_DT_plasma.serpent_material_card())==str
-    assert type(mat_Void.serpent_material_card())==str
-    assert type(mat_water_by_density.serpent_material_card())==str
-    assert type(mat_copper.serpent_material_card())==str
-    assert type(mat_divertor_layer_1_m15.serpent_material_card())==str
-    assert type(mat_divertor_layer_2_m74.serpent_material_card())==str
-    assert type(mat_divertor_layer_3_m15.serpent_material_card())==str
-    assert type(mat_divertor_layer_4_m75.serpent_material_card())==str
-    assert type(mat_water_by_pres_temp.serpent_material_card())==str
-    assert type(mat_VV_Body_m60.serpent_material_card())==str
-    assert type(mat_VV_Shell_m50.serpent_material_card())==str
-    assert type(mat_ShieldPort_m60.serpent_material_card())==str
-    assert type(mat_Nb3Sn.serpent_material_card())==str
-    assert type(mat_liqHe.serpent_material_card())==str
-    assert type(mat_TF_Magnet_m25.serpent_material_card())==str
-    assert type(mat_TF_Casing_m50.serpent_material_card())==str
-    assert type(mat_central_solenoid_m25.serpent_material_card())==str
-    assert type(mat_He_in_coolant_plates.serpent_material_card())==str
-    assert type(mat_He_in_end_caps.serpent_material_card())==str
-    assert type(mat_He_in_first_walls.serpent_material_card())==str
-    assert type(mat_He_coolant_back_plate.serpent_material_card())==str
-    assert type(mat_mixed_pebble_bed.serpent_material_card())==str
-    assert type(mat_cooling_plates_homogenised.serpent_material_card())==str
-    assert type(mat_end_caps_homogenised.serpent_material_card())==str
-    assert type(mat_first_wall_homogenised.serpent_material_card())==str
-    assert type(mat_mixed_pebble_bed.serpent_material_card())==str
+    assert type(mat_Li4SiO4.material_card())==str
+    assert type(mat_Li2SiO3.material_card())==str
+    assert type(mat_Li2ZrO3.material_card())==str
+    assert type(mat_Li2TiO3.material_card())==str
+    assert type(mat_Be.material_card())==str
+    assert type(mat_Be12Ti.material_card())==str
+    assert type(mat_Ba5Pb3.material_card())==str
+    assert type(mat_Nd5Pb4.material_card())==str
+    assert type(mat_Zr5Pb3.material_card())==str
+    assert type(mat_Zr5Pb4.material_card())==str
+    assert type(mat_Lithium_Lead.material_card())==str
+    assert type(mat_Tungsten.material_card())==str
+    assert type(mat_Eurofer.material_card())==str
+    assert type(mat_SS316LN_IG.material_card())==str
+    assert type(mat_Bronze.material_card())==str
+    assert type(mat_Glass_fibre.material_card())==str
+    assert type(mat_Epoxy.material_card())==str
+    assert type(mat_CuCrZr.material_card())==str
+    assert type(mat_r_epoxy.material_card())==str
+    assert type(mat_DT_plasma.material_card())==str
+    assert type(mat_Void.material_card())==str
+    assert type(mat_water_by_density.material_card())==str
+    assert type(mat_copper.material_card())==str
+    assert type(mat_divertor_layer_1_m15.material_card())==str
+    assert type(mat_divertor_layer_2_m74.material_card())==str
+    assert type(mat_divertor_layer_3_m15.material_card())==str
+    assert type(mat_divertor_layer_4_m75.material_card())==str
+    assert type(mat_water_by_pres_temp.material_card())==str
+    assert type(mat_VV_Body_m60.material_card())==str
+    assert type(mat_VV_Shell_m50.material_card())==str
+    assert type(mat_ShieldPort_m60.material_card())==str
+    assert type(mat_Nb3Sn.material_card())==str
+    assert type(mat_liqHe.material_card())==str
+    assert type(mat_TF_Magnet_m25.material_card())==str
+    assert type(mat_TF_Casing_m50.material_card())==str
+    assert type(mat_central_solenoid_m25.material_card())==str
+    assert type(mat_He_in_coolant_plates.material_card())==str
+    assert type(mat_He_in_end_caps.material_card())==str
+    assert type(mat_He_in_first_walls.material_card())==str
+    assert type(mat_He_coolant_back_plate.material_card())==str
+    assert type(mat_mixed_pebble_bed.material_card())==str
+    assert type(mat_cooling_plates_homogenised.material_card())==str
+    assert type(mat_end_caps_homogenised.material_card())==str
+    assert type(mat_first_wall_homogenised.material_card())==str
+    assert type(mat_mixed_pebble_bed.material_card())==str

@@ -250,7 +250,7 @@ class Isotope(Base):
             return n.unique()[0]
 
     def material_card(self, name=None, color=None,code='serpent'):
-
+        mat_card=[]
         if code =='mcnp':
             end_comment = ' $ ' 
             comment = 'c  '
@@ -341,14 +341,8 @@ class Element(Isotope):
             element_mass += isotope.abundance * isotope.mass_amu
         return element_mass
 
-    def serpent_material_card(self, name=None, color=None):
-        
-        for i in self.isotopes:
-            mat_card += '   '+(i.zaid+i.nuclear_library).ljust(11)+' ' + \
-                str(i.abundance).ljust(22)+' % '+i.material_card_name+'\n'
-        return mat_card
 
-    def mcnp_material_card(self, name=None, color=None,code='serpent'):
+    def material_card(self, name=None, color=None,code='serpent'):
         if code == 'serpent':
             end_comment = ' % '
             mat_card = super(Element,self).serpent_header(name, color)
@@ -664,7 +658,7 @@ class Homogenised_mixture(Base):
         self.material_card_name = kwargs.get('material_card_name')
         self.material_card_comment = kwargs.get('material_card_comment','material card made with neutronics_material_maker')
         self.packing_fraction=kwargs.get('packing_fraction', 1.0)
-        self.combine=kwargs.get('combine', False)
+        # self.squashed=kwargs.get('squashed', False)
         # self.packing_fractions=self.find_packing_fractions_of_mixtures(self.mixtures)
 
         if self.volume_fractions is None and self.mass_fractions is None:
@@ -757,9 +751,10 @@ class Homogenised_mixture(Base):
         return description_to_return[:-1]
 
 
-    def material_card(self, name=None, color=None, fractions='isotope_atom_fractions',code='serpent'):
+    def material_card(self, name=None, color=None, fractions='isotope_atom_fractions',code='serpent',squashed=False):
 
-            
+        #if 'squashed' in kwargs:
+
         mat_card_printed=[]
         if code =='mcnp':
             end_comment = ' $ ' 
@@ -794,7 +789,7 @@ class Homogenised_mixture(Base):
 
         
 
-        if self.combine == False:
+        if squashed == False:
             for item in mat_card:
                 if list(item.keys())==['string']:
                     mat_card_printed.append(item['string'])
@@ -806,11 +801,8 @@ class Homogenised_mixture(Base):
 
         # a method of combining identical zaids
 
-
             list_of_strings = [{k:v for k, v in i.items() if k =='string'} for i in mat_card]
             list_of_zaids = [{k:v for k, v in i.items() if k !='string'} for i in mat_card]
-
-            #print(list_of_strings)
 
             for i in list_of_strings:
                 if i !={}:
