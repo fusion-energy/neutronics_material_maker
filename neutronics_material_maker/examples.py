@@ -122,7 +122,7 @@ mat_Tungsten = Material(material_card_name='Tungsten',
                               Element(symbol='S'),
                               Element(symbol='Si'),
                              ],
-                    mass_fractions=[1e6-405,
+                    element_mass_fractions=[1e6-405,
                                     10,
                                     15,
                                     5,
@@ -178,7 +178,7 @@ mat_Eurofer = Material(material_card_name='Eurofer',
                               Element('Ta'),
                               Element('W')
                               ],
-                    mass_fractions=[0.88821,
+                    element_mass_fractions=[0.88821,
                                     0.00001,
                                     0.00105,
                                     0.00040,
@@ -222,7 +222,7 @@ mat_SS316LN_IG = Material(material_card_name='SS316LN-IG',
                               Element('Ti'),
                               Element('Ta')
                              ],
-                    mass_fractions=[0.63684,
+                    element_mass_fractions=[0.63684,
                                     0.0003,
                                     0.02,
                                     0.0050,
@@ -247,7 +247,7 @@ mat_Bronze = Material(material_card_name='Bronze',
                     elements=[Element('Cu'),
                               Element('Sn')
                              ],
-                    atom_fractions=[0.95,
+                    element_atom_fractions=[0.95,
                                     0.05
                     ])
 
@@ -261,7 +261,7 @@ mat_Glass_fibre = Material(material_card_name='Glass-fibre',
                               Element(13),
                               Element(14)
                              ],
-                    mass_fractions=[0.0000383948,
+                    element_mass_fractions=[0.0000383948,
                                     0.6328110447,
                                     0.0499936947,
                                     0.1026861642,
@@ -275,7 +275,7 @@ mat_Epoxy = Material(material_card_name='Epoxy',
                                Element(7),
                                Element(8)
                               ],
-                     mass_fractions=[1.0414E-06,
+                     element_mass_fractions=[1.0414E-06,
                                      1.7164E-02,
                                      1.3560E-03,
                                      2.7852E-03
@@ -290,7 +290,7 @@ mat_CuCrZr = Material(material_card_name='CrCuZr',
                                Element(14),
                                Element(29),
                               ],
-                     mass_fractions=[0.75,
+                     element_mass_fractions=[0.75,
                                      0.11,
                                      0.03,
                                      0.06,
@@ -309,7 +309,7 @@ mat_r_epoxy = Material(material_card_name='r-epoxy',
                                 Element(14),
                                 Element(16),
                                 ],
-                     mass_fractions=[3.89340E-03,
+                     element_mass_fractions=[3.89340E-03,
                                     3.40560E-03,
                                     3.70800E-04,
                                     4.87080E-03,
@@ -325,13 +325,13 @@ mat_DT_plasma = Material(material_card_name='DT-plasma',
                      elements=[Element(1,enriched_isotopes=[Isotope('H',2,abundance=0.5),
                                                             Isotope('H',3,abundance=0.5)])
                                 ],
-                     atom_fractions=[1.0]
+                     element_atom_fractions=[1.0]
                      )
 
 mat_Void = Material(material_card_name='Void',
                      density_g_per_cm3=0,
                      elements=[  ],
-                     mass_fractions=[  ]
+                     element_mass_fractions=[  ]
                     )
 
 mat_water_by_density = Compound('H2O',density_g_per_cm3=0.926)
@@ -439,6 +439,7 @@ mat_end_caps_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_en
 mat_first_wall_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_first_walls],
                                                     volume_fractions=[0.727,0.273])
 
+all_examples = [mat_Li4SiO4,mat_Li2SiO3,mat_Li2ZrO3,mat_Li2TiO3,mat_Be,mat_Be12Ti,mat_Ba5Pb3,mat_Nd5Pb4,mat_Zr5Pb3,mat_Zr5Pb4,mat_Lithium_Lead,mat_Tungsten,mat_Eurofer,mat_SS316LN_IG,mat_Bronze,mat_Glass_fibre,mat_Epoxy,mat_CuCrZr,mat_r_epoxy,mat_DT_plasma,mat_Void,mat_water_by_density,mat_copper,mat_divertor_layer_1_m15,mat_divertor_layer_2_m74,mat_divertor_layer_3_m15,mat_divertor_layer_4_m75,mat_water_by_pres_temp,mat_VV_Body_m60,mat_Nb3Sn,mat_liqHe,mat_TF_Magnet_m25,mat_TF_Casing_m50,mat_He_in_coolant_plates,mat_mixed_pebble_bed_combined,mat_mixed_pebble_bed]
 
 
 print('example materials imported')
