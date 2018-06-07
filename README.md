@@ -448,6 +448,12 @@ example_mat.density_g_per_cm3
 ```
 mat_mix.material_card(code='serpent',squashed=True)
 ```
+
+The **material_card** for **Homogenised_mixture** can also be producing using isotope mass fractions instead of the default isotope atom fractions. Mass fractions can be achieved using **fractions** keyword:
+```
+mat_mix.material_card(fractions='isotope mass fractions')
+```
+
 # <a name="chainging_the_nuclear_library"></a>Chainging the nuclear library
 
 Serpent material cards can contain a pointer to the desired nuclear cross section file. The pointer is optinal but if included it appears after the zaid entry in the material card. When importing neutronics_material_maker it attempts to import a default Serpent 2 xsdir file and find the preferential nuclear library evaluation for each isotope present in the xsdir. If no file is found or the particular isotope is not found then the optional nuclear library is left blank in material cards. The default path of the xsdir file is **/opt/serpent2/xsdir.serp**, however this can be changed using the **set_xsdir(filename)** function as demonstrated below.

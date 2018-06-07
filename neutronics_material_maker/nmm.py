@@ -751,7 +751,7 @@ class Homogenised_mixture(Base):
         return description_to_return[:-1]
 
 
-    def material_card(self, name=None, color=None, fractions='isotope_atom_fractions',code='serpent',squashed=False):
+    def material_card(self, name=None, color=None, fractions='isotope atom fractions',code='serpent',squashed=False):
 
         #if 'squashed' in kwargs:
 
@@ -787,8 +787,8 @@ class Homogenised_mixture(Base):
                 for i, a_f, m_f in zip(item.isotopes, item.isotope_atom_fractions, item.isotope_mass_fractions):
                     if a_f > 0:
                         mat_card.append({'zaid_lib':(i.zaid+i.nuclear_library),
-                                         'isotope_atom_fractions':(a_f*n_a_mix),
-                                         'isotope_mass_fractions':(m_f*mass_fraction_normaliser_mix),
+                                         'isotope atom fractions':(a_f*n_a_mix),
+                                         'isotope mass fractions':(m_f*mass_fraction_normaliser_mix),
                                          'name':i.name})
 
         
