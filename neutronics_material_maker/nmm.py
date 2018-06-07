@@ -33,7 +33,7 @@ def set_xsdir(xsdir_file_path):
         print('Setting all nuclear library extensions to blank entries')
 
 
-set_xsdir('/opt/serpent2/xsdir.serp')
+set_xsdir('/opt/serpent/xsdir.serp')
 
 def find_prefered_library(zaid):
     if len(xsdir_isotopes_and_nuclear_libraries_list)==0:
@@ -261,7 +261,7 @@ class Isotope(Base):
             mat_card.append(super(Isotope,self).serpent_header(name, color))
 
         mat_card.append('   '+(self.zaid+self.nuclear_library).ljust(11) +\
-            ' 1'.ljust(22)+end_comment+self.name)
+            ' 1'.ljust(24)+end_comment+self.name)
         return '\n'.join(mat_card)
 
 
@@ -352,7 +352,7 @@ class Element(Isotope):
 
         for i in self.isotopes:
             mat_card.append('   '+(i.zaid+i.nuclear_library).ljust(11)+' ' + \
-                str(i.abundance).ljust(22)+end_comment+i.material_card_name)
+                str(i.abundance).ljust(24)+end_comment+i.material_card_name)
         return '\n'.join(mat_card)
 
 
@@ -440,7 +440,7 @@ class Material(Base):
 
         for i, i_f in zip(self.isotopes, self.isotope_atom_fractions):
             mat_card.append('   '+(i.zaid + i.nuclear_library).ljust(11)+' ' + \
-                str(i_f).ljust(22)+end_comment+i.name)
+                str(i_f).ljust(24)+end_comment+i.name)
         return '\n'.join(mat_card)
 
     def find_molar_mass(self):
@@ -527,7 +527,7 @@ class Compound(Base):
 
         for i, i_f in zip(self.isotopes, self.isotope_atom_fractions):
             mat_card.append('   '+(i.zaid+i.nuclear_library).ljust(11)+' ' + \
-                str(i_f).ljust(22)+end_comment+i.material_card_name)
+                str(i_f).ljust(24)+end_comment+i.material_card_name)
         return '\n'.join(mat_card)
 
     def find_average_atom_mass(self):
@@ -775,6 +775,7 @@ class Homogenised_mixture(Base):
                 # makes no sense to have a void mass fraction material_card = material_card + comment + 'mass fraction of ' + str(mass_fraction) + ' \n'
             else:
                 n_a_mix= (item.density_atoms_per_cm3*v_f)/sum(self.number_of_atoms_in_mixtures)#/7.66e22
+                mass_fraction_normaliser_mix= -1*v_f
 
                 mat_card.append({'string':comment})
                 mat_card.append({'string':comment+item.material_card_name})
@@ -785,7 +786,10 @@ class Homogenised_mixture(Base):
 
                 for i, a_f, m_f in zip(item.isotopes, item.isotope_atom_fractions, item.isotope_mass_fractions):
                     if a_f > 0:
-                        mat_card.append({'zaid_lib':(i.zaid+i.nuclear_library),'isotope_atom_fractions':(a_f*n_a_mix),'name':i.name})
+                        mat_card.append({'zaid_lib':(i.zaid+i.nuclear_library),
+                                         'isotope_atom_fractions':(a_f*n_a_mix),
+                                         'isotope_mass_fractions':(m_f*mass_fraction_normaliser_mix),
+                                         'name':i.name})
 
         
 
@@ -794,7 +798,7 @@ class Homogenised_mixture(Base):
                 if list(item.keys())==['string']:
                     mat_card_printed.append(item['string'])
                 else:
-                    line = '   '+item['zaid_lib'].ljust(11)+' '+str(item[fractions]).ljust(22)+ end_comment + item['name']
+                    line = '   '+item['zaid_lib'].ljust(11)+' '+str(item[fractions]).ljust(24)+ end_comment + item['name']
                     mat_card_printed.append(line)
             return '\n'.join(mat_card_printed)
         else:
@@ -811,6 +815,7 @@ class Homogenised_mixture(Base):
             zaids=[]
             iso_frac=[]
             names=[]
+
             for entry in list_of_zaids:
                 if entry !={}:
                     if entry['zaid_lib'] in zaids:
@@ -822,9 +827,8 @@ class Homogenised_mixture(Base):
                         names.append(entry['name'])
 
             zaids, iso_frac,names = zip(*natsorted(zip(zaids, iso_frac,names)))
-
             for zaid,iso_frac,name in zip(zaids,iso_frac,names):
-                mat_card_printed.append('   '+(zaid).ljust(11) + ' '+str(iso_frac).ljust(22)+end_comment+name)
+                mat_card_printed.append('   '+(zaid).ljust(11) + ' '+str(iso_frac).ljust(24)+end_comment+name)
 
             return '\n'.join(mat_card_printed)     
     
