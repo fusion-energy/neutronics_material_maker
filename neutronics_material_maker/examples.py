@@ -420,10 +420,6 @@ mat_He_in_first_walls = mat_He_in_coolant_plates
 mat_He_coolant_back_plate=mat_He_in_coolant_plates
 
 
-mat_mixed_pebble_bed_combined = Homogenised_mixture(mixtures=[mat_Be12Ti,mat_Li2TiO3],
-                                            volume_fractions=[0.5,0.5],
-                                            combine=True)
-
 mat_mixed_pebble_bed = Homogenised_mixture(mixtures=[mat_Be12Ti,mat_Li2TiO3],
                                             volume_fractions=[0.5,0.5])
 
@@ -439,7 +435,13 @@ mat_end_caps_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_en
 mat_first_wall_homogenised =Homogenised_mixture(mixtures=[mat_Eurofer,mat_He_in_first_walls],
                                                     volume_fractions=[0.727,0.273])
 
-all_examples = [mat_Li4SiO4,mat_Li2SiO3,mat_Li2ZrO3,mat_Li2TiO3,mat_Be,mat_Be12Ti,mat_Ba5Pb3,mat_Nd5Pb4,mat_Zr5Pb3,mat_Zr5Pb4,mat_Lithium_Lead,mat_Tungsten,mat_Eurofer,mat_SS316LN_IG,mat_Bronze,mat_Glass_fibre,mat_Epoxy,mat_CuCrZr,mat_r_epoxy,mat_DT_plasma,mat_Void,mat_water_by_density,mat_copper,mat_divertor_layer_1_m15,mat_divertor_layer_2_m74,mat_divertor_layer_3_m15,mat_divertor_layer_4_m75,mat_water_by_pres_temp,mat_VV_Body_m60,mat_Nb3Sn,mat_liqHe,mat_TF_Magnet_m25,mat_TF_Casing_m50,mat_He_in_coolant_plates,mat_mixed_pebble_bed_combined,mat_mixed_pebble_bed]
+all_examples = [mat_Li4SiO4,mat_Li2SiO3,mat_Li2ZrO3,mat_Li2TiO3,mat_Be,mat_Be12Ti,mat_Ba5Pb3,
+                mat_Nd5Pb4,mat_Zr5Pb3,mat_Zr5Pb4,mat_Lithium_Lead,mat_Tungsten,mat_Eurofer,
+                mat_SS316LN_IG,mat_Bronze,mat_Glass_fibre,mat_Epoxy,mat_CuCrZr,mat_r_epoxy,
+                mat_DT_plasma,mat_Void,mat_water_by_density,mat_copper,mat_divertor_layer_1_m15,
+                mat_divertor_layer_2_m74,mat_divertor_layer_3_m15,mat_divertor_layer_4_m75,
+                mat_water_by_pres_temp,mat_VV_Body_m60,mat_Nb3Sn,mat_liqHe,mat_TF_Magnet_m25,
+                mat_TF_Casing_m50,mat_He_in_coolant_plates,mat_mixed_pebble_bed]
 
 
 print('example materials imported')

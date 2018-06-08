@@ -40,6 +40,22 @@ class Isotope_tests(unittest.TestCase):
         new_isotope = Isotope('Li',7)    
         assert new_isotope.material_card_name == 'Lithium_7'
 
+    def test_isotope_material_card_mass_fraction_prefix(self):
+        new_isotope = Isotope('Li',7,abundance=0.6,density_g_per_cm3=7)
+        material_card = new_isotope.material_card(fractions ='isotope mass fractions')
+        string_value = material_card.split('\n')[-1].split()[1]
+        numeric_value = float(string_value)
+        assert numeric_value == -1
+        assert string_value == '-1'
+
+    def test_isotope_material_card_atom_fraction_prefix(self):
+        new_isotope = Isotope('Li',7,abundance=0.6,density_g_per_cm3=7)
+        material_card = new_isotope.material_card(fractions ='isotope atom fractions')
+        string_value = material_card.split('\n')[-1].split()[1]
+        numeric_value = float(string_value)
+        assert numeric_value == 1
+        assert string_value == '1'
+
     def test_isotope_atomic_number(self):
         new_isotope = Isotope('Li',7)    
         assert new_isotope.nucleons == 7
