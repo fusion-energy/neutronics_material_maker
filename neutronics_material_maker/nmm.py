@@ -763,8 +763,9 @@ class Homogenised_mixture(Base):
         self.density_g_per_cm3 = self.find_density_g_per_cm3()*self.packing_fraction
         self.density_atoms_per_barn_per_cm = self.find_density_atoms_per_barn_per_cm()*self.packing_fraction
 
-        self.isotope= self.find_isotopes()
+        self.isotopes= self.find_isotopes()
         self.isotope_atom_fractions = self.find_isotope_atom_fractions()
+        self.isotope_mass_fractions = self.find_isotope_mass_fractions()
 
     def find_isotopes(self):
         isotopes=[]
@@ -782,6 +783,16 @@ class Homogenised_mixture(Base):
                 fractions.append(a_f*n_a_mix)
 
         return fractions
+
+    def find_isotope_mass_fractions(self):
+        fractions=[]
+        for mixture, mix_v_f, mix_m_f in zip(self.mixtures, self.volume_fractions,self.mass_fractions):
+            n_a_mix= (mixture.density_atoms_per_cm3*mix_v_f)/self.density_atoms_per_cm3 # 
+
+            for i, a_f, m_f in zip(mixture.isotopes, mixture.isotope_atom_fractions, mixture.isotope_mass_fractions):
+                fractions.append(m_f*n_a_mix)
+
+        return fractions        
 
 
     def find_volume_fractions_from_mass_fractions(self):
