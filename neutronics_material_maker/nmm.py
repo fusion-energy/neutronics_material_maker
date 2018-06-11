@@ -490,10 +490,25 @@ class Material(Base):
 
 
     def find_element_atom_fractions_from_element_mass_fractions(self):
-        list_of_atom_fractions = []
+        list_of_fractions = []
         for mass_fraction, element in zip(self.element_mass_fractions, self.elements):
-            list_of_atom_fractions.append(mass_fraction/element.molar_mass_g_per_mol)
-        return list_of_atom_fractions
+            a_f = (mass_fraction*1)/element.molar_mass_g_per_mol
+
+
+            list_of_fractions.append(a_f)
+
+        a = sum(list_of_fractions)
+        b = 1.0
+        rtol = 1e-6
+        if not abs(a-b) <= rtol*max(abs(a), abs(b)):
+            normalised_list_of_fractions = []
+            normalisation_factor = 1.0 / sum(list_of_fractions)
+            for fraction in list_of_fractions:
+                normalised_list_of_fractions.append(normalisation_factor *
+                                                    fraction)
+            return normalised_list_of_fractions
+                        
+        return list_of_fractions
 
     def find_element_mass_fractions_from_element_atom_fractions(self):
         list_of_element_mass_fractions = []
@@ -895,7 +910,8 @@ class Homogenised_mixture(Base):
                     if a_f > 0:
                         mat_card.append({'zaid_lib':(i.zaid+i.nuclear_library),
                                          'isotope atom fractions':(a_f*n_a_mix),
-                                         'isotope mass fractions':('feature not working yet'),
+                                         'isotope mass fractions':(m_f*mix_m_f),
+                                            #'feature not working yet'),
                                          'name':i.name})
 
         
