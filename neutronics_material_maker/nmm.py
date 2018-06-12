@@ -19,6 +19,15 @@ Avogadros_number= 6.022140857e23
 
 xsdir_isotopes_and_nuclear_libraries_list=[]
 
+def normalise_list(non_normalised_list):
+
+        factor = 1.0 / sum(non_normalised_list)
+        print('using new norm')
+        normalised_list = []
+        for non_normalised_fraction in non_normalised_list:
+            normalised_list.append(non_normalised_fraction * factor)
+        return normalised_list
+
 def set_xsdir(xsdir_file_path):
     global xsdir_isotopes_and_nuclear_libraries_list
     xsdir_isotopes_and_nuclear_libraries_list=[]
@@ -457,8 +466,10 @@ class Material(Base):
             self.element_mass_fractions = self.find_element_mass_fractions_from_element_atom_fractions()
 
         if len(self.elements) != len(self.element_atom_fractions):
+            print(len(self.elements) , len(self.element_atom_fractions))
             raise ValueError('When making a material please provide the same '
                              'number of elements and atom/mass fractions.')
+
         self.isotopes = []
         for element in self.elements:
             for isotope in element.isotopes:
@@ -504,12 +515,9 @@ class Material(Base):
         b = 1.0
         rtol = 1e-6
         if not abs(a-b) <= rtol*max(abs(a), abs(b)):
-            normalised_list_of_fractions = []
-        
-            normalisation_factor = 1.0 / sum(list_of_fractions)
-            for fraction in list_of_fractions:
-                normalised_list_of_fractions.append(normalisation_factor *
-                                                    fraction)
+
+            normalised_list_of_fractions = normalise_list(list_of_fractions)
+
             return normalised_list_of_fractions
 
         return list_of_fractions
@@ -517,10 +525,18 @@ class Material(Base):
     def find_element_mass_fractions_from_element_atom_fractions(self):
         if self.element_atom_fractions == []:
             return []
-        list_of_element_mass_fractions = []
+        list_of_fractions = []
         for atom_fraction, element in zip(self.element_atom_fractions, self.elements):
-            list_of_element_mass_fractions.append(atom_fraction*element.molar_mass_g_per_mol)
-        return list_of_element_mass_fractions
+            list_of_fractions.append(atom_fraction*element.molar_mass_g_per_mol)
+
+        a = sum(list_of_fractions)
+        b = 1.0
+        rtol = 1e-6
+        if not abs(a-b) <= rtol*max(abs(a), abs(b)):
+            normalised_list_of_fractions = normalise_list(list_of_fractions)
+
+            return normalised_list_of_fractions
+        return list_of_fractions
 
     def material_card(self, name=None, color=None, code=None, fractions=None):
 
@@ -692,11 +708,7 @@ class Compound(Base):
         b = 1.0
         rtol = 1e-6
         if not abs(a-b) <= rtol*max(abs(a), abs(b)):
-            normalised_list_of_fractions = []
-            normalisation_factor = 1.0 / sum(list_of_fractions)
-            for fraction in list_of_fractions:
-                normalised_list_of_fractions.append(normalisation_factor *
-                                                    fraction)
+            normalised_list_of_fractions = normalise_list(list_of_fractions)
             return normalised_list_of_fractions
         return list_of_fractions
 
