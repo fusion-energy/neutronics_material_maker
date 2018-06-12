@@ -449,6 +449,7 @@ class Material(Base):
             raise ValueError('To make a material from elements either element_atom_fractions or '
                              'element_mass_fractions must be provided.')
 
+
         if self.element_atom_fractions is None:
             self.element_atom_fractions  = self.find_element_atom_fractions_from_element_mass_fractions()
 
@@ -490,6 +491,8 @@ class Material(Base):
 
 
     def find_element_atom_fractions_from_element_mass_fractions(self):
+        if self.element_mass_fractions == []:
+            return []
         list_of_fractions = []
         for mass_fraction, element in zip(self.element_mass_fractions, self.elements):
             a_f = (mass_fraction*1)/element.molar_mass_g_per_mol
@@ -502,15 +505,18 @@ class Material(Base):
         rtol = 1e-6
         if not abs(a-b) <= rtol*max(abs(a), abs(b)):
             normalised_list_of_fractions = []
+        
             normalisation_factor = 1.0 / sum(list_of_fractions)
             for fraction in list_of_fractions:
                 normalised_list_of_fractions.append(normalisation_factor *
                                                     fraction)
             return normalised_list_of_fractions
-                        
+
         return list_of_fractions
 
     def find_element_mass_fractions_from_element_atom_fractions(self):
+        if self.element_atom_fractions == []:
+            return []
         list_of_element_mass_fractions = []
         for atom_fraction, element in zip(self.element_atom_fractions, self.elements):
             list_of_element_mass_fractions.append(atom_fraction*element.molar_mass_g_per_mol)
@@ -592,9 +598,12 @@ class Compound(Base):
             self.density_atoms_per_cm3 = super(Compound,self).find_density_of_atoms_per_cm3()            
 
         #adjust densities with packing fraction
-        self.density_g_per_cm3 = self.density_g_per_cm3*self.packing_fraction
-        self.density_atoms_per_barn_per_cm = self.density_atoms_per_barn_per_cm*self.packing_fraction
-        self.density_atoms_per_cm3 = self.density_atoms_per_cm3*self.packing_fraction
+        if self.density_g_per_cm3 != None:
+            self.density_g_per_cm3 = self.density_g_per_cm3*self.packing_fraction
+        if self.density_atoms_per_barn_per_cm != None:
+            self.density_atoms_per_barn_per_cm = self.density_atoms_per_barn_per_cm*self.packing_fraction
+        if self.density_atoms_per_cm3 != None:
+            self.density_atoms_per_cm3 = self.density_atoms_per_cm3*self.packing_fraction
 
 
     def find_isotope_mass_fractions_from_isotope_atom_fractions(self):

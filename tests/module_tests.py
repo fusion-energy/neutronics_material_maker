@@ -96,7 +96,7 @@ class Element_tests(unittest.TestCase):
 
     def test_element_molar_mass_g(self):
         new_element = Element('Fe')
-        assert math.isclose(new_element.molar_mass_g, 55.845144433865904)
+        assert math.isclose(new_element.molar_mass_g_per_mol, 55.845144433865904)
 
     def test_element_isotopes(self):
         new_element = Element('Fe')
@@ -135,11 +135,9 @@ class Element_tests(unittest.TestCase):
                 assert False
 
 
-    def test_element_material_card(self):
+    def test_element_material_card_type(self):
         new_element = Element('W',density_g_per_cm3=19.6)
         assert type(new_element.material_card())== str
-
-
 
 
 class Compound_tests(unittest.TestCase):
@@ -359,6 +357,48 @@ class Material_tests(unittest.TestCase):
         assert type(mat_SS316LN_IG.elements) == list
 
 
+
+
+    def test_Material_mass_fractions_single_isotope_element(self):
+        mat_1 = Material(material_card_name='M1',
+                            density_g_per_cm3=20.0,
+                            elements=[Element(symbol='Al')],
+                            element_mass_fractions=[1])
+
+        mat_2 = Material(material_card_name='M1',
+                            density_g_per_cm3=20.0,
+                            elements=[Element(symbol='Al')],
+                            element_atom_fractions=[1])
+   
+
+
+        assert mat_1.isotope_atom_fractions == [1]
+        assert mat_1.isotope_mass_fractions == [1]
+        assert mat_2.isotope_atom_fractions == [1]
+        assert mat_2.isotope_mass_fractions == [1]
+
+
+
+    def test_Material_mass_fractions_single_isotope_element(self):
+        mat_1 = Material(material_card_name='M1',
+                            density_g_per_cm3=20.0,
+                            elements=[Element(symbol='Sn')],
+                            element_mass_fractions=[1])
+
+        mat_2 = Material(material_card_name='M2',
+                            density_g_per_cm3=10.0,
+                            elements=[Element(symbol='Sn')],
+                            element_atom_fractions=[1])
+
+
+        assert math.isclose(sum(mat_1.isotope_atom_fractions) , 1)
+        assert math.isclose(sum(mat_1.isotope_mass_fractions) , 1)
+        assert math.isclose(sum(mat_2.isotope_atom_fractions) , 1)
+        assert math.isclose(sum(mat_2.isotope_mass_fractions) , 1)
+
+
+
+
     def test_all_natural_elements(self):
         all_elements = Natural_Elements().all_natural_element_symbols
         for fuss_test in range(0,50):
@@ -449,12 +489,12 @@ class Homogenised_mixture_tests(unittest.TestCase):
     mat_Be = Compound('Be',
                     volume_of_unit_cell_cm3=0.01622e-21,
                     atoms_per_unit_cell=2,
-                    packing_fraction=0.6)
+                    packing_fraction=0.3)
 
     mat_mixed_pebble_bed = Homogenised_mixture(mixtures=[mat_Be,mat_Li4SiO4],
                                                 volume_fractions=[0.6,0.4])
-    mix1 = mat_Be.density_g_per_cm3*mat_Be.packing_fraction*0.6
-    mix2 = mat_Li4SiO4.density_g_per_cm3*mat_Li4SiO4.packing_fraction*0.4
+    mix1 = mat_Be.density_g_per_cm3*0.6
+    mix2 = mat_Li4SiO4.density_g_per_cm3*0.4
 
     assert mat_mixed_pebble_bed.density_g_per_cm3 == mix1+mix2
 
