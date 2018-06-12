@@ -22,7 +22,6 @@ xsdir_isotopes_and_nuclear_libraries_list=[]
 def normalise_list(non_normalised_list):
 
         factor = 1.0 / sum(non_normalised_list)
-        print('using new norm')
         normalised_list = []
         for non_normalised_fraction in non_normalised_list:
             normalised_list.append(non_normalised_fraction * factor)
@@ -799,9 +798,22 @@ class Homogenised_mixture(Base):
         self.density_g_per_cm3 = self.find_density_g_per_cm3()*self.packing_fraction
         self.density_atoms_per_barn_per_cm = self.find_density_atoms_per_barn_per_cm()*self.packing_fraction
 
+
+        # self.molar_mass_g_per_mol = self.find_molar_mass_g_per_mol()
+
+        #         self.isotope_mass_fractions=[]
+        # for isotope,isotope_atom_fraction in zip(self.isotopes,self.isotope_atom_fractions):
+        #     self.isotope_mass_fractions.append(isotope_atom_fraction*(isotope.mass_amu/self.molar_mass_g_per_mol)*sum(self.fractions_coefficients))
+
+
         self.isotopes= self.find_isotopes()
         self.isotope_atom_fractions = self.find_isotope_atom_fractions()
         self.isotope_mass_fractions = self.find_isotope_mass_fractions()
+
+    # def find_molar_mass_g_per_mol():
+    #     molar_mass = 
+    #     for mix in self.mixtures:
+
 
     def find_isotopes(self):
         isotopes=[]
@@ -816,17 +828,17 @@ class Homogenised_mixture(Base):
             n_a_mix= (mixture.density_atoms_per_cm3*mix_v_f)/self.density_atoms_per_cm3 # 
 
             for i, a_f, m_f in zip(mixture.isotopes, mixture.isotope_atom_fractions, mixture.isotope_mass_fractions):
-                fractions.append(a_f*n_a_mix)
+                fractions.append(a_f*mix_v_f)
 
         return fractions
 
     def find_isotope_mass_fractions(self):
         fractions=[]
         for mixture, mix_v_f, mix_m_f in zip(self.mixtures, self.volume_fractions,self.mass_fractions):
-            n_a_mix= (mixture.density_atoms_per_cm3*mix_v_f)/self.density_atoms_per_cm3 # 
+            # n_a_mix= (mixture.density_atoms_per_cm3*mix_v_f)/self.density_atoms_per_cm3 # 
 
             for i, a_f, m_f in zip(mixture.isotopes, mixture.isotope_atom_fractions, mixture.isotope_mass_fractions):
-                fractions.append(m_f*n_a_mix)
+                fractions.append(m_f*mix_m_f)
 
         return fractions        
 
@@ -853,10 +865,18 @@ class Homogenised_mixture(Base):
         if arevaluesthesame(sum(self.volume_fractions), 1.0,1e-09)==False:
             raise ValueError('The provided volume fractions should sum to 1 not ',
                              sum(self.volume_fractions))
+
+        # total_mass = 0
+        # for mix, vol_fraction in zip(self.mixtures, self.volume_fractions):
+        #     total_mass+=mix.density_g_per_cm3*vol_fraction
+        # print('total_mass',total_mass)
+
         list_of_non_normalised_mass_fractions = []
         cumlative_mass_fraction = 0
+
         for mix, vol_fraction in zip(self.mixtures, self.volume_fractions):
             non_normalised_mass_fractions = vol_fraction * mix.density_g_per_cm3
+            #print('mix mass',vol_fraction * mix.density_g_per_cm3)
             list_of_non_normalised_mass_fractions.append(non_normalised_mass_fractions)
             cumlative_mass_fraction = cumlative_mass_fraction + non_normalised_mass_fractions
         factor = 1.0 / cumlative_mass_fraction
