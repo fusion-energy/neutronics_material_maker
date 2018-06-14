@@ -34,7 +34,7 @@ The material composition impacts the transport of neutrons and photons through t
     - temperature (in Kelvin)
     - pressure (in Pa)
 - Retrieve the properties from your crations, available properties include:
-    - mat cards for Serpent
+    - mat cards for Serpent and MCNP
     - density
     - zaids
     - isotopes present
@@ -219,7 +219,7 @@ water_compound.density_g_per_cm3
 >>> 0.9990449108576049
 ```
 
-Once a **Compound** has been created various properties can be extracted including material cards suitable for use in Serpent II simulations with the **serpent_material_card()** method.
+Once a **Compound** has been created various properties can be extracted including material cards suitable for use in Serpent (default) simulations with the **material_card(code='serpent')** and MCNP **material_card(code='mcnp')** method.
 ```python
 example_compound = Compound('Li4SiO4',enriched_isotopes=(Isotope('Li', 6, 0.9), Isotope('Li', 7, 0.1)))
 example_compound.enriched_isotopes
@@ -236,7 +236,7 @@ example_compound.molar_mass
 >>> 116.526000953
 example_compound.elements
 >>> [<__main__.Element object at 0x7fea0f159350>, <__main__.Element object at 0x7fea0f159290>, <__main__.Element object at 0x7fea0f1590d0>]
-example_compound.serpent_material_card()
+example_compound.material_card(code='serpent')
 >>> mat Li4SiO4__Li6_0.9_Li7_0.1 -2.34719115762
 >>>    3006.31c 0.4
 >>>    3007.31c 0.0444444444444
@@ -247,7 +247,7 @@ example_compound.serpent_material_card()
 >>>    8017.31c 0.000168888888889
 >>>    8018.31c 0.000911111111111
 ```
-One novel feature of the software is the variations of the density of **Compounds** with isotope enrichment, the density and atom fractions are based on the actual isotopes present within the cryslaine latic. Creating different Compounds for use in parameter studies is easy with a for loop. Here the enrichment of Li6 is changed from 0.25 to 0.5, 0.75 then 1.0 and the calculated density of the resulting Li4SiO4 and normalised atom fractions are printed out each iteration of the loop. The density decreases slowly as Li7 atoms are replaced with Li6. The **serpent_material_card()** also changes accordingly. These density and atom fractions can then be input into other Material makers for codes such as [OpenMC](https://openmc.readthedocs.io/en/stable/pythonapi/generated/openmc.Material.html#openmc.Material) or [Pyne](http://pyne.io/usersguide/material.html).
+One novel feature of the software is the variations of the density of **Compounds** with isotope enrichment, the density and atom fractions are based on the actual isotopes present within the cryslaine latic. Creating different Compounds for use in parameter studies is easy with a for loop. Here the enrichment of Li6 is changed from 0.25 to 0.5, 0.75 then 1.0 and the calculated density of the resulting Li4SiO4 and normalised atom fractions are printed out each iteration of the loop. The density decreases slowly as Li7 atoms are replaced with Li6. The **material_card(code='serpent')** also changes accordingly. These density and atom fractions can then be input into other Material makers for codes such as [OpenMC](https://openmc.readthedocs.io/en/stable/pythonapi/generated/openmc.Material.html#openmc.Material) or [Pyne](http://pyne.io/usersguide/material.html).
 
 ```python
 for enrichment in [0, 0.25, 0.5, 0.75, 1.0]:
@@ -299,7 +299,7 @@ example_mat1 = Material(material_card_name='DT-plasma',
                                     ],
                          atom_fractions=[1.0]
                         )
-example_mat1.serpent_material_card()
+example_mat1.material_card(code='serpent')
 >>> mat DT_plasma 1e-20
 >>>     1002.31c 0.5
 >>>     1003.31c 0.5
@@ -322,7 +322,7 @@ mat_Glass_fibre = Material(material_card_name='Glass-fibre',
                                     ])
 example_mat2.density_g_per_cm3
 >>> 2.49
-example_mat2.serpent_material_card()
+example_mat2.material_card(code='serpent')
 >>> mat Glass-fibre -2.49
 >>>     1001.31c 3.8390384598e-05
 >>>     1002.31c 4.415402e-09
@@ -376,7 +376,7 @@ mat_mix.density_g_per_cm3
 The resulting material card comprises of the combined three material cards with modified atom fractions to account for the volume fraction of each component. The material name is also based on the combination of the three components along with their **volume_fractions**.
 
 ```python
-mat_mix.serpent_material_card()
+mat_mix.material_card(code='serpent')
 >>> mat H2O_vf_0.2_CuCrZr_vf_0.3_Bronze_vf_0.5  -7.26815
 >>> %   
 >>> %   H2O with a density of 0.926gcm-3
@@ -442,6 +442,16 @@ example_mat =Homogenised_mixture(mixtures=[mat_Nb3Sn,mat_void],
 
 example_mat.density_g_per_cm3
 >>>4.455
+```
+
+**Homogenised_mixture** can also be **squashed** which combines duplicate isotopes. This setting is False by default but setting it to true can be achieved using the following command:
+```
+mat_mix.material_card(code='serpent',squashed=True)
+```
+
+The **material_card** for **Homogenised_mixture** can also be producing using isotope mass fractions instead of the default isotope atom fractions. Mass fractions can be achieved using **fractions** keyword:
+```
+mat_mix.material_card(fractions='isotope mass fractions')
 ```
 
 # <a name="chainging_the_nuclear_library"></a>Chainging the nuclear library
