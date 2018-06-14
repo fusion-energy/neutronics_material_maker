@@ -1,23 +1,29 @@
 import re
 import numpy as np
-import math
-import pandas as pd
 from pandas import DataFrame
+import pandas as pd
 from natsort import natsorted, ns
+import pkg_resources
+from collections import defaultdict
 
+nuclear_data_file_path=pkg_resources.resource_filename('neutronics_material_maker','nuclear_data.csv')
+
+
+from neutronics_material_maker.utilities import (is_number, arevaluesthesame,
+                                                 color_manager)
+from warnings import warn
 import pkg_resources
 
-from collections import defaultdict
-    
-nuclear_data_file_path=pkg_resources.resource_filename('neutronics_material_maker','nuclear_data.csv')
 NDATA = pd.read_csv(nuclear_data_file_path, index_col='Symbol')
 NAT_NDATA = NDATA[NDATA['Natural']]
+XSDIR = '/opt/serpent2/xsdir.serp'  # Default xsdir.serp file location
 
 atomic_mass_unit_in_g=1.660539040e-24
 atomic_mass_unit_in_kg=1.660539040e-27
 Avogadros_number= 6.022140857e23
 
 xsdir_isotopes_and_nuclear_libraries_list=[]
+
 
 def normalise_list(non_normalised_list):
 
@@ -26,6 +32,7 @@ def normalise_list(non_normalised_list):
         for non_normalised_fraction in non_normalised_list:
             normalised_list.append(non_normalised_fraction * factor)
         return normalised_list
+
 
 def set_xsdir(xsdir_file_path):
     global xsdir_isotopes_and_nuclear_libraries_list
@@ -52,35 +59,10 @@ def find_prefered_library(zaid):
     return ''
 
 
-def is_number(s):
-    try:
-        float(s)
-        return True
-    except (ValueError, TypeError) as e:
-        return False
-
-def arevaluesthesame(value1, value2, relative_tolerance):
-
-    # Use math.isclose algorithm, it is better than numpy.isclose method.
-
-    # See https://github.com/numpy/numpy/issues/10161 for more on the discussion
-
-    # Since some python version don't come with math.isclose we implement it here directly
-
-    # ToDo: allow absolute_tolerance as input
-
-    absolute_tolerance = 0.0
-
-    return abs(value1 - value2) <= max(relative_tolerance * max(abs(value1), abs(value2)), absolute_tolerance)
-
-
-
-def color_manager(color):
-        if type(color) not in (tuple, list, np.ndarray) or len(color) != 3:
-            raise ValueError("3-length RGB color tuple please. "
-                             "Not: ".format(color))
-        return ' rgb ' + ' '.join([str(i) for i in np.array(color).clip(0,
-                                   255)])
+def calculate_ZAID(Z, A):
+    Z, A = int(Z), int(A)  # String formatting for screwed up with e.g. 11.0
+    zaid = str(Z)+str(A).zfill(3)
+    return zaid
 
 
 class Base(object):
@@ -219,7 +201,7 @@ class Isotope(Base):
         if self.abundance and self.abundance > 1.0 or self.abundance < 0.0:
             raise ValueError('Abundance of isotope can not be greater than 1.0'
                              ' or less than 0.')
-        self.zaid = str(self.protons)+str(self.nucleons).zfill(3)
+        self.zaid = calculate_ZAID(self.protons, self.nucleons)
         self._get_xs_files()
 
 
@@ -271,7 +253,9 @@ class Isotope(Base):
             return None
 
     def _get_xs_files(self, **kwargs):
-        #self.xsdir = kwargs.get('xsdir', '/opt/serpent2/xsdir.serp')
+
+        self.xsdir = kwargs.get('xsdir', XSDIR)
+
         self.nuclear_library = kwargs.get('nuclear_library',
                                           find_prefered_library(self.zaid))
 
@@ -294,6 +278,7 @@ class Isotope(Base):
         else:
             return n.unique()[0]
 
+
     def material_card(self, name=None, fractions=None, color=None,code=None):
         mat_card=super(Isotope,self).material_card_header(name, color, code, fractions)
         name, color, code, fractions, fractions_prefix, comment, end_comment = super(Isotope,self).kwarg_handler(name, color, code, fractions)
@@ -309,7 +294,7 @@ class Isotope(Base):
 class Element(Isotope):
     def __init__(self, *args, **kwargs):
 
-        if len(args)==1:
+        if len(args) == 1:
             protons_or_symbol=args[0]
         self.classname = self.__class__.__name__
         self.symbol = kwargs.get('symbol')
@@ -447,11 +432,8 @@ class Material(Base):
             raise ValueError('A list of elements present within the material '
                              'must be specified.')
 
-        self.material_card_name = kwargs.get('material_card_name',self.description)
-
-        if self.elements == None:
-            raise ValueError('A list of elements present within the material '
-                             'must be specified.')
+        self.material_card_name = kwargs.get('material_card_name',
+                                             self.description)
 
         if self.element_atom_fractions == None and self.element_mass_fractions == None:
             raise ValueError('To make a material from elements either element_atom_fractions or '
@@ -643,6 +625,7 @@ class Compound(Base):
                 isotopes.append(isotope)
         return isotopes
 
+
     def material_card(self, name=None, color=None, code=None, fractions=None):
         
         mat_card=super(Compound,self).material_card_header(name, color, code, fractions)
@@ -657,6 +640,7 @@ class Compound(Base):
                 mat_card.append('   '+(i.zaid + i.nuclear_library).ljust(11)+fractions_prefix + str(m_f).ljust(24)+end_comment+i.name)   
 
         return '\n'.join(mat_card)
+
 
     def find_average_atom_mass(self):
         masses = []
