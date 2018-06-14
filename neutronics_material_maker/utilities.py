@@ -65,11 +65,23 @@ def list_array(list_):
                         'np.array.')
 
 
+def array_or_num(array):
+    '''
+    Always returns a numpy array or a float
+    '''
+    if is_number(array):
+        return float(array)
+    elif isinstance(array, np.ndarray):
+        return array
+    else:
+        raise TypeError
+
+
 def CtoK(T):
     if T is not None:
         T = list_array(T)
         if np.all(T >= ABS_ZEROC):
-            return list_array(T)-ABS_ZEROC
+            return array_or_num(T-ABS_ZEROC)
         else:
             raise ValueError('Negative temperature in K specified.')
 
@@ -78,7 +90,7 @@ def KtoC(T):
     if T is not None:
         T = list_array(T)
         if np.all(T >= ABS_ZEROK):
-            return T+ABS_ZEROC
+            return array_or_num(T+ABS_ZEROC)
         else:
             raise ValueError('Negative temperature in K specified.')
 

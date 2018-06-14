@@ -67,7 +67,8 @@ def calculate_ZAID(Z, A):
 
 class Base(object):
 
-    def material_card_header(self, material_card_name, color, code, fractions):
+    def material_card_header(self, material_card_name, color, code, fractions,
+                             **kwargs):
 
         material_card_name, color, code, fractions, fractions_prefix, comment, end_comment = self.kwarg_handler(material_card_name, color, code, fractions)
         if self.density_g_per_cm3 is None and self.density_atoms_per_barn_per_cm is None:
@@ -85,7 +86,11 @@ class Base(object):
 
 
         if code == 'serpent':
-            mat_card = [comment,comment + self.material_card_comment,'mat '+material_card_name+density+color]
+            T = kwargs.get('T', 293.15)
+            tmp = ' tmp '+str(T)+' '
+            mat_card = [comment, comment + self.material_card_comment,
+                        'mat '+material_card_name+density+tmp+color]
+            T = kwargs.get('T', 293.15)
         elif code == 'mcnp':
             if material_card_name.startswith('M') == True or material_card_name.startswith('m') == True:
                 mcnp_material_card_name=material_card_name[1]
