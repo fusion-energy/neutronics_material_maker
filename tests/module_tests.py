@@ -3,15 +3,12 @@
 
 
 from neutronics_material_maker.nmm import *
-#from neutronics_material_maker.utilities import *
-
 from neutronics_material_maker.examples import *
 
 import random
 import unittest
 import pytest
 import math
-
 
 
 
@@ -82,8 +79,29 @@ class Isotope_tests(unittest.TestCase):
             example_iso = Isotope(nucleons=6) # not enough information provided, should fail
 
    
+    def test_default_temperature_in_material_cards(self):
 
-              
+      mat_isotope = Isotope('Li',7,abundance=0.6,density_g_per_cm3=7)
+
+      assert 'temperature =293.15 K' in mat_isotope.material_card(code='mcnp')
+      assert 'tmp 293.15' in mat_isotope.material_card(code='serpent')
+
+   
+    def test_specified_temperature_in_material_cards(self):
+
+      mat_isotope = Isotope('Li',7,abundance=0.6,density_g_per_cm3=7,temperature_K =500)
+
+      assert 'temperature =500 K' in mat_isotope.material_card(code='mcnp')
+      assert 'tmp 500' in mat_isotope.material_card(code='serpent')      
+
+    def test_overwritten_temperature_in_material_cards(self):
+
+      mat_isotope = Isotope('Li',7,abundance=0.6,density_g_per_cm3=7,temperature_K =500)
+
+      assert 'temperature =600 K' in mat_isotope.material_card(code='mcnp',temperature_K =600)
+      assert 'tmp 600' in mat_isotope.material_card(code='serpent',temperature_K =600)            
+
+
 
 class Element_tests(unittest.TestCase):
 
@@ -155,6 +173,29 @@ class Element_tests(unittest.TestCase):
         assert math.isclose(sum(new_element.isotope_mass_fractions),1)
         assert math.isclose(sum(new_element.isotope_atom_fractions),1)    
 
+    def test_default_temperature_in_material_cards(self):
+
+      new_element = Element('W',density_g_per_cm3=19.6)
+
+      assert 'temperature =293.15 K' in new_element.material_card(code='mcnp')
+      assert 'tmp 293.15' in new_element.material_card(code='serpent')
+
+   
+    def test_specified_temperature_in_material_cards(self):
+
+      new_element = Element('W',density_g_per_cm3=19.6,temperature_K =500)
+    
+      assert 'temperature =500 K' in new_element.material_card(code='mcnp')
+      assert 'tmp 500' in new_element.material_card(code='serpent')      
+
+    def test_overwritten_temperature_in_material_cards(self):
+
+      new_element = Element('W',density_g_per_cm3=19.6,temperature_K =500)
+
+      assert 'temperature =600 K' in new_element.material_card(code='mcnp',temperature_K =600)
+      assert 'tmp 600' in new_element.material_card(code='serpent',temperature_K =600)   
+
+
 class Compound_tests(unittest.TestCase):
 
     def test_compound_class_name(self):
@@ -190,6 +231,36 @@ class Compound_tests(unittest.TestCase):
                        volume_of_unit_cell_cm3=1.1543e-21,
                        atoms_per_unit_cell=14)
         assert type(new_compound.material_card()) == str           
+
+    def test_default_temperature_in_material_cards(self):
+
+      new_compound = Compound('Li4SiO4',
+                       volume_of_unit_cell_cm3=1.1543e-21,
+                       atoms_per_unit_cell=14)
+
+      assert 'temperature =293.15 K' in new_compound.material_card(code='mcnp')
+      assert 'tmp 293.15' in new_compound.material_card(code='serpent')
+
+   
+    def test_specified_temperature_in_material_cards(self):
+
+      new_compound = Compound('Li4SiO4',
+                       volume_of_unit_cell_cm3=1.1543e-21,
+                       atoms_per_unit_cell=14,
+                       temperature_K =500)
+    
+      assert 'temperature =500 K' in new_compound.material_card(code='mcnp')
+      assert 'tmp 500' in new_compound.material_card(code='serpent')      
+
+    def test_overwritten_temperature_in_material_cards(self):
+
+      new_compound = Compound('Li4SiO4',
+                       volume_of_unit_cell_cm3=1.1543e-21,
+                       atoms_per_unit_cell=14,
+                       temperature_K =500)
+
+      assert 'temperature =600 K' in new_compound.material_card(code='mcnp',temperature_K =600)
+      assert 'tmp 600' in new_compound.material_card(code='serpent',temperature_K =600)   
 
     def test_compound_atom_and_mass_fractions_sumations(self):
         mat_Li = Compound('Li',
@@ -634,6 +705,7 @@ class Homogenised_mixture_tests(unittest.TestCase):
 
     for mf in mat_mixed_pebble_bed_vol_combined.mass_fractions:
         assert mf == 0.5
+        
 
     for vf in mat_mixed_pebble_bed_vol_combined.volume_fractions:
         assert vf == 0.5
