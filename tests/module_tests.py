@@ -579,6 +579,39 @@ class Material_tests(unittest.TestCase):
           assert math.isclose(calc_a_f, known_a_f,rel_tol=5e-04)          
 
 
+    def test_default_temperature_in_material_cards(self):
+
+      new_material = Material(material_card_name='M2',
+                    density_g_per_cm3=10.0,
+                    elements=[Element(symbol='Sn')],
+                    element_atom_fractions=[1])
+
+      assert 'temperature =293.15 K' in new_material.material_card(code='mcnp')
+      assert 'tmp 293.15' in new_material.material_card(code='serpent')
+
+   
+    def test_specified_temperature_in_material_cards(self):
+
+      new_material = Material(material_card_name='M2',
+                    density_g_per_cm3=10.0,
+                    elements=[Element(symbol='Sn')],
+                    element_atom_fractions=[1],
+                    temperature_K=500)
+    
+      assert 'temperature =500 K' in new_material.material_card(code='mcnp')
+      assert 'tmp 500' in new_material.material_card(code='serpent')      
+
+    def test_overwritten_temperature_in_material_cards(self):
+
+      new_material = Material(material_card_name='M2',
+                    density_g_per_cm3=10.0,
+                    elements=[Element(symbol='Sn')],
+                    element_atom_fractions=[1],
+                    temperature_K=500)
+
+      assert 'temperature =600 K' in new_material.material_card(code='mcnp',temperature_K =600)
+      assert 'tmp 600' in new_material.material_card(code='serpent',temperature_K =600)  
+
 
     def test_all_natural_elements(self):
         all_elements = Natural_Elements().all_natural_element_symbols
