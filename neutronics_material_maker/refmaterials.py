@@ -524,7 +524,7 @@ class Beryllium(MfMaterial):
           'Mg': 0.06e-2,
           'Si': 0.06e-2,
           'U': 0.003e-2}
-    density = 3000  # Random number
+    density = None  # Random number
     brho = None
 
     @staticmethod
