@@ -16,7 +16,8 @@ from mpl_toolkits.mplot3d import Axes3D
 
 from neutronics_material_maker.nmm import Material, Element, Compound
 from thermo import Chemical
-from neutronics_material_maker.utilities import (list_array, kgm3togcm3,
+from neutronics_material_maker.utilities import (list_array, array_or_num,
+                                                 kgm3togcm3,
                                                  gcm3tobcm, apuctobcm)
 
 
@@ -36,6 +37,7 @@ def matproperty(Tmin, Tmax):
             if not (T >= Tmin).all():
                 raise ValueError('Material property not valid outside of tempe'
                                  f'rature range: {T} < Tmin = {Tmin}')
+            T = array_or_num(T)
             return f(T, **kwargs)
         return wrapper
     return decorator
@@ -59,7 +61,8 @@ class MfMaterial(Material):
                          density_g_per_cm3=kgm3togcm3(self.density),
                          density_atoms_per_barn_per_cm=self.brho,
                          elements=[Element(e) for e in self.mf.keys()],
-                         element_mass_fractions=self.mf.values())
+                         element_mass_fractions=self.mf.values(),
+                         temperature_K=self.T0)
 # =============================================================================
 #         try:  # Set density if a rho property exists
 #             self.density = self.rho(self.T0)
@@ -107,6 +110,34 @@ class MfMaterial(Material):
     def rho(T):
         '''
         Mass density in kg/m**3
+        '''
+        __raiseError__()
+
+    @staticmethod
+    def erho(T):
+        '''
+        Electrical resistivity in 10^(-8)Ohm.m
+        '''
+        __raiseError__()
+
+    @staticmethod
+    def Ms(T):
+        '''
+        Magnetic saturation in Am^2/kg
+        '''
+        __raiseError__()
+
+    @staticmethod
+    def Mt(T):
+        '''
+        Viscous remanent magnetisation in Am^2/kg
+        '''
+        __raiseError__()
+
+    @staticmethod
+    def Hc(T):
+        '''
+        Coercive field in A/m
         '''
         __raiseError__()
 

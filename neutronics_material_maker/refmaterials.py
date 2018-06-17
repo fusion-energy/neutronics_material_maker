@@ -157,7 +157,55 @@ class EUROfer(MfMaterial):
     brho = 8.43211E-02  # barn/cm
 
     @staticmethod
-    @matproperty(Tmin=0, Tmax=5000)  # TODO: Check actual limits
+    @matproperty(Tmin=0, Tmax=5000)
+    def mu(T: 'Kelvin'):
+        '''
+        DEMO_D_2MKKGB v0  section 10
+        '''
+        return 0.3
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(700))
+    def rho(T: 'Kelvin'):
+        '''
+        DEMO_D_2MKKGB v0 Table 5.1
+        '''
+        rho = [7744, 7750, 7740, 7723, 7691, 7657, 7625, 7592, 7559]
+        t = [20, 50, 100, 200, 300, 400, 500, 600, 700]
+        return interp1d(CtoK(t), rho)(T)
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(-200), Tmax=CtoK(700))
+    def Sy(T: 'Kelvin'):
+        '''
+        DEMO_D_2MKKGB v0 Table 6.4
+        '''
+        T = KtoC(T)
+        return (491.5-0.627*T+0.00464*T**2-1.744e-5*T**3+2.68e-8*T**4 -
+                1.59e-11*T**5)
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(-200), Tmax=CtoK(700))
+    def Suavg(T: 'Kelvin'):
+        '''
+        DEMO_D_2MKKGB v0 Table
+        '''
+        T = KtoC(T)
+        return (670.1-0.904*T+0.00401*T**2-1.091e-5*T**3+1.115e-8*T**4 -
+                4.75e-12*T**5)
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(700))
+    def E(T: 'Kelvin'):
+        '''
+        DEMO_D_2MKKGB v0 Table
+        '''
+        t = [20, 50, 100, 200, 300, 400, 500, 600, 700]
+        e = [217, 215, 212, 207, 202, 196, 190, 170, 162]
+        return interp1d(CtoK(t), e)(T)
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(600))
     def Cp(T: 'Kelvin'):
         '''
         K. Mergia, N. Boukos,
@@ -171,7 +219,62 @@ class EUROfer(MfMaterial):
         https://doi.org/10.1016/j.jnucmat.2007.03.267.
         (http://www.sciencedirect.com/science/article/pii/S0022311507006642)
         '''
-        return 2.696*T-0.004962*T**2+3.335e-6*T**3
+        return 2.696*T-0.004962*T**2+3.335e-6*T**3  # TODO: check first term error?
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(500))
+    def CTE(T: 'Kelvin'):
+        '''
+        DEMO_D_2MKKGB v0 Table 19.1
+        '''
+        t = [20, 50, 100, 200, 300, 400, 500]
+        a = [10.3, 10.5, 10.7, 11.2, 11.6, 11.9, 12.2]
+        return interp1d(CtoK(t), a)(T)
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(600))
+    def k(T: 'Kelvin'):
+        '''
+        DEMO_D_2MKKGB v0 Table 20.1
+        '''
+        T = KtoC(T)
+        return T*(0.19706-4.3053e-4*T+3.817e-7*T**2-1.158e-0*T**3)
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(0), Tmax=CtoK(650))
+    def erho(T: 'Kelvin'):
+        '''
+        DEMO_D_2MKKGB v0 section 23
+        '''
+        # NOTE: T in K
+        return 8.536+0.1484*T-2.84e-5*T**2
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(550))
+    def Ms(T: 'Kelvin'):
+        '''
+        DEMO_D_2MKKGB v0 section 24
+        '''
+        # NOTE: T in K
+        return 196*(1-np.exp(-3.2*(1-T/1030)**0.5))
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(550))
+    def Mt(T: 'Kelvin'):
+        '''
+        DEMO_D_2MKKGB v0 section 25
+        '''
+        # NOTE: T in K
+        return 4.5*(1-np.exp(-3.2*(1-T/1030)))
+
+    @staticmethod
+    @matproperty(Tmin=CtoK(20), Tmax=CtoK(550))
+    def Hc(T: 'Kelvin'):
+        '''
+        DEMO_D_2MKKGB v0 section 26
+        '''
+        # NOTE: T in K
+        return 900*(1-np.exp(-3.2*(1-T/1030)))
 
 
 class SS316LN(MfMaterial):
@@ -224,10 +327,7 @@ class SS316LN(MfMaterial):
         t = [20, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600,
              650, 700, 750, 800]
         p = interp1d(CtoK(t), rho)(T)
-        if is_number(T):
-            return p[0]
-        else:
-            return p
+        return p
 
     @staticmethod
     @matproperty(Tmin=CtoK(20), Tmax=CtoK(800))
@@ -630,8 +730,8 @@ class test_property(unittest.TestCase):
         self.E.Cp([400])
 
     def test_array(self):
-        T = self.E.Cp(np.array([20, 30, 40]))
-        Tl = self.E.Cp([20, 30, 40])
+        T = self.E.Cp(np.array([400, 500, 550]))
+        Tl = self.E.Cp([400, 500, 550])
         self.assertTrue((T-Tl).all() == 0)
 
     def test_array_limits(self):
@@ -673,16 +773,21 @@ class test_materials(unittest.TestCase):
         self.Be.density_g_per_cm3 = None  # Force raise
         self.Be.density_atoms_per_barn_per_cm = None
         with self.assertRaises(ValueError):
-            self.Be.material_card_header('Be', (0, 1, 2), 'serpent', None)
+            self.Be.material_card('Be', (0, 1, 2), 'serpent', None)
         self.Be.T = 300
         self.assertTrue(hasattr(self.Be, 'density'))
         self.assertTrue(is_number(self.Be.density))
         self.assertTrue(type(self.Be.density) == float)
-        
-        s = self.Be.material_card_header('Be', (0, 1, 2), 'serpent', None)
-        s = s[-1]
+        s = self.Be.material_card('Be', (0, 1, 2), 'serpent', None)
+        s = s.splitlines()[2]
         # Check serpent header updated with correct density
         self.assertTrue(float(s.split(' ')[2][1:]) == self.Be.density_g_per_cm3)
+
+    def test_T_tmp(self):
+        s = self.S.material_card()
+        self.assertTrue(' tmp 293.15 ' in s.splitlines()[2])
+        s = self.S.material_card(temperature_K=400)
+        self.assertTrue(' tmp 400 ' in s.splitlines()[2])
 
     def test_default(self):
 
@@ -733,8 +838,8 @@ class test_liquids(unittest.TestCase):
         self.assertTrue(self.H.P == 101325)
         self.assertTrue(self.H.density == 998.987347802)
         self.H.T, self.H.P = 500, 200000
-        s = self.H.material_card_header('H2O', (0, 1, 2), 'serpent', None)
-        s = s[-1]
+        s = self.H.material_card('H2O', (0, 1, 2), 'serpent', None)
+        s = s.splitlines()[2]
         self.assertTrue(float(s.split(' ')[2][1:]) == self.H.density_g_per_cm3)
 
 
