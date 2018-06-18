@@ -10,7 +10,7 @@ from neutronics_material_maker.utilities import (CtoK, KtoC, is_number,
                                                  kgm3togcm3)
 from neutronics_material_maker.material import (MfMaterial, NbSnSuperconductor,
                                                 NbTiSuperconductor, Liquid,
-                                                matproperty)
+                                                matproperty, _Void)
 from neutronics_material_maker.nmm import Material, Element, Isotope
 import unittest
 import numpy as np
@@ -102,12 +102,8 @@ class Nb3Sn_2(NbSnSuperconductor):
         return 8910
 
 
-class Void(MfMaterial):
-    #TODO: FIX DUMMY VOID not writing serpent card
-    name = ' Void'
-    density = 0
-    mf = {}
-    brho = None
+class Void(_Void):
+    pass
 
 
 class Bronze(MfMaterial):
@@ -129,6 +125,7 @@ class EpoxyResin(MfMaterial):
           'S': 9.179996e-05,
           'Si': 0.0058552000000000005}
     density = 1207
+    brho = None
 
 
 class EUROfer(MfMaterial):

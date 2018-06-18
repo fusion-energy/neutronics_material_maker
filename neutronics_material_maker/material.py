@@ -48,10 +48,24 @@ def __raiseError__():
                               'property. Please add it.')
 
 
+class _Void(Material):
+    name = 'Void'
+    T0 = 293.15  # for now
+    
+    def __init__(self):
+        super().__init__(material_card_name=self.name,
+                         density_g_per_cm3=0,
+                         density_atoms_per_barn_per_cm=0,
+                         elements=[ ],
+                         element_mass_fractions=[ ],
+                         temperature_K=self.T0)
+
+
 class MfMaterial(Material):
     T0 = 293.15  # Default temperature for all materials
 
-    def __init__(self):
+    def __init__(self, **kwargs):
+        self.T0 = kwargs.get('T', self.T0)  # Opens up T as kwarg if needed
         try:  # Set density if a rho property exists
             self.density = self.rho(self.T0)
         except NotImplementedError:
@@ -283,8 +297,8 @@ class NbSnSuperconductor(MfMaterial, Superconductor):
     p = None
     q = None
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.eps_sh = self.C_a2*self.eps_0a/np.sqrt(self.C_a1**2-self.C_a2**2)
 
     def Tc_star(self, B, eps):
