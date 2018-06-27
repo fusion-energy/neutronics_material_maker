@@ -138,9 +138,17 @@ class Base(object):
             return n.unique()[0]
 
     def find_molar_mass_g_per_mol(self):
+        #equations from https://en.wikipedia.org/wiki/Molar_mass
         cumlative_molar_mass=0
-        for i, i_f in zip(self.isotopes, self.isotope_atom_fractions):
-            cumlative_molar_mass = cumlative_molar_mass+(i.mass_amu*i_f)
+
+        if self.isotope_atom_fractions != None:
+            for i, i_a_f in zip(self.isotopes, self.isotope_atom_fractions):
+                cumlative_molar_mass = cumlative_molar_mass+(i.mass_amu*i_a_f)
+        elif self.isotope_mass_fractions != None:
+            for i, i_m_f in zip(self.isotopes, self.isotope_mass_fractions):
+                cumlative_molar_mass = cumlative_molar_mass+(i_m_f/i.mass_amu)
+            cumlative_molar_mass=1.0/cumlative_molar_mass
+
         return cumlative_molar_mass
 
     def find_density_of_atoms_per_cm3(self):
@@ -502,13 +510,15 @@ class Material(Base):
                 raise ValueError('When making a material please provide the same '
                                  'number of elements and atom/mass fractions.')
 
+        
         if self.isotopes == None and self.elements != None:
             self.isotopes=[]
             for element in self.elements:
                 for isotope in element.isotopes:
                     self.isotopes.append(isotope)
 
-        if self.isotope_atom_fractions == None:
+
+        if self.isotope_atom_fractions == None and self.elements != None:
             self.isotope_atom_fractions=[]
             for element, atom_fraction in zip(self.elements, self.element_atom_fractions):
                 for isotope in element.isotopes:
@@ -517,10 +527,20 @@ class Material(Base):
         self.molar_mass_g_per_mol = self.find_molar_mass_g_per_mol()
         self.average_atom_mass=self.molar_mass_g_per_mol/Avogadros_number
 
-        self.isotope_mass_fractions = None
-        self.isotope_mass_fractions = []
-        for isotope,isotope_atom_fraction in zip(self.isotopes,self.isotope_atom_fractions):
-            self.isotope_mass_fractions.append(isotope_atom_fraction*(isotope.mass_amu/self.molar_mass_g_per_mol))
+        if self.isotope_atom_fractions == None and self.isotope_mass_fractions!=None:     
+            self.isotope_atom_fractions = []
+            for isotope,isotope_mass_fraction in zip(self.isotopes,self.isotope_mass_fractions):
+                self.isotope_atom_fractions.append(isotope_mass_fraction/(isotope.mass_amu/self.molar_mass_g_per_mol)) 
+
+
+
+
+
+        if self.isotope_mass_fractions == None:     
+            self.isotope_mass_fractions = []
+            for isotope,isotope_atom_fraction in zip(self.isotopes,self.isotope_atom_fractions):
+                self.isotope_mass_fractions.append(isotope_atom_fraction*(isotope.mass_amu/self.molar_mass_g_per_mol))
+
 
         if self.density_g_per_cm3 == None:
             self.density_g_per_cm3 = self.find_density_g_per_cm3()
@@ -538,7 +558,6 @@ class Material(Base):
 
     def find_element_atom_fractions_from_element_mass_fractions(self):
         if self.element_mass_fractions == []:
-            print('returning []')
             return []
         list_of_fractions = []
         for mass_fraction, element in zip(self.element_mass_fractions, self.elements):
@@ -590,7 +609,6 @@ class Material(Base):
         
         elif code == 'fispact':
             for i in self.isotope_atom_fractions:
-                print(self.density_atoms_per_cm3 , i ,volume_cm3)
                 mat_card.append(str(self.density_atoms_per_cm3 * i * volume_cm3))
 
         return '\n'.join(mat_card)
@@ -662,14 +680,14 @@ class Compound(Base):
         if self.density_atoms_per_cm3 != None:
             self.density_atoms_per_cm3 = self.density_atoms_per_cm3*self.packing_fraction
 
-
-    def find_isotope_mass_fractions_from_isotope_atom_fractions(self):
-        isotope_mass_fractions = []
-        for element, atom_fraction in zip(self.elements, self.fractions_coefficients):
-            for isotope in element.isotopes:
-                print(atom_fraction,isotope.mass_amu,self.molar_mass_g_per_mol)
-                isotope_mass_fractions.append(atom_fraction*(isotope.mass_amu)/self.molar_mass_g_per_mol)
-        return isotope_mass_fractions
+    # no longer needed ?
+    # def find_isotope_mass_fractions_from_isotope_atom_fractions(self):
+    #     isotope_mass_fractions = []
+    #     for element, atom_fraction in zip(self.elements, self.fractions_coefficients):
+    #         for isotope in element.isotopes:
+    #             print(atom_fraction,isotope.mass_amu,self.molar_mass_g_per_mol)
+    #             isotope_mass_fractions.append(atom_fraction*(isotope.mass_amu)/self.molar_mass_g_per_mol)
+    #     return isotope_mass_fractions
 
     def find_isotope_atom_fractions_in_chemical_equation(self):
         isotope_atom_fractions = []

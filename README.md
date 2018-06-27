@@ -3,7 +3,6 @@
 [![N|Python](https://www.python.org/static/community_logos/python-powered-w-100x40.png)](https://www.python.org)
 [![Build Status](https://travis-ci.org/ukaea/neutronics_material_maker.svg?branch=master)](https://travis-ci.org/ukaea/neutronics_material_maker)
 
-[![N|Python](images/demo_script.gif)](images/demo_script.gif)
 
 - [Design goals](#design-goals)
 - [Features](#features)
@@ -140,12 +139,12 @@ example_element = Element('Li',enriched_isotopes=(Isotope('Li', 6, abundance=0.9
 
 Chemical equations are referred to as a **Compound** by the software. Compounds can be any valid chemical formula such as H2O, CO2 or C8H10N4O2.  
 
-Compounds can be created using the following command, when both the compound chemical formula and the density in grams per cm3 are specified.
+Compounds can be created using the following command, when both the compound chemical formula and the density in grams per cm3 are specified. If the **chemical_equation** keyword is not provided then the **chemical_equation** is assummed to be the first non keyword arguement.
 ```python
 example_compound = Compound('C12H22O11',density_g_per_cm3=1.59)
+example_compound = Compound(chemical_equation='C12H22O11',density_g_per_cm3=1.59)
 ```
 
-Compounds
 
 
 mat_Li4SiO4 = Compound('Li4SiO4',
@@ -157,28 +156,31 @@ mat_Li4SiO4 = Compound('Li4SiO4',
 
 Several fusion relevant compounds along with their crystalline volume can be found in the  **<a name="https://github.com/ukaea/neutronics_material_maker/blob/master/neutronics_material_maker/examples.py ">eamples.py</a>** file. Compounds included are: *Li4SiO4, Li2SiO3, Li2ZrO3, Li2TiO3, Be, Ba5Pb3, Nd5Pb4, Zr5Pb3, Zr5Pb4, Pb84.2Li15.8.*
 ```python
-example_compound = Compound(chemical_equation = 'Li4SiO4',
-                              volume_of_unit_cell_cm3 = 1.1543e-21,
-                              atoms_per_unit_cell = 14)
-example_compound.density_g_per_cm3
+mat_Li4SiO4 = Compound(chemical_equation = 'Li4SiO4',
+                       volume_of_unit_cell_cm3 = 1.1543e-21,
+                       atoms_per_unit_cell = 14)
+mat_Li4SiO4.density_g_per_cm3
 >>> 2.4136389927905504
 ```
 A **Compound** can also be enriched much like isotopes can. To enrich an **compound** the user must pass the desired abundances for the required isotopes in the element. Here is an example for enriched Li4SiO4 with Li6 abundance set to 0.6 and Li7 abundance set to 0.4. You can see that **Isotope** objects are used for this procedure.
 ```python
-mat_Li4SiO4 = Compound('Li4SiO4',
-                       volume_of_unit_cell_cm3=1.1543e-21,
-                       atoms_per_unit_cell=14,
-                       enriched_isotopes=[Isotope('Li',7,abundance=0.4),Isotope('Li',6,abundance=0.6)])
+mat_Li4SiO4_enriched = Compound(chemical_equation = 'Li4SiO4',
+                                volume_of_unit_cell_cm3=1.1543e-21,
+                                atoms_per_unit_cell=14,
+                                enriched_isotopes=[Isotope('Li',7,abundance=0.4),
+                                                   Isotope('Li',6,abundance=0.6)])
+mat_Li4SiO4_enriched.density_g_per_cm3
+>>> 2.3713790240133186                    
 ```
 Other input options for creating a **Compound** include setting a **packing_fraction** . The density of the resulting **Compound** is multiplied by the input packing fraction. This property is included to allow pebble beds.
 ```python
 solid_ceramic = Compound('Be12Ti',
-                      volume_of_unit_cell_cm3= 0.22724e-21,
-                      atoms_per_unit_cell=2)
+                         volume_of_unit_cell_cm3= 0.22724e-21,
+                         atoms_per_unit_cell=2)
 pebble_bed_ceramic = Compound('Be12Ti',
-                      volume_of_unit_cell_cm3= 0.22724e-21,
-                      atoms_per_unit_cell=2,
-                      packing_fraction=0.64)
+                              volume_of_unit_cell_cm3= 0.22724e-21,
+                              atoms_per_unit_cell=2,
+                              packing_fraction=0.64)
 ```
 The density of the Compounds can be found with the density_g_per_cm3 property. Here we can see that the density of the pebble bed is lower than the solid ceramic.
 ```python
@@ -196,9 +198,9 @@ The density of liquids and gases accounting for thermal expansion can then be fo
 
 ```python
 He_compound = Compound('He',
-                         pressure_Pa = 8.0E6,
-                         temperature_K = 823.0,
-                         state_of_matter='gas')
+                       pressure_Pa = 8.0E6,
+                       temperature_K = 823.0,
+                       state_of_matter='gas')
 He_compound.density_g_per_cm3
 >>> 0.004682671945463105
 ```
