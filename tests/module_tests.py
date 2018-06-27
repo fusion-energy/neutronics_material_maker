@@ -14,6 +14,11 @@ import math
 
 class Isotope_tests(unittest.TestCase):
 
+    def test_isotope_fispact_card_creations(self):
+        a=Isotope('Li',7,density_g_per_cm3=7,volume_cm3=5)
+        assert a.material_card(code='fispact').split('\n')[-2]=='FUEL 1'
+        assert a.material_card(code='fispact').split('\n')[-1]=='Li7 3.0042022063111573e+24'
+
     def test_isotopes_class_name(self):
         example_iso = Isotope(symbol='Li',nucleons=6)
         print(example_iso.classname)
@@ -104,6 +109,14 @@ class Isotope_tests(unittest.TestCase):
 
 
 class Element_tests(unittest.TestCase):
+
+
+    def test_element_fispact_card_creations(self):
+        a=Element('Li',density_g_per_cm3=7,volume_cm3=5)
+        assert a.material_card(code='fispact').split('\n')[-1]=='Li7 2.806571838066832e+24'
+        assert a.material_card(code='fispact').split('\n')[-2]=='Li6 2.3051488205743162e+23'
+        assert a.material_card(code='fispact').split('\n')[-3]=='FUEL 2'
+  
 
     def test_element_protons(self):
         new_element = Element('Fe')
@@ -197,6 +210,18 @@ class Element_tests(unittest.TestCase):
 
 
 class Compound_tests(unittest.TestCase):
+
+    def test_compound_fispact_card_creations(self):
+        a=Compound('Li4SiO4',density_g_per_cm3=2.2,volume_cm3=5)
+        assert a.material_card(code='fispact').split('\n')[-9]=='FUEL 8'
+        assert a.material_card(code='fispact').split('\n')[-8]=='Li6 1.6781536820230567e+22'
+        assert a.material_card(code='fispact').split('\n')[-7]=='Li7 2.0431908004710235e+23'
+        assert a.material_card(code='fispact').split('\n')[-6]=='Si28 5.09764054733901e+22'
+        assert a.material_card(code='fispact').split('\n')[-5]=='Si29 2.589640975058637e+21'
+        assert a.material_card(code='fispact').split('\n')[-4]=='Si30 1.7091077683844835e+21'
+        assert a.material_card(code='fispact').split('\n')[-3]=='O16 2.2056334236834533e+23'
+        assert a.material_card(code='fispact').split('\n')[-2]=='O17 8.401823440958649e+19'
+        assert a.material_card(code='fispact').split('\n')[-1]=='O18 4.5325626457803253e+20'
 
     def test_compound_class_name(self):
         example_iso = Compound(chemical_equation='Li4SiO4')
