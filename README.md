@@ -13,7 +13,8 @@
 - [Making Compounds](#making-compounds)
 - [Making Materials](#making-materials)
 - [Making Homogenised_mixtures](#making-homogenised_mixtures)
-- [Chainging the nuclear library](#chainging_the_nuclear_library)
+- [Making material cards](#making_material_cards)
+- [Changing the nuclear library](#chainging_the_nuclear_library)
 - [Examples](#examples)
 - [Todo](#todo)
 
@@ -208,15 +209,15 @@ He_compound.density_g_per_cm3
 Other coolants can also accept different **pressure_Pa** and **temperature_K** values and the density changes accordingly. The **state_of_matter** must also be specified as 'liquid'. This example shows the resulting change in density for water at different temperatures and pressures.
 ```python
 water_compound = Compound('H2O',
-                            pressure_Pa = 3100000,
-                            temperature_K = 473.15,
-                            state_of_matter='liquid')
+                          pressure_Pa = 3100000,
+                          temperature_K = 473.15,
+                          state_of_matter='liquid')
 water_compound.density_g_per_cm3
 >>> 0.8664202359381719
 water_compound = Compound('H2O',
-                            pressure_Pa = 101325,
-                            temperature_K = 293,
-                            state_of_matter='liquid')
+                          pressure_Pa = 101325,
+                          temperature_K = 293,
+                          state_of_matter='liquid')
 water_compound.density_g_per_cm3
 >>> 0.9990449108576049
 ```
@@ -278,7 +279,15 @@ The above feature is the main motivation behind the software as it allows the us
 
 # <a name="making-materials"></a>Making Materials
 
-A custom **Material** can be constructed by specifiying the material **description**, density and one or more **Element** in the **elements_and_fractions** parameter that make up the material. The density can be specified as **density_g_per_cm3** or **atom_density_per_barn_per_cm**. The **Elements** need to be specified with either a **mass_faction** or an **atom_fraction**. The following example makes a material called Steel which is 95% weight Iron and 5% weight Carbon, with a density of 7.8g per cm3.
+A custom **Material** can be constructed by specifiying the material **material_card_name**, density and either the isotopes or elemental composition.
+
+One or more element can be specified with the **element** keyword along with the **element_atom_fraction** or **element_mass_fraction**.
+
+Alternativly one or more isotopes can be specified using the **isotopes** keyword along with the **isotope_atom_fractions** or **isotopes_mass_fractions** that make up the material.
+
+The density can be specified as **density_g_per_cm3** or **atom_density_per_barn_per_cm**.
+
+The following example makes a material called Steel which is 95% weight Iron and 5% weight Carbon, with a density of 7.8g per cm3.
 
 ```python
 mat_Steel= Material(material_card_name='Steel',
@@ -286,11 +295,31 @@ mat_Steel= Material(material_card_name='Steel',
                     density_atoms_per_barn_per_cm=8.58294E-02,
                     elements=[Element('Fe'),
                               Element('C')],
-                    mass_fractions=[0.95,
+                    element_mass_fractions=[0.95,
                                     0.05])
 ```
 
-The software has a some example **Materials** in the **<a name="https://github.com/ukaea/neutronics_material_maker/blob/master/neutronics_material_maker/examples.py ">eamples.py</a>** file. The elemental composition and densities of **Bronze**, **Eurofer**, **SS-316LN-IG**, **DT-plasma**,  **CuCrZr**, **Glass-fibre**, **Epoxy**, **Glass-fibre** and **Tungten** are included. Here is an example of DT-plasma.
+The following two examples show how to construct materials using **Isotopes** along with either **Isotpe_mass_fraction** or **Isotope_atom_fraction**.
+```python
+mat_using_isotope_mass_fractions = Material(material_card_name='enriched_lithum',
+                                            density_g_per_cm3=2.0,
+                                            isotopes=[Isotope('Li',7),
+                                                      Isotope('Li',6)],
+                                            isotope_atom_fractions=[0.5,
+                                                                    0.5],
+                                            )
+
+mat_using_isotope_atom_fractions = Material(material_card_name='enriched_lithum',
+                                            density_g_per_cm3=2.0,
+                                            isotopes=[Isotope('Li',7),
+                                                      Isotope('Li',6)],
+                                            isotope_mass_fractions=[0.5,
+                                                                    0.5],
+                                            )
+```
+
+
+The software has a some example **Materials** in the **<a name="https://github.com/ukaea/neutronics_material_maker/blob/master/neutronics_material_maker/examples.py ">eamples.py</a>** file. The elemental composition and densities of **Bronze**, **Eurofer**, **SS-316LN-IG**, **DT-plasma**,  **CuCrZr**, **Glass-fibre**, **Epoxy**, **Glass-fibre** and **Tungten** are included. Here is an example of 50:50 DT-plasma constructed using enriched elements.
 
 ```python
 example_mat1 = Material(material_card_name='DT-plasma',
@@ -299,7 +328,7 @@ example_mat1 = Material(material_card_name='DT-plasma',
                                             enriched_isotopes=[Isotope('H',2,abundance=0.5),
                                                                Isotope('H',3,abundance=0.5)])
                                     ],
-                         atom_fractions=[1.0]
+                         element_mass_fractions=[1.0]
                         )
 example_mat1.material_card(code='serpent')
 >>> mat DT_plasma 1e-20
@@ -316,7 +345,7 @@ mat_Glass_fibre = Material(material_card_name='Glass-fibre',
                               Element(13),
                               Element(14)
                              ],
-                    mass_fractions=[0.0000383948,
+                    element_mass_fractions=[0.0000383948,
                                     0.6328110447,
                                     0.0499936947,
                                     0.1026861642,
@@ -351,7 +380,7 @@ mat_bronze = Material(material_card_name='Bronze',
                         density_g_per_cm3=8.8775,
                         elements=[Element('Cu'),
                                   Element('Sn') ],
-                        atom_fractions=[0.95,
+                        element_mass_fractions=[0.95,
                                         0.05 ])
 mat_bronze.density_g_per_cm3
 >>> 8.8775
@@ -436,7 +465,7 @@ mat_Nb3Sn = Compound('Nb3Sn',density_g_per_cm3=8.91)
 mat_void= Material(material_card_name='Void',
                      density_g_per_cm3=0,
                      elements=[ ],
-                     mass_fractions=[  ]
+                     element_mass_fractions=[  ]
                     )
 
 example_mat =Homogenised_mixture(mixtures=[mat_Nb3Sn,mat_void],
@@ -456,9 +485,18 @@ The **material_card** for **Homogenised_mixture** can also be producing using is
 mat_mix.material_card(fractions='isotope mass fractions')
 ```
 
-# <a name="chainging_the_nuclear_library"></a>Chainging the nuclear library
+# <a name="material_cards"></a>Making material cards
 
-Serpent material cards can contain a pointer to the desired nuclear cross section file. The pointer is optinal but if included it appears after the zaid entry in the material card. When importing neutronics_material_maker it attempts to import a default Serpent 2 xsdir file and find the preferential nuclear library evaluation for each isotope present in the xsdir. If no file is found or the particular isotope is not found then the optional nuclear library is left blank in material cards. The default path of the xsdir file is **/opt/serpent2/xsdir.serp**, however this can be changed using the **set_xsdir(filename)** function as demonstrated below.
+Isotopes, Elements, Materials and Compounds can all generate material cards for Serpent 2, MCNP and Fispact 2. Once your object has been created then use the **.material_card()** method along with optional arguments to get the material card.
+
+Arguments can be passed to the **.material_card()** method or specified with the object upton creation. Permitted arguments are :name[string], color[rgb tuple], code['serpent','mcnp','fispact'], fractions['isotope atom fractions','isotope mass fractions'], temperature_K[float] and volume_cm3[float].
+
+
+
+
+# <a name="chainging_the_nuclear_library"></a>Changing the nuclear library
+
+Serpent, MCNP material cards can contain a pointer to the desired nuclear cross section file. The pointer is optinal but if included it appears after the zaid entry in the material card. When importing neutronics_material_maker it attempts to import a default Serpent 2 xsdir file and find the preferential nuclear library evaluation for each isotope present in the xsdir. If no file is found or the particular isotope is not found then the optional nuclear library is left blank in material cards. The default path of the xsdir file is **/opt/serpent2/xsdir.serp**, however this can be changed using the **set_xsdir(filename)** function as demonstrated below.
 
 ```python
 from neutronics_material_maker.examples import *
@@ -482,10 +520,9 @@ The examples include Li4SiO4, Li2SiO3, Li2ZrO3, Li2TiO3, Be12Ti, Ba5Pb3, Nd5Pb4,
 
 # <a name="todo"></a>Todos
  - Write MORE Tests and improve code coverage
- - Improve Materials (allow material made of isotopes aswell as elements)
- - Add some more Materials to the examples
+ - Add fispact writter to elements, isotopes, compounds and homogenised Materials
+ - Add squash option to all material cards
  - Combine with engineering materials database
- - Make a GUI
  - Address #todo comments in the code
 
 

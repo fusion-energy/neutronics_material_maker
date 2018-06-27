@@ -205,7 +205,10 @@ class Compound_tests(unittest.TestCase):
 
     def test_compound_molar_mass(self):
         example_comp = Compound(chemical_equation='Li4SiO4')
-        assert math.isclose(example_comp.molar_mass_g_per_mol,119.8432648)
+        assert math.isclose(example_comp.molar_mass_g_per_mol,119.84326481330251)
+
+        new_enriched_compound = Compound('Li4SiO4',enriched_isotopes=(Isotope('Li', 6, 0.9), Isotope('Li', 7, 0.1)))
+
 
     def test_compound_chemical_equation(self):
          new_compound = Compound('Li4SiO4')
@@ -483,9 +486,6 @@ class Material_tests(unittest.TestCase):
 
         assert type(mat_SS316LN_IG.elements) == list
 
-
-
-
     def test_Material_mass_and_atom_fractions_single_isotope_element(self):
         mat_1 = Material(material_card_name='M1',
                             density_g_per_cm3=20.0,
@@ -502,8 +502,6 @@ class Material_tests(unittest.TestCase):
         assert mat_2.isotope_atom_fractions == [1]
         assert mat_2.isotope_mass_fractions == [1]
 
-
-
     def test_Material_mass_and_atom_fractions_multi_isotope_element(self):
         mat_1 = Material(material_card_name='M1',
                             density_g_per_cm3=20.0,
@@ -519,8 +517,6 @@ class Material_tests(unittest.TestCase):
         assert math.isclose(sum(mat_1.isotope_mass_fractions) , 1)
         assert math.isclose(sum(mat_2.isotope_atom_fractions) , 1)
         assert math.isclose(sum(mat_2.isotope_mass_fractions) , 1)
-
-
 
     def test_Material_mass_fraction_multi_elements(self):
         # Defintion for portland from Compendium of Material Composition Data for Radiation Transport Modeling 
@@ -581,6 +577,42 @@ class Material_tests(unittest.TestCase):
 
         for calc_a_f, known_a_f in zip(mat_portland.element_mass_fractions,known_a_fs):
           assert math.isclose(calc_a_f, known_a_f,rel_tol=5e-04)          
+
+    def test_material_fraction_from_isotopes_and_atom_fractions(self):
+
+      mat_using_isotope_mass_fractions = Material(material_card_name='enriched_lithum',
+                                                  density_g_per_cm3=19.0,
+                                                  isotopes=[Isotope('Li',7),
+                                                            Isotope('Li',6)],
+                                                  isotope_atom_fractions=[0.5,
+                                                                          0.5],
+                                                  )
+
+      mat_card =mat_using_isotope_mass_fractions.material_card(code='fispact',volume_cm3=1)
+
+      chopped_up = mat_card.split('\n')
+
+      assert float(chopped_up[-1].split()[1]) == float(chopped_up[-2].split()[1])
+
+
+
+
+    def test_material_fraction_from_isotopes_and_mass_fractions(self):
+
+
+      mat_using_isotope_atom_fractions = Material(material_card_name='enriched_lithum',
+                                                  density_g_per_cm3=19.0,
+                                                  isotopes=[Isotope('Li',7),
+                                                            Isotope('Li',6)],
+                                                  isotope_mass_fractions=[0.5,
+                                                                          0.5],
+                                                  )
+
+      mat_card =mat_using_isotope_atom_fractions.material_card(code='fispact',volume_cm3=1)
+
+      chopped_up = mat_card.split('\n')
+
+      assert float(chopped_up[-1].split()[1]) > float(chopped_up[-2].split()[1])
 
 
     def test_default_temperature_in_material_cards(self):

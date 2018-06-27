@@ -26,13 +26,14 @@ xsdir_isotopes_and_nuclear_libraries_list=[]
 
 
 def normalise_list(non_normalised_list):
-
-        factor = 1.0 / sum(non_normalised_list)
-        normalised_list = []
-        for non_normalised_fraction in non_normalised_list:
-            normalised_list.append(non_normalised_fraction * factor)
-        return normalised_list
-
+        if len(non_normalised_list)>0:
+            factor = 1.0 / sum(non_normalised_list)
+            normalised_list = []
+            for non_normalised_fraction in non_normalised_list:
+                normalised_list.append(non_normalised_fraction * factor)
+            return normalised_list
+        else:
+            return non_normalised_list
 
 def set_xsdir(xsdir_file_path):
     global xsdir_isotopes_and_nuclear_libraries_list
@@ -542,6 +543,9 @@ class Material(Base):
                 self.isotope_mass_fractions.append(isotope_atom_fraction*(isotope.mass_amu/self.molar_mass_g_per_mol))
 
 
+        self.isotope_mass_fractions= normalise_list(self.isotope_mass_fractions)
+        self.isotope_atom_fractions= normalise_list(self.isotope_atom_fractions)
+
         if self.density_g_per_cm3 == None:
             self.density_g_per_cm3 = self.find_density_g_per_cm3()
         if self.density_atoms_per_barn_per_cm == None:
@@ -608,8 +612,8 @@ class Material(Base):
                     mat_card.append('   '+(i.zaid + i.nuclear_library).ljust(11)+fractions_prefix + str(m_f).ljust(24)+end_comment+i.name)   
         
         elif code == 'fispact':
-            for i in self.isotope_atom_fractions:
-                mat_card.append(str(self.density_atoms_per_cm3 * i * volume_cm3))
+            for i, i_a_f in zip(self.isotopes, self.isotope_atom_fractions):
+                mat_card.append(i.symbol + str(i.nucleons)+' '+ str(self.density_atoms_per_cm3 * i_a_f * volume_cm3))
 
         return '\n'.join(mat_card)
 
