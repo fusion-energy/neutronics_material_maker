@@ -203,6 +203,10 @@ class Compound_tests(unittest.TestCase):
         print(example_iso.classname)
         assert example_iso.classname=='Compound'
 
+    def test_compound_molar_mass(self):
+        example_comp = Compound(chemical_equation='Li4SiO4')
+        assert math.isclose(example_comp.molar_mass_g_per_mol,119.8432648)
+
     def test_compound_chemical_equation(self):
          new_compound = Compound('Li4SiO4')
          assert new_compound.chemical_equation == 'Li4SiO4'  

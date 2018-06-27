@@ -108,9 +108,39 @@ class Base(object):
                         comment+'temperature ='+str(temperature_K)+' K',
                         mcnp_material_card_name+mcnp_material_card_number]
 
+        elif code == 'fispact':
+            mat_card = [comment + material_card_name + end_comment,
+                        comment + self.material_card_comment + end_comment,
+                        comment + 'density ='+str(self.density_g_per_cm3) + ' g/cm3' + end_comment,
+                        comment + 'density ='+str(self.density_atoms_per_barn_per_cm) + ' atoms per barn cm2' + end_comment,
+                        comment + 'temperature ='+str(temperature_K) + ' K' + end_comment]
+
+
         return mat_card
 
-   
+ 
+    def find_symbol_from_protons(self):
+        return NDATA.loc[NDATA['Proton number'] == self.protons].index[0]
+
+    def find_protons_from_symbol(self):
+        p = NDATA.loc[self.symbol]['Proton number']
+        if type(p) == np.int64:
+            return p
+        else:
+            return p.unique()[0]
+
+    def find_element_name(self):
+        n = NDATA.loc[self.symbol]['Name']
+        if isinstance(n, str):
+            return n
+        else:
+            return n.unique()[0]
+
+    def find_molar_mass_g_per_mol(self):
+        cumlative_molar_mass=0
+        for i, i_f in zip(self.isotopes, self.isotope_atom_fractions):
+            cumlative_molar_mass = cumlative_molar_mass+(i.mass_amu*i_f)
+        return cumlative_molar_mass
 
     def find_density_of_atoms_per_cm3(self):
         if self.isotopes == []:
@@ -151,6 +181,9 @@ class Base(object):
         if code =='mcnp':
             end_comment = ' $ ' 
             comment = 'c  '
+        if code =='fispact':
+            end_comment = ' >> ' 
+            comment = '<< '            
         if code is None or code =='serpent':
             code = 'serpent'
             end_comment = ' % '
@@ -260,6 +293,20 @@ class Isotope(Base):
         else:
             return None
 
+    def find_density_atoms_per_barn_per_cm(self):
+        if self.density_g_per_cm3 == 0:
+            return 0
+        if self.density_g_per_cm3 is not None and self.molar_mass_g_per_mol is not None:
+            return (self.density_g_per_cm3/self.molar_mass_g_per_mol)*Avogadros_number*1e-24
+
+    def find_density_g_per_cm3(self):
+        if self.density_atoms_per_barn_per_cm == 0:
+            return 0        
+        if self.density_atoms_per_barn_per_cm is not None:
+            return (self.density_atoms_per_barn_per_cm/1e-24)*self.average_atom_mass
+
+
+
     def _get_xs_files(self, **kwargs):
 
         self.xsdir = kwargs.get('xsdir', XSDIR)
@@ -269,22 +316,7 @@ class Isotope(Base):
 
 
 
-    def find_symbol_from_protons(self):
-        return NDATA.loc[NDATA['Proton number'] == self.protons].index[0]
 
-    def find_protons_from_symbol(self):
-        p = NDATA.loc[self.symbol]['Proton number']
-        if type(p) == np.int64:
-            return p
-        else:
-            return p.unique()[0]
-
-    def find_element_name(self):
-        n = NDATA.loc[self.symbol]['Name']
-        if isinstance(n, str):
-            return n
-        else:
-            return n.unique()[0]
 
 
     def material_card(self, name=None, fractions=None, color=None,code=None, temperature_K=None):
@@ -299,7 +331,7 @@ class Isotope(Base):
         return '\n'.join(mat_card)
 
 
-class Element(Isotope):
+class Element(Base):
     def __init__(self, *args, **kwargs):
 
         if len(args) == 1:
@@ -327,12 +359,13 @@ class Element(Isotope):
         else:
             self.isotopes = self.check_enriched_isotopes_in_element()
 
-        self.molar_mass_g_per_mol = self.find_molar_mass_g_per_mol()
 
         self.isotope_atom_fractions=[]
         for i in self.isotopes: 
             self.isotope_atom_fractions.append(i.abundance)
 
+        self.molar_mass_g_per_mol = self.find_molar_mass_g_per_mol()
+        
         self.isotope_mass_fractions=[]
         for i in self.isotopes:
             self.isotope_mass_fractions.append((i.mass_amu*i.abundance)/self.molar_mass_g_per_mol)
@@ -389,11 +422,7 @@ class Element(Isotope):
                              symbol)
         return isotopes_to_return
 
-    def find_molar_mass_g_per_mol(self):
-        element_mass = 0
-        for isotope in self.isotopes:
-            element_mass += isotope.abundance * isotope.mass_amu
-        return element_mass
+
 
 
     def material_card(self, name=None, color=None,code=None, fractions=None, temperature_K=None):
@@ -545,12 +574,6 @@ class Material(Base):
 
         return '\n'.join(mat_card)
 
-    def find_molar_mass_g_per_mol(self):
-        cumlative_molar_mass=0
-        for i, i_f in zip(self.isotopes, self.isotope_atom_fractions):
-            cumlative_molar_mass = cumlative_molar_mass+(i.mass_amu*i_f)
-        return cumlative_molar_mass
-
     def find_density_atoms_per_barn_per_cm(self):
         if self.density_g_per_cm3 == 0:
             return 0
@@ -558,6 +581,8 @@ class Material(Base):
             return (self.density_g_per_cm3/self.molar_mass_g_per_mol)*Avogadros_number*1e-24
 
     def find_density_g_per_cm3(self):
+        if self.density_atoms_per_barn_per_cm == 0:
+            return 0        
         if self.density_atoms_per_barn_per_cm is not None:
             return (self.density_atoms_per_barn_per_cm/1e-24)*self.average_atom_mass
 
