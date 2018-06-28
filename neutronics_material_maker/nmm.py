@@ -68,9 +68,9 @@ def calculate_ZAID(Z, A):
 
 class Base(object):
 
-    def material_card_header(self, material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3, **kwargs):
+    def material_card_header(self, material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3, **kwargs):
 
-        material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = self.kwarg_handler(material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
+        material_card_comment, material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = self.kwarg_handler(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
         if self.density_g_per_cm3 is None and self.density_atoms_per_barn_per_cm is None:
             raise ValueError('To produce a material card the '
                              'density_g_per_cm3 or '
@@ -85,7 +85,7 @@ class Base(object):
 
         if code == 'serpent':
             tmp = ' tmp '+str(temperature_K)+' '
-            mat_card = [comment, comment + self.material_card_comment,
+            mat_card = [comment, comment + material_card_comment,
                         'mat '+material_card_name+density+tmp+color]
            
         elif code == 'mcnp':
@@ -94,7 +94,7 @@ class Base(object):
                 print('WARNING. To create an MCNP materail card the material_card_name must include an integer value. For example material_card_name="M1"')
 
             mat_card = [comment,
-                        comment + self.material_card_comment,
+                        comment + material_card_comment,
                         comment+'density ='+str(self.density_g_per_cm3)+' g/cm3',
                         comment+'density ='+str(self.density_atoms_per_barn_per_cm)+' atoms per barn cm2',
                         comment+'temperature ='+str(temperature_K)+' K',
@@ -106,7 +106,7 @@ class Base(object):
             else:
                 number_of_isotopes=str(len(self.isotopes))
             mat_card = [comment + material_card_name + end_comment,
-                        comment + self.material_card_comment + end_comment,
+                        comment + material_card_comment + end_comment,
                         #comment + 'density ='+str(self.density_g_per_cm3) + ' g/cm3' + end_comment,
                         comment + 'density ='+str(self.density_atoms_per_barn_per_cm) + ' atoms per barn cm2' + end_comment,
                         comment + 'temperature ='+str(temperature_K) + ' K' + end_comment,
@@ -169,11 +169,15 @@ class Base(object):
         number_of_atoms = self.density_g_per_cm3/(a*atomic_mass_unit_in_g)
         return number_of_atoms
 
-    def kwarg_handler(self, material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3):
+    def kwarg_handler(self, material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3):
         if material_card_name is None:
             material_card_name = self.material_card_name
         if material_card_name is None:
-            material_card_name = 'unamed_material'            
+            material_card_name = 'unamed_material' 
+        if material_card_comment is None:
+            material_card_comment = self.material_card_comment
+            if material_card_comment is None:
+                material_card_comment= 'Made with https://github.com/ukaea/neutronics_material_maker'           
 
         if material_card_number is None:
             material_card_number = self.material_card_number
@@ -198,18 +202,20 @@ class Base(object):
                 raise ValueError('To produce a fispact material card the '
                                  'volume_cm3 must be provided')
 
-        if code.lower =='mcnp':
-            end_comment = ' $ ' 
-            comment = 'c  '
-        if code.lower =='fispact':
-            end_comment = ' >> ' 
-            comment = '<< '            
-        if code.lower is None or code =='serpent':
+        if code is None or code =='serpent':
             code = 'serpent'
             end_comment = ' % '
             comment = '%  '
+        elif code.lower() =='mcnp':
+            end_comment = ' $ ' 
+            comment = 'c  '
+            code ='mcnp'
+        elif code.lower() =='fispact':
+            end_comment = ' >> ' 
+            comment = '<< '
+            code ='fispact'            
 
-        return material_card_name, material_card_number, color, code.lower, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3
+        return material_card_comment, material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3
 
 
 
@@ -260,7 +266,7 @@ class Isotope(Base):
 
         self.material_card_name = kwargs.get('material_card_name')
         self.material_card_number = kwargs.get('material_card_number')
-        self.material_card_comment = kwargs.get('material_card_comment','material card made with neutronics_material_maker')
+        self.material_card_comment = kwargs.get('material_card_comment')
 
         if self.material_card_name == None:
             self.material_card_name = self.name 
@@ -352,9 +358,9 @@ class Isotope(Base):
 
 
 
-    def material_card(self, material_card_name=None, material_card_number=None, fractions=None, color=None,code=None, temperature_K=None, volume_cm3=None):
-        mat_card=super(Isotope,self).material_card_header(material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
-        material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Isotope,self).kwarg_handler(material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
+    def material_card(self, material_card_comment=None, material_card_name=None, material_card_number=None, fractions=None, color=None,code=None, temperature_K=None, volume_cm3=None):
+        mat_card=super(Isotope,self).material_card_header(material_card_comment,material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
+        material_card_comment, material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Isotope,self).kwarg_handler(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
 
         if code == 'mcnp' or code == 'serpent':
             if fractions == 'isotope atom fractions':
@@ -418,7 +424,7 @@ class Element(Base):
 
         self.material_card_name = kwargs.get('material_card_name')
         self.material_card_number = kwargs.get('material_card_number')
-        self.material_card_comment = kwargs.get('material_card_comment','material card made with neutronics_material_maker')
+        self.material_card_comment = kwargs.get('material_card_comment')
 
         if self.material_card_name == None:
             self.material_card_name = self.find_element_name()           
@@ -469,10 +475,10 @@ class Element(Base):
 
 
 
-    def material_card(self, material_card_name=None, material_card_number=None, color=None,code=None, fractions=None, temperature_K=None, volume_cm3=None):
+    def material_card(self, material_card_comment=None, material_card_name=None, material_card_number=None, color=None,code=None, fractions=None, temperature_K=None, volume_cm3=None):
 
-        mat_card = super(Element,self).material_card_header(material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
-        material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Element,self).kwarg_handler(material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
+        mat_card = super(Element,self).material_card_header(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
+        material_card_comment, material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Element,self).kwarg_handler(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
 
 
         if code == 'mcnp' or code == 'serpent':
@@ -511,9 +517,8 @@ class Material(Base):
 
         self.material_card_name = kwargs.get('material_card_name')
         self.material_card_number = kwargs.get('material_card_number')
-        self.material_card_comment = kwargs.get('material_card_comment','material card made with neutronics_material_maker')
+        self.material_card_comment = kwargs.get('material_card_comment')
 
-        self.material_card_comment = kwargs.get('material_card_comment','material card made with neutronics_material_maker')
         self.temperature_K = kwargs.get('temperature_K',293.15)
 
         self.packing_fraction=kwargs.get('packing_fraction', 1.0)
@@ -631,10 +636,10 @@ class Material(Base):
             return normalised_list_of_fractions
         return list_of_fractions
 
-    def material_card(self, material_card_name=None, material_card_number=None, color=None, code=None, fractions=None, temperature_K=None, volume_cm3=None):
+    def material_card(self, material_card_comment=None, material_card_name=None, material_card_number=None, color=None, code=None, fractions=None, temperature_K=None, volume_cm3=None):
 
-        mat_card=super(Material,self).material_card_header(material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
-        material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Material,self).kwarg_handler(material_card_name, material_card_number, color, code, fractions, temperature_K, volume_cm3)
+        mat_card=super(Material,self).material_card_header(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
+        material_card_comment, material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Material,self).kwarg_handler(material_card_comment, material_card_name, material_card_number, color, code, fractions, temperature_K, volume_cm3)
 
         if code =='serpent' or code == 'mcnp':
             if fractions=='isotope atom fractions':
@@ -673,17 +678,15 @@ class Compound(Base):
         self.color = kwargs.get('color')
         self.chemical_equation = chemical_equation
 
-
         self.material_card_name = kwargs.get('material_card_name')
         self.material_card_number = kwargs.get('material_card_number')
-        self.material_card_comment = kwargs.get('material_card_comment','material card made with neutronics_material_maker')
+        self.material_card_comment = kwargs.get('material_card_comment')
 
         if self.material_card_name == None:
             self.material_card_name = self.chemical_equation
         if self.material_card_number == None:
             self.material_card_number = '?' 
 
-        self.material_card_comment = kwargs.get('material_card_comment','material card made with neutronics_material_maker')
         self.state_of_matter = kwargs.get('state_of_matter', 'solid')
         self.enriched_isotopes = kwargs.get('enriched_isotopes', None)
         self.volume_of_unit_cell_cm3 = kwargs.get('volume_of_unit_cell_cm3')
@@ -750,10 +753,10 @@ class Compound(Base):
         return isotopes
 
 
-    def material_card(self, material_card_name=None, material_card_number=None, color=None, code=None, fractions=None, temperature_K=None, volume_cm3=None):
+    def material_card(self, material_card_comment=None, material_card_name=None, material_card_number=None, color=None, code=None, fractions=None, temperature_K=None, volume_cm3=None):
         
-        mat_card=super(Compound,self).material_card_header(material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
-        material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Compound,self).kwarg_handler(material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
+        mat_card=super(Compound,self).material_card_header(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
+        material_card_comment, material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Compound,self).kwarg_handler(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
 
 
         if code == 'mcnp' or code == 'serpent':
@@ -910,7 +913,7 @@ class Homogenised_mixture(Base):
 
         self.material_card_name = kwargs.get('material_card_name')
         self.material_card_number = kwargs.get('material_card_number')
-        self.material_card_comment = kwargs.get('material_card_comment','material card made with neutronics_material_maker')
+        self.material_card_comment = kwargs.get('material_card_comment')
 
         if self.material_card_name == None:
             if self.volume_fractions is None:
@@ -1050,10 +1053,10 @@ class Homogenised_mixture(Base):
         return description_to_return[:-1]
 
 
-    def material_card(self, material_card_name=None, material_card_number=None, color=None, fractions=None,code=None,squashed=False,temperature_K=None, volume_cm3=None):
+    def material_card(self, material_card_comment=None, material_card_name=None, material_card_number=None, color=None, fractions=None,code=None,squashed=False,temperature_K=None, volume_cm3=None):
 
-        mat_card_printed=super(Homogenised_mixture,self).material_card_header(material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
-        material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Homogenised_mixture,self).kwarg_handler(material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
+        mat_card_printed=super(Homogenised_mixture,self).material_card_header(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
+        material_card_comment, material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Homogenised_mixture,self).kwarg_handler(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
 
         mat_card=[]
         for mixture, mix_v_f, mix_m_f in zip(self.mixtures, self.volume_fractions,self.mass_fractions):
