@@ -173,7 +173,7 @@ class Base(object):
         if material_card_name is None:
             material_card_name = self.material_card_name
         if material_card_name is None:
-            material_card_name = 'unamed_material' 
+            material_card_name = 'unnamed_material' 
         if material_card_comment is None:
             material_card_comment = self.material_card_comment
             if material_card_comment is None:
@@ -345,16 +345,12 @@ class Isotope(Base):
             return (self.density_atoms_per_barn_per_cm/1e-24)*self.average_atom_mass
 
 
-
     def _get_xs_files(self, **kwargs):
 
         self.xsdir = kwargs.get('xsdir', XSDIR)
 
         self.nuclear_library = kwargs.get('nuclear_library',
                                           find_prefered_library(self.zaid))
-
-
-
 
 
 
@@ -500,8 +496,6 @@ class Element(Base):
                 mat_card.append(i.symbol + str(i.nucleons)+' '+ str(self.density_atoms_per_cm3 * i_a_f * volume_cm3))
 
               
-
-
         return '\n'.join(mat_card)
 
 
@@ -515,7 +509,7 @@ class Material(Base):
         self.isotope_mass_fractions = kwargs.get('isotope_mass_fractions',None)
         self.isotope_atom_fractions = kwargs.get('isotope_atom_fractions',None)
 
-        self.material_card_name = kwargs.get('material_card_name')
+        self.material_card_name = kwargs.get('material_card_name','unnamed_material')
         self.material_card_number = kwargs.get('material_card_number')
         self.material_card_comment = kwargs.get('material_card_comment')
 
@@ -1052,6 +1046,27 @@ class Homogenised_mixture(Base):
             description_to_return += item.material_card_name + '_mf_' + str(frac)+'_'
         return description_to_return[:-1]
 
+    def combine_duplicate_isotopes(self,list_of_dictionaries,same,combine,):
+            zaids=[]
+            iso_frac=[]
+            isotopes=[]
+            for entry in list_of_dictionaries:
+                if entry !={}:
+                    if entry[same].zaid in zaids:
+                        index = zaids.index(entry[same].zaid)
+                        iso_frac[index]=iso_frac[index]+entry[combine]
+                    else:
+                        zaids.append(entry[same].zaid)
+                        isotopes.append(entry[same])
+                        iso_frac.append(entry[combine])
+            zaids, iso_frac,isotopes = zip(*natsorted(zip(zaids, iso_frac,isotopes)))
+
+            # new_list_of_zaids = []
+            # for z, i_f, name in zip(zaids, iso_frac,names):
+            #     new_list_of_zaids.append()
+
+            return isotopes, iso_frac
+
 
     def material_card(self, material_card_comment=None, material_card_name=None, material_card_number=None, color=None, fractions=None,code=None,squashed=False,temperature_K=None, volume_cm3=None):
 
@@ -1059,76 +1074,117 @@ class Homogenised_mixture(Base):
         material_card_comment, material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Homogenised_mixture,self).kwarg_handler(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
 
         mat_card=[]
-        for mixture, mix_v_f, mix_m_f in zip(self.mixtures, self.volume_fractions,self.mass_fractions):
-            if mixture.isotopes == []:
-                # A void material has no isotope fractions but prints a header
-                mat_card.append({'string':comment})
-                mat_card.append({'string':comment+mixture.material_card_name})
-                mat_card.append({'string':comment+' with a density of '+str(mixture.density_g_per_cm3) +' g per cm3'})
-                mat_card.append({'string':comment+' volume fraction of '+str(mix_v_f)})
-            else:
-                n_a_mix= (mixture.density_atoms_per_cm3*mix_v_f)/self.density_atoms_per_cm3 # a fraction of total number of atoms
-                amount_of_mass_in_mix = (mixture.density_g_per_cm3*mix_v_f)/self.density_g_per_cm3
-                #mass_fraction_normaliser_mix= -(mixture.density_atoms_per_cm3*mix_m_f)/sum(self.density_atoms_per_cm3)
+        if code == 'fispact':
+            fractions='number of atoms'
+            for mixture, mix_v_f, mix_m_f in zip(self.mixtures, self.volume_fractions,self.mass_fractions):
 
-                mat_card.append({'string':comment})
-                mat_card.append({'string':comment+mixture.material_card_name})
-                mat_card.append({'string':comment+'with a density of '+str(mixture.density_g_per_cm3) + ' g per cm3'})
-                mat_card.append({'string':comment+'packing fraction of '+str(mixture.packing_fraction)})
-                mat_card.append({'string':comment+'volume fraction of '+str(mix_v_f)})
-                mat_card.append({'string':comment+'mass fraction of '+str(mix_m_f)})
-
-                for i, a_f, m_f in zip(mixture.isotopes, mixture.isotope_atom_fractions, mixture.isotope_mass_fractions):
-                    if a_f > 0:
-                        mat_card.append({'zaid_lib':(i.zaid+i.nuclear_library),
-                                         'isotope atom fractions':(a_f*n_a_mix),
-                                         'isotope mass fractions':(m_f*mix_m_f),
-                                            #'feature not working yet'),
-                                         'name':i.name})
-
-        
-
-        if squashed == False:
-            for item in mat_card:
-                if list(item.keys())==['string']:
-                    mat_card_printed.append(item['string'])
+                if mixture.isotopes == []:
+                    # A void material has no isotope fractions but prints a header
+                    mat_card.append({'string':comment+end_comment})
+                    mat_card.append({'string':comment+mixture.material_card_name+end_comment})
+                    mat_card.append({'string':comment+' with a density of '+str(mixture.density_g_per_cm3) +' g per cm3'+end_comment})
+                    mat_card.append({'string':comment+' volume fraction of '+str(mix_v_f)+end_comment})
                 else:
-                    line = '   '+item['zaid_lib'].ljust(11)+' '+str(item[fractions]).ljust(24)+ end_comment + item['name']
-                    mat_card_printed.append(line)
-            return '\n'.join(mat_card_printed)
-        else:
+                    mat_card.append({'string':comment+end_comment})
+                    mat_card.append({'string':comment+mixture.material_card_name+end_comment})
+                    mat_card.append({'string':comment+'with a density of '+str(mixture.density_g_per_cm3) + ' g per cm3'+end_comment})
+                    mat_card.append({'string':comment+'packing fraction of '+str(mixture.packing_fraction)+end_comment})
+                    mat_card.append({'string':comment+'volume fraction of '+str(mix_v_f)+end_comment})
+                    mat_card.append({'string':comment+'mass fraction of '+str(mix_m_f)+end_comment})
 
-            # a method of squashing / combining identical zaids
+                    atoms_in_mixture = self.volume_cm3 * mix_v_f * mixture.density_atoms_per_cm3
+
+                    for i, a_f in zip(mixture.isotopes, mixture.isotope_atom_fractions):
+                        if a_f > 0:
+                            mat_card.append({'number of atoms':(a_f * atoms_in_mixture),
+                                             'isotope':i})
+
 
             list_of_strings = [{k:v for k, v in i.items() if k =='string'} for i in mat_card]
-            list_of_zaids = [{k:v for k, v in i.items() if k !='string'} for i in mat_card]
+            condensed_mat_card_non_strings = [{k:v for k, v in i.items() if k !='string'} for i in mat_card]
 
-            mat_card.append({'string':comment})
+
+
+            isotopes, iso_frac= self.combine_duplicate_isotopes(list_of_dictionaries=condensed_mat_card_non_strings,
+                                                                same='isotope',
+                                                                combine='number of atoms',
+                                                                )
+
+            mat_card.append({'string':comment+ end_comment})
             for i in list_of_strings:
                 if i !={}:
                     mat_card_printed.append(i['string'])
             mat_card_printed.append(comment)        
                   
-            zaids=[]
-            iso_frac=[]
-            names=[]
+            for i,iso_frac in zip(isotopes,iso_frac):
+                mat_card_printed.append('   '+(i.zaid).ljust(11) + ' '+str(iso_frac).ljust(24))
 
-            for entry in list_of_zaids:
-                if entry !={}:
-                    if entry['zaid_lib'] in zaids:
-                        index = zaids.index(entry['zaid_lib'])
-                        iso_frac[index]=iso_frac[index]+entry[fractions]
+
+
+
+
+        elif code == 'mcnp' or code == 'serpent':
+            for mixture, mix_v_f, mix_m_f in zip(self.mixtures, self.volume_fractions,self.mass_fractions):
+                if mixture.isotopes == []:
+                    # A void material has no isotope fractions but prints a header
+                    mat_card.append({'string':comment})
+                    mat_card.append({'string':comment+mixture.material_card_name})
+                    mat_card.append({'string':comment+' with a density of '+str(mixture.density_g_per_cm3) +' g per cm3'})
+                    mat_card.append({'string':comment+' volume fraction of '+str(mix_v_f)})
+                else:
+                    n_a_mix= (mixture.density_atoms_per_cm3*mix_v_f)/self.density_atoms_per_cm3 # a fraction of total number of atoms
+                    amount_of_mass_in_mix = (mixture.density_g_per_cm3*mix_v_f)/self.density_g_per_cm3
+
+                    #mass_fraction_normaliser_mix= -(mixture.density_atoms_per_cm3*mix_m_f)/sum(self.density_atoms_per_cm3)
+
+                    mat_card.append({'string':comment})
+                    mat_card.append({'string':comment+mixture.material_card_name})
+                    mat_card.append({'string':comment+'with a density of '+str(mixture.density_g_per_cm3) + ' g per cm3'})
+                    mat_card.append({'string':comment+'packing fraction of '+str(mixture.packing_fraction)})
+                    mat_card.append({'string':comment+'volume fraction of '+str(mix_v_f)})
+                    mat_card.append({'string':comment+'mass fraction of '+str(mix_m_f)})
+
+                    for i, a_f, m_f in zip(mixture.isotopes, mixture.isotope_atom_fractions, mixture.isotope_mass_fractions):
+                        if a_f > 0:
+                            # mat_card.append({'zaid_lib':(i.zaid+i.nuclear_library),
+                            #                  'isotope atom fractions':(a_f*n_a_mix),
+                            #                  'isotope mass fractions':(m_f*mix_m_f),
+                            #                  'name':i.name})
+                            mat_card.append({'isotope':i,
+                                             'isotope atom fractions':(a_f*n_a_mix),
+                                             'isotope mass fractions':(m_f*mix_m_f)})                            
+
+
+            if squashed == False:
+                for item in mat_card:
+                    if list(item.keys())==['string']:
+                        mat_card_printed.append(item['string'])
                     else:
-                        zaids.append(entry['zaid_lib'])
-                        iso_frac.append(entry[fractions])
-                        names.append(entry['name'])
+                        isotope = item['isotope']
+                        line = '   '+(isotope.zaid+isotope.nuclear_library).ljust(11)+' '+str(item[fractions]).ljust(24)+ end_comment + isotope.name
+                        mat_card_printed.append(line)
+                return '\n'.join(mat_card_printed)
+            else:
 
-            zaids, iso_frac,names = zip(*natsorted(zip(zaids, iso_frac,names)))
-            for zaid,iso_frac,name in zip(zaids,iso_frac,names):
-                mat_card_printed.append('   '+(zaid).ljust(11) + ' '+str(iso_frac).ljust(24)+end_comment+name)
+                # a method of squashing / combining identical zaids
 
-            return '\n'.join(mat_card_printed)     
-    
+                list_of_strings = [{k:v for k, v in i.items() if k =='string'} for i in mat_card]
+                list_of_zaids = [{k:v for k, v in i.items() if k !='string'} for i in mat_card]
+
+                zaids, iso_frac,names= self.combine_duplicate_isotopes(list_of_zaids=list_of_zaids,same='zaid_lib',combine='fractions',keep='name')
+
+                mat_card.append({'string':comment})
+                for i in list_of_strings:
+                    if i !={}:
+                        mat_card_printed.append(i['string'])
+                mat_card_printed.append(comment)        
+                      
+
+                for zaid,iso_frac,name in zip(zaids,iso_frac,names):
+                    mat_card_printed.append('   '+(zaid).ljust(11) + ' '+str(iso_frac).ljust(24)+end_comment+name)
+
+        return '\n'.join(mat_card_printed)     
+        
 # Presently unused?
 class Natural_Isotopes():
     def __init__(self):
