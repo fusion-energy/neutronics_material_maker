@@ -655,7 +655,6 @@ class Material(Base):
         if self.density_g_per_cm3 == 0:
             return 0
         if self.density_g_per_cm3 is not None and self.molar_mass_g_per_mol is not None:
-            print('molar_mass_g_per_mol',self.molar_mass_g_per_mol)
             return (self.density_g_per_cm3/self.molar_mass_g_per_mol)*Avogadros_number*1e-24
 
     def find_density_g_per_cm3(self):
