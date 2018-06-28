@@ -489,10 +489,31 @@ mat_mix.material_card(fractions='isotope mass fractions')
 
 Isotopes, Elements, Materials and Compounds can all generate material cards for Serpent 2, MCNP and Fispact 2. Once your object has been created then use the **.material_card()** method along with optional arguments to get the material card.
 
-Arguments can be passed to the **.material_card()** method or specified with the object upton creation. Permitted arguments are :name[string], color[rgb tuple], code['serpent','mcnp','fispact'], fractions['isotope atom fractions','isotope mass fractions'], temperature_K[float] and volume_cm3[float].
+Arguments can be passed to the **.material_card()** method or specified with the object upton creation. Permitted arguments are :
+- material_card_name [string] used by Serpent,
+- material_card_number [int] used by MCNP,
+- material_card_comment [string]
+- color [rgb tuple] used by Serpent,
+- code ['serpent','mcnp','fispact'],
+- fractions ['isotope atom fractions','isotope mass fractions'] used by MCNP and Serpent,
+- temperature_K [float] used by Serpent
+- volume_cm3 [float] required for Fispact outputs
 
+```python
+a=Material(density_g_per_cm3=7,
+           isotopes=[Isotope('Sn',112),Isotope('Be',9)],
+           isotope_atom_fractions=[0.5,0.5])
+a.material_card(code='mcnp',material_card_number=5, material_card_comment='my material',fractions='isotope mass fractions')
 
-
+c  
+c  my material
+c  density =7.0 g/cm3
+c  density =0.06972548702136161 atoms per barn cm2
+c  temperature =293.15 K
+M5
+   50112.31c   0.5                      $ Tin_112
+   4009.31c    0.5                      $ Beryllium_9
+```
 
 # <a name="chainging_the_nuclear_library"></a>Changing the nuclear library
 

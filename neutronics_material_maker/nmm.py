@@ -198,18 +198,18 @@ class Base(object):
                 raise ValueError('To produce a fispact material card the '
                                  'volume_cm3 must be provided')
 
-        if code =='mcnp':
+        if code.lower =='mcnp':
             end_comment = ' $ ' 
             comment = 'c  '
-        if code =='fispact':
+        if code.lower =='fispact':
             end_comment = ' >> ' 
             comment = '<< '            
-        if code is None or code =='serpent':
+        if code.lower is None or code =='serpent':
             code = 'serpent'
             end_comment = ' % '
             comment = '%  '
 
-        return material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3
+        return material_card_name, material_card_number, color, code.lower, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3
 
 
 
