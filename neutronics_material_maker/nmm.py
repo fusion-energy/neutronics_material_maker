@@ -107,9 +107,10 @@ class Base(object):
                 number_of_isotopes=str(len(self.isotopes))
             mat_card = [comment + material_card_name + end_comment,
                         comment + self.material_card_comment + end_comment,
-                        comment + 'density ='+str(self.density_g_per_cm3) + ' g/cm3' + end_comment,
+                        #comment + 'density ='+str(self.density_g_per_cm3) + ' g/cm3' + end_comment,
                         comment + 'density ='+str(self.density_atoms_per_barn_per_cm) + ' atoms per barn cm2' + end_comment,
                         comment + 'temperature ='+str(temperature_K) + ' K' + end_comment,
+                        'DENSITY ' +str(self.density_g_per_cm3),
                         'FUEL '+number_of_isotopes]
 
 
