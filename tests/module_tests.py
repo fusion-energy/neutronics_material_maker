@@ -11,8 +11,20 @@ import pytest
 import math
 
 
-
 class Isotope_tests(unittest.TestCase):
+
+    def test_isotope_creations_from_zaid(self):
+      a = Isotope('3006',density_g_per_cm3=6)
+      assert type(a.material_card()) == str
+      assert a.zaid == '3006'
+      a = Isotope(zaid = '3006',density_g_per_cm3=6)
+      assert type(a.material_card()) == str      
+      assert a.zaid == '3006'
+    
+    def test_isotope_fispact_card_creations(self):
+        a=Isotope('Li',7,density_g_per_cm3=7,volume_cm3=5)
+        assert a.material_card(code='fispact').split('\n')[-2]=='FUEL 1'
+        assert a.material_card(code='fispact').split('\n')[-1].startswith('Li7 3.0042022')
 
     def test_isotopes_class_name(self):
         example_iso = Isotope(symbol='Li',nucleons=6)
@@ -102,8 +114,22 @@ class Isotope_tests(unittest.TestCase):
       assert 'tmp 600' in mat_isotope.material_card(code='serpent',temperature_K =600)            
 
 
-
 class Element_tests(unittest.TestCase):
+
+    def test_element_creations_from_zaid(self):
+      a = Element('3006',density_g_per_cm3=6)
+      assert type(a.material_card()) == str
+      assert a.zaid == '3006'
+      a = Element(zaid = '3006',density_g_per_cm3=6)
+      assert type(a.material_card()) == str      
+      assert a.zaid == '3006'
+
+    def test_element_fispact_card_creations(self):
+        a=Element('Li',density_g_per_cm3=7,volume_cm3=5)
+        assert a.material_card(code='fispact').split('\n')[-1].startswith('Li7 2.8065718')
+        assert a.material_card(code='fispact').split('\n')[-2].startswith('Li6 2.30514882')
+        assert a.material_card(code='fispact').split('\n')[-3]=='FUEL 2'
+  
 
     def test_element_protons(self):
         new_element = Element('Fe')
@@ -198,10 +224,30 @@ class Element_tests(unittest.TestCase):
 
 class Compound_tests(unittest.TestCase):
 
+    def test_compound_fispact_card_creations(self):
+        a=Compound('Li4SiO4',density_g_per_cm3=2.2,volume_cm3=5)
+        assert a.material_card(code='fispact').split('\n')[-10]=='DENSITY 2.2'
+        assert a.material_card(code='fispact').split('\n')[-9]=='FUEL 8'
+        assert a.material_card(code='fispact').split('\n')[-8].startswith('Li6 1.678153682')
+        assert a.material_card(code='fispact').split('\n')[-7].startswith('Li7 2.043190800')
+        assert a.material_card(code='fispact').split('\n')[-6].startswith('Si28 5.09764054')
+        assert a.material_card(code='fispact').split('\n')[-5].startswith('Si29 2.58964097')
+        assert a.material_card(code='fispact').split('\n')[-4].startswith('Si30 1.70910776')
+        assert a.material_card(code='fispact').split('\n')[-3].startswith('O16 2.205633423')
+        assert a.material_card(code='fispact').split('\n')[-2].startswith('O17 8.401823440')
+        assert a.material_card(code='fispact').split('\n')[-1].startswith('O18 4.532562645')
+
     def test_compound_class_name(self):
         example_iso = Compound(chemical_equation='Li4SiO4')
         print(example_iso.classname)
         assert example_iso.classname=='Compound'
+
+    def test_compound_molar_mass(self):
+        example_comp = Compound(chemical_equation='Li4SiO4')
+        assert math.isclose(example_comp.molar_mass_g_per_mol,119.84326481330251)
+
+        new_enriched_compound = Compound('Li4SiO4',enriched_isotopes=(Isotope('Li', 6, 0.9), Isotope('Li', 7, 0.1)))
+
 
     def test_compound_chemical_equation(self):
          new_compound = Compound('Li4SiO4')
@@ -479,9 +525,6 @@ class Material_tests(unittest.TestCase):
 
         assert type(mat_SS316LN_IG.elements) == list
 
-
-
-
     def test_Material_mass_and_atom_fractions_single_isotope_element(self):
         mat_1 = Material(material_card_name='M1',
                             density_g_per_cm3=20.0,
@@ -498,8 +541,6 @@ class Material_tests(unittest.TestCase):
         assert mat_2.isotope_atom_fractions == [1]
         assert mat_2.isotope_mass_fractions == [1]
 
-
-
     def test_Material_mass_and_atom_fractions_multi_isotope_element(self):
         mat_1 = Material(material_card_name='M1',
                             density_g_per_cm3=20.0,
@@ -515,8 +556,6 @@ class Material_tests(unittest.TestCase):
         assert math.isclose(sum(mat_1.isotope_mass_fractions) , 1)
         assert math.isclose(sum(mat_2.isotope_atom_fractions) , 1)
         assert math.isclose(sum(mat_2.isotope_mass_fractions) , 1)
-
-
 
     def test_Material_mass_fraction_multi_elements(self):
         # Defintion for portland from Compendium of Material Composition Data for Radiation Transport Modeling 
@@ -578,6 +617,42 @@ class Material_tests(unittest.TestCase):
         for calc_a_f, known_a_f in zip(mat_portland.element_mass_fractions,known_a_fs):
           assert math.isclose(calc_a_f, known_a_f,rel_tol=5e-04)          
 
+    def test_material_fraction_from_isotopes_and_atom_fractions(self):
+
+      mat_using_isotope_mass_fractions = Material(material_card_name='enriched_lithum',
+                                                  density_g_per_cm3=19.0,
+                                                  isotopes=[Isotope('Li',7),
+                                                            Isotope('Li',6)],
+                                                  isotope_atom_fractions=[0.5,
+                                                                          0.5],
+                                                  )
+
+      mat_card =mat_using_isotope_mass_fractions.material_card(code='fispact',volume_cm3=1)
+
+      chopped_up = mat_card.split('\n')
+
+      assert float(chopped_up[-1].split()[1]) == float(chopped_up[-2].split()[1])
+
+
+
+
+    def test_material_fraction_from_isotopes_and_mass_fractions(self):
+
+
+      mat_using_isotope_atom_fractions = Material(material_card_name='enriched_lithum',
+                                                  density_g_per_cm3=19.0,
+                                                  isotopes=[Isotope('Li',7),
+                                                            Isotope('Li',6)],
+                                                  isotope_mass_fractions=[0.5,
+                                                                          0.5],
+                                                  )
+
+      mat_card =mat_using_isotope_atom_fractions.material_card(code='fispact',volume_cm3=1)
+
+      chopped_up = mat_card.split('\n')
+
+      assert float(chopped_up[-1].split()[1]) > float(chopped_up[-2].split()[1])
+
 
     def test_default_temperature_in_material_cards(self):
 
@@ -636,6 +711,7 @@ class Material_tests(unittest.TestCase):
                     assert fuzzy_test_compound.density_g_per_cm3 == random_density
                 except:
                     assert False
+
 
 class Homogenised_mixture_tests(unittest.TestCase):
 
@@ -765,9 +841,6 @@ class Homogenised_mixture_tests(unittest.TestCase):
     assert mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[0]+mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[1]==mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[2]+mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[3]
     assert mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[0]==mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[2]
     assert mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[1]==mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[3] 
-
-
-
 
 
 class Example_materials_tests(unittest.TestCase):
