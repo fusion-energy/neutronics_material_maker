@@ -9,6 +9,7 @@
     - pip install pint
     - pip install natsort
     - pip install codecov pytest-cov pylint
+    - pip install matplotlib
     #re json sys
   script:
     #- pip3 install neutronics_material_maker
