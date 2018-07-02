@@ -402,19 +402,27 @@ class Element(Base):
     def __init__(self, *args, **kwargs):
 
         if len(args) == 1:
-            protons_or_symbol=args[0]
+            protons_or_symbol_or_zaid=args[0]
         self.classname = self.__class__.__name__
         self.symbol = kwargs.get('symbol')
         self.protons = kwargs.get('protons')
-        if self.protons == None and self.symbol == None:
-            if isinstance(protons_or_symbol,int):
-                self.protons=protons_or_symbol
+        self.zaid = kwargs.get('zaid')
+        if self.protons == None and self.symbol == None and self.zaid == None:
+            if isinstance(protons_or_symbol_or_zaid,int):
+                self.protons=protons_or_symbol_or_zaid
 
-            elif isinstance(protons_or_symbol,str):
-                self.symbol = protons_or_symbol
+            elif isinstance(protons_or_symbol_or_zaid,str) and protons_or_symbol_or_zaid[0].isdigit()==False:
+                self.symbol = protons_or_symbol_or_zaid
+                
+            else:
+                self.zaid = protons_or_symbol_or_zaid
+                
 
         self.temperature_K = kwargs.get('temperature_K',293.15)
 
+        
+        if self.zaid != None:
+            self.protons = self.find_protons_from_zaid()
         if self.symbol ==None:
             self.symbol = self.find_symbol_from_protons()
         if self.protons ==None:
