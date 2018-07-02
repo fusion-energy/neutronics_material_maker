@@ -126,7 +126,25 @@ class Base(object):
         if type(p) == np.int64:
             return p
         else:
-            return p.unique()[0]
+            return p.unique()[0]    
+    
+    def find_protons_from_zaid(self):
+        if "." in self.zaid:
+            k = self.zaid.find(".")
+        else:
+            k = len(self.zaid) + 1
+        zaid = self.zaid[:k]
+        protons = int(zaid[:-3])
+        return protons
+        
+    def find_nucleons_from_zaid(self):
+        if "." in self.zaid:
+            k = self.zaid.find(".")
+        else:
+            k = len(self.zaid) + 1
+        zaid = self.zaid[:k]
+        nucleons = int(zaid[-3:])
+        return nucleons
 
     def find_element_name(self):
         n = NDATA.loc[self.symbol]['Name']
@@ -238,6 +256,7 @@ class Isotope(Base):
         self.classname = self.__class__.__name__
 
         self.symbol = kwargs.get('symbol', None)
+        self.zaid = kwargs.get('zaid', None)
         self.protons = kwargs.get('protons', None)
         self.nucleons = kwargs.get('nucleons', None)
         self.color = kwargs.get('color', (0, 0, 0))
@@ -245,12 +264,17 @@ class Isotope(Base):
         self._handle_args(args)
         self.temperature_K = kwargs.get('temperature_K',293.15)
 
-        if self.nucleons is None:
+        if self.nucleons is None and self.zaid is None:
             raise ValueError('To create an Isotope provide an nucleon number.')
 
-        if self.protons is None and self.symbol is None:
+        if self.protons is None and self.symbol is None and self.zaid is None:
             raise ValueError('To create an Isotope provide either protons or '
-                             'symbol please.')
+                             'symbol or zaid please.')
+        
+        if self.zaid!= None:
+            self.protons = self.find_protons_from_zaid()
+            self.nucleons = self.find_nucleons_from_zaid()
+            
         if self.protons is None:
             self.protons = self.find_protons_from_symbol()
         self._sanity()
@@ -278,6 +302,7 @@ class Isotope(Base):
         if self.abundance and self.abundance > 1.0 or self.abundance < 0.0:
             raise ValueError('Abundance of isotope can not be greater than 1.0'
                              ' or less than 0.')
+                             
         self.zaid = calculate_ZAID(self.protons, self.nucleons)
         self._get_xs_files()
         self.volume_cm3 = kwargs.get('volume_cm3')
