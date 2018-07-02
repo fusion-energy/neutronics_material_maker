@@ -79,20 +79,23 @@ from neutronics_material_maker.nmm import *
 
 # <a name="making-isotopes"></a>Making Isotopes
 
-Isotopes form the basic building blocks of more complex objects (**Element**). An **Isotope** can be created by specifying the symbol and the atomic number:
+Isotopes form the basic building blocks of more complex objects (**Element**). An **Isotope** can be created in 3 different ways. Either specify the symbol and the nucleon number or specify the proton number and the nucleons number or specify the zaid number. Each of these options can be specified as keyword arguments or arguments.
 ```python
 example_isotope = Isotope('Li',7)
-```
-Isotopes can also be created by specifying the proton number and the atomic number.
-```python
+example_isotope = Isotope(symbol='Li',nucleons=7)
+
 example_isotope = Isotope(3,7)
+example_isotope = Isotope(protons=3,nucleons=7)
+
+example_isotope = Isotope('3006')
+example_isotope = Isotope(zaid='3006')
 ```
 
 Once an isotope is created its properties can be queried.
 ```python
 example_isotope.symbol
 >>> Li
-example_isotope.atomic_number
+example_isotope.nucleons
 >>> 7
 example_isotope.protons
 >>> 3
@@ -114,22 +117,30 @@ example_enriched_isotope.abundance
 ```
 # <a name="making-elements"></a>Making Elements
 
-Elements form other building blocks of more complex objects (**Compounds** and **Materials**). Elements can be created by specifying the symbol and optional enrichment. A simple element construct can be achieved using the element symbol or proton number:
+Elements form other building blocks of more complex objects (**Compounds** and **Materials**). Elements can be created by specifying the symbol and optional enrichment. A simple element construct can be achieved using the element symbol or the proton number or the zaid. The class accepts keyword arguments or arguments.
 ```python
 example_element = Element('Li')
+example_element = Element(symbol='Li')
+
 example_element = Element(3)
+example_element = Element(protons=3)
+
+example_element = Element('3006')
+example_element = Element(zaid='3006')
 ```
 The natural abundance of an **Element** is known and the **Isotope** objects are created accordingly. Elemental properties can then be queried. In some cases lists of **Isotope** objects are returned.
 
 ```python
-example_element.molar_mass_g
+example_element.molar_mass_g_per_mol
 >>> 6.94003660292
 example_element.protons
 >>> 3
 example_element.isotopes
 >>> [<__main__.Isotope object at 0x7f23ba50bfd0>, <__main__.Isotope object at 0x7f23ba50bed0>]
-example_element.full_name
+example_element.element_name
 >>> Lithium
+example_element.name
+>>> Li_6
 ```
 
 Elements can also be created with enriched Isotope abundances.
