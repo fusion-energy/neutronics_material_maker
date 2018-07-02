@@ -144,6 +144,7 @@ class Base(object):
             k = len(self.zaid) + 1
         zaid = self.zaid[:k]
         nucleons = int(zaid[-3:])
+        #print('looking for ',self.zaid,' found ',nucleons)
         return nucleons
 
     def find_element_name(self):
@@ -262,31 +263,34 @@ class Isotope(Base):
         self.color = kwargs.get('color', (0, 0, 0))
 
         self._handle_args(args)
+
         self.temperature_K = kwargs.get('temperature_K',293.15)
 
         if self.nucleons is None and self.zaid is None:
-            raise ValueError('To create an Isotope provide an nucleon number.')
+            raise ValueError('To create an Isotope provide an isotope the symbol / proton number along with a nucleon number or a zaid.')
 
         if self.protons is None and self.symbol is None and self.zaid is None:
             raise ValueError('To create an Isotope provide either protons or '
                              'symbol or zaid please.')
         
+
+
         if self.zaid!= None:
             self.protons = self.find_protons_from_zaid()
             self.nucleons = self.find_nucleons_from_zaid()
             
         if self.protons is None:
             self.protons = self.find_protons_from_symbol()
-        self._sanity()
         if self.symbol is None:
             self.symbol = self.find_symbol_from_protons()
-        self.element_name = self.find_element_name()
-        self.name = self.element_name+'_'+str(self.nucleons)
+        self._sanity()
 
         self.mass_amu = NDATA[(NDATA['Proton number'] == self.protons) & 
                               (NDATA['Nucleon number'] == self.nucleons)]['Mass amu'][0]        
-
         self._handle_kwargs(kwargs)
+
+        self.element_name = self.find_element_name()
+        self.name = self.element_name+'_'+str(self.nucleons)
 
         self.material_card_name = kwargs.get('material_card_name')
         self.material_card_number = kwargs.get('material_card_number')
@@ -331,22 +335,33 @@ class Isotope(Base):
 
 
     def _handle_args(self, args):
+
         atomic_number_or_proton_number = []
-        for arg in args:
-            if isinstance(arg, str) and self.symbol is None:
-                self.symbol = arg
-                self.protons = self.find_protons_from_symbol()
-            if isinstance(arg, int):
-                atomic_number_or_proton_number.append(arg)
-        if self.nucleons is None and len(atomic_number_or_proton_number) >= 1:
-            self.nucleons = max(atomic_number_or_proton_number)
-        if self.protons is None and len(atomic_number_or_proton_number) >= 1:
-            self.protons = min(atomic_number_or_proton_number)
+        if len(args)==1 and self.zaid is None:
+                self.zaid = args[0]
+                self.protons = self.find_protons_from_zaid()
+                self.nucleons = self.find_nucleons_from_zaid()
+                self.symbol = self.find_symbol_from_protons()
+        else:        
+
+            for arg in args:
+                if isinstance(arg, str) and self.symbol is None and len(arg)<=2:
+                    self.symbol = arg
+                    self.protons = self.find_protons_from_symbol()                
+                elif isinstance(arg, int):
+                    atomic_number_or_proton_number.append(arg)
+
+            if self.nucleons is None and len(atomic_number_or_proton_number) >= 1:
+                self.nucleons = max(atomic_number_or_proton_number)
+            if self.protons is None and len(atomic_number_or_proton_number) >= 1:
+                self.protons = min(atomic_number_or_proton_number)
+
+
 
     def _sanity(self):
         if NDATA[(NDATA['Proton number'] == self.protons) &
                  (NDATA['Nucleon number'] == self.nucleons)].empty:
-            raise ValueError('This isotope {}^{}_{} either does not exist, or '
+            raise ValueError('This isotope Symbol={} nucleons={} protons={} either does not exist, or '
                              'you have no data for it.'.format(self.symbol,
                                                                self.nucleons,
                                                                self.protons))

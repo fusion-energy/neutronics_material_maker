@@ -31,31 +31,32 @@ The material composition impacts the transport of neutrons and photons through t
     - void fraction
     - elements present (atom fraction or mass fraction)
     - options for enriched isotopes
+    - isotopes present (atom fraction or mass fraction)
     - temperature (in Kelvin)
     - pressure (in Pa)
 - Retrieve the properties from your crations, available properties include:
-    - mat cards for Serpent and MCNP
-    - density
+    - material cards for Serpent, MCNP and Fispact
+    - density (g/cm3 or atoms per barn cm)
     - zaids
-    - isotopes present
-    - elements present
-    - element mass / atom fractions
+    - isotopes present and their mass / atom fractions    
+    - elements present and their mass / atom fractions
     - preferential ACE file or nuclear data library
 
 # <a name="installation"></a>Installation
 
 Neutronics material maker is available here on the git repository or via the python package index.
 
-- Install the package using pip.
-```sh
-pip install neutronics_material_maker
-```
 
-- Alternatively install the package by cloning this git repository and install locally.
+- Install the latest package by cloning this git repository and install locally.
 ```sh
 git clone https://github.com/ukaea/neutronics_material_maker.git
 cd neutronics_material_maker
 python setup.py install
+```
+
+- Alternatively install the package using pip.
+```sh
+pip install neutronics_material_maker
 ```
 
 Should you wish you can also run the test suite. To do this you will need pytest installed.
@@ -113,9 +114,10 @@ example_enriched_isotope.abundance
 ```
 # <a name="making-elements"></a>Making Elements
 
-Elements form other building blocks of more complex objects (**Compounds** and **Materials**). Elements can be created by specifying the symbol and optional enrichment. A simple element construct can be achieved with:
+Elements form other building blocks of more complex objects (**Compounds** and **Materials**). Elements can be created by specifying the symbol and optional enrichment. A simple element construct can be achieved using the element symbol or proton number:
 ```python
 example_element = Element('Li')
+example_element = Element(3)
 ```
 The natural abundance of an **Element** is known and the **Isotope** objects are created accordingly. Elemental properties can then be queried. In some cases lists of **Isotope** objects are returned.
 

@@ -11,9 +11,16 @@ import pytest
 import math
 
 
-
 class Isotope_tests(unittest.TestCase):
 
+    def test_isotope_creations_from_zaid(self):
+      a = Isotope('3006',density_g_per_cm3=6)
+      assert type(a.material_card()) == str
+      assert a.zaid == '3006'
+      a = Isotope(zaid = '3006',density_g_per_cm3=6)
+      assert type(a.material_card()) == str      
+      assert a.zaid == '3006'
+    
     def test_isotope_fispact_card_creations(self):
         a=Isotope('Li',7,density_g_per_cm3=7,volume_cm3=5)
         assert a.material_card(code='fispact').split('\n')[-2]=='FUEL 1'
@@ -107,9 +114,15 @@ class Isotope_tests(unittest.TestCase):
       assert 'tmp 600' in mat_isotope.material_card(code='serpent',temperature_K =600)            
 
 
-
 class Element_tests(unittest.TestCase):
 
+    def test_element_creations_from_zaid(self):
+      a = Element('3006',density_g_per_cm3=6)
+      assert type(a.material_card()) == str
+      assert a.zaid == '3006'
+      a = Element(zaid = '3006',density_g_per_cm3=6)
+      assert type(a.material_card()) == str      
+      assert a.zaid == '3006'
 
     def test_element_fispact_card_creations(self):
         a=Element('Li',density_g_per_cm3=7,volume_cm3=5)
@@ -699,6 +712,7 @@ class Material_tests(unittest.TestCase):
                 except:
                     assert False
 
+
 class Homogenised_mixture_tests(unittest.TestCase):
 
 
@@ -827,9 +841,6 @@ class Homogenised_mixture_tests(unittest.TestCase):
     assert mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[0]+mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[1]==mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[2]+mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[3]
     assert mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[0]==mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[2]
     assert mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[1]==mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[3] 
-
-
-
 
 
 class Example_materials_tests(unittest.TestCase):
