@@ -4,20 +4,17 @@ import re
 
 from natsort import natsorted
 
+from neutronics_material_maker.utilities import (arevaluesthesame,
+                                                 color_manager, is_number,
+                                                 normalise_list)
 import numpy as np
 
 import pandas as pd
 
 import pkg_resources
 
-nuclear_data_file_path = pkg_resources.resource_filename('neutronics_material_maker' , 'nuclear_data.csv')
 
-
-from neutronics_material_maker.utilities import (is_number, arevaluesthesame,
-                                                 color_manager, normalise_list)
-from warnings import warn
-
-import pkg_resources
+nuclear_data_file_path = pkg_resources.resource_filename('neutronics_material_maker', 'nuclear_data.csv')
 
 NDATA = pd.read_csv(nuclear_data_file_path, index_col='Symbol')
 NAT_NDATA = NDATA[NDATA['Natural']]
@@ -30,13 +27,10 @@ Avogadros_number = 6.022140857e23
 xsdir_isotopes_and_nuclear_libraries_list = []
 
 
-
-
 def set_xsdir(xsdir_file_path):
     global xsdir_isotopes_and_nuclear_libraries_list
     xsdir_isotopes_and_nuclear_libraries_list = []
     try:
-        #print('reading in ',xsdir_file_path)
         filecontents = open(xsdir_file_path, "r").readlines()
         for line in filecontents:
             chopped_up_line = line.split()[0].split('.')
@@ -48,18 +42,19 @@ def set_xsdir(xsdir_file_path):
 
 set_xsdir('/opt/serpent2/xsdir.serp')
 
+
 def find_prefered_library(zaid):
     if len(xsdir_isotopes_and_nuclear_libraries_list) == 0:
         return ''
     for isotope_and_nuclear_library in xsdir_isotopes_and_nuclear_libraries_list:
         if isotope_and_nuclear_library[0] == zaid:
-                return '.'+isotope_and_nuclear_library[1]
+                return '.' + isotope_and_nuclear_library[1]
     return ''
 
 
-def calculate_ZAID(Z, A):
-    Z, A = int(Z), int(A)  # String formatting for screwed up with e.g. 11.0
-    zaid = str(Z)+str(A).zfill(3)
+def calculate_zaid(z, a):
+    z, a = int(z), int(a)  # String formatting for screwed up with e.g. 11.0
+    zaid = str(z) + str(a).zfill(3)
     return zaid
 
 
@@ -74,17 +69,16 @@ class Base(object):
                              'density_atoms_per_barn_per_cm must be provided.')
 
         if self.density_g_per_cm3 is None:
-            density = '  '+str(self.density_atoms_per_barn_per_cm)
+            density = '  ' + str(self.density_atoms_per_barn_per_cm)
         else:
-            density = ' -'+str(self.density_g_per_cm3)
+            density = ' -' + str(self.density_g_per_cm3)
 
         color = color_manager(color)
 
         if code == 'serpent':
-            tmp = ' tmp '+str(temperature_K)+' '
+            tmp = ' tmp ' + str(temperature_K) + ' '
             mat_card = [comment, comment + material_card_comment,
-                        'mat '+material_card_name+density+tmp+color]
-           
+                        'mat ' + material_card_name + density + tmp + color]
         elif code == 'mcnp':
             if type(material_card_number) != int:
 
@@ -92,16 +86,16 @@ class Base(object):
 
             mat_card = [comment,
                         comment + material_card_comment,
-                        comment+'density ='+str(self.density_g_per_cm3)+' g/cm3',
-                        comment+'density ='+str(self.density_atoms_per_barn_per_cm)+' atoms per barn cm2',
-                        comment+'temperature ='+str(temperature_K)+' K',
-                        'M'+str(material_card_number)]
+                        comment + 'density =' + str(self.density_g_per_cm3) + ' g/cm3',
+                        comment + 'density =' + str(self.density_atoms_per_barn_per_cm) + ' atoms per barn cm2',
+                        comment + 'temperature =' + str(temperature_K) + ' K',
+                        'M' + str(material_card_number)]
 
         elif code == 'fispact':
             if self.classname == 'Isotope':
-                number_of_isotopes ='1'
+                number_of_isotopes = '1'
             else:
-                number_of_isotopes=str(len(self.isotopes))
+                number_of_isotopes = str(len(self.isotopes))
             mat_card = [comment + material_card_name + end_comment,
                         comment + material_card_comment + end_comment,
                         #comment + 'density ='+str(self.density_g_per_cm3) + ' g/cm3' + end_comment,
@@ -304,7 +298,7 @@ class Isotope(Base):
             raise ValueError('Abundance of isotope can not be greater than 1.0'
                              ' or less than 0.')
                              
-        self.zaid = calculate_ZAID(self.protons, self.nucleons)
+        self.zaid = calculate_zaid(self.protons, self.nucleons)
         self._get_xs_files()
         self.volume_cm3 = kwargs.get('volume_cm3')
 
@@ -518,61 +512,57 @@ class Element(Base):
 
     def material_card(self, material_card_comment=None, material_card_name=None, material_card_number=None, color=None,code=None, fractions=None, temperature_K=None, volume_cm3=None):
 
-        mat_card = super(Element,self).material_card_header(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
+        mat_card = super(Element, self).material_card_header(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
         material_card_comment, material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Element,self).kwarg_handler(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
 
 
         if code == 'mcnp' or code == 'serpent':
             if fractions=='isotope atom fractions':
                 for i , a_f in zip(self.isotopes,self.isotope_atom_fractions):
-                    mat_card.append('   '+(i.zaid+i.nuclear_library).ljust(11)+
+                    mat_card.append('   ' + (i.zaid + i.nuclear_library).ljust(11)+
                                     fractions_prefix + str(a_f).ljust(24)+
                                     end_comment+i.name)
 
-
             if fractions=='isotope mass fractions':
-                for i , m_f in zip(self.isotopes,self.isotope_mass_fractions):
-                    mat_card.append('   '+(i.zaid+i.nuclear_library).ljust(11)+
-                                    fractions_prefix + str(m_f).ljust(24)+
-                                    end_comment+i.name)
+                for i , m_f in zip(self.isotopes, self.isotope_mass_fractions):
+                    mat_card.append('   ' + (i.zaid + i.nuclear_library).ljust(11) +
+                                    fractions_prefix + str(m_f).ljust(24) +
+                                    end_comment + i.name)
 
         elif code == 'fispact':
             for i, i_a_f in zip(self.isotopes, self.isotope_atom_fractions):
                 mat_card.append(i.symbol + str(i.nucleons)+' '+ str(self.density_atoms_per_cm3 * i_a_f * volume_cm3))
 
-              
         return '\n'.join(mat_card)
 
 
 class Material(Base):
     def __init__(self, **kwargs):
         self.classname = self.__class__.__name__
-        self.elements = kwargs.get('elements',None)
-        self.element_atom_fractions = kwargs.get('element_atom_fractions',None)
-        self.element_mass_fractions = kwargs.get('element_mass_fractions',None)
-        self.isotopes = kwargs.get('isotopes',None)
-        self.isotope_mass_fractions = kwargs.get('isotope_mass_fractions',None)
-        self.isotope_atom_fractions = kwargs.get('isotope_atom_fractions',None)
+        self.elements = kwargs.get('elements', None)
+        self.element_atom_fractions = kwargs.get('element_atom_fractions', None)
+        self.element_mass_fractions = kwargs.get('element_mass_fractions', None)
+        self.isotopes = kwargs.get('isotopes', None)
+        self.isotope_mass_fractions = kwargs.get('isotope_mass_fractions', None)
+        self.isotope_atom_fractions = kwargs.get('isotope_atom_fractions', None)
 
-        self.material_card_name = kwargs.get('material_card_name','unnamed_material')
+        self.material_card_name = kwargs.get('material_card_name', 'unnamed_material')
         self.material_card_number = kwargs.get('material_card_number')
         self.material_card_comment = kwargs.get('material_card_comment')
 
-        self.temperature_K = kwargs.get('temperature_K',293.15)
+        self.temperature_K = kwargs.get('temperature_K', 293.15)
 
-        self.packing_fraction=kwargs.get('packing_fraction', 1.0)
+        self.packing_fraction = kwargs.get('packing_fraction', 1.0)
         self.density_g_per_cm3 = kwargs.get('density_g_per_cm3')
         self.density_atoms_per_barn_per_cm = kwargs.get('density_atoms_per_barn_per_cm')
         self.density_atoms_per_cm3 = kwargs.get('density_atoms_per_cm3')
         self.volume_cm3 = kwargs.get('volume_cm3')
 
         self.color = kwargs.get('color')
-        
+
         if self.elements == None and self.isotopes == None:
             raise ValueError('A list of elements or isotopes within the '
                              ' material must be specified.')
-
-
 
         # if self.element_atom_fractions == None and self.element_mass_fractions == None:
         #     raise ValueError('To make a material from elements either element_atom_fractions or '
@@ -586,16 +576,14 @@ class Material(Base):
                 self.element_mass_fractions = self.find_element_mass_fractions_from_element_atom_fractions()
 
             if len(self.elements) != len(self.element_atom_fractions):
-                raise ValueError('When making a material please provide the same '
+                raise ValueError('When making a material please provide the same'
                                  'number of elements and atom/mass fractions.')
 
-        
         if self.isotopes == None and self.elements != None:
             self.isotopes=[]
             for element in self.elements:
                 for isotope in element.isotopes:
                     self.isotopes.append(isotope)
-
 
         if self.isotope_atom_fractions == None and self.elements != None:
             self.isotope_atom_fractions=[]
@@ -604,25 +592,20 @@ class Material(Base):
                     self.isotope_atom_fractions.append(atom_fraction*isotope.abundance)
 
         self.molar_mass_g_per_mol = self.find_molar_mass_g_per_mol()
-        self.average_atom_mass=self.molar_mass_g_per_mol/Avogadros_number
+        self.average_atom_mass = self.molar_mass_g_per_mol / Avogadros_number
 
         if self.isotope_atom_fractions == None and self.isotope_mass_fractions!=None:     
             self.isotope_atom_fractions = []
-            for isotope,isotope_mass_fraction in zip(self.isotopes,self.isotope_mass_fractions):
-                self.isotope_atom_fractions.append(isotope_mass_fraction/(isotope.mass_amu/self.molar_mass_g_per_mol)) 
+            for isotope, isotope_mass_fraction in zip(self.isotopes, self.isotope_mass_fractions):
+                self.isotope_atom_fractions.append(isotope_mass_fraction / (isotope.mass_amu/self.molar_mass_g_per_mol)) 
 
-
-
-
-
-        if self.isotope_mass_fractions == None:     
+        if self.isotope_mass_fractions == None:
             self.isotope_mass_fractions = []
-            for isotope,isotope_atom_fraction in zip(self.isotopes,self.isotope_atom_fractions):
-                self.isotope_mass_fractions.append(isotope_atom_fraction*(isotope.mass_amu/self.molar_mass_g_per_mol))
+            for isotope, isotope_atom_fraction in zip(self.isotopes, self.isotope_atom_fractions):
+                self.isotope_mass_fractions.append(isotope_atom_fraction * (isotope.mass_amu/self.molar_mass_g_per_mol))
 
-
-        self.isotope_mass_fractions= normalise_list(self.isotope_mass_fractions)
-        self.isotope_atom_fractions= normalise_list(self.isotope_atom_fractions)
+        self.isotope_mass_fractions = normalise_list(self.isotope_mass_fractions)
+        self.isotope_atom_fractions = normalise_list(self.isotope_atom_fractions)
 
         if self.density_g_per_cm3 == None:
             self.density_g_per_cm3 = self.find_density_g_per_cm3()
@@ -631,27 +614,23 @@ class Material(Base):
         if self.density_atoms_per_cm3 == None:
             self.density_atoms_per_cm3 = super(Material,self).find_density_of_atoms_per_cm3() 
 
-        #adjust densities with packing fraction
         self.density_g_per_cm3 = self.density_g_per_cm3*self.packing_fraction
         self.density_atoms_per_barn_per_cm = self.density_atoms_per_barn_per_cm*self.packing_fraction
         self.density_atoms_per_cm3 = self.density_atoms_per_cm3*self.packing_fraction
-
-
 
     def find_element_atom_fractions_from_element_mass_fractions(self):
         if self.element_mass_fractions == []:
             return []
         list_of_fractions = []
         for mass_fraction, element in zip(self.element_mass_fractions, self.elements):
-            a_f = (mass_fraction*1)/element.molar_mass_g_per_mol
-
+            a_f = mass_fraction / element.molar_mass_g_per_mol
 
             list_of_fractions.append(a_f)
 
         a = sum(list_of_fractions)
         b = 1.0
         rtol = 1e-6
-        if not abs(a-b) <= rtol*max(abs(a), abs(b)):
+        if not abs(a - b) <= rtol * max(abs(a), abs(b)):
 
             normalised_list_of_fractions = normalise_list(list_of_fractions)
 
@@ -664,12 +643,12 @@ class Material(Base):
             return []
         list_of_fractions = []
         for atom_fraction, element in zip(self.element_atom_fractions, self.elements):
-            list_of_fractions.append(atom_fraction*element.molar_mass_g_per_mol)
+            list_of_fractions.append(atom_fraction * element.molar_mass_g_per_mol)
 
         a = sum(list_of_fractions)
         b = 1.0
         rtol = 1e-6
-        if not abs(a-b) <= rtol*max(abs(a), abs(b)):
+        if not abs(a - b) <= rtol * max(abs(a), abs(b)):
             normalised_list_of_fractions = normalise_list(list_of_fractions)
 
             return normalised_list_of_fractions
@@ -677,21 +656,21 @@ class Material(Base):
 
     def material_card(self, material_card_comment=None, material_card_name=None, material_card_number=None, color=None, code=None, fractions=None, temperature_K=None, volume_cm3=None):
 
-        mat_card=super(Material,self).material_card_header(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
+        mat_card = super(Material, self).material_card_header(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
         material_card_comment, material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Material,self).kwarg_handler(material_card_comment, material_card_name, material_card_number, color, code, fractions, temperature_K, volume_cm3)
 
-        if code =='serpent' or code == 'mcnp':
-            if fractions=='isotope atom fractions':
-                for i, a_f,m_f in zip(self.isotopes, self.isotope_atom_fractions, self.isotope_mass_fractions):
-                    mat_card.append('   '+(i.zaid + i.nuclear_library).ljust(11)+fractions_prefix + str(a_f).ljust(24)+end_comment+i.name)
+        if code == 'serpent' or code == 'mcnp':
+            if fractions == 'isotope atom fractions':
+                for i, a_f, m_f in zip(self.isotopes, self.isotope_atom_fractions, self.isotope_mass_fractions):
+                    mat_card.append('   ' + (i.zaid + i.nuclear_library).ljust(11)+fractions_prefix + str(a_f).ljust(24)+end_comment+i.name)
 
-            elif fractions=='isotope mass fractions':
-                for i, a_f,m_f in zip(self.isotopes, self.isotope_atom_fractions, self.isotope_mass_fractions):
-                    mat_card.append('   '+(i.zaid + i.nuclear_library).ljust(11)+fractions_prefix + str(m_f).ljust(24)+end_comment+i.name)   
-        
+            elif fractions == 'isotope mass fractions':
+                for i, a_f, m_f in zip(self.isotopes, self.isotope_atom_fractions, self.isotope_mass_fractions):
+                    mat_card.append('   ' + (i.zaid + i.nuclear_library).ljust(11)+fractions_prefix + str(m_f).ljust(24)+end_comment+i.name)   
+
         elif code == 'fispact':
             for i, i_a_f in zip(self.isotopes, self.isotope_atom_fractions):
-                mat_card.append(i.symbol + str(i.nucleons)+' '+ str(self.density_atoms_per_cm3 * i_a_f * volume_cm3))
+                mat_card.append(i.symbol + str(i.nucleons) + ' ' + str(self.density_atoms_per_cm3 * i_a_f * volume_cm3))
 
         return '\n'.join(mat_card)
 
@@ -699,15 +678,13 @@ class Material(Base):
         if self.density_g_per_cm3 == 0:
             return 0
         if self.density_g_per_cm3 is not None and self.molar_mass_g_per_mol is not None:
-            return (self.density_g_per_cm3/self.molar_mass_g_per_mol)*Avogadros_number*1e-24
+            return (self.density_g_per_cm3 / self.molar_mass_g_per_mol) * Avogadros_number * 1e-24
 
     def find_density_g_per_cm3(self):
         if self.density_atoms_per_barn_per_cm == 0:
-            return 0        
+            return 0
         if self.density_atoms_per_barn_per_cm is not None:
-            return (self.density_atoms_per_barn_per_cm/1e-24)*self.average_atom_mass
-
-
+            return (self.density_atoms_per_barn_per_cm / 1e-24) * self.average_atom_mass
 
 
 class Compound(Base):
@@ -733,7 +710,7 @@ class Compound(Base):
         self.temperature_K = kwargs.get('temperature_K',293.15)
         self.pressure_Pa = kwargs.get('pressure_Pa')
 
-        self.volume_cm3 = kwargs.get('volume_cm3')        
+        self.volume_cm3 = kwargs.get('volume_cm3')
 
         self.packing_fraction = kwargs.get('packing_fraction', 1.0)
         self.density_g_per_cm3 = kwargs.get('density_g_per_cm3', None)
@@ -760,7 +737,6 @@ class Compound(Base):
         if self.density_atoms_per_cm3 == None:
             self.density_atoms_per_cm3 = super(Compound,self).find_density_of_atoms_per_cm3()            
 
-        #adjust densities with packing fraction
         if self.density_g_per_cm3 != None:
             self.density_g_per_cm3 = self.density_g_per_cm3*self.packing_fraction
         if self.density_atoms_per_barn_per_cm != None:
@@ -793,25 +769,24 @@ class Compound(Base):
 
 
     def material_card(self, material_card_comment=None, material_card_name=None, material_card_number=None, color=None, code=None, fractions=None, temperature_K=None, volume_cm3=None):
-        
-        mat_card=super(Compound,self).material_card_header(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
-        material_card_comment, material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Compound,self).kwarg_handler(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
 
+        mat_card = super(Compound, self).material_card_header(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K,volume_cm3)
+        material_card_comment, material_card_name, material_card_number, color, code, fractions, fractions_prefix, comment, end_comment, temperature_K, volume_cm3 = super(Compound,self).kwarg_handler(material_card_comment, material_card_name, material_card_number, color, code, fractions,temperature_K, volume_cm3)
 
         if code == 'mcnp' or code == 'serpent':
 
-            if fractions=='isotope atom fractions':
-                for i, a_f,m_f in zip(self.isotopes, self.isotope_atom_fractions, self.isotope_mass_fractions):
-                    mat_card.append('   '+(i.zaid + i.nuclear_library).ljust(11)+fractions_prefix + str(a_f).ljust(24)+end_comment+i.name)
+            if fractions == 'isotope atom fractions':
+                for i, a_f, m_f in zip(self.isotopes, self.isotope_atom_fractions, self.isotope_mass_fractions):
+                    mat_card.append('   ' + (i.zaid + i.nuclear_library).ljust(11)+fractions_prefix + str(a_f).ljust(24)+end_comment+i.name)
 
-            elif fractions=='isotope mass fractions':
-                for i, a_f,m_f in zip(self.isotopes, self.isotope_atom_fractions, self.isotope_mass_fractions):
-                    mat_card.append('   '+(i.zaid + i.nuclear_library).ljust(11)+fractions_prefix + str(m_f).ljust(24)+end_comment+i.name)   
+            elif fractions == 'isotope mass fractions':
+                for i, a_f, m_f in zip(self.isotopes, self.isotope_atom_fractions, self.isotope_mass_fractions):
+                    mat_card.append('   ' + (i.zaid + i.nuclear_library).ljust(11)+fractions_prefix + str(m_f).ljust(24)+end_comment+i.name)   
 
 
         elif code == 'fispact':
             for i, i_a_f in zip(self.isotopes, self.isotope_atom_fractions):
-                mat_card.append(i.symbol + str(i.nucleons)+' '+ str(self.density_atoms_per_cm3 * i_a_f * volume_cm3))
+                mat_card.append(i.symbol + str(i.nucleons) + ' ' + str(self.density_atoms_per_cm3 * i_a_f * volume_cm3))
 
 
         return '\n'.join(mat_card)
@@ -823,8 +798,8 @@ class Compound(Base):
             element_mass = 0
             for isotope in e.isotopes:
                 element_mass += isotope.abundance * isotope.mass_amu
-            masses.append(element_mass*n_e_a)
-        return (sum(masses)/sum(self.fractions_coefficients))*atomic_mass_unit_in_g
+            masses.append(element_mass * n_e_a)
+        return (sum(masses) / sum(self.fractions_coefficients)) * atomic_mass_unit_in_g
 
     @staticmethod
     def _read_chem_eq(chemical_equation):
@@ -856,7 +831,7 @@ class Compound(Base):
         for counter in range(0, len(chemical_equation_chopped_up)):
             if not is_number(chemical_equation_chopped_up[counter]):
                 try:
-                    if is_number(chemical_equation_chopped_up[counter+1]):
+                    if is_number(chemical_equation_chopped_up[counter + 1]):
                         list_of_fractions.append(float(chemical_equation_chopped_up[counter + 1]))
                     else:
                         list_of_fractions.append(1)
@@ -865,7 +840,7 @@ class Compound(Base):
         a = sum(list_of_fractions)
         b = 1.0
         rtol = 1e-6
-        if not abs(a-b) <= rtol*max(abs(a), abs(b)):
+        if not abs(a - b) <= rtol * max(abs(a), abs(b)):
             normalised_list_of_fractions = normalise_list(list_of_fractions)
             return normalised_list_of_fractions
         return list_of_fractions
@@ -882,24 +857,24 @@ class Compound(Base):
                         list_fraction.append(1.0)
                 except:
                     list_fraction.append(1.0)
-        return list_fraction        
+        return list_fraction
 
     def find_molar_mass_g_per_mol(self):
         masses = []
         for element in self.elements:
             element_mass = 0
             for i in element.isotopes:
-                element_mass = element_mass+i.abundance*i.mass_amu
+                element_mass = element_mass + i.abundance * i.mass_amu
             masses.append(element_mass)
         cumlative_molar_mass = 0
         for mass, fraction in zip(masses, self.find_fractions_coefficients_in_chemical_equation(self.chemical_equation)):
-            cumlative_molar_mass = cumlative_molar_mass+(mass*float(fraction))
+            cumlative_molar_mass = cumlative_molar_mass + (mass * float(fraction))
         return cumlative_molar_mass
 
     def density_g_per_cm3_idea_gas(self):
-        density_kg_m3 = (self.pressure_Pa/(8.3* self.temperature_K)) * \
-                        self.molar_mass * Avogadros_number*atomic_mass_unit_in_kg
-        density_g_cm3 = density_kg_m3/1000.0
+        density_kg_m3 = (self.pressure_Pa / (8.3 * self.temperature_K)) * \
+                         self.molar_mass * Avogadros_number * atomic_mass_unit_in_kg
+        density_g_cm3 = density_kg_m3 / 1000.0
         return density_g_cm3
 
     def density_g_per_cm3_liquid(self):
@@ -907,13 +882,13 @@ class Compound(Base):
         hot_pressurized_liquid = Chemical(self.chemical_equation,
                                           T=self.temperature_K,
                                           P=self.pressure_Pa)
-        return hot_pressurized_liquid.rho*0.001
+        return hot_pressurized_liquid.rho * 0.001
 
     def find_density_g_per_cm3(self):
         if self.density_atoms_per_barn_per_cm is not None:
             return (self.density_atoms_per_barn_per_cm/1e-24)*self.average_atom_mass
         if self.state_of_matter == 'solid' and self.volume_of_unit_cell_cm3 is not None and self.atoms_per_unit_cell is not None:
-            return (self.molar_mass_g_per_mol*atomic_mass_unit_in_g*self.atoms_per_unit_cell / self.volume_of_unit_cell_cm3)
+            return (self.molar_mass_g_per_mol * atomic_mass_unit_in_g*self.atoms_per_unit_cell / self.volume_of_unit_cell_cm3)
         if self.state_of_matter == 'gas' and self.pressure_Pa is not None and self.temperature_K is not None:
             return self.density_g_per_cm3_idea_gas()
         if self.state_of_matter == 'liquid' and self.pressure_Pa is not None and self.temperature_K is not None:
@@ -922,12 +897,10 @@ class Compound(Base):
 
     def find_density_atoms_per_barn_per_cm(self):
         if self.atoms_per_unit_cell is not None and self.volume_of_unit_cell_cm3 is not None:
-            return (self.atoms_per_unit_cell/self.volume_of_unit_cell_cm3)*1e-24
+            return (self.atoms_per_unit_cell / self.volume_of_unit_cell_cm3) * 1e-24
         if self.density_g_per_cm3 is not None:
-            return (self.density_g_per_cm3/self.molar_mass_g_per_mol)*Avogadros_number*1e-24
+            return (self.density_g_per_cm3 / self.molar_mass_g_per_mol) * Avogadros_number * 1e-24
         return None
-
-
 
 
 class Homogenised_mixture(Base):
@@ -949,7 +922,6 @@ class Homogenised_mixture(Base):
         if self.mass_fractions is None:
             self.mass_fractions = self.find_mass_fractions_from_volume_fractions()
 
-
         self.material_card_name = kwargs.get('material_card_name')
         self.material_card_number = kwargs.get('material_card_number')
         self.material_card_comment = kwargs.get('material_card_comment')
@@ -957,15 +929,14 @@ class Homogenised_mixture(Base):
         if self.material_card_name == None:
             if self.volume_fractions is None:
                 self.material_card_name = self.find_material_card_name_with_mass_fractions()
-            elif self.volume_fractions is None:           
+            elif self.volume_fractions is None:
                 self.material_card_name = self.find_material_card_name_with_volume_fractions()
         if self.material_card_number == None:
-            self.material_card_number = '?' 
+            self.material_card_number = '?'
 
-
-        self.packing_fraction=kwargs.get('packing_fraction', 1.0)
-        self.density_atoms_per_cm3= self.find_density_atoms_per_cm3()*self.packing_fraction
-        self.density_g_per_cm3 = self.find_density_g_per_cm3()*self.packing_fraction
+        self.packing_fraction = kwargs.get('packing_fraction', 1.0)
+        self.density_atoms_per_cm3 = self.find_density_atoms_per_cm3() * self.packing_fraction
+        self.density_g_per_cm3 = self.find_density_g_per_cm3() * self.packing_fraction
         self.density_atoms_per_barn_per_cm = self.find_density_atoms_per_barn_per_cm()*self.packing_fraction
 
 
@@ -986,31 +957,31 @@ class Homogenised_mixture(Base):
 
 
     def find_isotopes(self):
-        isotopes=[]
+        isotopes = []
         for mixture, mix_v_f, mix_m_f in zip(self.mixtures, self.volume_fractions,self.mass_fractions):
             for i in mixture.isotopes:
                 isotopes.append(i)
         return isotopes
 
     def find_isotope_atom_fractions(self):
-        fractions=[]
+        fractions = []
         for mixture, mix_v_f, mix_m_f in zip(self.mixtures, self.volume_fractions,self.mass_fractions):
-            n_a_mix= (mixture.density_atoms_per_cm3*mix_v_f)/self.density_atoms_per_cm3 # 
+            n_a_mix = (mixture.density_atoms_per_cm3 * mix_v_f) / self.density_atoms_per_cm3 # 
 
             for i, a_f, m_f in zip(mixture.isotopes, mixture.isotope_atom_fractions, mixture.isotope_mass_fractions):
-                fractions.append(a_f*mix_v_f)
+                fractions.append(a_f * mix_v_f)
 
         return fractions
 
     def find_isotope_mass_fractions(self):
-        fractions=[]
+        fractions = []
         for mixture, mix_v_f, mix_m_f in zip(self.mixtures, self.volume_fractions,self.mass_fractions):
             # n_a_mix= (mixture.density_atoms_per_cm3*mix_v_f)/self.density_atoms_per_cm3 # 
 
             for i, a_f, m_f in zip(mixture.isotopes, mixture.isotope_atom_fractions, mixture.isotope_mass_fractions):
-                fractions.append(m_f*mix_m_f)
+                fractions.append(m_f * mix_m_f)
 
-        return fractions        
+        return fractions
 
 
     def find_volume_fractions_from_mass_fractions(self):
@@ -1028,11 +999,11 @@ class Homogenised_mixture(Base):
 
         normalised_volume_fractions=[]
         for non_normalised_volume_fractions in list_of_non_normalised_volume_fractions:
-            normalised_volume_fractions.append(non_normalised_volume_fractions*factor)
+            normalised_volume_fractions.append(non_normalised_volume_fractions * factor)
         return normalised_volume_fractions
-        
+
     def find_mass_fractions_from_volume_fractions(self):
-        if arevaluesthesame(sum(self.volume_fractions), 1.0,1e-09)==False:
+        if arevaluesthesame(sum(self.volume_fractions), 1.0,1e-09) == False:
             raise ValueError('The provided volume fractions should sum to 1 not ',
                              sum(self.volume_fractions))
 
@@ -1046,7 +1017,6 @@ class Homogenised_mixture(Base):
 
         for mix, vol_fraction in zip(self.mixtures, self.volume_fractions):
             non_normalised_mass_fractions = vol_fraction * mix.density_g_per_cm3
-            #print('mix mass',vol_fraction * mix.density_g_per_cm3)
             list_of_non_normalised_mass_fractions.append(non_normalised_mass_fractions)
             cumlative_mass_fraction = cumlative_mass_fraction + non_normalised_mass_fractions
         factor = 1.0 / cumlative_mass_fraction
@@ -1057,12 +1027,12 @@ class Homogenised_mixture(Base):
         return normalised_mass_fractions
 
     def find_density_atoms_per_cm3(self):
-        cumlative_density=0
+        cumlative_density = 0
         for mixture, v_f in zip(self.mixtures, self.volume_fractions):
             if mixture.isotopes == []:
                 cumlative_density += 0
             else:
-                cumlative_density += mixture.density_atoms_per_cm3*v_f#*mixture.packing_fraction
+                cumlative_density += mixture.density_atoms_per_cm3 * v_f#*mixture.packing_fraction
         return cumlative_density
 
     def find_density_g_per_cm3(self):
@@ -1081,30 +1051,30 @@ class Homogenised_mixture(Base):
 
     def find_material_card_name_with_volume_fractions(self):
         description_to_return = ''
-        for item, vol_frac in zip(self.mixtures,self.volume_fractions):
-            description_to_return += item.material_card_name+'_vf_'+str(vol_frac)+'_'
-        return  description_to_return[:-1]
+        for item, vol_frac in zip(self.mixtures, self.volume_fractions):
+            description_to_return += item.material_card_name + '_vf_' + str(vol_frac) + '_'
+        return description_to_return[:-1]
 
     def find_material_card_name_with_mass_fractions(self):
         description_to_return = ''
         for item, frac in zip(self.mixtures, self.mass_fractions):
-            description_to_return += item.material_card_name + '_mf_' + str(frac)+'_'
+            description_to_return += item.material_card_name + '_mf_' + str(frac) + '_'
         return description_to_return[:-1]
 
-    def combine_duplicate_isotopes(self,list_of_dictionaries,same,combine,):
-            zaids=[]
-            iso_frac=[]
-            isotopes=[]
+    def combine_duplicate_isotopes(self, list_of_dictionaries, same, combine,):
+            zaids = []
+            iso_frac = []
+            isotopes = []
             for entry in list_of_dictionaries:
-                if entry !={}:
+                if entry != {}:
                     if entry[same].zaid in zaids:
                         index = zaids.index(entry[same].zaid)
-                        iso_frac[index]=iso_frac[index]+entry[combine]
+                        iso_frac[index] = iso_frac[index] + entry[combine]
                     else:
                         zaids.append(entry[same].zaid)
                         isotopes.append(entry[same])
                         iso_frac.append(entry[combine])
-            zaids, iso_frac,isotopes = zip(*natsorted(zip(zaids, iso_frac,isotopes)))
+            zaids, iso_frac, isotopes = zip(*natsorted(zip(zaids, iso_frac, isotopes)))
 
             # new_list_of_zaids = []
             # for z, i_f, name in zip(zaids, iso_frac,names):
@@ -1125,44 +1095,41 @@ class Homogenised_mixture(Base):
 
                 if mixture.isotopes == []:
                     # A void material has no isotope fractions but prints a header
-                    mat_card.append({'string':comment+end_comment})
-                    mat_card.append({'string':comment+mixture.material_card_name+end_comment})
-                    mat_card.append({'string':comment+' with a density of '+str(mixture.density_g_per_cm3) +' g per cm3'+end_comment})
-                    mat_card.append({'string':comment+' volume fraction of '+str(mix_v_f)+end_comment})
+                    mat_card.append({'string': comment + end_comment})
+                    mat_card.append({'string': comment + mixture.material_card_name+end_comment})
+                    mat_card.append({'string': comment + ' with a density of '+ str(mixture.density_g_per_cm3) + ' g per cm3' + end_comment})
+                    mat_card.append({'string': comment + ' volume fraction of '+ str(mix_v_f)+end_comment})
                 else:
-                    mat_card.append({'string':comment+end_comment})
-                    mat_card.append({'string':comment+mixture.material_card_name+end_comment})
-                    mat_card.append({'string':comment+'with a density of '+str(mixture.density_g_per_cm3) + ' g per cm3'+end_comment})
-                    mat_card.append({'string':comment+'packing fraction of '+str(mixture.packing_fraction)+end_comment})
-                    mat_card.append({'string':comment+'volume fraction of '+str(mix_v_f)+end_comment})
-                    mat_card.append({'string':comment+'mass fraction of '+str(mix_m_f)+end_comment})
+                    mat_card.append({'string': comment + end_comment})
+                    mat_card.append({'string': comment + mixture.material_card_name+end_comment})
+                    mat_card.append({'string': comment + 'with a density of '+ str(mixture.density_g_per_cm3) + ' g per cm3' + end_comment})
+                    mat_card.append({'string': comment + 'packing fraction of '+ str(mixture.packing_fraction) + end_comment})
+                    mat_card.append({'string': comment + 'volume fraction of '+ str(mix_v_f) + end_comment})
+                    mat_card.append({'string': comment + 'mass fraction of '+ str(mix_m_f) + end_comment})
 
                     atoms_in_mixture = self.volume_cm3 * mix_v_f * mixture.density_atoms_per_cm3
 
                     for i, a_f in zip(mixture.isotopes, mixture.isotope_atom_fractions):
                         if a_f > 0:
-                            mat_card.append({'number of atoms':(a_f * atoms_in_mixture),
-                                             'isotope':i})
+                            mat_card.append({'number of atoms': (a_f * atoms_in_mixture),
+                                             'isotope': i})
 
+            list_of_strings = [{k: v for k, v in i.items() if k == 'string'} for i in mat_card]
 
-            list_of_strings = [{k:v for k, v in i.items() if k =='string'} for i in mat_card]
-            condensed_mat_card_non_strings = [{k:v for k, v in i.items() if k !='string'} for i in mat_card]
+            condensed_mat_card_non_strings = [{k: v for k, v in i.items() if k !='string'} for i in mat_card]
 
+            isotopes, iso_frac = self.combine_duplicate_isotopes(list_of_dictionaries=condensed_mat_card_non_strings,
+                                                                 same='isotope',
+                                                                 combine='number of atoms',
+                                                                 )
 
-
-            isotopes, iso_frac= self.combine_duplicate_isotopes(list_of_dictionaries=condensed_mat_card_non_strings,
-                                                                same='isotope',
-                                                                combine='number of atoms',
-                                                                )
-
-            mat_card.append({'string':comment+ end_comment})
+            mat_card.append({'string': comment + end_comment})
             for i in list_of_strings:
                 if i !={}:
                     mat_card_printed.append(i['string'])
             mat_card_printed.append(comment)        
-                  
             for i,iso_frac in zip(isotopes,iso_frac):
-                mat_card_printed.append('   '+(i.zaid).ljust(11) + ' '+str(iso_frac).ljust(24))
+                mat_card_printed.append('   '+ (i.zaid).ljust(11) + ' ' + str(iso_frac).ljust(24))
 
 
 
@@ -1172,51 +1139,44 @@ class Homogenised_mixture(Base):
             for mixture, mix_v_f, mix_m_f in zip(self.mixtures, self.volume_fractions,self.mass_fractions):
                 if mixture.isotopes == []:
                     # A void material has no isotope fractions but prints a header
-                    mat_card.append({'string':comment})
-                    mat_card.append({'string':comment+mixture.material_card_name})
-                    mat_card.append({'string':comment+' with a density of '+str(mixture.density_g_per_cm3) +' g per cm3'})
-                    mat_card.append({'string':comment+' volume fraction of '+str(mix_v_f)})
+                    mat_card.append({'string': comment})
+                    mat_card.append({'string': comment +mixture.material_card_name})
+                    mat_card.append({'string': comment +' with a density of '+ str(mixture.density_g_per_cm3) +' g per cm3'})
+                    mat_card.append({'string': comment +' volume fraction of '+ str(mix_v_f)})
                 else:
-                    n_a_mix= (mixture.density_atoms_per_cm3*mix_v_f)/self.density_atoms_per_cm3 # a fraction of total number of atoms
-                    amount_of_mass_in_mix = (mixture.density_g_per_cm3*mix_v_f)/self.density_g_per_cm3
+                    n_a_mix= (mixture.density_atoms_per_cm3 * mix_v_f) / self.density_atoms_per_cm3 # a fraction of total number of atoms
+                    amount_of_mass_in_mix = (mixture.density_g_per_cm3 * mix_v_f)/self.density_g_per_cm3
 
-                    #mass_fraction_normaliser_mix= -(mixture.density_atoms_per_cm3*mix_m_f)/sum(self.density_atoms_per_cm3)
-
-                    mat_card.append({'string':comment})
-                    mat_card.append({'string':comment+mixture.material_card_name})
-                    mat_card.append({'string':comment+'with a density of '+str(mixture.density_g_per_cm3) + ' g per cm3'})
-                    mat_card.append({'string':comment+'packing fraction of '+str(mixture.packing_fraction)})
-                    mat_card.append({'string':comment+'volume fraction of '+str(mix_v_f)})
-                    mat_card.append({'string':comment+'mass fraction of '+str(mix_m_f)})
+                    mat_card.append({'string': comment})
+                    mat_card.append({'string': comment + mixture.material_card_name})
+                    mat_card.append({'string': comment + 'with a density of '+ str(mixture.density_g_per_cm3) + ' g per cm3'})
+                    mat_card.append({'string': comment + 'packing fraction of '+str(mixture.packing_fraction)})
+                    mat_card.append({'string': comment + 'volume fraction of '+ str(mix_v_f)})
+                    mat_card.append({'string': comment + 'mass fraction of '+ str(mix_m_f)})
 
                     for i, a_f, m_f in zip(mixture.isotopes, mixture.isotope_atom_fractions, mixture.isotope_mass_fractions):
                         if a_f > 0:
-                            # mat_card.append({'zaid_lib':(i.zaid+i.nuclear_library),
-                            #                  'isotope atom fractions':(a_f*n_a_mix),
-                            #                  'isotope mass fractions':(m_f*mix_m_f),
-                            #                  'name':i.name})
-                            mat_card.append({'isotope':i,
-                                             'isotope atom fractions':(a_f*n_a_mix),
-                                             'isotope mass fractions':(m_f*mix_m_f)})                            
-
+                            mat_card.append({'isotope': i,
+                                             'isotope atom fractions': (a_f * n_a_mix),
+                                             'isotope mass fractions': (m_f * mix_m_f)})
 
             if squashed == False:
                 for item in mat_card:
-                    if list(item.keys())==['string']:
+                    if list(item.keys()) == ['string']:
                         mat_card_printed.append(item['string'])
                     else:
                         isotope = item['isotope']
-                        line = '   '+(isotope.zaid+isotope.nuclear_library).ljust(11)+' '+str(item[fractions]).ljust(24)+ end_comment + isotope.name
+                        line = '   ' + (isotope.zaid + isotope.nuclear_library).ljust(11)+' '+str(item[fractions]).ljust(24)+ end_comment + isotope.name
                         mat_card_printed.append(line)
                 return '\n'.join(mat_card_printed)
             else:
 
                 # a method of squashing / combining identical zaids
 
-                list_of_strings = [{k:v for k, v in i.items() if k =='string'} for i in mat_card]
-                list_of_zaids = [{k:v for k, v in i.items() if k !='string'} for i in mat_card]
+                list_of_strings = [{k: v for k, v in i.items() if k == 'string'} for i in mat_card]
+                list_of_zaids = [{k: v for k, v in i.items() if k != 'string'} for i in mat_card]
 
-                zaids, iso_frac,names= self.combine_duplicate_isotopes(list_of_zaids=list_of_zaids,same='zaid_lib',combine='fractions',keep='name')
+                zaids, iso_frac, names = self.combine_duplicate_isotopes(list_of_zaids=list_of_zaids,same='zaid_lib',combine='fractions',keep='name')
 
                 mat_card.append({'string':comment})
                 for i in list_of_strings:
@@ -1232,23 +1192,18 @@ class Homogenised_mixture(Base):
         
 # Presently unused?
 class Natural_Isotopes():
-    def __init__(self):
-             
-        self.all_natural_isotopes = self.find_all_natural_isotopes()
 
-        #self.natural_isotopes = self.find_natural_isotopes_from_symbol(self.symbol)
+    def __init__(self):
+        self.all_natural_isotopes = self.find_all_natural_isotopes()
 
     def find_all_natural_isotopes(self):
         all_isotopes = []
         for element in Natural_Elements().all_natural_elements:
 
             isotopes_in_element = element.isotopes
-            
             all_isotopes= all_isotopes +isotopes_in_element
 
         return all_isotopes
-            #self.find_natural_isotopes_from_symbol(element.symbol) for element in ]
-
 
 class Natural_Elements():
     def __init__(self):
@@ -1257,10 +1212,8 @@ class Natural_Elements():
 
         self.all_natural_element_symbols = self.find_all_natural_element_symbols()
 
-
     def find_all_natural_element_symbols(self):
         return list(set(NAT_NDATA.index))
 
     def find_all_natural_elements(self):
         return [Element(e) for e in list(set(NAT_NDATA.index))]
-
