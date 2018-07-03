@@ -116,7 +116,16 @@ def apuctobcm(a_puc, V_cell):
     '''
     return 1e-24*a_puc/V_cell
 
-
+def normalise_list(non_normalised_list):
+        if len(non_normalised_list) > 0:
+            factor = 1.0 / sum(non_normalised_list)
+            normalised_list = []
+            for non_normalised_fraction in non_normalised_list:
+                normalised_list.append(non_normalised_fraction * factor)
+            return normalised_list
+        else:
+            return non_normalised_list
+            
 def color_manager(color):
         if type(color) not in (tuple, list, np.ndarray) or len(color) != 3:
             raise ValueError("3-length RGB 0-255 color tuple please. "
