@@ -1,43 +1,40 @@
-import re
-import numpy as np
-from pandas import DataFrame
-import pandas as pd
-from natsort import natsorted, ns
-import pkg_resources
-from collections import defaultdict
+# Python
 
-nuclear_data_file_path=pkg_resources.resource_filename('neutronics_material_maker','nuclear_data.csv')
+import re
+
+from natsort import natsorted
+
+import numpy as np
+
+import pandas as pd
+
+import pkg_resources
+
+nuclear_data_file_path = pkg_resources.resource_filename('neutronics_material_maker' , 'nuclear_data.csv')
 
 
 from neutronics_material_maker.utilities import (is_number, arevaluesthesame,
-                                                 color_manager)
+                                                 color_manager, normalise_list)
 from warnings import warn
+
 import pkg_resources
 
 NDATA = pd.read_csv(nuclear_data_file_path, index_col='Symbol')
 NAT_NDATA = NDATA[NDATA['Natural']]
 XSDIR = '/opt/serpent2/xsdir.serp'  # Default xsdir.serp file location
 
-atomic_mass_unit_in_g=1.660539040e-24
-atomic_mass_unit_in_kg=1.660539040e-27
-Avogadros_number= 6.022140857e23
+atomic_mass_unit_in_g = 1.660539040e-24
+atomic_mass_unit_in_kg = 1.660539040e-27
+Avogadros_number = 6.022140857e23
 
-xsdir_isotopes_and_nuclear_libraries_list=[]
+xsdir_isotopes_and_nuclear_libraries_list = []
 
 
-def normalise_list(non_normalised_list):
-        if len(non_normalised_list)>0:
-            factor = 1.0 / sum(non_normalised_list)
-            normalised_list = []
-            for non_normalised_fraction in non_normalised_list:
-                normalised_list.append(non_normalised_fraction * factor)
-            return normalised_list
-        else:
-            return non_normalised_list
+
 
 def set_xsdir(xsdir_file_path):
     global xsdir_isotopes_and_nuclear_libraries_list
-    xsdir_isotopes_and_nuclear_libraries_list=[]
+    xsdir_isotopes_and_nuclear_libraries_list = []
     try:
         #print('reading in ',xsdir_file_path)
         filecontents = open(xsdir_file_path, "r").readlines()
@@ -52,7 +49,7 @@ def set_xsdir(xsdir_file_path):
 set_xsdir('/opt/serpent2/xsdir.serp')
 
 def find_prefered_library(zaid):
-    if len(xsdir_isotopes_and_nuclear_libraries_list)==0:
+    if len(xsdir_isotopes_and_nuclear_libraries_list) == 0:
         return ''
     for isotope_and_nuclear_library in xsdir_isotopes_and_nuclear_libraries_list:
         if isotope_and_nuclear_library[0] == zaid:
