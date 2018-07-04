@@ -771,12 +771,12 @@ class test_materials(unittest.TestCase):
         self.Be.density_g_per_cm3 = None  # Force raise
         self.Be.density_atoms_per_barn_per_cm = None
         with self.assertRaises(ValueError):
-            self.Be.material_card('Be', (0, 1, 2), 'serpent', None)
+            self.Be.material_card(material_card_name='Be', color=(0, 1, 2))            
         self.Be.T = 300
         self.assertTrue(hasattr(self.Be, 'density'))
         self.assertTrue(is_number(self.Be.density))
         self.assertTrue(type(self.Be.density) == float)
-        s = self.Be.material_card('Be', (0, 1, 2), 'serpent', None)
+        s = self.Be.material_card(material_card_name='Be', color=(0, 1, 2))        
         s = s.splitlines()[2]
         # Check serpent header updated with correct density
         self.assertTrue(float(s.split(' ')[2][1:]) == self.Be.density_g_per_cm3)
@@ -836,10 +836,10 @@ class test_liquids(unittest.TestCase):
         self.assertTrue(self.H.P == 101325)
         self.assertTrue(self.H.density == 998.987347802)
         self.H.T, self.H.P = 500, 200000
-        s = self.H.material_card('H2O', (0, 1, 2), 'serpent', None)
+        s = self.H.material_card(material_card_name='H2O', color=(0, 1, 2))
         s = s.splitlines()[2]
         self.assertTrue(float(s.split(' ')[2][1:]) == self.H.density_g_per_cm3)
 
 #
-#if __name__ is '__main__':
-unittest.main()
+if __name__ is '__main__':
+    unittest.main()
