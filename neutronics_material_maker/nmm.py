@@ -87,6 +87,8 @@ class Base(object):
 
         if code == 'serpent':
             tmp = ' tmp ' + str(temperature_K) + ' '
+            for i in [comment, comment + material_card_comment,'mat ' + material_card_name + density + tmp + color]:
+                print(type(i),i)
             mat_card = [comment, comment + material_card_comment,
                         'mat ' + material_card_name + density + tmp + color]
         elif code == 'mcnp':
