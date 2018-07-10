@@ -1110,28 +1110,32 @@ class Homogenised_mixture(Base):
         self.mass_fractions = kwargs.get('mass_fractions')
         self.volume_fractions = kwargs.get('volume_fractions')
 
-        self.temperature_K = kwargs.get('temperature_K', 293.15)
-        self.volume_cm3 = kwargs.get('volume_cm3')
-
         if self.volume_fractions is None and self.mass_fractions is None:
             raise ValueError(
                 'volume_fractions or mass_fractions must be specified.')
-        if self.volume_fractions is None:
-            self.volume_fractions = self.find_volume_fractions_from_mass_fractions()
-        if self.mass_fractions is None:
-            self.mass_fractions = self.find_mass_fractions_from_volume_fractions()
+            
+        self.temperature_K = kwargs.get('temperature_K', 293.15)
+        self.volume_cm3 = kwargs.get('volume_cm3')
 
         self.material_card_name = kwargs.get('material_card_name')
         self.material_card_number = kwargs.get('material_card_number')
         self.material_card_comment = kwargs.get('material_card_comment')
 
+
         if self.material_card_name is None:
-            if self.volume_fractions is None:
+            if self.mass_fractions is not None:
                 self.material_card_name = self.find_material_card_name_with_mass_fractions()
-            elif self.volume_fractions is None:
+            elif self.volume_fractions is not None:
                 self.material_card_name = self.find_material_card_name_with_volume_fractions()
         if self.material_card_number is None:
             self.material_card_number = '?'
+            
+        if self.volume_fractions is None:
+            self.volume_fractions = self.find_volume_fractions_from_mass_fractions()
+        if self.mass_fractions is None:
+            self.mass_fractions = self.find_mass_fractions_from_volume_fractions()
+
+
 
         self.packing_fraction = kwargs.get('packing_fraction', 1.0)
         self.density_atoms_per_cm3 = self.find_density_atoms_per_cm3() * \
@@ -1265,15 +1269,13 @@ class Homogenised_mixture(Base):
     def find_material_card_name_with_volume_fractions(self):
         description_to_return = ''
         for item, vol_frac in zip(self.mixtures, self.volume_fractions):
-            description_to_return += item.material_card_name + \
-                '_vf_' + str(vol_frac) + '_'
+            description_to_return += item.material_card_name + '_vf_' + str(vol_frac) + '_'
         return description_to_return[:-1]
 
     def find_material_card_name_with_mass_fractions(self):
         description_to_return = ''
         for item, frac in zip(self.mixtures, self.mass_fractions):
-            description_to_return += item.material_card_name + \
-                '_mf_' + str(frac) + '_'
+            description_to_return += item.material_card_name + '_mf_' + str(frac) + '_'
         return description_to_return[:-1]
 
     def combine_duplicate_isotopes(

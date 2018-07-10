@@ -392,7 +392,8 @@ mat_ShieldPort_m60 = mat_VV_Body_m60
 mat_Nb3Sn = Compound('Nb3Sn',density_g_per_cm3=8.91)
 mat_liqHe = Compound('He',density_g_per_cm3=0.125)
 
-mat_TF_Magnet_m25=Homogenised_mixture(mixtures=[mat_r_epoxy,
+mat_TF_Magnet_m25=Homogenised_mixture(material_card_name='mat_tf_magnet_m25',
+                                      mixtures=[mat_r_epoxy,
                                             mat_copper,
                                             mat_Nb3Sn,
                                             mat_liqHe,
@@ -445,7 +446,8 @@ all_examples = [mat_Li4SiO4,mat_Li2SiO3,mat_Li2ZrO3,mat_Li2TiO3,mat_Be,mat_Be12T
                 mat_DT_plasma,mat_Void,mat_water_by_density,mat_copper,mat_divertor_layer_1_m15,
                 mat_divertor_layer_2_m74,mat_divertor_layer_3_m15,mat_divertor_layer_4_m75,
                 mat_water_by_pres_temp,mat_VV_Body_m60,mat_Nb3Sn,mat_liqHe,mat_TF_Magnet_m25,
-                mat_TF_Casing_m50,mat_He_in_coolant_plates,mat_mixed_pebble_bed]
+                mat_TF_Casing_m50,mat_He_in_coolant_plates,mat_mixed_pebble_bed,mat_cooling_plates_homogenised,
+                mat_end_caps_homogenised,mat_end_caps_homogenised,mat_first_wall_homogenised]
 
 
 print('example materials imported')
