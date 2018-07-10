@@ -451,8 +451,9 @@ class Isotope(Base):
 
         elif code == 'fispact':
 
-            mat_card.append(self.symbol + str(self.nucleons) + ' ' +
-                            str(self.density_atoms_per_cm3 * 1.0 * volume_cm3))
+            number_of_atoms=self.density_atoms_per_cm3 * 1.0 * volume_cm3
+
+            mat_card.append(self.symbol + str(self.nucleons) + ' ' + '{:.12e}'.format(number_of_atoms))
 
         return '\n'.join(mat_card)
 
@@ -608,8 +609,10 @@ class Element(Base):
 
         elif code == 'fispact':
             for i, i_a_f in zip(self.isotopes, self.isotope_atom_fractions):
-                mat_card.append(i.symbol + str(i.nucleons) + ' ' +
-                                str(self.density_atoms_per_cm3 * i_a_f * volume_cm3))
+
+                number_of_atoms = self.density_atoms_per_cm3 * i_a_f * volume_cm3
+
+                mat_card.append(i.symbol + str(i.nucleons) + ' ' + '{:.12e}'.format(number_of_atoms))
 
         return '\n'.join(mat_card)
 
@@ -801,8 +804,10 @@ class Material(Base):
 
         elif code == 'fispact':
             for i, i_a_f in zip(self.isotopes, self.isotope_atom_fractions):
-                mat_card.append(i.symbol + str(i.nucleons) + ' ' +
-                                str(self.density_atoms_per_cm3 * i_a_f * volume_cm3))
+
+                number_of_atoms = self.density_atoms_per_cm3 * i_a_f * volume_cm3
+
+                mat_card.append(i.symbol + str(i.nucleons) + ' ' + '{:.12e}'.format(number_of_atoms))
 
         return '\n'.join(mat_card)
 
@@ -962,8 +967,10 @@ class Compound(Base):
 
         elif code == 'fispact':
             for i, i_a_f in zip(self.isotopes, self.isotope_atom_fractions):
-                mat_card.append(i.symbol + str(i.nucleons) + ' ' +
-                                str(self.density_atoms_per_cm3 * i_a_f * volume_cm3))
+
+                number_of_atoms = self.density_atoms_per_cm3 * i_a_f * volume_cm3
+
+                mat_card.append(i.symbol + str(i.nucleons) + ' ' + '{:.12e}'.format(number_of_atoms))
 
         return '\n'.join(mat_card)
 
@@ -1361,7 +1368,7 @@ class Homogenised_mixture(Base):
             condensed_mat_card_non_strings = [
                 {k: v for k, v in i.items() if k != 'string'} for i in mat_card]
 
-            isotopes, iso_frac = self.combine_duplicate_isotopes(
+            isotopes, numbers_of_atoms = self.combine_duplicate_isotopes(
                 list_of_dictionaries=condensed_mat_card_non_strings, same='isotope', combine='number of atoms', )
 
             mat_card.append({'string': comment + end_comment})
@@ -1369,9 +1376,9 @@ class Homogenised_mixture(Base):
                 if i != {}:
                     mat_card_printed.append(i['string'])
             mat_card_printed.append(comment)
-            for i, iso_frac in zip(isotopes, iso_frac):
+            for i, number_of_atoms in zip(isotopes, numbers_of_atoms):
                 mat_card_printed.append(
-                    '   ' + (i.zaid).ljust(11) + ' ' + str(iso_frac).ljust(24))
+                    '   ' + (i.zaid).ljust(11) + ' ' + '{:.12e}'.format(number_of_atoms).ljust(24))
 
         elif code == 'mcnp' or code == 'serpent':
             for mixture, mix_v_f, mix_m_f in zip(
