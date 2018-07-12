@@ -85,6 +85,7 @@ mat_Zr5Pb4 = Compound('Zr5Pb4',
 
 
 mat_Lithium_Lead = Compound('Pb84.2Li15.8',
+                            color=((1.0/256)*0,(1.0/256)*111,(1.0/256)*69),#ukaea green
                             density_atoms_per_barn_per_cm=3.2720171E-2,
                             enriched_isotopes=[Isotope('Li',7,abundance=0.247317371169),
                                                Isotope('Li',6,abundance=0.752682628831)])
@@ -93,7 +94,7 @@ mat_Lithium_Lead = Compound('Pb84.2Li15.8',
 
 mat_Tungsten = Material(material_card_name='Tungsten',
                         density_g_per_cm3=19.0,
-                        color=(255, 0, 0),
+                        color=((1.0/256)*248,(1.0/256)*151,(1.0/256)*29), #ccfe orange
                         elements=[Element(symbol='W'),
                                   Element(symbol='Ag'),
                                   Element(symbol='Al'),
@@ -159,6 +160,7 @@ mat_Tungsten = Material(material_card_name='Tungsten',
 
 mat_Eurofer = Material(material_card_name='Eurofer',
                     density_g_per_cm3=7.87,
+                    color=(134,134,134),
                     density_atoms_per_barn_per_cm=8.43211E-02,
                     elements=[Element('Fe'),
                               Element('B'),
@@ -207,6 +209,7 @@ mat_Eurofer = Material(material_card_name='Eurofer',
 
 mat_SS316LN_IG = Material(material_card_name='SS316LN-IG',
                     density_g_per_cm3=7.93,
+                    color=(150,150,150),
                     density_atoms_per_barn_per_cm=8.58294E-02,
                     elements=[Element('Fe'),
                               Element('C'),
@@ -246,13 +249,13 @@ mat_SS316LN_IG = Material(material_card_name='SS316LN-IG',
 #print(mat_SS316LN_IG.serpent_material_card())
 
 mat_Bronze = Material(material_card_name='Bronze',
-                    density_g_per_cm3=8.8775,
-                    elements=[Element('Cu'),
-                              Element('Sn')
-                             ],
-                    element_atom_fractions=[0.95,
-                                    0.05
-                    ])
+                      density_g_per_cm3=8.8775,
+                      color=(0,204,102),
+                      elements=[Element('Cu'),
+                                Element('Sn')],
+                      element_atom_fractions=[0.95,
+                                              0.05]
+                      )
 
 #print(mat_Bronze.serpent_material_card())
 
@@ -416,7 +419,11 @@ mat_TF_Casing_m50=mat_SS316LN_IG
 
 mat_central_solenoid_m25=mat_TF_Magnet_m25
 
-mat_He_in_coolant_plates = Compound('He',pressure_Pa=8.0E6,temperature_K=823 ,state_of_matter='liquid')
+mat_He_in_coolant_plates = Compound('He',
+                                    pressure_Pa=8.0E6,
+                                    temperature_K=823 ,
+                                    color=((1.0/256)*0,(1.0/256)*128,(1.0/256)*202), #ukaea light blue
+                                    state_of_matter='liquid')
 
 mat_He_in_end_caps = mat_He_in_coolant_plates
 
@@ -451,3 +458,6 @@ all_examples = [mat_Li4SiO4,mat_Li2SiO3,mat_Li2ZrO3,mat_Li2TiO3,mat_Be,mat_Be12T
 
 
 print('example materials imported')
+
+# for i in all_examples:
+#     print(i.material_card())

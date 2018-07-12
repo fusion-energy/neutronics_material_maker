@@ -86,9 +86,12 @@ class Base(object):
         color = color_manager(color)
 
         if code == 'serpent':
-            tmp = ' tmp ' + str(temperature_K) + ' '
-            for i in [comment, comment + material_card_comment,'mat ' + material_card_name + density + tmp + color]:
-                print(type(i),i)
+            if temperature_K == None:
+                tmp = ''
+            else:
+                tmp = ' tmp ' + str(temperature_K) + ' '
+            #for i in [comment, comment + material_card_comment,'mat ' + material_card_name + density + tmp + color]:
+                #print(type(i),i)
             mat_card = [comment, comment + material_card_comment,
                         'mat ' + material_card_name + density + tmp + color]
         elif code == 'mcnp':
@@ -98,16 +101,12 @@ class Base(object):
 
             mat_card = [comment, comment +
                         material_card_comment, comment +
-                        'density =' +
-                        str(self.density_g_per_cm3) +
-                        ' g/cm3', comment +
-                        'density =' +
-                        str(self.density_atoms_per_barn_per_cm) +
-                        ' atoms per barn cm2', comment +
-                        'temperature =' +
-                        str(temperature_K) +
-                        ' K', 'M' +
-                        str(material_card_number)]
+                        'density =' + str(self.density_g_per_cm3) + ' g/cm3', 
+                        comment +
+                        'density =' + str(self.density_atoms_per_barn_per_cm) + ' atoms per barn cm2', 
+                        comment +
+                        'temperature =' + str(temperature_K) +' K', 
+                        'M' + str(material_card_number)]
 
         elif code == 'fispact':
             if self.classname == 'Isotope':
@@ -119,16 +118,12 @@ class Base(object):
                         end_comment, comment +
                         material_card_comment +
                         end_comment, comment +
-                        'density =' +
-                        str(self.density_atoms_per_barn_per_cm) +
-                        ' atoms per barn cm2' +
+                        'density =' + str(self.density_atoms_per_barn_per_cm) +' atoms per barn cm2' +
                         end_comment, comment +
-                        'temperature =' +
-                        str(temperature_K) +
-                        ' K' +
-                        end_comment, 'DENSITY ' +
-                        str(self.density_g_per_cm3), 'FUEL ' +
-                        number_of_isotopes]
+                        'temperature =' + str(temperature_K) + ' K' +
+                        end_comment, 
+                        'DENSITY ' + str(self.density_g_per_cm3), 
+                        'FUEL ' + number_of_isotopes]
 
         return mat_card
 
@@ -235,7 +230,8 @@ class Base(object):
             fractions_prefix = ' -'
 
         if temperature_K is None:
-            temperature_K = self.temperature_K
+           temperature_K = self.temperature_K 
+        #     temperature_K = 293.15 # if no temperature is provided then this is missed from the material card
 
         if volume_cm3 is None:
             volume_cm3 = self.volume_cm3
@@ -285,7 +281,7 @@ class Isotope(Base):
 
         self._handle_args(args)
 
-        self.temperature_K = kwargs.get('temperature_K', 293.15)
+        self.temperature_K = kwargs.get('temperature_K', None)
 
         if self.nucleons is None and self.zaid is None:
             raise ValueError(
@@ -476,7 +472,7 @@ class Element(Base):
             else:
                 self.zaid = protons_or_symbol_or_zaid
 
-        self.temperature_K = kwargs.get('temperature_K', 293.15)
+        self.temperature_K = kwargs.get('temperature_K', None)
 
         if self.zaid is not None:
             self.protons = self.find_protons_from_zaid()
@@ -636,7 +632,7 @@ class Material(Base):
         self.material_card_number = kwargs.get('material_card_number')
         self.material_card_comment = kwargs.get('material_card_comment')
 
-        self.temperature_K = kwargs.get('temperature_K', 293.15)
+        self.temperature_K = kwargs.get('temperature_K', None)
 
         self.packing_fraction = kwargs.get('packing_fraction', 1.0)
         self.density_g_per_cm3 = kwargs.get('density_g_per_cm3')
@@ -845,7 +841,7 @@ class Compound(Base):
         self.enriched_isotopes = kwargs.get('enriched_isotopes', None)
         self.volume_of_unit_cell_cm3 = kwargs.get('volume_of_unit_cell_cm3')
         self.atoms_per_unit_cell = kwargs.get('atoms_per_unit_cell')
-        self.temperature_K = kwargs.get('temperature_K', 293.15)
+        self.temperature_K = kwargs.get('temperature_K', None)
         self.pressure_Pa = kwargs.get('pressure_Pa')
 
         self.volume_cm3 = kwargs.get('volume_cm3')
@@ -1114,7 +1110,7 @@ class Homogenised_mixture(Base):
             raise ValueError(
                 'volume_fractions or mass_fractions must be specified.')
             
-        self.temperature_K = kwargs.get('temperature_K', 293.15)
+        self.temperature_K = kwargs.get('temperature_K', None)
         self.volume_cm3 = kwargs.get('volume_cm3')
 
         self.material_card_name = kwargs.get('material_card_name')
