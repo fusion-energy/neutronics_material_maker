@@ -93,15 +93,19 @@ class Isotope_tests(unittest.TestCase):
    
     def test_default_temperature_in_material_cards(self):
 
-      mat_isotope = Isotope('Li',7,abundance=0.6,density_g_per_cm3=7)
+      mat_isotope = Isotope('Li',7,
+                            abundance=0.6,
+                            density_g_per_cm3=7)
 
-      assert 'temperature =293.15 K' in mat_isotope.material_card(code='mcnp')
-      assert 'tmp 293.15' in mat_isotope.material_card(code='serpent')
+      assert 'temperature =None' in mat_isotope.material_card(code='mcnp')
+      assert 'tmp' not in mat_isotope.material_card(code='serpent')
 
    
     def test_specified_temperature_in_material_cards(self):
 
-      mat_isotope = Isotope('Li',7,abundance=0.6,density_g_per_cm3=7,temperature_K =500)
+      mat_isotope = Isotope('Li',7,abundance=0.6,
+                            density_g_per_cm3=7,
+                            temperature_K =500)
 
       assert 'temperature =500 K' in mat_isotope.material_card(code='mcnp')
       assert 'tmp 500' in mat_isotope.material_card(code='serpent')      
@@ -203,8 +207,8 @@ class Element_tests(unittest.TestCase):
 
       new_element = Element('W',density_g_per_cm3=19.6)
 
-      assert 'temperature =293.15 K' in new_element.material_card(code='mcnp')
-      assert 'tmp 293.15' in new_element.material_card(code='serpent')
+      assert 'temperature =None ' in new_element.material_card(code='mcnp')
+      assert 'tmp' not in new_element.material_card(code='serpent')
 
    
     def test_specified_temperature_in_material_cards(self):
@@ -284,8 +288,8 @@ class Compound_tests(unittest.TestCase):
                        volume_of_unit_cell_cm3=1.1543e-21,
                        atoms_per_unit_cell=14)
 
-      assert 'temperature =293.15 K' in new_compound.material_card(code='mcnp')
-      assert 'tmp 293.15' in new_compound.material_card(code='serpent')
+      assert 'temperature =None' in new_compound.material_card(code='mcnp')
+      assert 'tmp' not in new_compound.material_card(code='serpent')
 
    
     def test_specified_temperature_in_material_cards(self):
@@ -659,7 +663,8 @@ class Material_tests(unittest.TestCase):
       new_material = Material(material_card_name='M2',
                     density_g_per_cm3=10.0,
                     elements=[Element(symbol='Sn')],
-                    element_atom_fractions=[1])
+                    element_atom_fractions=[1],
+                    temperature_K=293.15)
 
       assert 'temperature =293.15 K' in new_material.material_card(code='mcnp')
       assert 'tmp 293.15' in new_material.material_card(code='serpent')

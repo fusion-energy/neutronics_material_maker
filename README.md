@@ -20,7 +20,7 @@
 
 
 # <a name="design-goals"></a>Design Goals
-The material composition impacts the transport of neutrons and photons through the material. Neutronics codes attempt to simulate the transport of particles through matter and therefore require the material composition. This software aims to ease the creation of customisable materials for use in neutronics codes. The motivation behind this software was the need to create material cards for Helium and H20 coolants at different temperatures and pressures and material cards for a selection of lithium ceramics with different Li6 enrichments.
+The material composition impacts the transport of neutrons and photons through the material. Neutronics codes attempt to simulate the transport of particles through matter and therefore require the material composition. This software aims to ease the creation of customisable materials for use in neutronics codes. The motivation behind this software was the desire to create materials once and reuse them in a in a variety of neutronics codes and engineering software. Materials are constructed from properties such as temperatures, pressures, isotope enrichment which can be adjusted by the user.
 
 # <a name="features"></a>Features
 - Generate **isotopes**, **elements**, **materials**, **chemical compounds** and **homogenised mixtures**.
