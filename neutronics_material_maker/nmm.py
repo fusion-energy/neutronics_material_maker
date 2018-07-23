@@ -86,9 +86,12 @@ class Base(object):
         color = color_manager(color)
 
         if code == 'serpent':
-            tmp = ' tmp ' + str(temperature_K) + ' '
-            for i in [comment, comment + material_card_comment,'mat ' + material_card_name + density + tmp + color]:
-                print(type(i),i)
+            if temperature_K == None:
+                tmp = ''
+            else:
+                tmp = ' tmp ' + str(temperature_K) + ' '
+            #for i in [comment, comment + material_card_comment,'mat ' + material_card_name + density + tmp + color]:
+                #print(type(i),i)
             mat_card = [comment, comment + material_card_comment,
                         'mat ' + material_card_name + density + tmp + color]
         elif code == 'mcnp':
@@ -98,16 +101,12 @@ class Base(object):
 
             mat_card = [comment, comment +
                         material_card_comment, comment +
-                        'density =' +
-                        str(self.density_g_per_cm3) +
-                        ' g/cm3', comment +
-                        'density =' +
-                        str(self.density_atoms_per_barn_per_cm) +
-                        ' atoms per barn cm2', comment +
-                        'temperature =' +
-                        str(temperature_K) +
-                        ' K', 'M' +
-                        str(material_card_number)]
+                        'density =' + str(self.density_g_per_cm3) + ' g/cm3', 
+                        comment +
+                        'density =' + str(self.density_atoms_per_barn_per_cm) + ' atoms per barn cm2', 
+                        comment +
+                        'temperature =' + str(temperature_K) +' K', 
+                        'M' + str(material_card_number)]
 
         elif code == 'fispact':
             if self.classname == 'Isotope':
@@ -119,16 +118,12 @@ class Base(object):
                         end_comment, comment +
                         material_card_comment +
                         end_comment, comment +
-                        'density =' +
-                        str(self.density_atoms_per_barn_per_cm) +
-                        ' atoms per barn cm2' +
+                        'density =' + str(self.density_atoms_per_barn_per_cm) +' atoms per barn cm2' +
                         end_comment, comment +
-                        'temperature =' +
-                        str(temperature_K) +
-                        ' K' +
-                        end_comment, 'DENSITY ' +
-                        str(self.density_g_per_cm3), 'FUEL ' +
-                        number_of_isotopes]
+                        'temperature =' + str(temperature_K) + ' K' +
+                        end_comment, 
+                        'DENSITY ' + str(self.density_g_per_cm3), 
+                        'FUEL ' + number_of_isotopes]
 
         return mat_card
 
@@ -235,7 +230,8 @@ class Base(object):
             fractions_prefix = ' -'
 
         if temperature_K is None:
-            temperature_K = self.temperature_K
+           temperature_K = self.temperature_K 
+        #     temperature_K = 293.15 # if no temperature is provided then this is missed from the material card
 
         if volume_cm3 is None:
             volume_cm3 = self.volume_cm3
@@ -285,7 +281,7 @@ class Isotope(Base):
 
         self._handle_args(args)
 
-        self.temperature_K = kwargs.get('temperature_K', 293.15)
+        self.temperature_K = kwargs.get('temperature_K', None)
 
         if self.nucleons is None and self.zaid is None:
             raise ValueError(
@@ -451,8 +447,9 @@ class Isotope(Base):
 
         elif code == 'fispact':
 
-            mat_card.append(self.symbol + str(self.nucleons) + ' ' +
-                            str(self.density_atoms_per_cm3 * 1.0 * volume_cm3))
+            number_of_atoms=self.density_atoms_per_cm3 * 1.0 * volume_cm3
+
+            mat_card.append(self.symbol + str(self.nucleons) + ' ' + '{:.12e}'.format(number_of_atoms))
 
         return '\n'.join(mat_card)
 
@@ -475,7 +472,7 @@ class Element(Base):
             else:
                 self.zaid = protons_or_symbol_or_zaid
 
-        self.temperature_K = kwargs.get('temperature_K', 293.15)
+        self.temperature_K = kwargs.get('temperature_K', None)
 
         if self.zaid is not None:
             self.protons = self.find_protons_from_zaid()
@@ -608,8 +605,10 @@ class Element(Base):
 
         elif code == 'fispact':
             for i, i_a_f in zip(self.isotopes, self.isotope_atom_fractions):
-                mat_card.append(i.symbol + str(i.nucleons) + ' ' +
-                                str(self.density_atoms_per_cm3 * i_a_f * volume_cm3))
+
+                number_of_atoms = self.density_atoms_per_cm3 * i_a_f * volume_cm3
+
+                mat_card.append(i.symbol + str(i.nucleons) + ' ' + '{:.12e}'.format(number_of_atoms))
 
         return '\n'.join(mat_card)
 
@@ -633,7 +632,7 @@ class Material(Base):
         self.material_card_number = kwargs.get('material_card_number')
         self.material_card_comment = kwargs.get('material_card_comment')
 
-        self.temperature_K = kwargs.get('temperature_K', 293.15)
+        self.temperature_K = kwargs.get('temperature_K', None)
 
         self.packing_fraction = kwargs.get('packing_fraction', 1.0)
         self.density_g_per_cm3 = kwargs.get('density_g_per_cm3')
@@ -801,8 +800,10 @@ class Material(Base):
 
         elif code == 'fispact':
             for i, i_a_f in zip(self.isotopes, self.isotope_atom_fractions):
-                mat_card.append(i.symbol + str(i.nucleons) + ' ' +
-                                str(self.density_atoms_per_cm3 * i_a_f * volume_cm3))
+
+                number_of_atoms = self.density_atoms_per_cm3 * i_a_f * volume_cm3
+
+                mat_card.append(i.symbol + str(i.nucleons) + ' ' + '{:.12e}'.format(number_of_atoms))
 
         return '\n'.join(mat_card)
 
@@ -840,7 +841,7 @@ class Compound(Base):
         self.enriched_isotopes = kwargs.get('enriched_isotopes', None)
         self.volume_of_unit_cell_cm3 = kwargs.get('volume_of_unit_cell_cm3')
         self.atoms_per_unit_cell = kwargs.get('atoms_per_unit_cell')
-        self.temperature_K = kwargs.get('temperature_K', 293.15)
+        self.temperature_K = kwargs.get('temperature_K', None)
         self.pressure_Pa = kwargs.get('pressure_Pa')
 
         self.volume_cm3 = kwargs.get('volume_cm3')
@@ -881,8 +882,7 @@ class Compound(Base):
         if self.density_g_per_cm3 is not None:
             self.density_g_per_cm3 = self.density_g_per_cm3 * self.packing_fraction
         if self.density_atoms_per_barn_per_cm is not None:
-            self.density_atoms_per_barn_per_cm = self.density_atoms_per_barn_per_cm * \
-                self.packing_fraction
+            self.density_atoms_per_barn_per_cm = self.density_atoms_per_barn_per_cm * self.packing_fraction
         if self.density_atoms_per_cm3 is not None:
             self.density_atoms_per_cm3 = self.density_atoms_per_cm3 * self.packing_fraction
 
@@ -962,8 +962,10 @@ class Compound(Base):
 
         elif code == 'fispact':
             for i, i_a_f in zip(self.isotopes, self.isotope_atom_fractions):
-                mat_card.append(i.symbol + str(i.nucleons) + ' ' +
-                                str(self.density_atoms_per_cm3 * i_a_f * volume_cm3))
+
+                number_of_atoms = self.density_atoms_per_cm3 * i_a_f * volume_cm3
+
+                mat_card.append(i.symbol + str(i.nucleons) + ' ' + '{:.12e}'.format(number_of_atoms))
 
         return '\n'.join(mat_card)
 
@@ -1058,7 +1060,7 @@ class Compound(Base):
 
     def density_g_per_cm3_idea_gas(self):
         density_kg_m3 = (self.pressure_Pa / (8.3 * self.temperature_K)) * \
-            self.molar_mass * Avogadros_number * atomic_mass_unit_in_kg
+            self.molar_mass_g_per_mol * Avogadros_number * atomic_mass_unit_in_kg
         density_g_cm3 = density_kg_m3 / 1000.0
         return density_g_cm3
 
@@ -1079,9 +1081,9 @@ class Compound(Base):
                 atomic_mass_unit_in_g *
                 self.atoms_per_unit_cell /
                 self.volume_of_unit_cell_cm3)
-        if self.state_of_matter == 'gas' and self.pressure_Pa is not None and self.temperature_K is not None:
+        if self.state_of_matter == 'idea_gas' and self.pressure_Pa is not None and self.temperature_K is not None:
             return self.density_g_per_cm3_idea_gas()
-        if self.state_of_matter == 'liquid' and self.pressure_Pa is not None and self.temperature_K is not None:
+        if self.state_of_matter == 'non_solid' and self.pressure_Pa is not None and self.temperature_K is not None:
             return self.density_g_per_cm3_liquid()
         return None
 
@@ -1103,28 +1105,32 @@ class Homogenised_mixture(Base):
         self.mass_fractions = kwargs.get('mass_fractions')
         self.volume_fractions = kwargs.get('volume_fractions')
 
-        self.temperature_K = kwargs.get('temperature_K', 293.15)
-        self.volume_cm3 = kwargs.get('volume_cm3')
-
         if self.volume_fractions is None and self.mass_fractions is None:
             raise ValueError(
                 'volume_fractions or mass_fractions must be specified.')
-        if self.volume_fractions is None:
-            self.volume_fractions = self.find_volume_fractions_from_mass_fractions()
-        if self.mass_fractions is None:
-            self.mass_fractions = self.find_mass_fractions_from_volume_fractions()
+            
+        self.temperature_K = kwargs.get('temperature_K', None)
+        self.volume_cm3 = kwargs.get('volume_cm3')
 
         self.material_card_name = kwargs.get('material_card_name')
         self.material_card_number = kwargs.get('material_card_number')
         self.material_card_comment = kwargs.get('material_card_comment')
 
+
         if self.material_card_name is None:
-            if self.volume_fractions is None:
+            if self.mass_fractions is not None:
                 self.material_card_name = self.find_material_card_name_with_mass_fractions()
-            elif self.volume_fractions is None:
+            elif self.volume_fractions is not None:
                 self.material_card_name = self.find_material_card_name_with_volume_fractions()
         if self.material_card_number is None:
             self.material_card_number = '?'
+            
+        if self.volume_fractions is None:
+            self.volume_fractions = self.find_volume_fractions_from_mass_fractions()
+        if self.mass_fractions is None:
+            self.mass_fractions = self.find_mass_fractions_from_volume_fractions()
+
+
 
         self.packing_fraction = kwargs.get('packing_fraction', 1.0)
         self.density_atoms_per_cm3 = self.find_density_atoms_per_cm3() * \
@@ -1219,8 +1225,7 @@ class Homogenised_mixture(Base):
 
         for mix, vol_fraction in zip(self.mixtures, self.volume_fractions):
             non_normalised_mass_fractions = vol_fraction * mix.density_g_per_cm3
-            list_of_non_normalised_mass_fractions.append(
-                non_normalised_mass_fractions)
+            list_of_non_normalised_mass_fractions.append(non_normalised_mass_fractions)
             cumlative_mass_fraction = cumlative_mass_fraction + non_normalised_mass_fractions
         factor = 1.0 / cumlative_mass_fraction
 
@@ -1258,15 +1263,13 @@ class Homogenised_mixture(Base):
     def find_material_card_name_with_volume_fractions(self):
         description_to_return = ''
         for item, vol_frac in zip(self.mixtures, self.volume_fractions):
-            description_to_return += item.material_card_name + \
-                '_vf_' + str(vol_frac) + '_'
+            description_to_return += item.material_card_name + '_vf_' + str(vol_frac) + '_'
         return description_to_return[:-1]
 
     def find_material_card_name_with_mass_fractions(self):
         description_to_return = ''
         for item, frac in zip(self.mixtures, self.mass_fractions):
-            description_to_return += item.material_card_name + \
-                '_mf_' + str(frac) + '_'
+            description_to_return += item.material_card_name + '_mf_' + str(frac) + '_'
         return description_to_return[:-1]
 
     def combine_duplicate_isotopes(
@@ -1361,7 +1364,7 @@ class Homogenised_mixture(Base):
             condensed_mat_card_non_strings = [
                 {k: v for k, v in i.items() if k != 'string'} for i in mat_card]
 
-            isotopes, iso_frac = self.combine_duplicate_isotopes(
+            isotopes, numbers_of_atoms = self.combine_duplicate_isotopes(
                 list_of_dictionaries=condensed_mat_card_non_strings, same='isotope', combine='number of atoms', )
 
             mat_card.append({'string': comment + end_comment})
@@ -1369,9 +1372,9 @@ class Homogenised_mixture(Base):
                 if i != {}:
                     mat_card_printed.append(i['string'])
             mat_card_printed.append(comment)
-            for i, iso_frac in zip(isotopes, iso_frac):
+            for i, number_of_atoms in zip(isotopes, numbers_of_atoms):
                 mat_card_printed.append(
-                    '   ' + (i.zaid).ljust(11) + ' ' + str(iso_frac).ljust(24))
+                    '   ' + (i.zaid).ljust(11) + ' ' + '{:.12e}'.format(number_of_atoms).ljust(24))
 
         elif code == 'mcnp' or code == 'serpent':
             for mixture, mix_v_f, mix_m_f in zip(
