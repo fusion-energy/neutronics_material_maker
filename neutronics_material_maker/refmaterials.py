@@ -782,7 +782,7 @@ class test_materials(unittest.TestCase):
         self.assertTrue(float(s.split(' ')[2][1:]) == self.Be.density_g_per_cm3)
 
     def test_T_tmp(self):
-        s = self.S.material_card()
+        s = self.S.material_card(temperature_K=293.15)
         self.assertTrue(' tmp 293.15 ' in s.splitlines()[2])
         s = self.S.material_card(temperature_K=400)
         self.assertTrue(' tmp 400 ' in s.splitlines()[2])
