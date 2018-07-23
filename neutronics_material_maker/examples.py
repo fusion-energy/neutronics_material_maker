@@ -394,10 +394,16 @@ mat_divertor_layer_4_m75= Homogenised_mixture(mixtures=[mat_Eurofer,
 
 
 
-
-
 mat_VV_Body_m60 = Homogenised_mixture(mixtures=[mat_SS316LN_IG, mat_water_by_pres_temp],
                                       volume_fractions=[0.60, 0.40])
+
+mat_water_by_pres_temp = Compound(chemical_equation='H2O',
+                                  state_of_matter='liquid',
+                                  pressure_Pa=water_presssure_pa,
+                                  temperature_K=water_temperature_K)
+
+mat_VV_Body_m60 = Homogenised_mixture(mixtures=[mat_SS316LN_IG,mat_water_by_pres_temp],
+                                  volume_fractions=[0.60,0.40])
 #print(VV_Body_m60.material_card())
 
 mat_VV_Shell_m50 = mat_SS316LN_IG
