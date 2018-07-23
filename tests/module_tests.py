@@ -722,7 +722,7 @@ class Homogenised_mixture_tests(unittest.TestCase):
 
 
   def test_Homogenised_mixture_card_creation1(self):
-    mat_He_in_coolant_plates = Compound('He',pressure_Pa=8.0E6,temperature_K=823 ,state_of_matter='liquid')
+    mat_He_in_coolant_plates = Compound('He',pressure_Pa=8.0E6,temperature_K=823 ,state_of_matter='non_solid')
     mat_Eurofer = Material(material_card_name='Eurofer',
                       density_g_per_cm3=7.87,
                       density_atoms_per_barn_per_cm=8.43211E-02,
