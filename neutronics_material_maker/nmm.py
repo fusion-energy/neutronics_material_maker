@@ -882,8 +882,7 @@ class Compound(Base):
         if self.density_g_per_cm3 is not None:
             self.density_g_per_cm3 = self.density_g_per_cm3 * self.packing_fraction
         if self.density_atoms_per_barn_per_cm is not None:
-            self.density_atoms_per_barn_per_cm = self.density_atoms_per_barn_per_cm * \
-                self.packing_fraction
+            self.density_atoms_per_barn_per_cm = self.density_atoms_per_barn_per_cm * self.packing_fraction
         if self.density_atoms_per_cm3 is not None:
             self.density_atoms_per_cm3 = self.density_atoms_per_cm3 * self.packing_fraction
 
@@ -1061,7 +1060,7 @@ class Compound(Base):
 
     def density_g_per_cm3_idea_gas(self):
         density_kg_m3 = (self.pressure_Pa / (8.3 * self.temperature_K)) * \
-            self.molar_mass * Avogadros_number * atomic_mass_unit_in_kg
+            self.molar_mass_g_per_mol * Avogadros_number * atomic_mass_unit_in_kg
         density_g_cm3 = density_kg_m3 / 1000.0
         return density_g_cm3
 
@@ -1082,9 +1081,9 @@ class Compound(Base):
                 atomic_mass_unit_in_g *
                 self.atoms_per_unit_cell /
                 self.volume_of_unit_cell_cm3)
-        if self.state_of_matter == 'gas' and self.pressure_Pa is not None and self.temperature_K is not None:
+        if self.state_of_matter == 'idea_gas' and self.pressure_Pa is not None and self.temperature_K is not None:
             return self.density_g_per_cm3_idea_gas()
-        if self.state_of_matter == 'liquid' and self.pressure_Pa is not None and self.temperature_K is not None:
+        if self.state_of_matter == 'non_solid' and self.pressure_Pa is not None and self.temperature_K is not None:
             return self.density_g_per_cm3_liquid()
         return None
 
@@ -1226,8 +1225,7 @@ class Homogenised_mixture(Base):
 
         for mix, vol_fraction in zip(self.mixtures, self.volume_fractions):
             non_normalised_mass_fractions = vol_fraction * mix.density_g_per_cm3
-            list_of_non_normalised_mass_fractions.append(
-                non_normalised_mass_fractions)
+            list_of_non_normalised_mass_fractions.append(non_normalised_mass_fractions)
             cumlative_mass_fraction = cumlative_mass_fraction + non_normalised_mass_fractions
         factor = 1.0 / cumlative_mass_fraction
 
