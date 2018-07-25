@@ -364,24 +364,23 @@ mat_water_by_pres_temp = Compound(chemical_equation='H2O',
 
 mat_water_by_density = Compound('H2O',density_g_per_cm3=mat_water_by_pres_temp.density_g_per_cm3)
 
-mat_copper = Compound('Cu',density_g_per_cm3=8.96)
+mat_copper = Compound('Cu', density_g_per_cm3=8.96)
 
-mat_divertor_layer_1_m15=mat_Tungsten
+mat_divertor_layer_1_m15 = mat_Tungsten
 
-mat_divertor_layer_2_m74= Homogenised_mixture(mixtures=[mat_Tungsten,
+mat_divertor_layer_2_m74 = Homogenised_mixture(mixtures=[mat_Tungsten,
                                                     mat_water_by_density,
                                                     mat_CuCrZr,
                                                     mat_copper
                                                     ],
-                                              squashed=True,
-                                           volume_fractions=[1.0-(0.328+0.184+0.0938),
+                                              volume_fractions=[1.0-(0.328+0.184+0.0938),
                                                               0.328,
                                                               0.184,
                                                               0.0938
                                                               ]
                                           )
 
-#print(divertor_layer_2_m74.material_card())
+#print(mat_divertor_layer_2_m74.material_card(squashed=True))
 
 mat_divertor_layer_3_m15 = mat_divertor_layer_1_m15
 

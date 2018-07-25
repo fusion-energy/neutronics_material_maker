@@ -11,9 +11,9 @@
    #- pip install codecov pytest-cov pylint
    #- pip install matplotlib
     #re json sys
+    - pip install -r requirements.txt
   script:
     #- pip3 install neutronics_material_maker
-    - pip install -r requirements.tct
     - python setup.py test
     #- pytest
     #- covercov -run 
