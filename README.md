@@ -205,12 +205,12 @@ solid_ceramic.density_g_per_cm3
 pebble_bed_ceramic.density_g_per_cm3
 >>>1.4592683275843523
 ```
-Other input options for Compounds include **pressure_Pa** and **temperature_K** which are used when calculating the density of ideal gases and liquids. To make use of this feature the thermo package must be installed.
+Other input options for Compounds include **pressure_Pa** and **temperature_K** which are used when calculating the density of ideal gases and non solids. To make use of this feature the thermo package must be installed.
 ```sh
-pip install thermo
+pip install thermo --user
 ```
 
-The density of liquids and gases accounting for thermal expansion can then be found. To use the ideal gas equations the **state_of_matter** must be specified as 'gas'.
+The density of non solids and gases accounting for thermal expansion can then be found. To use the ideal gas equations the **state_of_matter** must be specified as 'gas'.
 
 ```python
 He_compound = Compound('He',
@@ -221,18 +221,18 @@ He_compound.density_g_per_cm3
 >>> 0.004682671945463105
 ```
 
-Other coolants can also accept different **pressure_Pa** and **temperature_K** values and the density changes accordingly. The **state_of_matter** must also be specified as 'liquid'. This example shows the resulting change in density for water at different temperatures and pressures.
+Other coolants can also accept different **pressure_Pa** and **temperature_K** values and the density changes accordingly. The **state_of_matter** must also be specified as 'non_solid'. This example shows the resulting change in density for water at different temperatures and pressures.
 ```python
 water_compound = Compound('H2O',
                           pressure_Pa = 3100000,
                           temperature_K = 473.15,
-                          state_of_matter='liquid')
+                          state_of_matter='non_solid')
 water_compound.density_g_per_cm3
 >>> 0.8664202359381719
 water_compound = Compound('H2O',
                           pressure_Pa = 101325,
                           temperature_K = 293,
-                          state_of_matter='liquid')
+                          state_of_matter='non_solid')
 water_compound.density_g_per_cm3
 >>> 0.9990449108576049
 ```

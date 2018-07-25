@@ -2,15 +2,16 @@
   python:
     - "3.6"
   install:
-    - pip install numpy 
-    - pip install pprint 
-    - pip install pandas
-    - pip install thermo
-    - pip install pint
-    - pip install natsort
-    - pip install codecov pytest-cov pylint
-    - pip install matplotlib
+   #- pip install numpy 
+   #- pip install pprint 
+   #- pip install pandas
+   #- pip install thermo
+   #- pip install pint
+   #- pip install natsort
+   #- pip install codecov pytest-cov pylint
+   #- pip install matplotlib
     #re json sys
+    - pip install -r requirements.txt
   script:
     #- pip3 install neutronics_material_maker
     - python setup.py test
