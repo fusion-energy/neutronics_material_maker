@@ -380,7 +380,8 @@ mat_divertor_layer_2_m74 = Homogenised_mixture(mixtures=[mat_Tungsten,
                                                               ]
                                           )
 
-#print(mat_divertor_layer_2_m74.material_card(squashed=True))
+print(mat_divertor_layer_2_m74.material_card(squashed=True))
+#print(mat_divertor_layer_2_m74.material_card(squashed=False))
 
 mat_divertor_layer_3_m15 = mat_divertor_layer_1_m15
 

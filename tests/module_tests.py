@@ -847,6 +847,29 @@ class Homogenised_mixture_tests(unittest.TestCase):
     assert mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[0]==mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[2]
     assert mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[1]==mat_mixed_pebble_bed_mass_combined.isotope_mass_fractions[3] 
 
+  def test_Homogenised_mixture_squashed_option(self):
+
+    mat_Li_a = Compound('Li4Be',
+                           volume_of_unit_cell_cm3=0.42701e-21,
+                           atoms_per_unit_cell=8,
+                           packing_fraction=0.6,
+                           )
+
+    mat_Li_b = Compound('Li4Be',
+                           volume_of_unit_cell_cm3=0.42701e-21,
+                           atoms_per_unit_cell=8,
+                           packing_fraction=0.6,
+                           )
+
+    mat_mixed_pebble_bed_vol_combined = Homogenised_mixture(mixtures=[mat_Li_a,mat_Li_b],
+                                                            volume_fractions=[0.5,0.5])
+
+    long_material_card = mat_mixed_pebble_bed_vol_combined.material_card(squashed=False)
+    short_material_card = mat_mixed_pebble_bed_vol_combined.material_card(squashed=True)
+
+    assert len(long_material_card.split('\n')) ==len(short_material_card.split('\n'))+3-1 #short has three less isotopes and 1 more white space padding
+
+
 
 class Example_materials_tests(unittest.TestCase):
 

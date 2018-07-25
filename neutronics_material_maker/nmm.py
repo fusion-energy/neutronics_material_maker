@@ -1423,7 +1423,7 @@ class Homogenised_mixture(Base):
                 # a method of squashing / combining identical zaids
 
                 list_of_strings = [{k: v for k, v in i.items() if k == 'string'} for i in mat_card]
-                            
+
                 condensed_mat_card_non_strings = [{k: v for k, v in i.items() if k != 'string'} for i in mat_card]
 
                 isotopes, iso_frac = self.combine_duplicate_isotopes(list_of_dictionaries=condensed_mat_card_non_strings, 
@@ -1438,7 +1438,7 @@ class Homogenised_mixture(Base):
                 mat_card_printed.append(comment)
 
                 for isotope, iso_frac in zip(isotopes, iso_frac):
-                    mat_card_printed.append('   ' + (isotope.zaid).ljust(11) +
+                    mat_card_printed.append('   ' + (isotope.zaid+isotope.nuclear_library).ljust(11) +
                                             ' '+ fractions_prefix + str(iso_frac).ljust(24) +
                                             end_comment +
                                             isotope.name)

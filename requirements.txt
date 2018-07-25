@@ -3,3 +3,4 @@ pandas
 thermo
 pint
 natsort
+matplotlib
