@@ -1422,7 +1422,7 @@ class Homogenised_mixture(Base):
                     else:
                         isotope = item['isotope']
                         line = '   ' + (isotope.zaid + isotope.nuclear_library).ljust(
-                            11) + ' ' + str(item[fractions]).ljust(24) + end_comment + isotope.name
+                            11) + ' ' +fractions_prefix+ str(item[fractions]).ljust(24) + end_comment + isotope.name
                         mat_card_printed.append(line)
                 return '\n'.join(mat_card_printed)
             else:
@@ -1435,7 +1435,7 @@ class Homogenised_mixture(Base):
                                  for i in mat_card]
 
                 zaids, iso_frac, names = self.combine_duplicate_isotopes(
-                                         list_of_zaids=list_of_zaids,
+                                         list_of_dictionaries=list_of_zaids,
                                          same='zaid_lib',
                                          combine='fractions',
                                          keep='name')
@@ -1447,13 +1447,10 @@ class Homogenised_mixture(Base):
                 mat_card_printed.append(comment)
 
                 for zaid, iso_frac, name in zip(zaids, iso_frac, names):
-                    mat_card_printed.append(
-                        '   ' +
-                        (zaid).ljust(11) +
-                        ' ' +
-                        str(iso_frac).ljust(24) +
-                        end_comment +
-                        name)
+                    mat_card_printed.append('   ' + (zaid).ljust(11) +
+                                            ' '+ fractions_prefix + str(iso_frac).ljust(24) +
+                                            end_comment +
+                                            name)
 
         return '\n'.join(mat_card_printed)
 
