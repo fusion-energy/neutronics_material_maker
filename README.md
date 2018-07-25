@@ -207,7 +207,7 @@ pebble_bed_ceramic.density_g_per_cm3
 ```
 Other input options for Compounds include **pressure_Pa** and **temperature_K** which are used when calculating the density of ideal gases and non solids. To make use of this feature the thermo package must be installed.
 ```sh
-pip install thermo
+pip install thermo --user
 ```
 
 The density of non solids and gases accounting for thermal expansion can then be found. To use the ideal gas equations the **state_of_matter** must be specified as 'gas'.

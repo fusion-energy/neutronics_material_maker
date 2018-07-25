@@ -1,7 +1,5 @@
-numpy 
-pprint 
+numpy  
 pandas
 thermo
 pint
 natsort
-matplotlib

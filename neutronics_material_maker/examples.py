@@ -373,6 +373,7 @@ mat_divertor_layer_2_m74= Homogenised_mixture(mixtures=[mat_Tungsten,
                                                     mat_CuCrZr,
                                                     mat_copper
                                                     ],
+                                              squashed=True,
                                            volume_fractions=[1.0-(0.328+0.184+0.0938),
                                                               0.328,
                                                               0.184,
