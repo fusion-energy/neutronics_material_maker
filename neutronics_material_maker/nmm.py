@@ -103,7 +103,7 @@ class Base(object):
                         material_card_comment, comment +
                         'density =' + str(self.density_g_per_cm3) + ' g/cm3', 
                         comment +
-                        'density =' + str(self.density_atoms_per_barn_per_cm) + ' atoms per barn cm2', 
+                        'density =' + str(self.density_atoms_per_barn_per_cm) + ' atoms per barn cm', 
                         comment +
                         'temperature =' + str(temperature_K) +' K', 
                         'M' + str(material_card_number)]
@@ -118,7 +118,7 @@ class Base(object):
                         end_comment, comment +
                         material_card_comment +
                         end_comment, comment +
-                        'density =' + str(self.density_atoms_per_barn_per_cm) +' atoms per barn cm2' +
+                        'density =' + str(self.density_atoms_per_barn_per_cm) +' atoms per barn cm' +
                         end_comment, comment +
                         'temperature =' + str(temperature_K) + ' K' +
                         end_comment, 
@@ -1249,7 +1249,7 @@ class Homogenised_mixture(Base):
         cumlative_density = 0
         for mixture, v_f in zip(self.mixtures, self.volume_fractions):
             cumlative_density += mixture.density_g_per_cm3 * v_f  # * mixture.packing_fraction
-        # TODO: allow density combinations involving atom_per_barn_cm2
+        # TODO: allow density combinations involving atom_per_barn_cm
         return cumlative_density
 
     def find_density_atoms_per_barn_per_cm(self):
@@ -1257,7 +1257,7 @@ class Homogenised_mixture(Base):
         for mixture, v_f in zip(self.mixtures, self.volume_fractions):
             cumlative_density += mixture.density_atoms_per_barn_per_cm * \
                 v_f  # *mixture.packing_fraction
-        # TODO: allow density combinations involving atom_per_barn_cm2
+        # TODO: allow density combinations involving atom_per_barn_cm
         return cumlative_density
 
     def find_material_card_name_with_volume_fractions(self):
