@@ -262,6 +262,7 @@ class Isotope(Base):
         :param: nucleon number / mass number
         :param: Element symbol (capitals)
     kwargs:
+        :param: neutrons
         :param: xsdir
         :param: nuclear_library
         :param: density_g_per_cm3
@@ -277,6 +278,7 @@ class Isotope(Base):
         self.zaid = kwargs.get('zaid', None)
         self.protons = kwargs.get('protons', None)
         self.nucleons = kwargs.get('nucleons', None)
+        self.neutrons = kwargs.get('neutrons', None)
         self.color = kwargs.get('color', (0, 0, 0))
 
         self._handle_args(args)
@@ -313,7 +315,12 @@ class Isotope(Base):
 
         if self.material_card_name is None:
             self.material_card_name = self.name
-        self.neutrons = self.nucleons - self.protons
+
+        if self.neutrons is None:
+            self.neutrons = self.nucleons - self.protons
+        if self.neutrons != self.nucleons - self.protons:
+            raise ValueError('Number of neutrons must equal the number of nucleons minuns number of protons')
+
         self.natural_abundance = NDATA[(NDATA['Proton number'] == self.protons) & (
             NDATA['Nucleon number'] == self.nucleons)]['Natural abundance'][0]
 

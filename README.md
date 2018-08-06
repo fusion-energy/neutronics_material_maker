@@ -129,8 +129,18 @@ example_element = Element(protons=3)
 
 example_element = Element('3006')
 example_element = Element(zaid='3006')
+
+
 ```
-The natural abundance of an **Element** is known and the **Isotope** objects are created accordingly. Elemental properties can then be queried. In some cases lists of **Isotope** objects are returned.
+The natural abundance of an **Element** is known and the **Isotope** objects are created accordingly.
+
+If an Element with non natural abundances is required then the isotopes and their abundances can be specified using the **enriched_isotopes** keyword, as demonstrated in the example below.
+```
+example_element = Element('Li',
+                          enriched_isotopes=[Isotope('Li', 7, abundance=0.4),
+                                             Isotope('Li', 6, abundance=0.6)])
+```
+Once the elements are maded then elemental properties can then be queried. In some cases lists of **Isotope** objects are returned.
 
 ```python
 example_element.molar_mass_g_per_mol

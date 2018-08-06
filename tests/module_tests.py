@@ -146,6 +146,7 @@ class Element_tests(unittest.TestCase):
     def test_element_enriched_isotopes(self):
         new_element = Element('Li',isotopes=[Isotope('Li', 6, 0.9), Isotope('Li', 7, 0.1)])
         assert len(new_element.isotopes) == 2
+        
     # todo another test for enriched element to check actual isotopes are correct
 
     def test_element_molar_mass_g(self):
