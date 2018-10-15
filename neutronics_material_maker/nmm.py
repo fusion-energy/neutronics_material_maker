@@ -437,7 +437,7 @@ class Isotope(Base):
 
         if code == 'mcnp' or code == 'serpent':
             if fractions == 'isotope atom fractions':
-                mat_card.append('   ' +
+                mat_card.append('      ' +
                                 (self.zaid +
                                  self.nuclear_library).ljust(11) +
                                 ' 1'.ljust(24) +
@@ -445,7 +445,7 @@ class Isotope(Base):
                                 self.name)
 
             if fractions == 'isotope mass fractions':
-                mat_card.append('   ' +
+                mat_card.append('      ' +
                                 (self.zaid +
                                  self.nuclear_library).ljust(11) +
                                 ' -1'.ljust(24) +
