@@ -30,17 +30,22 @@ xsdir_isotopes_and_nuclear_libraries_list = []
 def set_xsdir(xsdir_file_path):
     global xsdir_isotopes_and_nuclear_libraries_list
     xsdir_isotopes_and_nuclear_libraries_list = []
-    try:
-        filecontents = open(xsdir_file_path, "r").readlines()
-        for line in filecontents:
-            chopped_up_line = line.split()[0].split('.')
+
+
+    filecontents = open(xsdir_file_path, "r").readlines()
+    print('xsdir file ',xsdir_file_path,' read in ')
+    for line in filecontents:
+        # chopped_up_line = line.split()[0].split('.')
+        match = re.search("[0-9]{1,}.[0-9]{1,}[aA-zZ]\s{1,}", line)
+        if  match:
+            chopped_up_line = match.group(0).strip().split('.')
             xsdir_isotopes_and_nuclear_libraries_list.append(chopped_up_line)
-    except BaseException:
-        print('Warning xsdir file not found in default path /opt/serpent/xsdir.serp')
-        print('Setting all nuclear library extensions to blank entries')
+
+    #    print('Warning xsdir file not found in default path /opt/serpent/xsdir.serp')
+     #   print('Setting all nuclear library extensions to blank entries')
 
 
-set_xsdir('/opt/serpent2/xsdir.serp')
+#set_xsdir('/opt/serpent2/xsdir.serp')
 
 
 def find_prefered_library(zaid):
