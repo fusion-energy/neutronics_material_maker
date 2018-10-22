@@ -284,6 +284,7 @@ class Isotope(Base):
         self.protons = kwargs.get('protons', None)
         self.nucleons = kwargs.get('nucleons', None)
         self.neutrons = kwargs.get('neutrons', None)
+        self.nuclear_library = kwargs.get('nuclear_library', None)
         self.color = kwargs.get('color', (0, 0, 0))
 
         self._handle_args(args)
@@ -335,7 +336,9 @@ class Isotope(Base):
                              ' or less than 0.')
 
         self.zaid = calculate_zaid(self.protons, self.nucleons)
-        self._get_xs_files()
+        if not self.nuclear_library:
+            self._get_xs_files()
+            
         self.volume_cm3 = kwargs.get('volume_cm3')
 
     def _handle_kwargs(self, kwargs):
