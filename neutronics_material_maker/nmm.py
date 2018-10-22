@@ -338,7 +338,7 @@ class Isotope(Base):
         self.zaid = calculate_zaid(self.protons, self.nucleons)
         if not self.nuclear_library:
             self._get_xs_files()
-            
+
         self.volume_cm3 = kwargs.get('volume_cm3')
 
     def _handle_kwargs(self, kwargs):
@@ -632,15 +632,12 @@ class Material(Base):
     def __init__(self, **kwargs):
         self.classname = self.__class__.__name__
         self.elements = kwargs.get('elements', None)
-        self.element_atom_fractions = kwargs.get(
-            'element_atom_fractions', None)
-        self.element_mass_fractions = kwargs.get(
-            'element_mass_fractions', None)
+        self.element_atom_fractions = kwargs.get('element_atom_fractions', None)
+        self.element_mass_fractions = kwargs.get('element_mass_fractions', None)
         self.isotopes = kwargs.get('isotopes', None)
-        self.isotope_mass_fractions = kwargs.get(
-            'isotope_mass_fractions', None)
-        self.isotope_atom_fractions = kwargs.get(
-            'isotope_atom_fractions', None)
+        self.isotope_mass_fractions = kwargs.get('isotope_mass_fractions', None)
+        self.isotope_atom_fractions = kwargs.get('isotope_atom_fractions', None)
+        self.nuclear_library = kwargs.get('nuclear_library', None)
 
         self.material_card_name = kwargs.get(
             'material_card_name', 'unnamed_material')
@@ -677,6 +674,8 @@ class Material(Base):
                 raise ValueError(
                     'When making a material please provide the same'
                     'number of elements and atom/mass fractions.')
+
+
 
         if self.isotopes is None and self.elements is not None:
             self.isotopes = []
@@ -726,6 +725,10 @@ class Material(Base):
         self.density_atoms_per_barn_per_cm = self.density_atoms_per_barn_per_cm * \
             self.packing_fraction
         self.density_atoms_per_cm3 = self.density_atoms_per_cm3 * self.packing_fraction
+
+        if self.nuclear_library != None:
+            for isotope in self.isotopes:
+                isotope.nuclear_library = self.nuclear_library
 
     def find_element_atom_fractions_from_element_mass_fractions(self):
         if self.element_mass_fractions == []:
