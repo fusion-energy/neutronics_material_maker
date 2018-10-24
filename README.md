@@ -56,11 +56,6 @@ pip install -r requirements.txt --user
 
 ```
 
-- Alternatively install the package using pip.
-```sh
-pip install neutronics_material_maker --user
-```
-
 Should you wish you can also run the test suite. To do this you will need pytest installed.
 ```sh
 pip install pytest
