@@ -299,7 +299,7 @@ The above feature is the main motivation behind the software as it allows the us
 
 # <a name="making-materials"></a>Making Materials
 
-A custom **Material** can be constructed by specifiying the material **material_card_name**, density and either the isotopes or elemental composition.
+A custom **Material** can be constructed by specifiying the density and the isotopes or elemental composition. 
 
 One or more element can be specified with the **element** keyword along with the **element_atom_fraction** or **element_mass_fraction**.
 
@@ -537,7 +537,11 @@ M5
 
 # <a name="chainging_the_nuclear_library"></a>Changing the nuclear library
 
-Serpent, MCNP material cards can contain a pointer to the desired nuclear cross section file. The pointer is optinal but if included it appears after the zaid entry in the material card. When importing neutronics_material_maker it attempts to import a default Serpent 2 xsdir file and find the preferential nuclear library evaluation for each isotope present in the xsdir. If no file is found or the particular isotope is not found then the optional nuclear library is left blank in material cards. The default path of the xsdir file is **/opt/serpent2/xsdir.serp**, however this can be changed using the **set_xsdir(filename)** function as demonstrated below.
+There are a range of ways to specify the required nuclear library for both the MCNP and serpent in a range of ways.
+
+**Applying a library to individual isotopes**
+
+Serpent and MCNP material cards can contain a pointer to the desired nuclear cross section file. The pointer is optional but if included it appears after the zaid entry in the material card. When importing neutronics_material_maker it attempts to import a default Serpent 2 xsdir file and find the preferential nuclear library evaluation for each isotope present in the xsdir. If no file is found or the particular isotope is not found then the optional nuclear library is left blank in material cards. The default path of the xsdir file is **/opt/serpent2/xsdir.serp**, however this can be changed using the **set_xsdir(filename)** function as demonstrated below. the set_xsdir method allows for the importing of an MCNP xsdir file in the same way.
 
 ```python
 from neutronics_material_maker.examples import *
@@ -549,6 +553,46 @@ example_isotope = Isotope(3,6)
 >>> .10c
 ```
 
+**Applying a library to all isotopes within a material**
+
+For an MCNP material card a specific library can be applies to all isotopes within a given material using the **nuclear_library=library_extension_as_string** optional argument with the Material method. This will overwrite all library extensions previously set for each isotope.
+
+```python
+from neutronics_material_maker.nmm import *
+
+material_borated_polythene = Material(material_card_name='SWX-201 (Borated polythene)',
+                                                         density_g_per_cm3=0.95,
+                                                         nuclear_library='.70C',
+                                                         isotopes=[Isotope(zaid='1001'),
+                                                                   Isotope(zaid='6012'),
+                                                                   Isotope(zaid='6013'),
+                                                                   Isotope(zaid='8016'),
+                                                                   Isotope(zaid='5010'),
+                                                                   Isotope(zaid='5011')],
+                                                         isotope_atom_fractions=[6.2526E-01,
+                                                                                 2.7189E-01,
+                                                                                 2.9407E-03,
+                                                                                 7.4946E-02,
+                                                                                 4.8934E-03,
+                                                                                 2.0073E-02
+                                                                                 ],)
+
+print(material_borated_polythene.material_card(code='mcnp',
+                                               material_card_number=1,
+                                               material_card_comment="SWX-201 (Borated Polythene)"))
+>>> c  
+c  SWX-201 (Borated Polythene)
+c  density =0.95 g/cm3
+c  density =0.10594872766151579 atoms per barn cm
+c  temperature =None K
+M1
+   1001.70C    0.6252580617000087       $ Hydrogen_1
+   6012.70C    0.2718891571436129       $ Carbon_12
+   6013.70C    0.00294069088385826      $ Carbon_13
+   8016.70C    0.07494576766812022      $ Oxygen_16
+   5010.70C    0.004893384830507025     $ Boron_10
+   5011.70C    0.0200729377738929       $ Boron_11
+```
 
 # <a name="examples"></a>Examples
 Some example materials are available for importing
