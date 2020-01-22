@@ -1,6 +1,0 @@
-numpy  
-pandas
-thermo
-pint
-natsort
-matplotlib
