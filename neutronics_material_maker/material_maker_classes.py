@@ -121,8 +121,8 @@ material_dict = {
     },
     "Li8PbO6": {
         "elements": "Li8PbO6",
-        "atoms_per_unit_cell": None,
-        "volume_of_unit_cell_cm3": None,
+        "atoms_per_unit_cell": 1,
+        "volume_of_unit_cell_cm3": 0.14400485967e-21,
     },
     "Pb": {
         "elements": "Pb",

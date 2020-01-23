@@ -87,8 +87,10 @@ class test_object_properties(unittest.TestCase):
         def test_density_of_crystals(self):
 
                 test_material = Material(material_name="Li4SiO4")
-                print(test_material.neutronics_material.density)
                 assert test_material.neutronics_material.density == pytest.approx(2.319)
+
+                test_material = Material(material_name="Li8PbO6")
+                assert test_material.neutronics_material.density == pytest.approx(4.14)
 
                 #  TODO extra checks for all the crystals needed here
 
@@ -97,6 +99,8 @@ class test_object_properties(unittest.TestCase):
                 test_material = Material(material_name="Li4SiO4")
                 test_material_enriched = Material(material_name="Li4SiO4", enrichment_fraction=0.5)
                 assert test_material.neutronics_material.density > test_material_enriched.neutronics_material.density
+
+
 
         def test_density_of_packed_crystals(self): 
 
