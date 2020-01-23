@@ -50,7 +50,7 @@ material_dict = {
     },
     "DT_plasma": {
         "isotopes": {"H2": 0.5, "H3": 0.5,},
-        "density": 0.000001,   # do for something like demo
+        "density": 0.000001,
         "density units": "g/cm3",  # is this a case to support other units?
     },
     "WC": {"elements": "WC", 

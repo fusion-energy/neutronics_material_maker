@@ -88,7 +88,6 @@ class test_object_properties(unittest.TestCase):
 
                 # these tests fail because the density value is too far away from calculated value
                 # however, this could be becuase the density values are rounded to 2 dp
-                # pytest.approx tests whether value is within a factor of 1e-6 of the 'actual' value
 
                 test_material = Material(material_name="Li4SiO4")
                 assert test_material.neutronics_material.density == pytest.approx(2.32)
