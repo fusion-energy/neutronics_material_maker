@@ -97,32 +97,42 @@ material_dict = {
     "Li4SiO4": {
         "elements": "Li4SiO4",
         "atoms_per_unit_cell": 2,
-        "volume_of_unit_cell_cm3": 0.171629e-21,  # could be replaced by a space group
+        "volume_of_unit_cell_cm3": 0.17162883501e-21,  # could be replaced by a space group
         "enrichable": True,
-        "packable": True
+        "packable": True,
+        "reference": "DOI 10.17188/1188336 https://materialsproject.org/materials/mp-11737/"
     },
     "Li2SiO3": {
         "elements": "Li2SiO3",
         "atoms_per_unit_cell": 2,
-        "volume_of_unit_cell_cm3": 0.122556e-21,
+        "volume_of_unit_cell_cm3": 0.12255616623e-21,
         "enrichable": True,
         "packable": True,
-        "reference": "DOI 10.17188/1208560   https://materialsproject.org/materials/mp-5012/#"
+        "reference": "DOI 10.17188/1208560 https://materialsproject.org/materials/mp-5012/"
     },
     "Li2ZrO3": {
         "elements": "Li2ZrO3",
-        "atoms_per_unit_cell": 4,
-        "volume_of_unit_cell_cm3": 0.24479e-21,
+        "atoms_per_unit_cell": 2,
+        "volume_of_unit_cell_cm3": 0.12610426777e-21,
+        "enrichable": True,
+        "packable": True,
+        "reference": "DOI 10.17188/1207897 https://materialsproject.org/materials/mp-4156/"
     },
     "Li2TiO3": {
         "elements": "Li2TiO3",
-        "atoms_per_unit_cell": 8,
-        "volume_of_unit_cell_cm3": 0.42259e-21,
+        "atoms_per_unit_cell": 4,
+        "volume_of_unit_cell_cm3": 0.21849596020e-21,
+        "enrichable": True,
+        "packable": True,
+        "reference": "DOI 10.17188/1203676 https://materialsproject.org/materials/mp-2931/"
     },
     "Li8PbO6": {
         "elements": "Li8PbO6",
         "atoms_per_unit_cell": 1,
         "volume_of_unit_cell_cm3": 0.14400485967e-21,
+        "enrichable": True,
+        "packable": True,
+        "reference": "DOI 10.17188/1198772 https://materialsproject.org/materials/mp-22538/"
     },
     "Pb": {
         "elements": "Pb",
@@ -133,29 +143,44 @@ material_dict = {
     "Be": {
         "elements": "Be",
         "atoms_per_unit_cell": 2,
-        "volume_of_unit_cell_cm3": 0.01622e-21,
+        "volume_of_unit_cell_cm3": 0.01587959994e-21,
+        "enrichable": True,
+        "packable": True,
+        "reference": "DOI 10.17188/1312591 https://materialsproject.org/materials/mp-87/"
     },
     "Be12Ti": {
         "elements": "Be12Ti",
-        "atoms_per_unit_cell": 2,
-        "volume_of_unit_cell_cm3": 0.22724e-21,
+        "atoms_per_unit_cell": 1,
+        "volume_of_unit_cell_cm3": 0.11350517285e-21,
+        "enrichable": True,
+        "packable": True,
+        "reference": "DOI 10.17188/1187703 https://materialsproject.org/materials/mp-11280/"
     },
     "Ba5Pb3": {
         "elements": "Ba5Pb3",
-        "atoms_per_unit_cell": 4,
-        "volume_of_unit_cell_cm3": 1.37583e-21,
+        "atoms_per_unit_cell": 2,
+        "volume_of_unit_cell_cm3": 0.74343377212e-21,
+        "enrichable": True,
+        "packable": True,
+        "reference": "DOI 10.17188/1278091 https://materialsproject.org/materials/mp-622106/"
     },
     "Nd5Pb4": {
         "elements": "Nd5Pb4",
         "atoms_per_unit_cell": 4,
-        "volume_of_unit_cell_cm3": 1.06090e-21,
+        "volume_of_unit_cell_cm3": 1.17174024048e-21,
+        "enrichable": True,
+        "packable": True,
+        "reference": "https://materialsproject.org/materials/mp-1204902/"
     },
     "Zr5Pb3": {
         "elements": "Zr5Pb3",
         "atoms_per_unit_cell": 2,
-        "volume_of_unit_cell_cm3": 0.36925e-21,
+        "volume_of_unit_cell_cm3": 0.43511266920e-21,
+        "enrichable": True,
+        "packable": True,
+        "reference": "DOI 10.17188/1283750 https://materialsproject.org/materials/mp-681992/"
     },
-    "Zr5Pb4": {
+    "Zr5Pb4": {   # Not updated, no entry in materials project
         "elements": "Zr5Pb4",
         "atoms_per_unit_cell": 2,
         "volume_of_unit_cell_cm3": 0.40435e-21,
