@@ -90,7 +90,7 @@ material_dict = {
     },
     "F2Li2BeF2": {
         "elements": "F2Li2BeF2",
-        "density": "2.214 - 4.2e-4 * temperature_in_C",
+        "density_equation": "2.214 - 4.2e-4 * temperature_in_C",
         "density units": "g/cm3",
         "reference": "source http://aries.ucsd.edu/LIB/MEETINGS/0103-TRANSMUT/gohar/Gohar-present.pdf",
     },
