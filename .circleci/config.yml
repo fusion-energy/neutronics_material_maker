@@ -51,7 +51,7 @@ jobs:
       - run:
           name: install curl
           command:
-            sudo apt-get install curl
+            apt-get install curl
       - run: curl -s https://codecov.io/bash | bash
       # - codecov/upload:
           # file: {{ coverage_report_filepath }}
