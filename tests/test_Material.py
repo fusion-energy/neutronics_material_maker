@@ -90,7 +90,7 @@ class test_object_properties(unittest.TestCase):
                 # however, this could be becuase the density values are rounded to 2 dp
 
                 test_material = Material(material_name="Li4SiO4")
-                assert test_material.neutronics_material.density == pytest.approx(2.32)
+                assert test_material.neutronics_material.density == pytest.approx(2.32, abs=0.01)
 
                 test_material = Material(material_name="Li2SiO3")
                 assert test_material.neutronics_material.density == pytest.approx(2.44)
