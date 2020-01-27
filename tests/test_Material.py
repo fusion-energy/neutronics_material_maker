@@ -93,31 +93,31 @@ class test_object_properties(unittest.TestCase):
                 assert test_material.neutronics_material.density == pytest.approx(2.32, rel=0.01)
 
                 test_material = Material(material_name="Li2SiO3")
-                assert test_material.neutronics_material.density == pytest.approx(2.44)
+                assert test_material.neutronics_material.density == pytest.approx(2.44, rel=0.01)
 
                 test_material = Material(material_name="Li2ZrO3")
-                assert test_material.neutronics_material.density == pytest.approx(4.03)
+                assert test_material.neutronics_material.density == pytest.approx(4.03, rel=0.01)
 
                 test_material = Material(material_name="Li2TiO3")
-                assert test_material.neutronics_material.density == pytest.approx(3.34)
+                assert test_material.neutronics_material.density == pytest.approx(3.34, rel=0.01)
 
                 test_material = Material(material_name="Li8PbO6")
-                assert test_material.neutronics_material.density == pytest.approx(4.14)
+                assert test_material.neutronics_material.density == pytest.approx(4.14, rel=0.01)
 
                 test_material = Material(material_name="Be")
-                assert test_material.neutronics_material.density == pytest.approx(1.88)
+                assert test_material.neutronics_material.density == pytest.approx(1.88, rel=0.01)
 
                 test_material = Material(material_name="Be12Ti")
-                assert test_material.neutronics_material.density == pytest.approx(2.28)
+                assert test_material.neutronics_material.density == pytest.approx(2.28, rel=0.01)
 
                 test_material = Material(material_name="Ba5Pb3")
-                assert test_material.neutronics_material.density == pytest.approx(5.84)
+                assert test_material.neutronics_material.density == pytest.approx(5.84, rel=0.01)
 
                 test_material = Material(material_name="Nd5Pb4")
-                assert test_material.neutronics_material.density == pytest.approx(8.79)
+                assert test_material.neutronics_material.density == pytest.approx(8.79, rel=0.01)
 
                 test_material = Material(material_name="Zr5Pb3")
-                assert test_material.neutronics_material.density == pytest.approx(8.23)
+                assert test_material.neutronics_material.density == pytest.approx(8.23, rel=0.01)
 
                 # test_material = Material(material_name="Zr5Pb4")
                 # assert test_material.neutronics_material.density == pytest.approx(#insert)
