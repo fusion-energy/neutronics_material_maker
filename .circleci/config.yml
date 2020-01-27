@@ -33,7 +33,7 @@ jobs:
           name: run tests
           command: 
             # python paramak/setup.py install
-            pytest tests -v --cov=neutronics_material_maker --cov-report term --cov-report html:htmlcov --cov-report xml --junitxml=test-reports/junit.xml
+            pytest tests -v --cov=neutronics_material_makergit  --cov-report term --cov-report html:htmlcov --cov-report xml --junitxml=test-reports/junit.xml
             # pytest --cov=paramak --cov-report=xml
             # mkdir -p /root/repo/test-reports
             # pip3 install coverage --user
@@ -48,10 +48,10 @@ jobs:
       - store_artifacts:
           path: test-reports
           # destination: test-reports
-      # - run:
-      #     name: install curl
-      #     command:
-      #       sudo apt-get install curl
+      - run:
+          name: install curl
+          command:
+            sudo apt-get install curl
       - run: curl -s https://codecov.io/bash | bash
       # - codecov/upload:
           # file: {{ coverage_report_filepath }}
