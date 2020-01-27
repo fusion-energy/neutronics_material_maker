@@ -1,6 +1,6 @@
 
 pip3 install bump
-pip3 install setup tools
+pip3 install setuptools
 pip3 install twine
 
 bump
