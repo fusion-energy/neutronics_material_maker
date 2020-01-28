@@ -33,6 +33,7 @@ __author__ = "Jonathan Shimwell"
 import re
 import json
 import openmc
+import math
 
 try:
     from thermo.chemical import Chemical
@@ -687,8 +688,8 @@ class MultiMaterial(list):
 
         print(self.materials)
         print(self.volume_fractions)
-        
-        if math.isclose(sum(self.volume_fractions), 1.0, rel_tol=1e-5):
+
+        if math.isclose(sum(self.volume_fractions), 1.0, rel_tol=1e-5) is False:
             raise ValueError("volume fractions must sum to 1.0")
         if len(self.volume_fractions) != len(self.materials):
             raise ValueError("There must be equal numbers of volume_fractions and materials")
