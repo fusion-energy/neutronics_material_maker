@@ -34,10 +34,14 @@ import re
 import json
 import openmc
 
-from thermo.chemical import Chemical
+try:
+    from thermo.chemical import Chemical
 
-helium = Chemical("He", T=773.15, P=8e6)  # in Kelvin  # in Pa
-He_density_in_g_per_cm3 = helium.rho / 1000 #  0.0049426970033902215 g/cm3
+    helium = Chemical("He", T=773.15, P=8e6)  # in Kelvin  # in Pa
+    He_density_in_g_per_cm3 = helium.rho / 1000 #  0.0049426970033902215 g/cm3
+except:
+    He_density_in_g_per_cm3 = 0.0049426970033902215
+
 atomic_mass_unit_in_g = 1.660539040e-24
 
 
@@ -683,7 +687,8 @@ class MultiMaterial(list):
 
         print(self.materials)
         print(self.volume_fractions)
-        if sum(self.volume_fractions) != 1.0:
+        
+        if math.isclose(sum(self.volume_fractions), 1.0, rel_tol=1e-5):
             raise ValueError("volume fractions must sum to 1.0")
         if len(self.volume_fractions) != len(self.materials):
             raise ValueError("There must be equal numbers of volume_fractions and materials")
