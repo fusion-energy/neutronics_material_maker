@@ -81,17 +81,20 @@ material_dict = {
         "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
         "density units": "g/cm3",
         "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
+        "temperature_in_C":True
     },
     "lithium-lead": {
         "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
         "density units": "g/cm3",
         "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
+        "temperature_in_C":True
     },
     "Li": {
         "elements": "Li",
         "density_equation": "0.515 - 1.01e-4 * (temperature_in_C - 200)",
         "density units": "g/cm3",
         "reference": "http://aries.ucsd.edu/LIB/PROPS/PANOS/li.html",
+        "temperature_in_C":True
     },
     "F2Li2BeF2": {
         "elements": "F2Li2BeF2",
