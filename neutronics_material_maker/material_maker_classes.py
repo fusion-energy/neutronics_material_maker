@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 """
-This file is part of Neutronics Material Maker which is a tool capable 
+This file is part of Neutronics Material Maker which is a tool capable
 of creating neutronics materials from a varity of input parameters.
 
-Neutronics Material Maker is released under GNU General Public License v3.0. 
-Go to https://github.com/ukaea/neutronics_material_maker/blob/master/LICENSE 
+Neutronics Material Maker is released under GNU General Public License v3.0.
+Go to https://github.com/ukaea/neutronics_material_maker/blob/master/LICENSE
 for full license details.
 
 This program is free software: you can redistribute it and/or modify
@@ -25,7 +25,7 @@ IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF
 ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
 """
 
-""" material_maker_classes.py: obtains the main classes as well as 
+""" material_maker_classes.py: obtains the main classes as well as
 material values such as density, chemical present etc ."""
 
 __author__ = "Jonathan Shimwell"
@@ -58,7 +58,7 @@ material_dict = {
         "density": 0.000001,
         "density units": "g/cm3",  # is this a case to support other units?
     },
-    "WC": {"elements": "WC", 
+    "WC": {"elements": "WC",
            "density": 18.0,
            "density units": "g/cm3",
           },
@@ -67,7 +67,7 @@ material_dict = {
             "density units": "g/cm3",
            },
     "D2O": {
-        "isotopes": {"H2": 2.0, 
+        "isotopes": {"H2": 2.0,
                      "O16": 0.99757,
                      "O17": 0.00038,
                      "O18": 0.00205,
@@ -98,6 +98,7 @@ material_dict = {
         "density_equation": "2.214 - 4.2e-4 * temperature_in_C",
         "density units": "g/cm3",
         "reference": "source http://aries.ucsd.edu/LIB/MEETINGS/0103-TRANSMUT/gohar/Gohar-present.pdf",
+        "temperature_in_C":True
     },
     "Li4SiO4": {
         "elements": "Li4SiO4",
@@ -149,7 +150,7 @@ material_dict = {
         "elements": "Be",
         "atoms_per_unit_cell": 2,
         "volume_of_unit_cell_cm3": 0.01587959994e-21,
-        "enrichable": True,
+        "enrichable": False,
         "packable": True,
         "reference": "DOI 10.17188/1312591 https://materialsproject.org/materials/mp-87/"
     },
@@ -157,7 +158,7 @@ material_dict = {
         "elements": "Be12Ti",
         "atoms_per_unit_cell": 1,
         "volume_of_unit_cell_cm3": 0.11350517285e-21,
-        "enrichable": True,
+        "enrichable": False,
         "packable": True,
         "reference": "DOI 10.17188/1187703 https://materialsproject.org/materials/mp-11280/"
     },
@@ -165,7 +166,7 @@ material_dict = {
         "elements": "Ba5Pb3",
         "atoms_per_unit_cell": 2,
         "volume_of_unit_cell_cm3": 0.74343377212e-21,
-        "enrichable": True,
+        "enrichable": False,
         "packable": True,
         "reference": "DOI 10.17188/1278091 https://materialsproject.org/materials/mp-622106/"
     },
@@ -173,7 +174,7 @@ material_dict = {
         "elements": "Nd5Pb4",
         "atoms_per_unit_cell": 4,
         "volume_of_unit_cell_cm3": 1.17174024048e-21,
-        "enrichable": True,
+        "enrichable": False,
         "packable": True,
         "reference": "https://materialsproject.org/materials/mp-1204902/"
     },
@@ -181,7 +182,7 @@ material_dict = {
         "elements": "Zr5Pb3",
         "atoms_per_unit_cell": 2,
         "volume_of_unit_cell_cm3": 0.43511266920e-21,
-        "enrichable": True,
+        "enrichable": False,
         "packable": True,
         "reference": "DOI 10.17188/1283750 https://materialsproject.org/materials/mp-681992/"
     },
@@ -717,13 +718,13 @@ class MultiMaterial(list):
         # return self.neutronics_material
 
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     lead_fraction = 0.3
     lithium_fraction = 0.7
 
     lithium_lead_elements = 'Li'+str(lithium_fraction) +'Pb'+str(lead_fraction)
     test_material = Material('lithium-lead',
-                                    elements=lithium_lead_elements, 
+                                    elements=lithium_lead_elements,
                                     temperature_in_C=450)
     nucs = test_material.neutronics_material.nuclides
     pb_atom_count = 0
