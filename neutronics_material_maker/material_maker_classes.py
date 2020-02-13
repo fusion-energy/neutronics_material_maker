@@ -35,13 +35,12 @@ import json
 import openmc
 import math
 
-try:
-    from thermo.chemical import Chemical
+from thermo.chemical import Chemical
 
-    helium = Chemical("He", T=773.15, P=8e6)  # in Kelvin  # in Pa
-    He_density_in_g_per_cm3 = helium.rho / 1000 #  0.0049426970033902215 g/cm3
-except:
-    He_density_in_g_per_cm3 = 0.0049426970033902215
+    # helium = Chemical("He", T=773.15, P=8e6)  # in Kelvin  # in Pa
+    # He_density_in_g_per_cm3 = helium.rho / 1000 #  0.0049426970033902215 g/cm3
+
+    # He_density_in_g_per_cm3 = 0.0049426970033902215
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
@@ -49,7 +48,7 @@ atomic_mass_unit_in_g = 1.660539040e-24
 material_dict = {
     "He": {
         "elements": {"He": 1.0},
-        "density": He_density_in_g_per_cm3,
+        "density_equation": 'Chemical("He", T=temperature_in_K, P=pressure_in_Pa).rho / 1000',
         "density units": "g/cm3",
         "reference": "thermo python package",
     },
@@ -63,7 +62,7 @@ material_dict = {
            "density units": "g/cm3",
           },
     "H2O": {"elements": "H2O",
-            "density": 1.0,  # could be calculated using presure and temp
+            "density_equation": 'Chemical("H2O", T=temperature_in_K, P=pressure_in_Pa).rho / 1000',
             "density units": "g/cm3",
            },
     "D2O": {
@@ -81,7 +80,8 @@ material_dict = {
         "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
         "density units": "g/cm3",
         "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
-        "temperature_in_C":True
+        "temperature_in_C":True,
+        "enrichable": True
     },
     "lithium-lead": {
         "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
@@ -387,6 +387,8 @@ class Material:
         self,
         material_name,
         temperature_in_C=None,
+        temperature_in_K=None,
+        pressure_in_Pa=None,
         enrichment_fraction=None,
         packing_fraction=1.0,
         volume_fraction=1.0,
@@ -401,6 +403,8 @@ class Material:
     ):
         self.material_name = material_name
         self.temperature_in_C = temperature_in_C
+        self.temperature_in_K = temperature_in_K
+        self.pressure_in_Pa = pressure_in_Pa
         self.enrichment_fraction = enrichment_fraction
         self.enriched_isotope = "Li6"
         self.packing_fraction = packing_fraction
@@ -431,34 +435,42 @@ class Material:
 
     def populate_from_dictionary(self):
 
+        if "temperature_in_C" in material_dict[self.material_name].keys():
+            self.temperature_in_C = material_dict[self.material_name]["temperature_in_C"]
+
+        if "temperature_in_K" in material_dict[self.material_name].keys():
+            self.temperature_in_K = material_dict[self.material_name]["temperature_in_K"]
+
+        if "pressure_in_Pa" in material_dict[self.material_name].keys():
+            self.pressure_in_Pa = material_dict[self.material_name]["pressure_in_Pa"]
+
         if "enrichment_fraction" in material_dict[self.material_name].keys():
-            self.enrichment_fraction = material_dict[self.material_name][
-                "enrichment_fraction"
-            ]
+            self.enrichment_fraction = material_dict[self.material_name]["enrichment_fraction"]
+
         if "packing_fraction" in material_dict[self.material_name].keys():
-            self.packing_fraction = material_dict[self.material_name][
-                "packing_fraction"
-            ]
+            self.packing_fraction = material_dict[self.material_name]["packing_fraction"]
+
         if "volume_fraction" in material_dict[self.material_name].keys():
             self.volume_fraction = material_dict[self.material_name]["volume_fraction"]
+
         if "elements" in material_dict[self.material_name].keys():
             self.elements = material_dict[self.material_name]["elements"]
+
         if "isotopes" in material_dict[self.material_name].keys():
             self.isotopes = material_dict[self.material_name]["isotopes"]
+
         if "density" in material_dict[self.material_name].keys():
             self.density = material_dict[self.material_name]["density"]
+
         if "density_equation" in material_dict[self.material_name].keys():
-            self.density_equation = material_dict[self.material_name][
-                "density_equation"
-            ]
+            self.density_equation = material_dict[self.material_name]["density_equation"]
+
         if "atoms_per_unit_cell" in material_dict[self.material_name].keys():
-            self.atoms_per_unit_cell = material_dict[self.material_name][
-                "atoms_per_unit_cell"
-            ]
+            self.atoms_per_unit_cell = material_dict[self.material_name]["atoms_per_unit_cell"]
+
         if "volume_of_unit_cell_cm3" in material_dict[self.material_name].keys():
-            self.volume_of_unit_cell_cm3 = material_dict[self.material_name][
-                "volume_of_unit_cell_cm3"
-            ]
+            self.volume_of_unit_cell_cm3 = material_dict[self.material_name]["volume_of_unit_cell_cm3"]
+
         if "density_unit" in material_dict[self.material_name].keys():
             self.density_unit = material_dict[self.material_name]["density_unit"]
 
@@ -540,29 +552,35 @@ class Material:
             self.isotopes = material_dict[self.material_name]["isotopes"]
 
             for isotopes_symbol in material_dict[self.material_name]["isotopes"].keys():
-                isotopes_number = material_dict[self.material_name]["isotopes"][
-                    isotopes_symbol
-                ]
-                self.neutronics_material.add_nuclide(
-                    isotopes_symbol, isotopes_number, "ao"
-                )
+
+                isotopes_number = material_dict[self.material_name]["isotopes"][isotopes_symbol]
+                self.neutronics_material.add_nuclide(isotopes_symbol, isotopes_number, "ao")
 
     def add_density(self):
-
-        temperature_in_C = self.temperature_in_C
-        # temperature_in_K = self.temperature_in_K #todo intergrate this into the init
+        print(self)
         if type(self.density) == float:
 
             self.density_value = self.density
-            self.neutronics_material.set_density(
-                self.density_unit, self.density_value * self.packing_fraction
-            )
+            self.neutronics_material.set_density(self.density_unit, self.density_value * self.packing_fraction)
 
         elif self.density == None and self.density_equation != None:
 
-            if temperature_in_C != None:
+            temperature_in_C = self.temperature_in_C
+            temperature_in_K = self.temperature_in_K
+            pressure_in_Pa = self.pressure_in_Pa
 
-                temperature_in_K = temperature_in_C + 273.15
+            if 'temperature_in_K' in self.density_equation and temperature_in_C == None and temperature_in_K == None:
+                raise ValueError("temerpature is required in density_equation but not provided in temperature_in_K or temperature_in_C arguments")
+
+            if 'pressure_in_Pa' in self.density_equation and pressure_in_Pa == None:
+                raise ValueError("Pressure is required in density_equation but not provided as pressure_in_Pa arguments")
+
+
+            if temperature_in_K == None:
+                self.temperature_in_K = temperature_in_C + 273.15
+
+            if temperature_in_C == None:
+                self.temperature_in_C = temperature_in_K + 273.15
 
             self.density_value = eval(self.density_equation)
             self.neutronics_material.set_density(
@@ -592,11 +610,8 @@ class Material:
         else:
 
             raise ValueError(
-                "density can't be set for ",
-                self.material_name,
-                "provide either a density value, equation as a string, \
-                            list of density values to interpolate or \
-                            atoms_per_unit_cell and volume_of_unit_cell_cm3",
+                "density can't be set for " + str(self.material_name) +
+                " provide either a density value, equation as a string, or atoms_per_unit_cell and volume_of_unit_cell_cm3",
             )
 
 
