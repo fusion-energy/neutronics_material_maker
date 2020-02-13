@@ -37,11 +37,6 @@ import math
 
 from thermo.chemical import Chemical
 
-    # helium = Chemical("He", T=773.15, P=8e6)  # in Kelvin  # in Pa
-    # He_density_in_g_per_cm3 = helium.rho / 1000 #  0.0049426970033902215 g/cm3
-
-    # He_density_in_g_per_cm3 = 0.0049426970033902215
-
 atomic_mass_unit_in_g = 1.660539040e-24
 
 
@@ -51,6 +46,8 @@ material_dict = {
         "density_equation": 'Chemical("He", T=temperature_in_K, P=pressure_in_Pa).rho / 1000',
         "density units": "g/cm3",
         "reference": "thermo python package",
+        "temperature_in_C":True,
+        "pressure_in_Pa":True,
     },
     "DT_plasma": {
         "isotopes": {"H2": 0.5, "H3": 0.5,},
@@ -64,6 +61,9 @@ material_dict = {
     "H2O": {"elements": "H2O",
             "density_equation": 'Chemical("H2O", T=temperature_in_K, P=pressure_in_Pa).rho / 1000',
             "density units": "g/cm3",
+            "reference": "thermo python package"
+            "temperature_in_C":True,
+            "pressure_in_Pa":True
            },
     "D2O": {
         "isotopes": {"H2": 2.0,
