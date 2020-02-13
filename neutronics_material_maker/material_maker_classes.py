@@ -61,7 +61,7 @@ material_dict = {
     "H2O": {"elements": "H2O",
             "density_equation": 'Chemical("H2O", T=temperature_in_K, P=pressure_in_Pa).rho / 1000',
             "density units": "g/cm3",
-            "reference": "thermo python package"
+            "reference": "thermo python package",
             "temperature_in_C":True,
             "pressure_in_Pa":True
            },
