@@ -35,7 +35,10 @@ import json
 import openmc
 import math
 
-from thermo.chemical import Chemical
+try:
+    from thermo.chemical import Chemical
+except:
+    print('Thermo package not loaded, pressure density relations no avaialbe for H2O or He')
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
