@@ -35,10 +35,8 @@ import json
 import openmc
 import math
 
-try:
-    from thermo.chemical import Chemical
-except:
-    print('Thermo package not loaded, pressure density relations no avaialbe for H2O or He')
+from thermo.chemical import Chemical
+
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
@@ -46,11 +44,12 @@ atomic_mass_unit_in_g = 1.660539040e-24
 material_dict = {
     "He": {
         "elements": {"He": 1.0},
-        "density_equation": 'Chemical("He", T=temperature_in_K, P=pressure_in_Pa).rho / 1000',
+        "density":0.004,
+        # "density_equation": 'Chemical("He", T=temperature_in_K, P=pressure_in_Pa).rho / 1000',
         "density units": "g/cm3",
         "reference": "thermo python package",
-        "temperature_in_C":True,
-        "pressure_in_Pa":True,
+        # "temperature_in_C":True,
+        # "pressure_in_Pa":True,
     },
     "DT_plasma": {
         "isotopes": {"H2": 0.5, "H3": 0.5,},
@@ -62,17 +61,18 @@ material_dict = {
            "density units": "g/cm3",
           },
     "H2O": {"elements": "H2O",
-            "density_equation": 'Chemical("H2O", T=temperature_in_K, P=pressure_in_Pa).rho / 1000',
+            "density":1,
+            # "density_equation": 'Chemical("H2O", T=temperature_in_K, P=pressure_in_Pa).rho / 1000',
             "density units": "g/cm3",
             "reference": "thermo python package",
-            "temperature_in_C":True,
-            "pressure_in_Pa":True
+            # "temperature_in_C":True,
+            # "pressure_in_Pa":True
            },
     "D2O": {
         "isotopes": {"H2": 2.0,
-                     "O16": 0.99757,
+                     "O16": 0.99757+0.00205,
                      "O17": 0.00038,
-                     "O18": 0.00205,
+                    #  "O18": 0.00205, #removed till mixed crosssections.xml files are avaialbe in openmc
                     },
         "density": 1.1,  # could be calculated using presure and temp
         "density units": "g/cm3",
@@ -561,7 +561,7 @@ class Material:
 
     def add_density(self):
         print(self)
-        if type(self.density) == float:
+        if type(self.density) == float or type(self.density) == int:
 
             self.density_value = self.density
             self.neutronics_material.set_density(self.density_unit, self.density_value * self.packing_fraction)
@@ -697,63 +697,27 @@ class Material:
 
 
 class MultiMaterial(list):
-    def __init__(self, material_name, materials=[], volume_fractions=[]):
+    def __init__(self, material_name, materials=[], fracs=[], percent_type='vo'):
         self.material_name = material_name
         self.materials = materials
-        self.volume_fractions = volume_fractions
-        self.neutronics_material = None
+        self.fracs = fracs
+        self.percent_type = percent_type
         self.neutronics_material = None
 
         self.make_material()
 
+
     def make_material(self):
 
-        print(self.materials)
-        print(self.volume_fractions)
+        if len(self.fracs) != len(self.materials):
+            raise ValueError("There must be equal numbers of fracs and materials")
 
-        if math.isclose(sum(self.volume_fractions), 1.0, rel_tol=1e-5) is False:
-            raise ValueError("volume fractions must sum to 1.0")
-        if len(self.volume_fractions) != len(self.materials):
-            raise ValueError("There must be equal numbers of volume_fractions and materials")
+        openmc_material_objects = []
+        for material in self.materials:
+            openmc_material_objects.append(material.neutronics_material)
 
-        density = 0
-        self.neutronics_material = openmc.Material(name=self.material_name)
+        self.neutronics_material = openmc.Material.mix_materials(name = self.material_name,
+                                                                 materials = openmc_material_objects,
+                                                                 fracs = self.fracs,
+                                                                 percent_type = self.percent_type)
 
-        for volume_fraction, material in zip(self.volume_fractions, self.materials):
-            #material.make_material()
-            for nuclides in material.neutronics_material.nuclides:
-
-                number_of_nuclides = nuclides[1] * volume_fraction
-                if number_of_nuclides > 0:
-                    self.neutronics_material.add_nuclide(
-                        nuclides[0], number_of_nuclides
-                    )
-
-            density = (
-                density
-                + material.neutronics_material.get_mass_density() * volume_fraction
-            )
-
-        self.neutronics_material.set_density("g/cm3", density)
-
-        # return self.neutronics_material
-
-
-if __name__ == "__main__":
-    lead_fraction = 0.3
-    lithium_fraction = 0.7
-
-    lithium_lead_elements = 'Li'+str(lithium_fraction) +'Pb'+str(lead_fraction)
-    test_material = Material('lithium-lead',
-                                    elements=lithium_lead_elements,
-                                    temperature_in_C=450)
-    nucs = test_material.neutronics_material.nuclides
-    pb_atom_count = 0
-    li_atom_count = 0
-    for entry in nucs:
-            if entry[0].startswith('Pb'):
-                    pb_atom_count = pb_atom_count+ entry[1]
-            if entry[0].startswith('Li'):
-                    li_atom_count = li_atom_count+ entry[1]
-    print(pb_atom_count)
-    print(li_atom_count)
