@@ -35,7 +35,7 @@ import json
 import openmc
 import math
 
-from thermo.chemical import Chemical
+from CoolProp.CoolProp import PropsSI
 
 
 atomic_mass_unit_in_g = 1.660539040e-24
@@ -44,29 +44,29 @@ atomic_mass_unit_in_g = 1.660539040e-24
 material_dict = {
     "He": {
         "elements": {"He": 1.0},
-        "density":0.004,
-        # "density_equation": 'Chemical("He", T=temperature_in_K, P=pressure_in_Pa).rho / 1000',
-        "density units": "g/cm3",
-        "reference": "thermo python package",
-        # "temperature_in_C":True,
-        # "pressure_in_Pa":True,
+        #"density_equation": 'Chemical("He", T=temperature_in_K, P=pressure_in_Pa).rho',
+        "density_equation": "PropsSI('D', 'T', temperature_in_K, 'P', pressure_in_Pa, 'Helium')",
+        "density_unit": "kg/m3",
+        "reference": "CoolProp python package",
+        "temperature_dependant": True,
+        "pressure_dependant": True
     },
     "DT_plasma": {
         "isotopes": {"H2": 0.5, "H3": 0.5,},
         "density": 0.000001,
-        "density units": "g/cm3",  # is this a case to support other units?
+        "density_unit": "g/cm3",  # is this a case to support other units?
     },
     "WC": {"elements": "WC",
            "density": 18.0,
-           "density units": "g/cm3",
+           "density_unit": "g/cm3",
           },
     "H2O": {"elements": "H2O",
-            "density":1,
-            # "density_equation": 'Chemical("H2O", T=temperature_in_K, P=pressure_in_Pa).rho / 1000',
-            "density units": "g/cm3",
-            "reference": "thermo python package",
-            # "temperature_in_C":True,
-            # "pressure_in_Pa":True
+            # "density_equation": 'Chemical("H2O", T=temperature_in_K, P=pressure_in_Pa).rho',
+            "density_equation": "PropsSI('D', 'T', temperature_in_K, 'P', pressure_in_Pa, 'Water')",
+            "density_unit": "kg/m3",
+            "reference": "CoolProp python package",
+            "temperature_dependant": True,
+            "pressure_dependant": True
            },
     "D2O": {
         "isotopes": {"H2": 2.0,
@@ -75,36 +75,36 @@ material_dict = {
                     #  "O18": 0.00205, #removed till mixed crosssections.xml files are avaialbe in openmc
                     },
         "density": 1.1,  # could be calculated using presure and temp
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
     },
-    "Nb3Sn": {"elements": "Nb3Sn", "density": 8.69, "density units": "g/cm3",},
+    "Nb3Sn": {"elements": "Nb3Sn", "density": 8.69, "density_unit": "g/cm3",},
     "Pb84.2Li15.8": {
         "elements": "Pb84.2Li15.8",
         "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
         "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
-        "temperature_in_C":True,
+        "temperature_dependant": True,
         "enrichable": True
     },
     "lithium-lead": {
         "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
         "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
-        "temperature_in_C":True
+        "temperature_dependant": True
     },
     "Li": {
         "elements": "Li",
         "density_equation": "0.515 - 1.01e-4 * (temperature_in_C - 200)",
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
         "reference": "http://aries.ucsd.edu/LIB/PROPS/PANOS/li.html",
-        "temperature_in_C":True
+        "temperature_dependant": True
     },
     "F2Li2BeF2": {
         "elements": "F2Li2BeF2",
         "density_equation": "2.214 - 4.2e-4 * temperature_in_C",
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
         "reference": "source http://aries.ucsd.edu/LIB/MEETINGS/0103-TRANSMUT/gohar/Gohar-present.pdf",
-        "temperature_in_C":True
+        "temperature_dependant": True
     },
     "Li4SiO4": {
         "elements": "Li4SiO4",
@@ -149,7 +149,7 @@ material_dict = {
     "Pb": {
         "elements": "Pb",
         "density": "10.678 - 13.174e-4 * (temperature_in_K-600.6)",
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
         "reference": "https://www.sciencedirect.com/science/article/abs/pii/0022190261802261",
     },
     "Be": {
@@ -200,7 +200,7 @@ material_dict = {
     "SiC": {
         "elements": "SiC",
         "density": 3.,
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
     },
     "eurofer": {
         "elements": {
@@ -227,7 +227,7 @@ material_dict = {
         },
         "element units": "atom fraction",
         "density": 7.78,
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
         "reference": "Eurofusion neutronics handbook",
     },
     "SS_316L_N_IG": {
@@ -251,7 +251,7 @@ material_dict = {
         },
         "element units": "atom fraction",
         "density": 7.93,
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
         "reference": "Eurofusion neutronics handbook",
     },
     "tungsten": {
@@ -289,7 +289,7 @@ material_dict = {
         },
         "element units": "atom fraction",
         "density": 19.0,
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
         "reference": "Eurofusion neutronics handbook",
     },
     "CuCrZr": {
@@ -319,14 +319,14 @@ material_dict = {
         },
         "element units": "atom fraction",
         "density": 8.9,
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
         "reference": "Eurofusion neutronics handbook",
     },
     "copper": {
         "elements": {"Cu": 1.0},
         "element units": "atom fraction",
         "density": 8.5,
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
     },
     "SS347": {
         "elements": {
@@ -340,7 +340,7 @@ material_dict = {
         },
         "element units": "atom fraction",
         "density": 7.92,
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
     },
     "SS321": {
         "elements": {
@@ -354,13 +354,13 @@ material_dict = {
         },
         "element units": "atom fraction",
         "density": 7.92,
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
     },
     "SS316": {
         "elements": {"Fe": 67, "Cr": 17, "Ni": 14, "Mo": 2,},
         "element units": "atom fraction",
         "density": 7.97,
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
     },
     "SS304": {
         "elements": {
@@ -374,13 +374,13 @@ material_dict = {
         },
         "element units": "atom fraction",
         "density": 7.96,
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
     },
     "P91": {
         "elements": {"Fe": 89, "Cr": 9.1, "Mo": 1, "Mn": 0.5, "Si": 0.4,},
         "element units": "atom fraction",
         "density": 7.96,
-        "density units": "g/cm3",
+        "density_unit": "g/cm3",
     },
 }
 
@@ -402,7 +402,7 @@ class Material:
         atoms_per_unit_cell=None,
         volume_of_unit_cell_cm3=None,
         density_list=None,
-        density_unit="g/cm3",
+        density_unit="g/cm3"
     ):
         self.material_name = material_name
         self.temperature_in_C = temperature_in_C
@@ -423,10 +423,14 @@ class Material:
         self.density_list = density_list
         self.neutronics_material = None
 
+
         self.list_of_fractions = None
         self.chemical_equation = None
 
+
         self.populate_from_dictionary()
+
+
 
         if self.enriched_isotope != "Li6":
             raise ValueError(
@@ -434,6 +438,21 @@ class Material:
                 self.enriched_isotope,
                 " is not supported. Only Li6 enrichment is supported",
             )
+
+        if "temperature_dependant" in material_dict[self.material_name].keys():
+            if temperature_in_K == None and temperature_in_C == None:
+                raise ValueError("temperature_in_K or temperature_in_C is needed for", self.material_name)
+            else:
+                if temperature_in_K == None:
+                    self.temperature_in_K = temperature_in_C + 273.15
+                if temperature_in_C == None:
+                    self.temperature_in_C = temperature_in_K + 273.15
+
+        if "pressure_dependant" in material_dict[self.material_name].keys():
+            if pressure_in_Pa == None:
+                raise ValueError("pressure_in_Pa is needed for", self.material_name)
+
+
         self.make_material()
 
     def populate_from_dictionary(self):
@@ -572,27 +591,32 @@ class Material:
             temperature_in_K = self.temperature_in_K
             pressure_in_Pa = self.pressure_in_Pa
 
-            if 'temperature_in_K' in self.density_equation and temperature_in_C == None and temperature_in_K == None:
-                raise ValueError("temerpature is required in density_equation but not provided in temperature_in_K or temperature_in_C arguments")
+            print('temperature_in_C =', temperature_in_C)
+            print('temperature_in_K =', temperature_in_K)
+            print('pressure_in_Pa =', pressure_in_Pa)
+            print('density_equation =', self.density_equation)
+            # print(eval(self.density_equation))
+            calculated_density = eval(self.density_equation)
+            if calculated_density == None:
+                raise ValueError("Density value of ", self.material_name, " can not be found for a temperature of ",self.temperature_in_K, "K and pressure of ", self.pressure_in_Pa,'Pa')
+            
+            if self.density_unit == 'kg/m3':
+                self.density_value = calculated_density / 1000.
+            if self.density_unit == 'g/cm3':
+                self.density_value = calculated_density
+            if self.density_unit not in ['kg/m3','g/cm3']:
+                raise ValueError("Density units of kg/m3 and g/cm3 are supported for density_equations")
+            
 
-            if 'pressure_in_Pa' in self.density_equation and pressure_in_Pa == None:
-                raise ValueError("Pressure is required in density_equation but not provided as pressure_in_Pa arguments")
+            print('self.density_value ',self.density_value )
 
-
-            if temperature_in_K == None:
-                self.temperature_in_K = temperature_in_C + 273.15
-
-            if temperature_in_C == None:
-                self.temperature_in_C = temperature_in_K + 273.15
-
-            self.density_value = eval(self.density_equation)
             self.neutronics_material.set_density(
                 self.density_unit, self.density_value * self.packing_fraction
             )
 
         elif self.density_list != None:
 
-            raise ValueError("Density values intopolated from a list is not yet implmented")
+            raise ValueError("Density values intopolated from a list is not yet implemented")
 
         elif self.atoms_per_unit_cell != None and self.volume_of_unit_cell_cm3 != None:
 
@@ -689,7 +713,7 @@ class Material:
     def calculate_crystal_structure_density(self):
         density_g_per_cm3 = (
             self.get_crystal_molar_mass()
-            * self.atomic_mass_unit_in_g
+            * atomic_mass_unit_in_g
             * self.atoms_per_unit_cell
         ) / self.volume_of_unit_cell_cm3
 

@@ -5,7 +5,7 @@ import setuptools
 
 setuptools.setup(
     name="neutronics_material_maker",
-    version="0.1235.13",
+    version="0.1235.15",
     summary='Package for making material cards for OpenMC',
     author="Jonathan Shimwell",
     author_email="jonathan.shimwell@ukaea.uk",
@@ -26,7 +26,7 @@ setuptools.setup(
         'pytest-cov',
     ],
     install_requires = [
-        'thermo',
+        'coolprop',
 	#'openmc' when pip install is available
     ]
 )
