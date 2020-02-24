@@ -72,6 +72,13 @@ class test_object_properties(unittest.TestCase):
 
                 assert mixed_material.neutronics_material.density == pytest.approx((test_material_1.neutronics_material.density * 0.2) + (test_material_1.neutronics_material.density * 0.65 * 0.8))
 
+        def test_density_of_mixed_materials_from_density_equation(self):
+
+                test_material = Material('H2O', temperature_in_C=25, pressure_in_Pa=100000)  
+                test_mixed_material = MultiMaterial(material_name = 'test_mixed_material', materials= [test_material], fracs=[1])
+
+                assert test_material.neutronics_material.density ==  test_mixed_material.neutronics_material.density
+
         def test_density_of_mixed_one_packed_crystal_and_one_non_crystal(self):
 
                 test_material_1 = Material(material_name="H2O", temperature_in_C=25, pressure_in_Pa=100000)
@@ -86,10 +93,4 @@ class test_object_properties(unittest.TestCase):
                 
                 assert mixed_packed_crystal_and_non_crystal.neutronics_material.density == pytest.approx( (test_material_1.neutronics_material.density * 0.5) + (test_material_2.neutronics_material.density * 0.65 * 0.5) )
 
-        def test_density_of_mixed_materials_from_density_equation(self):
-
-                test_material = Material('H2O', temperature_in_C=25, pressure_in_Pa=100000)  
-                test_mixed_material = MultiMaterial(material_name = 'test_mixed_material', materials= [test_material], fracs=[1])
-
-                assert test_material.neutronics_material.density ==  test_mixed_material.neutronics_material.density
 
