@@ -60,7 +60,7 @@ class test_object_properties(unittest.TestCase):
 
                 assert mixed_packed_crystals.neutronics_material.density == pytest.approx( (test_material_1.neutronics_material.density * 0.65 * 0.75) + (test_material_2.neutronics_material.density * 0.35 * 0.25), rel=0.01)
 
-        def test_desnity_of_mixed_mateirals_from_density_equation(self):
+        def test_density_of_mixed_materials_from_density_equation(self):
 
                 test_material = Material('H2O', temperature_in_C=25, pressure_in_Pa=100000)  
                 test_mixed_material = MultiMaterial(material_name = 'test_mixed_material', materials= [test_material], fracs=[1])
