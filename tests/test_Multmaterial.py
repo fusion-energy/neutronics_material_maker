@@ -27,7 +27,7 @@ ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
 import pytest
 import unittest
 
-from neutronics_material_maker import MultiMaterial
+from neutronics_material_maker import Material, MultiMaterial
 
 # test command
 # pytest tests -v --cov=paramak --cov-report term --cov-report html:htmlcov --cov-report xml --junitxml=test-reports/junit.xml
@@ -41,3 +41,21 @@ class test_mixed_material(unittest.TestCase):
 if __name__ == '__main__':
         unittest.main()
 
+class test_object_properties(unittest.TestCase):
+
+       def test_density_of_mixed_two_packed_crystals(self): 
+
+                test_material_1 = Material(material_name="Li4SiO4")
+                test_material_packed_1 = Material(material_name="Li4SiO4", packing_fraction=0.65)
+                assert test_material_1.neutronics_material.density * 0.65 == test_material_packed_1.neutronics_material.density
+
+                test_material_2 = Material(material_name="Be12Ti")
+                test_material_packed_2 = Material(material_name="Be12Ti", packing_fraction=0.35)
+                assert test_material_2.neutronics_material.density * 0.35 == test_material_packed_2.neutronics_material.density
+
+                mixed_packed_crystals = MultiMaterial(material_name = 'mixed_packed_crystals',
+                                                      materials = [test_material_packed_1, test_material_packed_2],
+                                                      fracs = [0.75,0.25],
+                                                      percent_type = 'vo')
+                # todo this test fails
+                assert mixed_packed_crystals.neutronics_material.density == (test_material_1.neutronics_material.density * 0.65 * 0.75) + (test_material_2.neutronics_material.density * 0.35 * 0.25)
