@@ -61,7 +61,7 @@ class test_object_properties(unittest.TestCase):
                 assert mixed_packed_crystals.neutronics_material.density == pytest.approx( (test_material_1.neutronics_material.density * 0.65 * 0.75) + (test_material_2.neutronics_material.density * 0.35 * 0.25), rel=0.01)
 
         def test_density_of_mixed_two_packed_and_non_packed_crystals(self):
-                
+
                 test_material_1 = Material(material_name='Li4SiO4')
                 test_material_1_packed = Material(material_name='Li4SiO4', packing_fraction=0.65)
 
@@ -82,7 +82,7 @@ class test_object_properties(unittest.TestCase):
         def test_density_of_mixed_one_packed_crystal_and_one_non_crystal(self):
 
                 test_material_1 = Material(material_name="H2O", temperature_in_C=25, pressure_in_Pa=100000)
-                
+
                 test_material_2 = Material(material_name="Li4SiO4")
                 test_material_2_packed = Material(material_name="Li4SiO4", packing_fraction=0.65)
 
@@ -90,7 +90,146 @@ class test_object_properties(unittest.TestCase):
                                                                      materials = [test_material_1, test_material_2_packed],
                                                                      fracs = [0.5, 0.5],
                                                                      percent_type = 'vo')
-                
+
                 assert mixed_packed_crystal_and_non_crystal.neutronics_material.density == pytest.approx( (test_material_1.neutronics_material.density * 0.5) + (test_material_2.neutronics_material.density * 0.65 * 0.5) )
 
 
+
+    def test_packing_fraction_for_single_materials(self):
+        
+        test_material_1 = Material('Li4SiO4').neutronics_material
+
+        test_material_2 = Material('Li4SiO4', packing_fraction=1).neutronics_material
+
+        assert test_material_1.density == test_material_2.density
+
+        test_material_3 = Material('Li4SiO4', packing_fraction=0.5).neutronics_material
+
+        assert test_material_3.density == approx(test_material_1.density * 0.5)
+
+        test_material_4 = Material('Li4SiO4', packing_fraction=0.75).neutronics_material
+
+        assert test_material_4.density == approx(test_material_1.density * 0.75)
+        
+    def test_packing_fraction_for_multimaterial_function(self):
+
+        test_material_5 = MultiMaterial('test_material_5',
+                                materials = [
+                                    Material('tungsten'),
+                                    Material('eurofer'),
+                                ],
+                                volume_fractions = [
+                                    0.5, 
+                                    0.5
+                                ]).neutronics_material
+
+        test_material_6 = MultiMaterial('test_material_6',
+                                materials = [
+                                    Material('tungsten', packing_fraction=1),
+                                    Material('eurofer', packing_fraction=1)
+                                ],
+                                volume_fractions = [
+                                    0.5,
+                                    0.5
+                                ]).neutronics_material
+
+        assert test_material_5.density == test_material_6.density
+
+        test_material_7 = MultiMaterial('test_material_7',
+                                materials = [
+                                    Material('tungsten', packing_fraction=0.5),
+                                    Material('eurofer', packing_fraction=0.5)
+                                ],
+                                volume_fractions = [
+                                    0.5,
+                                    0.5
+                                ]).neutronics_material
+
+        assert test_material_7.density == approx(test_material_5.density * 0.5)
+
+    def test_packing_fraction_for_mix_materials_function(self):
+
+        test_material_8 = openmc.Material.mix_materials(name='test_material_8',
+                                materials = [
+                                    Material('tungsten').neutronics_material,
+                                    Material('eurofer').neutronics_material
+                                ],
+                                fracs = [
+                                    0.5,
+                                    0.5
+                                ],
+                                percent_type = 'vo')
+
+        test_material_9 = openmc.Material.mix_materials(name='test_material_9',
+                                materials = [
+                                    Material('tungsten', packing_fraction=1).neutronics_material,
+                                    Material('eurofer', packing_fraction=1).neutronics_material 
+                                ],
+                                fracs = [
+                                    0.5,
+                                    0.5
+                                ],
+                                percent_type = 'vo')
+
+        assert test_material_8.density == test_material_9.density
+
+        test_material_10 = openmc.Material.mix_materials(name='test_material_10',
+                                materials = [
+                                    Material('tungsten', packing_fraction=0.5).neutronics_material,
+                                    Material('eurofer', packing_fraction=0.5).neutronics_material 
+                                ],
+                                fracs = [
+                                    0.5,
+                                    0.5
+                                ],
+                                percent_type = 'vo')
+
+        assert test_material_10.density == approx(test_material_8.density * 0.5)
+
+    def test_multimaterial_vs_mix_materials(self):
+
+        test_material_11 = MultiMaterial('test_material_11',
+                                materials = [
+                                    Material('tungsten'),
+                                    Material('eurofer')
+                                ],
+                                volume_fractions = [
+                                    0.5,
+                                    0.5
+                                ]).neutronics_material
+
+        test_material_12 = openmc.Material.mix_materials(name='test_material_12',
+                                materials = [
+                                    Material('tungsten').neutronics_material,
+                                    Material('eurofer').neutronics_material
+                                ],
+                                fracs = [
+                                    0.5,
+                                    0.5
+                                ],
+                                percent_type = 'vo')
+
+        assert test_material_11.density == test_material_11.density
+
+        test_material_13 = MultiMaterial('test_material_13',
+                                materials = [
+                                    Material('tungsten', packing_fraction=0.6),
+                                    Material('eurofer', packing_fraction=0.8)
+                                ],
+                                volume_fractions = [
+                                    0.3,
+                                    0.7
+                                ]).neutronics_material
+
+        test_material_14 = openmc.Material.mix_materials(name='test_material_14',
+                                materials = [
+                                    Material('tungsten', packing_fraction=0.6).neutronics_material,
+                                    Material('eurofer', packing_fraction=0.8).neutronics_material
+                                ],
+                                fracs = [
+                                    0.3,
+                                    0.7
+                                ],
+                                percent_type = 'vo')
+
+        assert test_material_13.density == test_material_14.density
