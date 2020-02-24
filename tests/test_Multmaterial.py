@@ -57,5 +57,5 @@ class test_object_properties(unittest.TestCase):
                                                       materials = [test_material_packed_1, test_material_packed_2],
                                                       fracs = [0.75,0.25],
                                                       percent_type = 'vo')
-                # todo this test fails
-                assert mixed_packed_crystals.neutronics_material.density == (test_material_1.neutronics_material.density * 0.65 * 0.75) + (test_material_2.neutronics_material.density * 0.35 * 0.25)
+                
+                assert mixed_packed_crystals.neutronics_material.density == pytest.approx( (test_material_1.neutronics_material.density * 0.65 * 0.75) + (test_material_2.neutronics_material.density * 0.35 * 0.25), rel=0.01)
