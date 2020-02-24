@@ -404,6 +404,43 @@ class Material:
         density_list=None,
         density_unit="g/cm3"
     ):
+        """Makes an OpenMC material object complete with isotopes and density 
+        that vary with temperature, pressure and crystall stucture when appropiate. 
+        Uses an internal database that contains fusion relevant materials
+        
+        Arguments:
+            material_name {[type]} -- [description]
+        
+        Keyword Arguments:
+            temperature_in_C {[type]} -- [description] (default: {None})
+            temperature_in_K {[type]} -- [description] (default: {None})
+            pressure_in_Pa {[type]} -- [description] (default: {None})
+            enrichment_fraction {[type]} -- [description] (default: {None})
+            packing_fraction {float} -- [description] (default: {1.0})
+            volume_fraction {float} -- [description] (default: {1.0})
+            elements {[type]} -- [description] (default: {None})
+            isotopes {[type]} -- [description] (default: {None})
+            density {[type]} -- [description] (default: {None})
+            density_equation {[type]} -- [description] (default: {None})
+            atoms_per_unit_cell {[type]} -- [description] (default: {None})
+            volume_of_unit_cell_cm3 {[type]} -- [description] (default: {None})
+            density_list {[type]} -- [description] (default: {None})
+            density_unit {str} -- [description] (default: {"g/cm3"})
+        
+        Raises:
+            ValueError: [description]
+            ValueError: [description]
+            ValueError: [description]
+            ValueError: [description]
+            ValueError: [description]
+            ValueError: [description]
+            ValueError: [description]
+            ValueError: [description]
+            ValueError: [description]
+        
+        Returns:
+            [type] -- [description]
+        """    
         self.material_name = material_name
         self.temperature_in_C = temperature_in_C
         self.temperature_in_K = temperature_in_K
