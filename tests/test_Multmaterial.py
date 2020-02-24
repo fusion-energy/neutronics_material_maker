@@ -63,14 +63,14 @@ class test_object_properties(unittest.TestCase):
         def test_density_of_mixed_two_packed_and_non_packed_crystals(self):
                 
                 test_material_1 = Material(material_name='Li4SiO4')
-                test_material_1_packed = Material(material_name='Li4SiO4', packing_fraction=0.5)
+                test_material_1_packed = Material(material_name='Li4SiO4', packing_fraction=0.65)
 
                 mixed_material = MultiMaterial(material_name = 'mixed_material',
                                                materials = [test_material_1, test_material_1_packed],
-                                               fracs = [0.5, 0.5],
+                                               fracs = [0.2, 0.8],
                                                percent_type = 'vo')
 
-                assert mixed_material.neutronics_material.density == pytest.approx((test_material_1.neutronics_material.density * 0.5) + (test_material_1.neutronics_material.density * 0.5 * 0.5))
+                assert mixed_material.neutronics_material.density == pytest.approx((test_material_1.neutronics_material.density * 0.2) + (test_material_1.neutronics_material.density * 0.65 * 0.8))
 
         def test_density_of_mixed_one_packed_crystal_and_one_non_crystal(self):
 
