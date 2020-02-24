@@ -60,6 +60,32 @@ class test_object_properties(unittest.TestCase):
 
                 assert mixed_packed_crystals.neutronics_material.density == pytest.approx( (test_material_1.neutronics_material.density * 0.65 * 0.75) + (test_material_2.neutronics_material.density * 0.35 * 0.25), rel=0.01)
 
+        def test_density_of_mixed_two_packed_and_non_packed_crystals(self):
+                
+                test_material_1 = Material(material_name='Li4SiO4')
+                test_material_1_packed = Material(material_name='Li4SiO4', packing_fraction=0.5)
+
+                mixed_material = MultiMaterial(material_name = 'mixed_material',
+                                               materials = [test_material_1, test_material_1_packed],
+                                               fracs = [0.5, 0.5],
+                                               percent_type = 'vo')
+
+                assert mixed_material.neutronics_material.density == pytest.approx((test_material_1.neutronics_material.density * 0.5) + (test_material_1.neutronics_material.density * 0.5 * 0.5))
+
+        def test_density_of_mixed_one_packed_crystal_and_one_non_crystal(self):
+
+                test_material_1 = Material(material_name="H2O", temperature_in_C=25, pressure_in_Pa=100000)
+                
+                test_material_2 = Material(material_name="Li4SiO4")
+                test_material_2_packed = Material(material_name="Li4SiO4", packing_fraction=0.65)
+
+                mixed_packed_crystal_and_non_crystal = MultiMaterial(material_name = 'mixed_packed_crystal_and_non_crystal',
+                                                                     materials = [test_material_1, test_material_2_packed],
+                                                                     fracs = [0.5, 0.5],
+                                                                     percent_type = 'vo')
+                
+                assert mixed_packed_crystal_and_non_crystal.neutronics_material.density == pytest.approx( (test_material_1.neutronics_material.density * 0.5) + (test_material_2.neutronics_material.density * 0.65 * 0.5) )
+
         def test_density_of_mixed_materials_from_density_equation(self):
 
                 test_material = Material('H2O', temperature_in_C=25, pressure_in_Pa=100000)  
