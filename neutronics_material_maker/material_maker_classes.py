@@ -47,7 +47,7 @@ material_dict = {
         #"density_equation": 'Chemical("He", T=temperature_in_K, P=pressure_in_Pa).rho',
         "density_equation": "PropsSI('D', 'T', temperature_in_K, 'P', pressure_in_Pa, 'Helium')",
         "density_unit": "kg/m3",
-        "reference": "CoolProp python package",
+        "reference": "CoolProp python package for density equation",
         "temperature_dependant": True,
         "pressure_dependant": True
     },
@@ -441,7 +441,12 @@ class Material:
 
         if "temperature_dependant" in material_dict[self.material_name].keys():
             if temperature_in_K == None and temperature_in_C == None:
+                if self.material_name == 'He':
+                    raise ValueError("temperature_in_K or temperature_in_C is needed for", self.material_name, " Typical helium cooled blankets are 400C and 8e6Pa")
+                elif self.material_name == 'H2O':
+                    raise ValueError("temperature_in_K or temperature_in_C is needed for", self.material_name, " Typical water cooled blankets are 305C and 15.5e6Pa")
                 raise ValueError("temperature_in_K or temperature_in_C is needed for", self.material_name)
+
             else:
                 if temperature_in_K == None:
                     self.temperature_in_K = temperature_in_C + 273.15
@@ -599,19 +604,19 @@ class Material:
             calculated_density = eval(self.density_equation)
             if calculated_density == None:
                 raise ValueError("Density value of ", self.material_name, " can not be found for a temperature of ",self.temperature_in_K, "K and pressure of ", self.pressure_in_Pa,'Pa')
-            
+
             if self.density_unit == 'kg/m3':
                 self.density_value = calculated_density / 1000.
             if self.density_unit == 'g/cm3':
                 self.density_value = calculated_density
             if self.density_unit not in ['kg/m3','g/cm3']:
                 raise ValueError("Density units of kg/m3 and g/cm3 are supported for density_equations")
-            
+
 
             print('self.density_value ',self.density_value )
 
             self.neutronics_material.set_density(
-                self.density_unit, self.density_value * self.packing_fraction
+                'g/cm3', self.density_value * self.packing_fraction
             )
 
         elif self.density_list != None:
@@ -739,6 +744,8 @@ class MultiMaterial(list):
         openmc_material_objects = []
         for material in self.materials:
             openmc_material_objects.append(material.neutronics_material)
+
+        print(openmc_material_objects)
 
         self.neutronics_material = openmc.Material.mix_materials(name = self.material_name,
                                                                  materials = openmc_material_objects,
