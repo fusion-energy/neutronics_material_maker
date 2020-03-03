@@ -382,6 +382,53 @@ material_dict = {
         "density": 7.96,
         "density_unit": "g/cm3",
     },
+    "SS316L": {
+        "elements": {
+            "C": 0.001384,
+            "Si": 0.019722,
+            "P": 0.000805,
+            "S": 0.000518,
+            "Cr": 0.181098,
+            "Mn": 0.020165,
+            "Fe": 0.648628,
+            "Ni": 0.113247,
+            "Mo": 0.014434
+        },
+        "element units": "atom fraction",
+        "density": 8.00,
+        "density_unit": "g/cm3"
+    },
+    "ReBCO": {
+        "elements": {
+            "Y": 1.00,
+            "Ba": 2.00,
+            "Cu": 3.00,
+            "O": 7.00
+        },
+        "element units": "atom fraction",
+        "density": 6.3,
+        "density_unit": "g/cm3"
+    },
+    # "SST91": {
+    #     "elements": {
+    #         "C": 0.10,
+    #         "Mn": 0.45,
+    #         "P": 0.02,
+    #         "S": 0.01,
+    #         "Si": 0.35,
+    #         "Cr": 8.75,
+    #         "Mo": 0.95,
+    #         "V": 0.215,
+    #         "N": 0.05,
+    #         "Ni": 0.4,
+    #         "Al": 0.04,
+    #         "Nb": 0.08,
+    #         "Fe": 88.585
+    #     },
+    #     "element units": "weight fraction",   # weight fractions not currently implemented 
+    #     "density": 7.77,
+    #     "density_unit": "g/cm3"
+    # }
 }
 
 
