@@ -827,7 +827,10 @@ class MultiMaterial(list):
 
         openmc_material_objects = []
         for material in self.materials:
-            openmc_material_objects.append(material.neutronics_material)
+            if isinstance(material, openmc.Material) == True:
+                openmc_material_objects.append(material)
+            else:
+                openmc_material_objects.append(material.neutronics_material)
 
         print(openmc_material_objects)
 
