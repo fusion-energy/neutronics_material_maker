@@ -45,6 +45,61 @@ if __name__ == '__main__':
 
 class test_object_properties(unittest.TestCase):
 
+
+        def test_make_multimaterial_from_material_objects(self):
+                # tests that a multimaterial can be created by passing Material objects into the MultiMaterial function
+
+                test_material = MultiMaterial('test_material',
+                                              materials = [
+                                                  Material('Li4SiO4'),
+                                                  Material('Be12Ti')
+                                              ],
+                                              fracs = [0.50, 0.50],
+                                              percent_type = 'vo')
+
+                assert isinstance(test_material, openmc.Material) == False
+                assert isinstance(test_material.neutronics_material, openmc.Material) == True
+                
+        
+        def test_make_multimaterial_from_neutronics_materials(self):
+            # tests that a multimaterial can be created by passing neutronics materials into the MultiMaterial function
+
+            test_material = MultiMaterial('test_material',
+                                          materials = [
+                                              Material('Li4SiO4').neutronics_material,
+                                              Material('Be12Ti').neutronics_material
+                                          ],
+                                          fracs = [0.50, 0.50],
+                                          percent_type = 'vo')
+
+            assert isinstance(test_material, openmc.Material) == False
+            assert isinstance(test_material.neutronics_material, openmc.Material) == True
+
+        
+        def test_multimaterial_attributes_from_material_objects_and_neutronics_materials(self):
+            # tests that multimaterials made from material objects and neutronics materials have the same properties
+
+            test_material_1 = MultiMaterial('test_material_1',
+                                            materials = [
+                                                Material('Li4SiO4'),
+                                                Material('Be12Ti')
+                                            ],
+                                            fracs = [0.5, 0.5],
+                                            percent_type = 'vo').neutronics_material
+
+            test_material_2 = MultiMaterial('test_material_2',
+                                            materials = [
+                                                Material('Li4SiO4').neutronics_material,
+                                                Material('Be12Ti').neutronics_material
+                                            ],
+                                            fracs = [0.5, 0.5],
+                                            percent_type = 'vo').neutronics_material
+
+            
+            assert test_material_1.density == test_material_2.density
+            assert test_material_1.nuclides == test_material_2.nuclides
+            
+
         def test_density_of_mixed_two_packed_crystals(self): 
 
                 test_material_1 = Material(material_name="Li4SiO4")
@@ -62,6 +117,7 @@ class test_object_properties(unittest.TestCase):
 
                 assert mixed_packed_crystals.neutronics_material.density == pytest.approx( (test_material_1.neutronics_material.density * 0.65 * 0.75) + (test_material_2.neutronics_material.density * 0.35 * 0.25), rel=0.01)
 
+
         def test_density_of_mixed_two_packed_and_non_packed_crystals(self):
 
                 test_material_1 = Material(material_name='Li4SiO4')
@@ -74,12 +130,14 @@ class test_object_properties(unittest.TestCase):
 
                 assert mixed_material.neutronics_material.density == pytest.approx((test_material_1.neutronics_material.density * 0.2) + (test_material_1.neutronics_material.density * 0.65 * 0.8))
 
+
         def test_density_of_mixed_materials_from_density_equation(self):
 
                 test_material = Material('H2O', temperature_in_C=25, pressure_in_Pa=100000)  
                 test_mixed_material = MultiMaterial(material_name = 'test_mixed_material', materials= [test_material], fracs=[1])
 
                 assert test_material.neutronics_material.density ==  test_mixed_material.neutronics_material.density
+
 
         def test_density_of_mixed_one_packed_crystal_and_one_non_crystal(self):
 
@@ -94,7 +152,6 @@ class test_object_properties(unittest.TestCase):
                                                                      percent_type = 'vo')
 
                 assert mixed_packed_crystal_and_non_crystal.neutronics_material.density == pytest.approx( (test_material_1.neutronics_material.density * 0.5) + (test_material_2.neutronics_material.density * 0.65 * 0.5) )
-
 
 
         def test_packing_fraction_for_single_materials(self):
@@ -113,6 +170,7 @@ class test_object_properties(unittest.TestCase):
 
             assert test_material_4.density == pytest.approx(test_material_1.density * 0.75)
             
+
         def test_packing_fraction_for_multimaterial_function(self):
 
             test_material_5 = MultiMaterial('test_material_5',
@@ -137,6 +195,7 @@ class test_object_properties(unittest.TestCase):
 
             assert test_material_5.density == test_material_6.density
 
+
             test_material_7 = MultiMaterial('test_material_7',
                                     materials = [
                                         Material('tungsten', packing_fraction=0.5),
@@ -148,6 +207,7 @@ class test_object_properties(unittest.TestCase):
                                     ]).neutronics_material
 
             assert test_material_7.density == pytest.approx(test_material_5.density * 0.5)
+
 
         def test_packing_fraction_for_mix_materials_function(self):
 
@@ -188,6 +248,7 @@ class test_object_properties(unittest.TestCase):
 
             assert test_material_10.density == pytest.approx(test_material_8.density * 0.5)
 
+
         def test_multimaterial_vs_mix_materials(self):
 
             test_material_11 = MultiMaterial('test_material_11',
@@ -211,7 +272,7 @@ class test_object_properties(unittest.TestCase):
                                     ],
                                     percent_type = 'vo')
 
-            assert test_material_11.density == test_material_11.density
+            assert test_material_11.density == test_material_12.density
 
             test_material_13 = MultiMaterial('test_material_13',
                                     materials = [
@@ -235,3 +296,7 @@ class test_object_properties(unittest.TestCase):
                                     percent_type = 'vo')
 
             assert test_material_13.density == test_material_14.density
+
+
+
+            
