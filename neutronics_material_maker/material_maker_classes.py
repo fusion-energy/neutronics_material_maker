@@ -623,8 +623,11 @@ class Material:
 
     @enrichment_target.setter
     def enrichment_target(self, value):
-        self.enrichment_element = re.split('(\d+)',value)[0]
-        self._enrichment_target = value
+        if value is None:
+            self._enrichment_target = value
+        else:
+            self.enrichment_element = re.split('(\d+)',value)[0]
+            self._enrichment_target = value
 
 
     def populate_from_dictionary(self):
@@ -741,7 +744,7 @@ class Material:
             element_symbols = self.elements.keys()
 
             for element_symbol, element_number in zip(element_symbols, element_numbers):
-                if element_symbol == 'Li':
+                if element_symbol == self.enrichment_element:
                     self.neutronics_material.add_element('Li',
                                                          element_number,
                                                          percent_type=self.percent_type,
