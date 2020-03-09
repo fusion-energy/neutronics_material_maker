@@ -498,7 +498,7 @@ class Material:
         self.volume_fraction = volume_fraction
         self.elements = elements
         self.isotopes = isotopes
-        self.density = density
+        self._density = density
         self.density_value = None
         self.density_equation = density_equation
         self.atoms_per_unit_cell = atoms_per_unit_cell
@@ -543,6 +543,21 @@ class Material:
 
 
         self.make_material()
+
+    @property
+    def density(self):
+        return self._density
+
+    @density.setter
+    def density(self, value):
+        if value is None:
+            self._density = value
+        elif value < 0:
+            raise ValueError('density is out of range, it must be greater than 0')
+        elif type(value) is float or type(value) is int:
+            self._density = value
+            self.make_material()
+
 
     def populate_from_dictionary(self):
 
