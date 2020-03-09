@@ -685,8 +685,8 @@ class Material:
 
         if self.elements is None:
             self.elements = material_dict[self.material_name]["elements"]
-        # else:
-        #     material_dict[self.material_name]["elements"] = self.elements
+        else:
+            material_dict[self.material_name]["elements"] = self.elements
 
         # percent_type for each element is provided by the self.percent_type value
 
@@ -694,20 +694,12 @@ class Material:
             element_numbers = self.elements.values()
             element_symbols = self.elements.keys()
 
-            for element_symbol, element_number in zip(element_symbols, element_numbers):
-                self.neutronics_material.add_element(
-                    element_symbol, element_number, self.percent_type
-                )
-        
         elif type(self.elements) == str and self.enrichment == None:
 
             self.chemical_equation = self.elements
+
             element_numbers = self.get_element_numbers_normalized()
             element_symbols = self.get_elements_from_equation()
-            for element_symbol, element_number in zip(element_symbols, element_numbers):
-                self.neutronics_material.add_element(
-                    element_symbol, element_number, self.percent_type
-                )
 
         # enriching the material using the new enriching flow from openmc
         # at the moment, we are only enriching Li
@@ -721,41 +713,23 @@ class Material:
             element_numbers = self.get_element_numbers_normalized()
             element_symbols = self.get_elements_from_equation()
 
-            
-            for element_symbol, element_number in zip(element_symbols, element_numbers):
-
-                if element_symbol == self.enrichment_element:
-                    self.neutronics_material.add_element(
-                        self.enrichment_element, 
-                        element_number, 
-                        percent_type=self.percent_type, 
-                        enrichment=self.enrichment, 
-                        enrichment_target=self.enrichment_target, 
-                        enrichment_type=self.enrichment_type
-                    )
-
-                else:
-                    self.neutronics_material.add_element(
-                        element_symbol, element_number, self.percent_type
-                    )
-
         elif type(self.elements) == dict and self.enrichment != None:
 
             element_numbers = self.elements.values()
             element_symbols = self.elements.keys()
 
-            for element_symbol, element_number in zip(element_symbols, element_numbers):
-                if element_symbol == self.enrichment_element:
-                    self.neutronics_material.add_element(self.enrichment_element,
-                                                         element_number,
-                                                         percent_type=self.percent_type,
-                                                         enrichment=self.enrichment,
-                                                         enrichment_target=self.enrichment_target,
-                                                         enrichment_type=self.enrichment_type)
-                else:
-                    self.neutronics_material.add_element(
-                        element_symbol, element_number, self.percent_type
-                    )
+        for element_symbol, element_number in zip(element_symbols, element_numbers):
+            if element_symbol == self.enrichment_element:
+                self.neutronics_material.add_element(self.enrichment_element,
+                                                        element_number,
+                                                        percent_type=self.percent_type,
+                                                        enrichment=self.enrichment,
+                                                        enrichment_target=self.enrichment_target,
+                                                        enrichment_type=self.enrichment_type)
+            else:
+                self.neutronics_material.add_element(
+                    element_symbol, element_number, self.percent_type
+                )
 
         return element_symbols, element_numbers
 
