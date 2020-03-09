@@ -628,6 +628,7 @@ class Material:
         else:
             self.enrichment_element = re.split('(\d+)',value)[0]
             self._enrichment_target = value
+            self.make_material()
 
 
     def populate_from_dictionary(self):
