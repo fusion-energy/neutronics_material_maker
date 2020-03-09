@@ -746,7 +746,7 @@ class Material:
 
             for element_symbol, element_number in zip(element_symbols, element_numbers):
                 if element_symbol == self.enrichment_element:
-                    self.neutronics_material.add_element('Li',
+                    self.neutronics_material.add_element(self.enrichment_element,
                                                          element_number,
                                                          percent_type=self.percent_type,
                                                          enrichment=self.enrichment,
