@@ -40,6 +40,15 @@ from CoolProp.CoolProp import PropsSI
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
+# percent_type = fraction type for the element as a whole
+# enrichment_type = fraction type for the enrichment
+# See To Do List for explanation on the current issues
+# We may not want the functionality to override the percent_type specified in the dictionary because the material specifications are correct for that percent_type
+# if we want to change the material significantly, we need to create a new material that is not populated from a dictionary and we have full control over percent_type etc.
+# if this is the case, then this is basically done
+# just need to take into account some flags such as explained below
+# We need to also incorporate the 'enrichable' flag into our enrichment flow.
+# This enrichable flag will be to do with the new method of enriching, i.e. will only be valid on two isotope elements, for now we will keep it just for Lithium
 
 material_dict = {
     "He": {
@@ -49,16 +58,19 @@ material_dict = {
         "density_unit": "kg/m3",
         "reference": "CoolProp python package for density equation",
         "temperature_dependant": True,
-        "pressure_dependant": True
+        "pressure_dependant": True,
+        # "percent_type": "ao"
     },
     "DT_plasma": {
         "isotopes": {"H2": 0.5, "H3": 0.5,},
         "density": 0.000001,
         "density_unit": "g/cm3",  # is this a case to support other units?
+        # "percent_type": "ao"
     },
     "WC": {"elements": "WC",
            "density": 18.0,
            "density_unit": "g/cm3",
+        #    "percent_type": "ao"
           },
     "H2O": {"elements": "H2O",
             # "density_equation": 'Chemical("H2O", T=temperature_in_K, P=pressure_in_Pa).rho',
@@ -66,7 +78,8 @@ material_dict = {
             "density_unit": "kg/m3",
             "reference": "CoolProp python package",
             "temperature_dependant": True,
-            "pressure_dependant": True
+            "pressure_dependant": True,
+            # "percent_type": "ao"
            },
     "D2O": {
         "isotopes": {"H2": 2.0,
@@ -76,35 +89,44 @@ material_dict = {
                     },
         "density": 1.1,  # could be calculated using presure and temp
         "density_unit": "g/cm3",
+        # "percent_type": "ao"
     },
-    "Nb3Sn": {"elements": "Nb3Sn", "density": 8.69, "density_unit": "g/cm3",},
+    "Nb3Sn": {"elements": "Nb3Sn",
+              "density": 8.69,
+              "density_unit": "g/cm3",
+            #   "percent_type": "ao"
+             },
     "Pb84.2Li15.8": {
         "elements": "Pb84.2Li15.8",
         "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
         "density_unit": "g/cm3",
         "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
         "temperature_dependant": True,
-        "enrichable": True
+        "enrichable": True,
+        # "percent_type": "ao"
     },
-    "lithium-lead": {
+    "lithium-lead": {  # check whether this works because doesn't seem to be any elements
         "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
         "density_unit": "g/cm3",
         "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
-        "temperature_dependant": True
+        "temperature_dependant": True,
+        # "percent_type": "ao"
     },
     "Li": {
         "elements": "Li",
         "density_equation": "0.515 - 1.01e-4 * (temperature_in_C - 200)",
         "density_unit": "g/cm3",
         "reference": "http://aries.ucsd.edu/LIB/PROPS/PANOS/li.html",
-        "temperature_dependant": True
+        "temperature_dependant": True,
+        # "percent_type": "ao"
     },
     "F2Li2BeF2": {
         "elements": "F2Li2BeF2",
         "density_equation": "2.214 - 4.2e-4 * temperature_in_C",
         "density_unit": "g/cm3",
         "reference": "source http://aries.ucsd.edu/LIB/MEETINGS/0103-TRANSMUT/gohar/Gohar-present.pdf",
-        "temperature_dependant": True
+        "temperature_dependant": True,
+        # "percent_type": "ao"
     },
     "Li4SiO4": {
         "elements": "Li4SiO4",
@@ -112,7 +134,8 @@ material_dict = {
         "volume_of_unit_cell_cm3": 0.17162883501e-21,  # could be replaced by a space group
         "enrichable": True,
         "packable": True,
-        "reference": "DOI 10.17188/1188336 https://materialsproject.org/materials/mp-11737/"
+        "reference": "DOI 10.17188/1188336 https://materialsproject.org/materials/mp-11737/",
+        # "percent_type": "ao"
     },
     "Li2SiO3": {
         "elements": "Li2SiO3",
@@ -120,7 +143,8 @@ material_dict = {
         "volume_of_unit_cell_cm3": 0.12255616623e-21,
         "enrichable": True,
         "packable": True,
-        "reference": "DOI 10.17188/1208560 https://materialsproject.org/materials/mp-5012/"
+        "reference": "DOI 10.17188/1208560 https://materialsproject.org/materials/mp-5012/",
+        # "percent_type": "ao"
     },
     "Li2ZrO3": {
         "elements": "Li2ZrO3",
@@ -128,7 +152,8 @@ material_dict = {
         "volume_of_unit_cell_cm3": 0.12610426777e-21,
         "enrichable": True,
         "packable": True,
-        "reference": "DOI 10.17188/1207897 https://materialsproject.org/materials/mp-4156/"
+        "reference": "DOI 10.17188/1207897 https://materialsproject.org/materials/mp-4156/",
+        # "percent_type": "ao"
     },
     "Li2TiO3": {
         "elements": "Li2TiO3",
@@ -136,7 +161,8 @@ material_dict = {
         "volume_of_unit_cell_cm3": 0.21849596020e-21,
         "enrichable": True,
         "packable": True,
-        "reference": "DOI 10.17188/1203676 https://materialsproject.org/materials/mp-2931/"
+        "reference": "DOI 10.17188/1203676 https://materialsproject.org/materials/mp-2931/",
+        # "percent_type": "ao"
     },
     "Li8PbO6": {
         "elements": "Li8PbO6",
@@ -144,13 +170,15 @@ material_dict = {
         "volume_of_unit_cell_cm3": 0.14400485967e-21,
         "enrichable": True,
         "packable": True,
-        "reference": "DOI 10.17188/1198772 https://materialsproject.org/materials/mp-22538/"
+        "reference": "DOI 10.17188/1198772 https://materialsproject.org/materials/mp-22538/",
+        # "percent_type": "ao"
     },
     "Pb": {
         "elements": "Pb",
         "density": "10.678 - 13.174e-4 * (temperature_in_K-600.6)",
         "density_unit": "g/cm3",
         "reference": "https://www.sciencedirect.com/science/article/abs/pii/0022190261802261",
+        # "percent_type": "ao"
     },
     "Be": {
         "elements": "Be",
@@ -158,7 +186,8 @@ material_dict = {
         "volume_of_unit_cell_cm3": 0.01587959994e-21,
         "enrichable": False,
         "packable": True,
-        "reference": "DOI 10.17188/1312591 https://materialsproject.org/materials/mp-87/"
+        "reference": "DOI 10.17188/1312591 https://materialsproject.org/materials/mp-87/",
+        # "percent_type": "ao"
     },
     "Be12Ti": {
         "elements": "Be12Ti",
@@ -166,7 +195,8 @@ material_dict = {
         "volume_of_unit_cell_cm3": 0.11350517285e-21,
         "enrichable": False,
         "packable": True,
-        "reference": "DOI 10.17188/1187703 https://materialsproject.org/materials/mp-11280/"
+        "reference": "DOI 10.17188/1187703 https://materialsproject.org/materials/mp-11280/",
+        # "percent_type": "ao"
     },
     "Ba5Pb3": {
         "elements": "Ba5Pb3",
@@ -174,7 +204,8 @@ material_dict = {
         "volume_of_unit_cell_cm3": 0.74343377212e-21,
         "enrichable": False,
         "packable": True,
-        "reference": "DOI 10.17188/1278091 https://materialsproject.org/materials/mp-622106/"
+        "reference": "DOI 10.17188/1278091 https://materialsproject.org/materials/mp-622106/",
+        # "percent_type": "ao"
     },
     "Nd5Pb4": {
         "elements": "Nd5Pb4",
@@ -182,7 +213,8 @@ material_dict = {
         "volume_of_unit_cell_cm3": 1.17174024048e-21,
         "enrichable": False,
         "packable": True,
-        "reference": "https://materialsproject.org/materials/mp-1204902/"
+        "reference": "https://materialsproject.org/materials/mp-1204902/",
+        # "percent_type": "ao"
     },
     "Zr5Pb3": {
         "elements": "Zr5Pb3",
@@ -190,17 +222,20 @@ material_dict = {
         "volume_of_unit_cell_cm3": 0.43511266920e-21,
         "enrichable": False,
         "packable": True,
-        "reference": "DOI 10.17188/1283750 https://materialsproject.org/materials/mp-681992/"
+        "reference": "DOI 10.17188/1283750 https://materialsproject.org/materials/mp-681992/",
+        # "percent_type": "ao"
     },
     "Zr5Pb4": {   # Not updated, no entry in materials project
         "elements": "Zr5Pb4",
         "atoms_per_unit_cell": 2,
         "volume_of_unit_cell_cm3": 0.40435e-21,
+        # "percent_type": "ao"
     },
     "SiC": {
         "elements": "SiC",
         "density": 3.,
         "density_unit": "g/cm3",
+        # "percent_type": "ao"
     },
     "eurofer": {
         "elements": {
@@ -229,6 +264,7 @@ material_dict = {
         "density": 7.78,
         "density_unit": "g/cm3",
         "reference": "Eurofusion neutronics handbook",
+        # "percent_type": "ao"
     },
     "SS_316L_N_IG": {
         "elements": {
@@ -253,6 +289,7 @@ material_dict = {
         "density": 7.93,
         "density_unit": "g/cm3",
         "reference": "Eurofusion neutronics handbook",
+        # "percent_type": "ao"
     },
     "tungsten": {
         "elements": {
@@ -291,6 +328,7 @@ material_dict = {
         "density": 19.0,
         "density_unit": "g/cm3",
         "reference": "Eurofusion neutronics handbook",
+        # "percent_type": "ao"
     },
     "CuCrZr": {
         "elements": {
@@ -321,12 +359,14 @@ material_dict = {
         "density": 8.9,
         "density_unit": "g/cm3",
         "reference": "Eurofusion neutronics handbook",
+        # "percent_type": "ao"
     },
     "copper": {
         "elements": {"Cu": 1.0},
         "element units": "atom fraction",
         "density": 8.5,
         "density_unit": "g/cm3",
+        # "percent_type": "ao"
     },
     "SS347": {
         "elements": {
@@ -341,6 +381,7 @@ material_dict = {
         "element units": "atom fraction",
         "density": 7.92,
         "density_unit": "g/cm3",
+        # "percent_type": "ao"
     },
     "SS321": {
         "elements": {
@@ -355,12 +396,19 @@ material_dict = {
         "element units": "atom fraction",
         "density": 7.92,
         "density_unit": "g/cm3",
+        # "percent_type": "ao"
     },
     "SS316": {
-        "elements": {"Fe": 67, "Cr": 17, "Ni": 14, "Mo": 2,},
+        "elements": {
+            "Fe": 67, 
+            "Cr": 17, 
+            "Ni": 14, 
+            "Mo": 2
+        },
         "element units": "atom fraction",
         "density": 7.97,
         "density_unit": "g/cm3",
+        # "percent_type": "ao"
     },
     "SS304": {
         "elements": {
@@ -375,12 +423,20 @@ material_dict = {
         "element units": "atom fraction",
         "density": 7.96,
         "density_unit": "g/cm3",
+        # "percent_type": "ao"
     },
     "P91": {
-        "elements": {"Fe": 89, "Cr": 9.1, "Mo": 1, "Mn": 0.5, "Si": 0.4,},
+        "elements": {
+            "Fe": 89, 
+            "Cr": 9.1, 
+            "Mo": 1, 
+            "Mn": 0.5, 
+            "Si": 0.4
+        },
         "element units": "atom fraction",
         "density": 7.96,
         "density_unit": "g/cm3",
+        # "percent_type": "ao"
     },
     "SS316L": {
         "elements": {
@@ -396,7 +452,8 @@ material_dict = {
         },
         "element units": "atom fraction",
         "density": 8.00,
-        "density_unit": "g/cm3"
+        "density_unit": "g/cm3",
+        # "percent_type": "wo"
     },
     "ReBCO": {
         "elements": {
@@ -407,28 +464,29 @@ material_dict = {
         },
         "element units": "atom fraction",
         "density": 6.3,
-        "density_unit": "g/cm3"
+        "density_unit": "g/cm3",
+        # "percent_type": "ao"
     },
-    # "SST91": {
-    #     "elements": {
-    #         "C": 0.10,
-    #         "Mn": 0.45,
-    #         "P": 0.02,
-    #         "S": 0.01,
-    #         "Si": 0.35,
-    #         "Cr": 8.75,
-    #         "Mo": 0.95,
-    #         "V": 0.215,
-    #         "N": 0.05,
-    #         "Ni": 0.4,
-    #         "Al": 0.04,
-    #         "Nb": 0.08,
-    #         "Fe": 88.585
-    #     },
-    #     "element units": "weight fraction",   # weight fractions not currently implemented 
-    #     "density": 7.77,
-    #     "density_unit": "g/cm3"
-    # }
+    "SST91": {
+        "elements": {
+            "C": 0.10,
+            "Mn": 0.45,
+            "P": 0.02,
+            "S": 0.01,
+            "Si": 0.35,
+            "Cr": 8.75,
+            "Mo": 0.95,
+            "V": 0.215,
+            "N": 0.05,
+            "Ni": 0.4,
+            "Al": 0.04,
+            "Nb": 0.08,
+            "Fe": 88.585
+        },
+        "density": 7.77,
+        "density_unit": "g/cm3",
+        # "percent_type": "wo"
+    }
 }
 
 
@@ -439,7 +497,7 @@ class Material:
         temperature_in_C=None,
         temperature_in_K=None,
         pressure_in_Pa=None,
-        enrichment_fraction=None,
+        # enrichment_fraction=None,
         packing_fraction=1.0,
         volume_fraction=1.0,
         elements=None,
@@ -449,7 +507,11 @@ class Material:
         atoms_per_unit_cell=None,
         volume_of_unit_cell_cm3=None,
         density_list=None,
-        density_unit="g/cm3"
+        density_unit="g/cm3",
+        percent_type=None,
+        enrichment=None,
+        enrichment_target=None,
+        enrichment_type=None
     ):
         """Makes an OpenMC material object complete with isotopes and density 
         that vary with temperature, pressure and crystall stucture when appropiate. 
@@ -492,8 +554,8 @@ class Material:
         self.temperature_in_C = temperature_in_C
         self.temperature_in_K = temperature_in_K
         self.pressure_in_Pa = pressure_in_Pa
-        self.enrichment_fraction = enrichment_fraction
-        self.enriched_isotope = "Li6"
+        # self.enrichment_fraction = enrichment_fraction
+        # self.enriched_isotope = "Li6"
         self.packing_fraction = packing_fraction
         self.volume_fraction = volume_fraction
         self.elements = elements
@@ -506,22 +568,30 @@ class Material:
         self.density_unit = density_unit
         self.density_list = density_list
         self.neutronics_material = None
+        self.percent_type = percent_type
+        self.enrichment = enrichment
+        self.enrichment_target = enrichment_target
+        self.enrichment_type = enrichment_type
 
 
         self.list_of_fractions = None
         self.chemical_equation = None
 
-
         self.populate_from_dictionary()
 
+        # at the moment, we can only enrich lithium
 
+        # we need to find a way to change the percent_type from the 'default' provided in the dictionary
 
-        if self.enriched_isotope != "Li6":
-            raise ValueError(
-                "Currently ",
-                self.enriched_isotope,
-                " is not supported. Only Li6 enrichment is supported",
-            )
+        # ensures percent_type has been provided
+        # at the moment, can be provided by the dictionary or by input, but dictionary value cannot be changed by input
+        if self.percent_type == None:
+            raise ValueError("percent type not provided")
+
+        # checks that if we try to enrich a material by providing any of the arguments, that the other arguments are also provided
+        if self.enrichment != None or self.enrichment_target != None or self.enrichment_type != None:
+            if self.enrichment == None or self.enrichment_target == None or self.enrichment_type == None:
+                raise ValueError('enrichment, enrichment target and enrichment type are needed to enrich material')
 
         if "temperature_dependant" in material_dict[self.material_name].keys():
             if temperature_in_K == None and temperature_in_C == None:
@@ -555,9 +625,6 @@ class Material:
         if "pressure_in_Pa" in material_dict[self.material_name].keys():
             self.pressure_in_Pa = material_dict[self.material_name]["pressure_in_Pa"]
 
-        if "enrichment_fraction" in material_dict[self.material_name].keys():
-            self.enrichment_fraction = material_dict[self.material_name]["enrichment_fraction"]
-
         if "packing_fraction" in material_dict[self.material_name].keys():
             self.packing_fraction = material_dict[self.material_name]["packing_fraction"]
 
@@ -585,6 +652,18 @@ class Material:
         if "density_unit" in material_dict[self.material_name].keys():
             self.density_unit = material_dict[self.material_name]["density_unit"]
 
+        if "percent_type" in material_dict[self.material_name].keys():
+            self.percent_type = material_dict[self.material_name]["percent_type"]
+
+        if "enrichment" in material_dict[self.material_name].keys():
+            self.enrichment = material_dict[self.material_name]["enrichment"]
+
+        if "enrichment_target" in material_dict[self.material_name].keys():
+            self.enrichment_target = material_dict[self.material_name]["enrichment_target"]
+
+        if "enrichment_type" in material_dict[self.material_name].keys():
+            self.enrichment_type = material_dict[self.material_name]["enrichment_type"]
+
     def add_elements(self):
 
         if self.elements is None:
@@ -592,26 +671,33 @@ class Material:
         else:
             material_dict[self.material_name]["elements"] = self.elements
 
-        if type(self.elements) == dict and self.enrichment_fraction is None:
+        # percent_type for each element is provided by the self.percent_type value
+
+        if type(self.elements) == dict and self.enrichment is None:
             element_numbers = self.elements.values()
             element_symbols = self.elements.keys()
 
             for element_symbol, element_number in zip(element_symbols, element_numbers):
                 self.neutronics_material.add_element(
-                    element_symbol, element_number, "ao"
+                    element_symbol, element_number, self.percent_type
                 )
-
-        elif type(self.elements) == str and self.enrichment_fraction == None:
+        
+        elif type(self.elements) == str and self.enrichment == None:
 
             self.chemical_equation = self.elements
             element_numbers = self.get_element_numbers_normalized()
             element_symbols = self.get_elements_from_equation()
             for element_symbol, element_number in zip(element_symbols, element_numbers):
                 self.neutronics_material.add_element(
-                    element_symbol, element_number, "ao"
+                    element_symbol, element_number, self.percent_type
                 )
 
-        elif type(self.elements) == str and self.enrichment_fraction != None:
+        # enriching the material using the new enriching flow from openmc
+        # at the moment, we are only enriching Li
+        # check what the enrichment_target actually is
+        # element is enriched according to enrichment_type
+        # element is incorporated into material according to percent_type
+        elif type(self.elements) == str and self.enrichment != None:
 
             self.chemical_equation = self.elements
 
@@ -621,37 +707,36 @@ class Material:
             for element_symbol, element_number in zip(element_symbols, element_numbers):
 
                 if element_symbol == 'Li':
-                    if element_number * self.enrichment_fraction > 0:
-                        self.neutronics_material.add_nuclide(
-                            self.enriched_isotope,
-                            element_number * self.enrichment_fraction,
-                            "ao",
-                        )
-
-                    # TODO this would need changing to be more general and support other isotope enrichment
-                    if element_number * (1.0 - self.enrichment_fraction) > 0:
-                        self.neutronics_material.add_nuclide(
-                            "Li7",
-                            element_number * (1.0 - self.enrichment_fraction),
-                            "ao",
-                        )
+                    self.neutronics_material.add_element(
+                        'Li', 
+                        element_number, 
+                        percent_type=self.percent_type, 
+                        enrichment=self.enrichment, 
+                        enrichment_target=self.enrichment_target, 
+                        enrichment_type=self.enrichment_type
+                    )
+            
                 else:
                     self.neutronics_material.add_element(
-                        element_symbol, element_number, "ao"
+                        element_symbol, element_number, self.percent_type
                     )
 
-        elif type(self.elements) == dict and self.enrichment_fraction != None:
+        elif type(self.elements) == dict and self.enrichment != None:
 
             element_numbers = self.elements.values()
             element_symbols = self.elements.keys()
 
             for element_symbol, element_number in zip(element_symbols, element_numbers):
                 if element_symbol == 'Li':
-                    self.neutronics_material.add_nuclide('Li6', element_number*self.enrichment_fraction, "ao")
-                    self.neutronics_material.add_nuclide('Li7', element_number*(1-self.enrichment_fraction), "ao")
+                    self.neutronics_material.add_element('Li',
+                                                         element_number,
+                                                         percent_type=self.percent_type,
+                                                         enrichment=self.enrichment,
+                                                         enrichment_target=self.enrichment_target,
+                                                         enrichment_type=self.enrichment_type)
                 else:
                     self.neutronics_material.add_element(
-                        element_symbol, element_number, "ao"
+                        element_symbol, element_number, self.percent_type
                     )
 
         return element_symbols, element_numbers
@@ -665,7 +750,7 @@ class Material:
             for isotopes_symbol in material_dict[self.material_name]["isotopes"].keys():
 
                 isotopes_number = material_dict[self.material_name]["isotopes"][isotopes_symbol]
-                self.neutronics_material.add_nuclide(isotopes_symbol, isotopes_number, "ao")
+                self.neutronics_material.add_nuclide(isotopes_symbol, isotopes_number, self.percent_type)
 
     def add_density(self):
         print(self)
