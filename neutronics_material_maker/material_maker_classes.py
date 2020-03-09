@@ -570,8 +570,9 @@ class Material:
         self.neutronics_material = None
         self.percent_type = percent_type
         self.enrichment = enrichment
-        self.enrichment_target = enrichment_target
+        self._enrichment_target = enrichment_target
         self.enrichment_type = enrichment_type
+        self.enrichment_element = None
 
 
         self.list_of_fractions = None
@@ -613,6 +614,18 @@ class Material:
 
 
         self.make_material()
+
+
+
+    @property
+    def enrichment_target(self):
+        return self._enrichment_target
+
+    @enrichment_target.setter
+    def enrichment_target(self, value):
+        self.enrichment_element = re.split('(\d+)',value)[0]
+        self._enrichment_target = value
+
 
     def populate_from_dictionary(self):
 
@@ -704,19 +717,19 @@ class Material:
             element_numbers = self.get_element_numbers_normalized()
             element_symbols = self.get_elements_from_equation()
 
-            enrichment_element = re.split('(\d+)',self.enrichment_target)[0]
+            
             for element_symbol, element_number in zip(element_symbols, element_numbers):
 
-                if element_symbol == enrichment_element:
+                if element_symbol == self.enrichment_element:
                     self.neutronics_material.add_element(
-                        enrichment_element, 
+                        self.enrichment_element, 
                         element_number, 
                         percent_type=self.percent_type, 
                         enrichment=self.enrichment, 
                         enrichment_target=self.enrichment_target, 
                         enrichment_type=self.enrichment_type
                     )
-            
+
                 else:
                     self.neutronics_material.add_element(
                         element_symbol, element_number, self.percent_type
