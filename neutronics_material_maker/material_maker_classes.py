@@ -37,6 +37,8 @@ import math
 
 from CoolProp.CoolProp import PropsSI
 
+from .materials_fusion_breeders import material_dict
+
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
@@ -50,492 +52,47 @@ atomic_mass_unit_in_g = 1.660539040e-24
 # We need to also incorporate the 'enrichable' flag into our enrichment flow.
 # This enrichable flag will be to do with the new method of enriching, i.e. will only be valid on two isotope elements, for now we will keep it just for Lithium
 
-material_dict = {
-    "He": {
-        "elements": {"He": 1.0},
-        #"density_equation": 'Chemical("He", T=temperature_in_K, P=pressure_in_Pa).rho',
-        "density_equation": "PropsSI('D', 'T', temperature_in_K, 'P', pressure_in_Pa, 'Helium')",
-        "density_unit": "kg/m3",
-        "reference": "CoolProp python package for density equation",
-        "temperature_dependant": True,
-        "pressure_dependant": True,
-        # "percent_type": "ao"
-    },
-    "DT_plasma": {
-        "isotopes": {"H2": 0.5, "H3": 0.5,},
-        "density": 0.000001,
-        "density_unit": "g/cm3",  # is this a case to support other units?
-        # "percent_type": "ao"
-    },
-    "WC": {"elements": "WC",
-           "density": 18.0,
-           "density_unit": "g/cm3",
-        #    "percent_type": "ao"
-          },
-    "H2O": {"elements": "H2O",
-            # "density_equation": 'Chemical("H2O", T=temperature_in_K, P=pressure_in_Pa).rho',
-            "density_equation": "PropsSI('D', 'T', temperature_in_K, 'P', pressure_in_Pa, 'Water')",
-            "density_unit": "kg/m3",
-            "reference": "CoolProp python package",
-            "temperature_dependant": True,
-            "pressure_dependant": True,
-            # "percent_type": "ao"
-           },
-    "D2O": {
-        "isotopes": {"H2": 2.0,
-                     "O16": 0.99757+0.00205,
-                     "O17": 0.00038,
-                    #  "O18": 0.00205, #removed till mixed crosssections.xml files are avaialbe in openmc
-                    },
-        "density": 1.1,  # could be calculated using presure and temp
-        "density_unit": "g/cm3",
-        # "percent_type": "ao"
-    },
-    "Nb3Sn": {"elements": "Nb3Sn",
-              "density": 8.69,
-              "density_unit": "g/cm3",
-            #   "percent_type": "ao"
-             },
-    "Pb84.2Li15.8": {
-        "elements": "Pb84.2Li15.8",
-        "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
-        "density_unit": "g/cm3",
-        "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
-        "temperature_dependant": True,
-        "enrichable": True,
-        # "percent_type": "ao"
-    },
-    "lithium-lead": {  # check whether this works because doesn't seem to be any elements
-        "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
-        "density_unit": "g/cm3",
-        "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
-        "temperature_dependant": True,
-        # "percent_type": "ao"
-    },
-    "Li": {
-        "elements": "Li",
-        "density_equation": "0.515 - 1.01e-4 * (temperature_in_C - 200)",
-        "density_unit": "g/cm3",
-        "reference": "http://aries.ucsd.edu/LIB/PROPS/PANOS/li.html",
-        "temperature_dependant": True,
-        # "percent_type": "ao"
-    },
-    "F2Li2BeF2": {
-        "elements": "F2Li2BeF2",
-        "density_equation": "2.214 - 4.2e-4 * temperature_in_C",
-        "density_unit": "g/cm3",
-        "reference": "source http://aries.ucsd.edu/LIB/MEETINGS/0103-TRANSMUT/gohar/Gohar-present.pdf",
-        "temperature_dependant": True,
-        # "percent_type": "ao"
-    },
-    "Li4SiO4": {
-        "elements": "Li4SiO4",
-        "atoms_per_unit_cell": 2,
-        "volume_of_unit_cell_cm3": 0.17162883501e-21,  # could be replaced by a space group
-        "enrichable": True,
-        "packable": True,
-        "reference": "DOI 10.17188/1188336 https://materialsproject.org/materials/mp-11737/",
-        # "percent_type": "ao"
-    },
-    "Li2SiO3": {
-        "elements": "Li2SiO3",
-        "atoms_per_unit_cell": 2,
-        "volume_of_unit_cell_cm3": 0.12255616623e-21,
-        "enrichable": True,
-        "packable": True,
-        "reference": "DOI 10.17188/1208560 https://materialsproject.org/materials/mp-5012/",
-        # "percent_type": "ao"
-    },
-    "Li2ZrO3": {
-        "elements": "Li2ZrO3",
-        "atoms_per_unit_cell": 2,
-        "volume_of_unit_cell_cm3": 0.12610426777e-21,
-        "enrichable": True,
-        "packable": True,
-        "reference": "DOI 10.17188/1207897 https://materialsproject.org/materials/mp-4156/",
-        # "percent_type": "ao"
-    },
-    "Li2TiO3": {
-        "elements": "Li2TiO3",
-        "atoms_per_unit_cell": 4,
-        "volume_of_unit_cell_cm3": 0.21849596020e-21,
-        "enrichable": True,
-        "packable": True,
-        "reference": "DOI 10.17188/1203676 https://materialsproject.org/materials/mp-2931/",
-        # "percent_type": "ao"
-    },
-    "Li8PbO6": {
-        "elements": "Li8PbO6",
-        "atoms_per_unit_cell": 1,
-        "volume_of_unit_cell_cm3": 0.14400485967e-21,
-        "enrichable": True,
-        "packable": True,
-        "reference": "DOI 10.17188/1198772 https://materialsproject.org/materials/mp-22538/",
-        # "percent_type": "ao"
-    },
-    "Pb": {
-        "elements": "Pb",
-        "density": "10.678 - 13.174e-4 * (temperature_in_K-600.6)",
-        "density_unit": "g/cm3",
-        "reference": "https://www.sciencedirect.com/science/article/abs/pii/0022190261802261",
-        # "percent_type": "ao"
-    },
-    "Be": {
-        "elements": "Be",
-        "atoms_per_unit_cell": 2,
-        "volume_of_unit_cell_cm3": 0.01587959994e-21,
-        "enrichable": False,
-        "packable": True,
-        "reference": "DOI 10.17188/1312591 https://materialsproject.org/materials/mp-87/",
-        # "percent_type": "ao"
-    },
-    "Be12Ti": {
-        "elements": "Be12Ti",
-        "atoms_per_unit_cell": 1,
-        "volume_of_unit_cell_cm3": 0.11350517285e-21,
-        "enrichable": False,
-        "packable": True,
-        "reference": "DOI 10.17188/1187703 https://materialsproject.org/materials/mp-11280/",
-        # "percent_type": "ao"
-    },
-    "Ba5Pb3": {
-        "elements": "Ba5Pb3",
-        "atoms_per_unit_cell": 2,
-        "volume_of_unit_cell_cm3": 0.74343377212e-21,
-        "enrichable": False,
-        "packable": True,
-        "reference": "DOI 10.17188/1278091 https://materialsproject.org/materials/mp-622106/",
-        # "percent_type": "ao"
-    },
-    "Nd5Pb4": {
-        "elements": "Nd5Pb4",
-        "atoms_per_unit_cell": 4,
-        "volume_of_unit_cell_cm3": 1.17174024048e-21,
-        "enrichable": False,
-        "packable": True,
-        "reference": "https://materialsproject.org/materials/mp-1204902/",
-        # "percent_type": "ao"
-    },
-    "Zr5Pb3": {
-        "elements": "Zr5Pb3",
-        "atoms_per_unit_cell": 2,
-        "volume_of_unit_cell_cm3": 0.43511266920e-21,
-        "enrichable": False,
-        "packable": True,
-        "reference": "DOI 10.17188/1283750 https://materialsproject.org/materials/mp-681992/",
-        # "percent_type": "ao"
-    },
-    "Zr5Pb4": {   # Not updated, no entry in materials project
-        "elements": "Zr5Pb4",
-        "atoms_per_unit_cell": 2,
-        "volume_of_unit_cell_cm3": 0.40435e-21,
-        # "percent_type": "ao"
-    },
-    "SiC": {
-        "elements": "SiC",
-        "density": 3.,
-        "density_unit": "g/cm3",
-        # "percent_type": "ao"
-    },
-    "eurofer": {
-        "elements": {
-            "Fe": 0.88821,
-            "B": 1e-05,
-            "C": 0.00105,
-            "N": 0.0004,
-            "O": 1e-05,
-            "Al": 4e-05,
-            "Si": 0.00026,
-            "P": 2e-05,
-            "S": 3e-05,
-            "Ti": 1e-05,
-            "V": 0.002,
-            "Cr": 0.09,
-            "Mn": 0.0055,
-            "Co": 5e-05,
-            "Ni": 0.0001,
-            "Cu": 3e-05,
-            "Nb": 5e-05,
-            "Mo": 3e-05,
-            "Ta": 0.0012,
-            "W": 0.011,
-        },
-        "element units": "atom fraction",
-        "density": 7.78,
-        "density_unit": "g/cm3",
-        "reference": "Eurofusion neutronics handbook",
-        # "percent_type": "ao"
-    },
-    "SS_316L_N_IG": {
-        "elements": {
-            "Fe": 62.973,
-            "C": 0.030,
-            "Mn": 2.00,
-            "Si": 0.50,
-            "P": 0.03,
-            "S": 0.015,
-            "Cr": 18.00,
-            "Ni": 12.50,
-            "Mo": 2.70,
-            "N": 0.080,
-            "B": 0.002,
-            "Cu": 1.0,
-            "Co": 0.05,
-            "Nb": 0.01,
-            "Ti": 0.10,
-            "Ta": 0.01,
-        },
-        "element units": "atom fraction",
-        "density": 7.93,
-        "density_unit": "g/cm3",
-        "reference": "Eurofusion neutronics handbook",
-        # "percent_type": "ao"
-    },
-    "tungsten": {
-        "elements": {
-            "W": 0.999595,
-            "Ag": 1e-05,
-            "Al": 1.5e-05,
-            "As": 5e-06,
-            "Ba": 5e-06,
-            "Ca": 5e-06,
-            "Cd": 5e-06,
-            "Co": 1e-05,
-            "Cr": 2e-05,
-            "Cu": 1e-05,
-            "Fe": 3e-05,
-            "K": 1e-05,
-            "Mg": 5e-06,
-            "Mn": 5e-06,
-            "Na": 1e-05,
-            "Nb": 1e-05,
-            "Ni": 5e-06,
-            "Pb": 5e-06,
-            "Ta": 2e-05,
-            "Ti": 5e-06,
-            "Zn": 5e-06,
-            "Zr": 5e-06,
-            "Mo": 1e-04,
-            "C": 3e-05,
-            "H": 5e-06,
-            "N": 5e-06,
-            "O": 2e-05,
-            "P": 2e-05,
-            "S": 5e-06,
-            "Si": 2e-05,
-        },
-        "element units": "atom fraction",
-        "density": 19.0,
-        "density_unit": "g/cm3",
-        "reference": "Eurofusion neutronics handbook",
-        # "percent_type": "ao"
-    },
-    "CuCrZr": {
-        "elements": {
-            "Cu": 0.9871,
-            "Cr": 0.0075,
-            "Zr": 0.0011,
-            "Co": 0.0005,
-            "Ta": 0.0001,
-            "Nb": 0.001,
-            "B": 1e-05,
-            "O": 0.00032,
-            "Mg": 0.0004,
-            "Al": 3e-05,
-            "Si": 0.0004,
-            "P": 0.00014,
-            "S": 4e-05,
-            "Mn": 2e-05,
-            "Fe": 0.0002,
-            "Ni": 0.0006,
-            "Zn": 0.0001,
-            "As": 0.0001,
-            "Sn": 0.0001,
-            "Sb": 0.00011,
-            "Pb": 0.0001,
-            "Bi": 3e-05,
-        },
-        "element units": "atom fraction",
-        "density": 8.9,
-        "density_unit": "g/cm3",
-        "reference": "Eurofusion neutronics handbook",
-        # "percent_type": "ao"
-    },
-    "copper": {
-        "elements": {"Cu": 1.0},
-        "element units": "atom fraction",
-        "density": 8.5,
-        "density_unit": "g/cm3",
-        # "percent_type": "ao"
-    },
-    "SS347": {
-        "elements": {
-            "Fe": 67.42,
-            "Cr": 18,
-            "Ni": 10.5,
-            "Nb": 1,
-            "Mn": 2,
-            "Si": 1,
-            "C": 0.08,
-        },
-        "element units": "atom fraction",
-        "density": 7.92,
-        "density_unit": "g/cm3",
-        # "percent_type": "ao"
-    },
-    "SS321": {
-        "elements": {
-            "Fe": 67.72,
-            "Cr": 18,
-            "Ni": 10.5,
-            "Ti": 0.7,
-            "Mn": 2,
-            "Si": 1,
-            "C": 0.08,
-        },
-        "element units": "atom fraction",
-        "density": 7.92,
-        "density_unit": "g/cm3",
-        # "percent_type": "ao"
-    },
-    "SS316": {
-        "elements": {
-            "Fe": 67, 
-            "Cr": 17, 
-            "Ni": 14, 
-            "Mo": 2
-        },
-        "element units": "atom fraction",
-        "density": 7.97,
-        "density_unit": "g/cm3",
-        # "percent_type": "ao"
-    },
-    "SS304": {
-        "elements": {
-            "Fe": 68.82,
-            "Cr": 19,
-            "Ni": 9.25,
-            "Mn": 2,
-            "Si": 0.75,
-            "N": 0.1,
-            "C": 0.08,
-        },
-        "element units": "atom fraction",
-        "density": 7.96,
-        "density_unit": "g/cm3",
-        # "percent_type": "ao"
-    },
-    "P91": {
-        "elements": {
-            "Fe": 89, 
-            "Cr": 9.1, 
-            "Mo": 1, 
-            "Mn": 0.5, 
-            "Si": 0.4
-        },
-        "element units": "atom fraction",
-        "density": 7.96,
-        "density_unit": "g/cm3",
-        # "percent_type": "ao"
-    },
-    "SS316L": {
-        "elements": {
-            "C": 0.001384,
-            "Si": 0.019722,
-            "P": 0.000805,
-            "S": 0.000518,
-            "Cr": 0.181098,
-            "Mn": 0.020165,
-            "Fe": 0.648628,
-            "Ni": 0.113247,
-            "Mo": 0.014434
-        },
-        "element units": "atom fraction",
-        "density": 8.00,
-        "density_unit": "g/cm3",
-        # "percent_type": "wo"
-    },
-    "ReBCO": {
-        "elements": {
-            "Y": 1.00,
-            "Ba": 2.00,
-            "Cu": 3.00,
-            "O": 7.00
-        },
-        "element units": "atom fraction",
-        "density": 6.3,
-        "density_unit": "g/cm3",
-        # "percent_type": "ao"
-    },
-    "SST91": {
-        "elements": {
-            "C": 0.10,
-            "Mn": 0.45,
-            "P": 0.02,
-            "S": 0.01,
-            "Si": 0.35,
-            "Cr": 8.75,
-            "Mo": 0.95,
-            "V": 0.215,
-            "N": 0.05,
-            "Ni": 0.4,
-            "Al": 0.04,
-            "Nb": 0.08,
-            "Fe": 88.585
-        },
-        "density": 7.77,
-        "density_unit": "g/cm3",
-        # "percent_type": "wo"
-    }
-}
-
-
 class Material:
     def __init__(
         self,
         material_name,
-        temperature_in_C=None,
-        temperature_in_K=None,
-        pressure_in_Pa=None,
-        # enrichment_fraction=None,
         packing_fraction=1.0,
-        volume_fraction=1.0,
         elements=None,
         isotopes=None,
+        percent_type=None,
         density=None,
         density_equation=None,
         atoms_per_unit_cell=None,
         volume_of_unit_cell_cm3=None,
-        density_list=None,
-        density_unit="g/cm3",
-        percent_type=None,
+        density_unit=None,
         enrichment=None,
         enrichment_target=None,
-        enrichment_type=None
+        enrichment_type=None,
+        temperature_in_C=None,
+        temperature_in_K=None,
+        pressure_in_Pa=None
     ):
         """Makes an OpenMC material object complete with isotopes and density 
         that vary with temperature, pressure and crystall stucture when appropiate. 
         Uses an internal database that contains fusion relevant materials
-        
+
         Arguments:
             material_name {[type]} -- [description]
-        
+
         Keyword Arguments:
             temperature_in_C {[type]} -- [description] (default: {None})
             temperature_in_K {[type]} -- [description] (default: {None})
             pressure_in_Pa {[type]} -- [description] (default: {None})
             enrichment_fraction {[type]} -- [description] (default: {None})
             packing_fraction {float} -- [description] (default: {1.0})
-            volume_fraction {float} -- [description] (default: {1.0})
             elements {[type]} -- [description] (default: {None})
             isotopes {[type]} -- [description] (default: {None})
             density {[type]} -- [description] (default: {None})
             density_equation {[type]} -- [description] (default: {None})
             atoms_per_unit_cell {[type]} -- [description] (default: {None})
             volume_of_unit_cell_cm3 {[type]} -- [description] (default: {None})
-            density_list {[type]} -- [description] (default: {None})
             density_unit {str} -- [description] (default: {"g/cm3"})
-        
+
         Raises:
             ValueError: [description]
             ValueError: [description]
@@ -546,48 +103,40 @@ class Material:
             ValueError: [description]
             ValueError: [description]
             ValueError: [description]
-        
+
         Returns:
             [type] -- [description]
         """    
-        self.material_name = material_name
-        self.temperature_in_C = temperature_in_C
-        self.temperature_in_K = temperature_in_K
-        self.pressure_in_Pa = pressure_in_Pa
-        # self.enrichment_fraction = enrichment_fraction
-        # self.enriched_isotope = "Li6"
-        self.packing_fraction = packing_fraction
-        self.volume_fraction = volume_fraction
-        self.elements = elements
-        self.isotopes = isotopes
-        self.density = density
-        self.density_value = None
-        self.density_equation = density_equation
-        self.atoms_per_unit_cell = atoms_per_unit_cell
-        self.volume_of_unit_cell_cm3 = volume_of_unit_cell_cm3
-        self.density_unit = density_unit
-        self.density_list = density_list
-        self.neutronics_material = None
-        self.percent_type = percent_type
-        self.enrichment = enrichment
+        self._material_name = material_name
+        self._temperature_in_C = temperature_in_C
+        self._temperature_in_K = temperature_in_K
+        self._pressure_in_Pa = pressure_in_Pa
+        self._packing_fraction = packing_fraction
+        self._elements = elements
+        self._isotopes = isotopes
+        self._density = density
+        self._density_equation = density_equation
+        self._atoms_per_unit_cell = atoms_per_unit_cell
+        self._volume_of_unit_cell_cm3 = volume_of_unit_cell_cm3
+        self._density_unit = density_unit
+        self._percent_type = percent_type
+        self._enrichment = enrichment
         self._enrichment_target = enrichment_target
-        self.enrichment_type = enrichment_type
+        self._enrichment_type = enrichment_type
+
+        #derived values
         self.enrichment_element = None
-
-
+        # self._enrichment_fraction = None
+        self.density_packed = None
+        self.neutronics_material = None
         self.list_of_fractions = None
         self.chemical_equation = None
+        self.element_numbers = None
+        self.element_symbols = None
 
         self.populate_from_dictionary()
 
-        # at the moment, we can only enrich lithium
-
-        # we need to find a way to change the percent_type from the 'default' provided in the dictionary
-
-        # ensures percent_type has been provided
-        # at the moment, can be provided by the dictionary or by input, but dictionary value cannot be changed by input
-        if self.percent_type == None:
-            raise ValueError("percent type not provided")
+ 
 
         # checks that if we try to enrich a material by providing any of the arguments, that the other arguments are also provided
         if self.enrichment != None or self.enrichment_target != None or self.enrichment_type != None:
@@ -602,11 +151,6 @@ class Material:
                     raise ValueError("temperature_in_K or temperature_in_C is needed for", self.material_name, " Typical water cooled blankets are 305C and 15.5e6Pa")
                 raise ValueError("temperature_in_K or temperature_in_C is needed for", self.material_name)
 
-            else:
-                if temperature_in_K == None:
-                    self.temperature_in_K = temperature_in_C + 273.15
-                if temperature_in_C == None:
-                    self.temperature_in_C = temperature_in_K + 273.15
 
         if "pressure_dependant" in material_dict[self.material_name].keys():
             if pressure_in_Pa == None:
@@ -616,6 +160,157 @@ class Material:
         self.make_material()
 
 
+    @property
+    def material_name(self):
+        return self._material_name
+
+    @material_name.setter
+    def material_name(self, value):
+        if type(value) is not str:
+            raise ValueError("Material names must be a string")
+        self._material_name = value
+
+
+    @property
+    def packing_fraction(self):
+        return self._packing_fraction
+
+    @packing_fraction.setter
+    def packing_fraction(self, value):
+        if type(value) is not float:
+            raise ValueError("Material names must be a float")
+        self._packing_fraction = value
+
+
+    @property
+    def elements(self):
+        return self._elements
+
+    @elements.setter
+    def elements(self, value):
+        self._elements = value
+
+
+
+    @property
+    def isotopes(self):
+        return self._isotopes
+
+    @isotopes.setter
+    def isotopes(self, value):
+        self._isotopes = value
+
+
+    @property
+    def density_equation(self):
+        return self._density_equation
+
+    @density_equation.setter
+    def density_equation(self, value):
+        self._density_equation = value
+
+    @property
+    def density_unit(self):
+        return self._density_unit
+
+    @density_unit.setter
+    def density_unit(self, value):
+        if value in ['g/cm3', 'g/cc', 'kg/m3', 'atom/b-cm', 'atom/cm3', None]:
+            self._density_unit = value
+        else:
+            raise ValueError("only 'g/cm3', 'g/cc', 'kg/m3', 'atom/b-cm', 'atom/cm3' are supported for the density_units")
+
+    @property
+    def percent_type(self):
+        return self._percent_type
+
+    @percent_type.setter
+    def percent_type(self, value):
+        if value in ['ao', 'wo', None]:
+            self._percent_type = value
+        else:
+            raise ValueError("only 'ao' and 'wo' are supported for the percent_type")
+
+    @property
+    def enrichment_type(self):
+        return self._enrichment_type
+
+    @enrichment_type.setter
+    def enrichment_type(self, value):
+        if value in ['ao', 'wo']:
+            self._enrichment_type = value
+        else:
+            raise ValueError("only 'ao' and 'wo' are supported for the enrichment_type")
+        
+
+
+    @property
+    def atoms_per_unit_cell(self):
+        return self._atoms_per_unit_cell
+
+    @atoms_per_unit_cell.setter
+    def atoms_per_unit_cell(self, value):
+        self._atoms_per_unit_cell = value
+
+
+    @property
+    def volume_of_unit_cell_cm3(self):
+        return self._volume_of_unit_cell_cm3
+
+    @volume_of_unit_cell_cm3.setter
+    def volume_of_unit_cell_cm3(self, value):
+        self._volume_of_unit_cell_cm3 = value
+
+
+
+    @property
+    def temperature_in_K(self):
+        return self._temperature_in_K
+
+    @temperature_in_K.setter
+    def temperature_in_K(self, value):
+        if value is not None:
+            self._temperature_in_C = value - 273.15
+        self._temperature_in_K = value
+
+
+    @property
+    def temperature_in_C(self):
+        return self._temperature_in_C
+
+    @temperature_in_C.setter
+    def temperature_in_C(self, value):
+        if value is not None:
+            self._temperature_in_K = value + 273.15
+        self._temperature_in_C = value
+
+
+
+    @property
+    def density(self):
+        return self._density
+
+    @density.setter
+    def density(self, value):
+        if value > 0:
+            self._density = value
+        else:
+            raise ValueError("Density have been incorrectly set, density should be above 0")
+
+
+    @property
+    def enrichment(self):
+        return self._enrichment
+
+    @enrichment.setter
+    def enrichment(self, value):
+        if value is None:
+            self._enrichment = value
+        elif value < 0 or value > 100:
+            raise ValueError("Enrichment must be between 0 and 100")
+        else:
+            self._enrichment = value
+
 
     @property
     def enrichment_target(self):
@@ -623,104 +318,86 @@ class Material:
 
     @enrichment_target.setter
     def enrichment_target(self, value):
-        if value is None:
-            self._enrichment_target = value
-        else:
-            self.enrichment_element = re.split('(\d+)',value)[0]
-            self._enrichment_target = value
-            self.make_material()
+        self._enrichment_target = value
+
+    @property
+    def pressure_in_Pa(self):
+        return self._pressure_in_Pa
+
+    @pressure_in_Pa.setter
+    def pressure_in_Pa(self, value):
+        self._pressure_in_Pa = value
+
 
 
     def populate_from_dictionary(self):
 
-        if "temperature_in_C" in material_dict[self.material_name].keys():
+        if self.temperature_in_C is None and "temperature_in_C" in material_dict[self.material_name].keys():
             self.temperature_in_C = material_dict[self.material_name]["temperature_in_C"]
 
-        if "temperature_in_K" in material_dict[self.material_name].keys():
+        if self.temperature_in_K is None and "temperature_in_K" in material_dict[self.material_name].keys():
             self.temperature_in_K = material_dict[self.material_name]["temperature_in_K"]
 
-        if "pressure_in_Pa" in material_dict[self.material_name].keys():
+        if self.pressure_in_Pa is None and "pressure_in_Pa" in material_dict[self.material_name].keys():
             self.pressure_in_Pa = material_dict[self.material_name]["pressure_in_Pa"]
 
-        if "packing_fraction" in material_dict[self.material_name].keys():
+        if self.packing_fraction is None and "packing_fraction" in material_dict[self.material_name].keys():
             self.packing_fraction = material_dict[self.material_name]["packing_fraction"]
 
-        if "volume_fraction" in material_dict[self.material_name].keys():
-            self.volume_fraction = material_dict[self.material_name]["volume_fraction"]
-
-        if "elements" in material_dict[self.material_name].keys():
+        if self.elements is None and "elements" in material_dict[self.material_name].keys():
             self.elements = material_dict[self.material_name]["elements"]
 
-        if "isotopes" in material_dict[self.material_name].keys():
+        if self.isotopes is None and "isotopes" in material_dict[self.material_name].keys():
             self.isotopes = material_dict[self.material_name]["isotopes"]
 
-        if "density" in material_dict[self.material_name].keys():
+        if self.density is None and "density" in material_dict[self.material_name].keys():
             self.density = material_dict[self.material_name]["density"]
 
-        if "density_equation" in material_dict[self.material_name].keys():
+        if self.density_equation is None and "density_equation" in material_dict[self.material_name].keys():
             self.density_equation = material_dict[self.material_name]["density_equation"]
 
-        if "atoms_per_unit_cell" in material_dict[self.material_name].keys():
+        if self.atoms_per_unit_cell is None and "atoms_per_unit_cell" in material_dict[self.material_name].keys():
             self.atoms_per_unit_cell = material_dict[self.material_name]["atoms_per_unit_cell"]
 
-        if "volume_of_unit_cell_cm3" in material_dict[self.material_name].keys():
+        if self.volume_of_unit_cell_cm3 is None and "volume_of_unit_cell_cm3" in material_dict[self.material_name].keys():
             self.volume_of_unit_cell_cm3 = material_dict[self.material_name]["volume_of_unit_cell_cm3"]
 
-        if "density_unit" in material_dict[self.material_name].keys():
+        if self.density_unit is None and "density_unit" in material_dict[self.material_name].keys():
             self.density_unit = material_dict[self.material_name]["density_unit"]
 
-        if "percent_type" in material_dict[self.material_name].keys():
+        if self.percent_type is None and "percent_type" in material_dict[self.material_name].keys():
             self.percent_type = material_dict[self.material_name]["percent_type"]
 
-        if "enrichment" in material_dict[self.material_name].keys():
+        if self.enrichment is None and "enrichment" in material_dict[self.material_name].keys():
             self.enrichment = material_dict[self.material_name]["enrichment"]
 
-        if "enrichment_target" in material_dict[self.material_name].keys():
+        if self.enrichment_target is None and "enrichment_target" in material_dict[self.material_name].keys():
             self.enrichment_target = material_dict[self.material_name]["enrichment_target"]
 
-        if "enrichment_type" in material_dict[self.material_name].keys():
+        if self.enrichment_type is None and "enrichment_type" in material_dict[self.material_name].keys():
             self.enrichment_type = material_dict[self.material_name]["enrichment_type"]
 
     def add_elements(self):
 
-        if self.elements is None:
-            self.elements = material_dict[self.material_name]["elements"]
+        if type(self.elements) == dict:
+            self.element_numbers = self.elements.values()
+            self.element_symbols = self.elements.keys()
+
+        elif type(self.elements) == str:
+
+            self.chemical_equation = self.elements
+
+            self.element_numbers = self.get_element_numbers_normalized()
+            self.element_symbols = self.get_elements_from_equation()
+
+        if self.enrichment_target != None:
+            enrichment_element = re.split('(\d+)',self.enrichment_target)[0]
         else:
-            material_dict[self.material_name]["elements"] = self.elements
+            enrichment_element = None
+        for element_symbol, element_number in zip(self.element_symbols, self.element_numbers):
 
-        # percent_type for each element is provided by the self.percent_type value
-
-        if type(self.elements) == dict and self.enrichment is None:
-            element_numbers = self.elements.values()
-            element_symbols = self.elements.keys()
-
-        elif type(self.elements) == str and self.enrichment == None:
-
-            self.chemical_equation = self.elements
-
-            element_numbers = self.get_element_numbers_normalized()
-            element_symbols = self.get_elements_from_equation()
-
-        # enriching the material using the new enriching flow from openmc
-        # at the moment, we are only enriching Li
-        # check what the enrichment_target actually is
-        # element is enriched according to enrichment_type
-        # element is incorporated into material according to percent_type
-        elif type(self.elements) == str and self.enrichment != None:
-
-            self.chemical_equation = self.elements
-
-            element_numbers = self.get_element_numbers_normalized()
-            element_symbols = self.get_elements_from_equation()
-
-        elif type(self.elements) == dict and self.enrichment != None:
-
-            element_numbers = self.elements.values()
-            element_symbols = self.elements.keys()
-
-        for element_symbol, element_number in zip(element_symbols, element_numbers):
-            if element_symbol == self.enrichment_element:
-                self.neutronics_material.add_element(self.enrichment_element,
+            if element_symbol == enrichment_element:
+                self.neutronics_material.add_element(element_symbol,
                                                         element_number,
                                                         percent_type=self.percent_type,
                                                         enrichment=self.enrichment,
@@ -731,7 +408,7 @@ class Material:
                     element_symbol, element_number, self.percent_type
                 )
 
-        return element_symbols, element_numbers
+        # return element_symbols, element_numbers
 
     def add_isotopes(self):
 
@@ -739,67 +416,43 @@ class Material:
 
             self.isotopes = material_dict[self.material_name]["isotopes"]
 
+            isotopes_numbers = []
             for isotopes_symbol in material_dict[self.material_name]["isotopes"].keys():
 
-                isotopes_number = material_dict[self.material_name]["isotopes"][isotopes_symbol]
+                isotopes_numbers.append(material_dict[self.material_name]["isotopes"][isotopes_symbol])
+
                 self.neutronics_material.add_nuclide(isotopes_symbol, isotopes_number, self.percent_type)
 
-    def add_density(self):
-        print(self)
-        if type(self.density) == float or type(self.density) == int:
+            self.isotopes_numbers = isotopes_numbers
 
-            self.density_value = self.density
-            self.neutronics_material.set_density(self.density_unit, self.density_value * self.packing_fraction)
+
+    def add_density(self):
+
+        if type(self.density) == float:
+            pass
 
         elif self.density == None and self.density_equation != None:
 
-            temperature_in_C = self.temperature_in_C
+            
             temperature_in_K = self.temperature_in_K
+            temperature_in_C = self.temperature_in_C
             pressure_in_Pa = self.pressure_in_Pa
 
-            print('temperature_in_C =', temperature_in_C)
-            print('temperature_in_K =', temperature_in_K)
-            print('pressure_in_Pa =', pressure_in_Pa)
-            print('density_equation =', self.density_equation)
-            # print(eval(self.density_equation))
-            calculated_density = eval(self.density_equation)
-            if calculated_density == None:
-                raise ValueError("Density value of ", self.material_name, " can not be found for a temperature of ",self.temperature_in_K, "K and pressure of ", self.pressure_in_Pa,'Pa')
-
-            if self.density_unit == 'kg/m3':
-                self.density_value = calculated_density / 1000.
-            if self.density_unit == 'g/cm3':
-                self.density_value = calculated_density
-            if self.density_unit not in ['kg/m3','g/cm3']:
-                raise ValueError("Density units of kg/m3 and g/cm3 are supported for density_equations")
-
-
-            print('self.density_value ',self.density_value )
-
-            self.neutronics_material.set_density(
-                'g/cm3', self.density_value * self.packing_fraction
-            )
-
-        elif self.density_list != None:
-
-            raise ValueError("Density values intopolated from a list is not yet implemented")
+            density = eval(self.density_equation)
+            if density == None:
+                raise ValueError("Density value of ", self.material_name, " can not be found")
+            else:
+                self.density = density
 
         elif self.atoms_per_unit_cell != None and self.volume_of_unit_cell_cm3 != None:
 
-            self.atoms_per_unit_cell = material_dict[self.material_name][
-                "atoms_per_unit_cell"
-            ]
-            self.volume_of_unit_cell_cm3 = material_dict[self.material_name][
-                "volume_of_unit_cell_cm3"
-            ]
+            self.atoms_per_unit_cell = material_dict[self.material_name]["atoms_per_unit_cell"]
+            self.volume_of_unit_cell_cm3 = material_dict[self.material_name]["volume_of_unit_cell_cm3"]
 
-            self.density_value = (
-                self.get_crystal_molar_mass()
-                * atomic_mass_unit_in_g
-                * self.atoms_per_unit_cell
-            ) / self.volume_of_unit_cell_cm3
-            self.neutronics_material.set_density(self.density_unit, self.density_value * self.packing_fraction)
-
+            self.density = (self.get_crystal_molar_mass()
+                            * atomic_mass_unit_in_g
+                            * self.atoms_per_unit_cell
+                            ) / self.volume_of_unit_cell_cm3
         else:
 
             raise ValueError(
@@ -807,6 +460,7 @@ class Material:
                 " provide either a density value, equation as a string, or atoms_per_unit_cell and volume_of_unit_cell_cm3",
             )
 
+        self.neutronics_material.set_density(self.density_unit, self.density * self.packing_fraction)
 
         return self.neutronics_material
 
@@ -818,7 +472,7 @@ class Material:
 
             self.add_isotopes()
 
-        if self.elements is not None:
+        elif self.elements is not None:
 
             self.add_elements()
 
