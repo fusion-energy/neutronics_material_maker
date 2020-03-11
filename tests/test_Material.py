@@ -56,11 +56,13 @@ class test_object_properties(unittest.TestCase):
 
                 lead_fraction = 0.3
                 lithium_fraction = 0.7
-                enrichment_fraction = 0.2
+                enrichment = 20
 
                 lithium_lead_elements = 'Li'+str(lithium_fraction) +'Pb'+str(lead_fraction)
                 test_material = Material('lithium-lead',
-                                         enrichment_fraction=enrichment_fraction,
+                                         enrichment=enrichment,
+                                         enrichment_target='Li6',
+                                         enrichment_type='ao',
                                          elements=lithium_lead_elements,
                                          temperature_in_C=450)
                 nucs = test_material.neutronics_material.nuclides
@@ -81,8 +83,8 @@ class test_object_properties(unittest.TestCase):
                 assert pb_atom_count == lead_fraction
                 assert li_atom_count == lithium_fraction
                 # assert li6_atom_count*5. == li7_atom_count #todo use approximatly
-                assert li6_atom_count == enrichment_fraction * lithium_fraction
-                assert li7_atom_count == (1.-enrichment_fraction) * lithium_fraction
+                assert li6_atom_count == pytest.approx(enrichment * lithium_fraction /100, rel=0.01)
+                assert li7_atom_count == pytest.approx((100.-enrichment) * lithium_fraction /100, rel=0.01)
 
         def test_density_of_crystals(self):
 
@@ -127,7 +129,8 @@ class test_object_properties(unittest.TestCase):
         def test_density_of_enriched_crystals(self): 
 
                 test_material = Material(material_name="Li4SiO4")
-                test_material_enriched = Material(material_name="Li4SiO4", enrichment_fraction=0.5)
+                test_material_enriched = Material(material_name="Li4SiO4", enrichment=50., enrichment_target='Li6',
+                                         enrichment_type='ao',)
                 assert test_material.neutronics_material.density > test_material_enriched.neutronics_material.density
 
 
@@ -164,11 +167,13 @@ class test_object_properties(unittest.TestCase):
 
                 lead_fraction = 0.3
                 lithium_fraction = 0.7
-                enrichment_fraction = 0.2
+                enrichment = 20
 
                 lithium_lead_elements = 'Li'+str(lithium_fraction) +'Pb'+str(lead_fraction)
                 test_material = Material('lithium-lead',
-                                         enrichment_fraction=enrichment_fraction,
+                                         enrichment=enrichment,
+                                         enrichment_target='Li6',
+                                         enrichment_type='ao',
                                          elements=lithium_lead_elements,
                                          temperature_in_C=450)
                 nucs = test_material.neutronics_material.nuclides
@@ -189,8 +194,8 @@ class test_object_properties(unittest.TestCase):
                 assert pb_atom_count == lead_fraction
                 assert li_atom_count == lithium_fraction
                 # assert li6_atom_count*5. == li7_atom_count #todo use approximatly
-                assert li6_atom_count == enrichment_fraction * lithium_fraction
-                assert li7_atom_count == (1.-enrichment_fraction) * lithium_fraction
+                assert li6_atom_count == pytest.approx(enrichment * lithium_fraction /100, rel=0.01)
+                assert li7_atom_count == pytest.approx((100.-enrichment) * lithium_fraction /100, rel=0.01)
 
 
 
