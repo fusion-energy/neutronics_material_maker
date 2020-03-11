@@ -107,6 +107,7 @@ class Material:
         Returns:
             [type] -- [description]
         """    
+
         self._material_name = material_name
         self._temperature_in_C = temperature_in_C
         self._temperature_in_K = temperature_in_K
@@ -128,6 +129,7 @@ class Material:
         self.enrichment_element = None
         # self._enrichment_fraction = None
         self.density_packed = None
+
         self.neutronics_material = None
         self.list_of_fractions = None
         self.chemical_equation = None
@@ -294,7 +296,6 @@ class Material:
 
 
 
-
     @property
     def density(self):
         return self._density
@@ -337,7 +338,6 @@ class Material:
     @pressure_in_Pa.setter
     def pressure_in_Pa(self, value):
         self._pressure_in_Pa = value
-
 
 
 
