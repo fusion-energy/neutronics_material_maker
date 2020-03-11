@@ -51,14 +51,18 @@ material_dict = {
         "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
         "temperature_dependant": True,
         "enrichable": True,
-        "percent_type": "ao"
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":'ao'
     },
     "lithium-lead": {  # check whether this works because doesn't seem to be any elements
         "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
         "density_unit": "g/cm3",
         "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
         "temperature_dependant": True,
-        "percent_type": "ao"
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":'ao'
     },
     "Li": {
         "elements": "Li",
@@ -66,7 +70,9 @@ material_dict = {
         "density_unit": "g/cm3",
         "reference": "http://aries.ucsd.edu/LIB/PROPS/PANOS/li.html",
         "temperature_dependant": True,
-        "percent_type": "ao"
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":'ao'
     },
     "F2Li2BeF2": {
         "elements": "F2Li2BeF2",
@@ -74,7 +80,9 @@ material_dict = {
         "density_unit": "g/cm3",
         "reference": "source http://aries.ucsd.edu/LIB/MEETINGS/0103-TRANSMUT/gohar/Gohar-present.pdf",
         "temperature_dependant": True,
-        "percent_type": "ao"
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":'ao'
     },
     "Li4SiO4": {
         "elements": "Li4SiO4",
@@ -84,7 +92,9 @@ material_dict = {
         "enrichable": True,
         "packable": True,
         "reference": "DOI 10.17188/1188336 https://materialsproject.org/materials/mp-11737/",
-        "percent_type": "ao"
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":'ao'
     },
     "Li2SiO3": {
         "elements": "Li2SiO3",
@@ -94,7 +104,9 @@ material_dict = {
         "enrichable": True,
         "packable": True,
         "reference": "DOI 10.17188/1208560 https://materialsproject.org/materials/mp-5012/",
-        "percent_type": "ao"
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":'ao'
     },
     "Li2ZrO3": {
         "elements": "Li2ZrO3",
@@ -104,7 +116,9 @@ material_dict = {
         "enrichable": True,
         "packable": True,
         "reference": "DOI 10.17188/1207897 https://materialsproject.org/materials/mp-4156/",
-        "percent_type": "ao"
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":'ao'
     },
     "Li2TiO3": {
         "elements": "Li2TiO3",
@@ -114,7 +128,9 @@ material_dict = {
         "enrichable": True,
         "packable": True,
         "reference": "DOI 10.17188/1203676 https://materialsproject.org/materials/mp-2931/",
-        "percent_type": "ao"
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":'ao'
     },
     "Li8PbO6": {
         "elements": "Li8PbO6",
@@ -124,14 +140,16 @@ material_dict = {
         "enrichable": True,
         "packable": True,
         "reference": "DOI 10.17188/1198772 https://materialsproject.org/materials/mp-22538/",
-        "percent_type": "ao"
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":'ao'
     },
     "Pb": {
         "elements": "Pb",
         "density": "10.678 - 13.174e-4 * (temperature_in_K-600.6)",
         "density_unit": "g/cm3",
         "reference": "https://www.sciencedirect.com/science/article/abs/pii/0022190261802261",
-        "percent_type": "ao"
+        "percent_type": "ao",
     },
     "Be": {
         "elements": "Be",

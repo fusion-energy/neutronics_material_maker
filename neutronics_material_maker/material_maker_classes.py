@@ -150,6 +150,11 @@ class Material:
                 elif self.material_name == 'H2O':
                     raise ValueError("temperature_in_K or temperature_in_C is needed for", self.material_name, " Typical water cooled blankets are 305C and 15.5e6Pa")
                 raise ValueError("temperature_in_K or temperature_in_C is needed for", self.material_name)
+            else:
+                if temperature_in_K == None:
+                    self.temperature_in_K = temperature_in_C + 273.15
+                if temperature_in_C == None:
+                    self.temperature_in_C = temperature_in_K + 273.15
 
 
         if "pressure_dependant" in material_dict[self.material_name].keys():
@@ -182,6 +187,7 @@ class Material:
         self._packing_fraction = value
 
 
+
     @property
     def elements(self):
         return self._elements
@@ -189,6 +195,7 @@ class Material:
     @elements.setter
     def elements(self, value):
         self._elements = value
+
 
 
 
@@ -201,6 +208,7 @@ class Material:
         self._isotopes = value
 
 
+
     @property
     def density_equation(self):
         return self._density_equation
@@ -208,6 +216,7 @@ class Material:
     @density_equation.setter
     def density_equation(self, value):
         self._density_equation = value
+
 
     @property
     def density_unit(self):
@@ -241,7 +250,7 @@ class Material:
             self._enrichment_type = value
         else:
             raise ValueError("only 'ao' and 'wo' are supported for the enrichment_type")
-        
+
 
 
     @property
@@ -251,6 +260,7 @@ class Material:
     @atoms_per_unit_cell.setter
     def atoms_per_unit_cell(self, value):
         self._atoms_per_unit_cell = value
+
 
 
     @property
@@ -263,15 +273,15 @@ class Material:
 
 
 
+
     @property
     def temperature_in_K(self):
         return self._temperature_in_K
 
     @temperature_in_K.setter
     def temperature_in_K(self, value):
-        if value is not None:
-            self._temperature_in_C = value - 273.15
         self._temperature_in_K = value
+
 
 
     @property
@@ -280,9 +290,8 @@ class Material:
 
     @temperature_in_C.setter
     def temperature_in_C(self, value):
-        if value is not None:
-            self._temperature_in_K = value + 273.15
         self._temperature_in_C = value
+
 
 
 
@@ -320,6 +329,7 @@ class Material:
     def enrichment_target(self, value):
         self._enrichment_target = value
 
+
     @property
     def pressure_in_Pa(self):
         return self._pressure_in_Pa
@@ -327,6 +337,7 @@ class Material:
     @pressure_in_Pa.setter
     def pressure_in_Pa(self, value):
         self._pressure_in_Pa = value
+
 
 
 
