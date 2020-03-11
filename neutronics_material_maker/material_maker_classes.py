@@ -139,9 +139,9 @@ class Material:
  
 
         # checks that if we try to enrich a material by providing any of the arguments, that the other arguments are also provided
-        if self.enrichment != None or self.enrichment_target != None or self.enrichment_type != None:
-            if self.enrichment == None or self.enrichment_target == None or self.enrichment_type == None:
-                raise ValueError('enrichment, enrichment target and enrichment type are needed to enrich material')
+        if self.enrichment is not None:
+            if self.enrichment_target == None or self.enrichment_type == None:
+                raise ValueError('enrichment target and enrichment type are needed to enrich a material')
 
         if "temperature_dependant" in material_dict[self.material_name].keys():
             if temperature_in_K == None and temperature_in_C == None:
