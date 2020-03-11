@@ -427,14 +427,12 @@ class Material:
 
             self.isotopes = material_dict[self.material_name]["isotopes"]
 
-            isotopes_numbers = []
-            for isotopes_symbol in material_dict[self.material_name]["isotopes"].keys():
+            self.isotope_numbers = self.isotopes.values()
+            self.isotope_symbols = self.isotopes.keys()
 
-                isotopes_numbers.append(material_dict[self.material_name]["isotopes"][isotopes_symbol])
+            for isotope_symbol, isotope_number in zip(self.isotope_symbols, self.isotope_numbers):
 
-                self.neutronics_material.add_nuclide(isotopes_symbol, isotopes_number, self.percent_type)
-
-            self.isotopes_numbers = isotopes_numbers
+                self.neutronics_material.add_nuclide(isotope_symbol, isotope_number, self.percent_type)
 
 
     def add_density(self):
@@ -444,7 +442,7 @@ class Material:
 
         elif self.density == None and self.density_equation != None:
 
-            
+
             temperature_in_K = self.temperature_in_K
             temperature_in_C = self.temperature_in_C
             pressure_in_Pa = self.pressure_in_Pa
