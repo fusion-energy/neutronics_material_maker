@@ -160,6 +160,8 @@ class Material:
         self.make_material()
 
 
+
+
     @property
     def material_name(self):
         return self._material_name
@@ -328,6 +330,15 @@ class Material:
     @pressure_in_Pa.setter
     def pressure_in_Pa(self, value):
         self._pressure_in_Pa = value
+
+
+    @property
+    def reference(self):
+        return self._reference
+
+    @reference.setter
+    def reference(self, value):
+        self._reference = value
 
 
     def populate_from_dictionary(self):
