@@ -418,7 +418,7 @@ class Material:
 
         elif type(self.elements) == str:
 
-            self.neutronics_material.add_element_from_formula(self.elements,
+            self.neutronics_material.add_element_from_formulas(self.elements,
                                                               percent_type=self.percent_type,
                                                               enrichment=self.enrichment,
                                                               enrichment_target=self.enrichment_target,
