@@ -30,15 +30,15 @@ material values such as density, chemical present etc ."""
 
 __author__ = "Jonathan Shimwell"
 
-import re
 import json
-import openmc
 import math
+import re
 
 from CoolProp.CoolProp import PropsSI
 
-from .materials_fusion_breeders import material_dict
+import openmc
 
+from .all_materials import material_dict
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
@@ -70,7 +70,8 @@ class Material:
         enrichment_type=None,
         temperature_in_C=None,
         temperature_in_K=None,
-        pressure_in_Pa=None
+        pressure_in_Pa=None,
+        reference=None
     ):
         """Makes an OpenMC material object complete with isotopes and density 
         that vary with temperature, pressure and crystall stucture when appropiate. 
@@ -95,18 +96,10 @@ class Material:
 
         Raises:
             ValueError: [description]
-            ValueError: [description]
-            ValueError: [description]
-            ValueError: [description]
-            ValueError: [description]
-            ValueError: [description]
-            ValueError: [description]
-            ValueError: [description]
-            ValueError: [description]
 
         Returns:
             [type] -- [description]
-        """    
+        """
 
         self._material_name = material_name
         self._temperature_in_C = temperature_in_C
@@ -124,10 +117,10 @@ class Material:
         self._enrichment = enrichment
         self._enrichment_target = enrichment_target
         self._enrichment_type = enrichment_type
+        self._reference = reference
 
-        #derived values
+        # derived values
         self.enrichment_element = None
-        # self._enrichment_fraction = None
         self.density_packed = None
 
         self.neutronics_material = None
@@ -189,7 +182,6 @@ class Material:
         self._packing_fraction = value
 
 
-
     @property
     def elements(self):
         return self._elements
@@ -199,16 +191,16 @@ class Material:
         self._elements = value
 
 
-
-
     @property
     def isotopes(self):
         return self._isotopes
 
     @isotopes.setter
     def isotopes(self, value):
-        self._isotopes = value
-
+        if type(value) is dict or value is None:
+            self._isotopes = value
+        else:
+            raise ValueError("Isotopes must be dictionaries e.g. {'Li6':0.07, 'Li7': 0.93}")
 
 
     @property
@@ -231,6 +223,7 @@ class Material:
         else:
             raise ValueError("only 'g/cm3', 'g/cc', 'kg/m3', 'atom/b-cm', 'atom/cm3' are supported for the density_units")
 
+
     @property
     def percent_type(self):
         return self._percent_type
@@ -241,6 +234,7 @@ class Material:
             self._percent_type = value
         else:
             raise ValueError("only 'ao' and 'wo' are supported for the percent_type")
+
 
     @property
     def enrichment_type(self):
@@ -274,8 +268,6 @@ class Material:
         self._volume_of_unit_cell_cm3 = value
 
 
-
-
     @property
     def temperature_in_K(self):
         return self._temperature_in_K
@@ -285,7 +277,6 @@ class Material:
         self._temperature_in_K = value
 
 
-
     @property
     def temperature_in_C(self):
         return self._temperature_in_C
@@ -293,7 +284,6 @@ class Material:
     @temperature_in_C.setter
     def temperature_in_C(self, value):
         self._temperature_in_C = value
-
 
 
     @property
@@ -338,7 +328,6 @@ class Material:
     @pressure_in_Pa.setter
     def pressure_in_Pa(self, value):
         self._pressure_in_Pa = value
-
 
 
     def populate_from_dictionary(self):
@@ -388,51 +377,48 @@ class Material:
         if self.enrichment_type is None and "enrichment_type" in material_dict[self.material_name].keys():
             self.enrichment_type = material_dict[self.material_name]["enrichment_type"]
 
+        if self.reference is None and "reference" in material_dict[self.material_name].keys():
+            self.reference = material_dict[self.material_name]["reference"]
+
+
     def add_elements(self):
 
         if type(self.elements) == dict:
-            self.element_numbers = self.elements.values()
-            self.element_symbols = self.elements.keys()
+
+            if self.enrichment_target != None:
+                enrichment_element = re.split(r'(\d+)',self.enrichment_target)[0]
+            else:
+                enrichment_element = None
+            for element_symbol, element_number in zip(self.elements.keys(), self.elements.values()):
+
+                if element_symbol == enrichment_element:
+                    self.neutronics_material.add_element(element_symbol,
+                                                         element_number,
+                                                         percent_type=self.percent_type,
+                                                         enrichment=self.enrichment,
+                                                         enrichment_target=self.enrichment_target,
+                                                         enrichment_type=self.enrichment_type
+                                                         )
+                else:
+                    self.neutronics_material.add_element(element_symbol,
+                                                         element_number,
+                                                         self.percent_type
+                                                        )
 
         elif type(self.elements) == str:
 
-            self.chemical_equation = self.elements
+            self.neutronics_material.add_element_from_formula(self.elements,
+                                                              percent_type=self.percent_type,
+                                                              enrichment=self.enrichment,
+                                                              enrichment_target=self.enrichment_target,
+                                                              enrichment_type=self.enrichment_type)
 
-            self.element_numbers = self.get_element_numbers_normalized()
-            self.element_symbols = self.get_elements_from_equation()
-
-        if self.enrichment_target != None:
-            enrichment_element = re.split('(\d+)',self.enrichment_target)[0]
-        else:
-            enrichment_element = None
-        for element_symbol, element_number in zip(self.element_symbols, self.element_numbers):
-
-            if element_symbol == enrichment_element:
-                self.neutronics_material.add_element(element_symbol,
-                                                        element_number,
-                                                        percent_type=self.percent_type,
-                                                        enrichment=self.enrichment,
-                                                        enrichment_target=self.enrichment_target,
-                                                        enrichment_type=self.enrichment_type)
-            else:
-                self.neutronics_material.add_element(
-                    element_symbol, element_number, self.percent_type
-                )
-
-        # return element_symbols, element_numbers
 
     def add_isotopes(self):
 
-        if "isotopes" in material_dict[self.material_name].keys():
+        for isotope_symbol, isotope_number in zip(self.isotopes.keys(), self.isotopes.values()):
 
-            self.isotopes = material_dict[self.material_name]["isotopes"]
-
-            self.isotope_numbers = self.isotopes.values()
-            self.isotope_symbols = self.isotopes.keys()
-
-            for isotope_symbol, isotope_number in zip(self.isotope_symbols, self.isotope_numbers):
-
-                self.neutronics_material.add_nuclide(isotope_symbol, isotope_number, self.percent_type)
+            self.neutronics_material.add_nuclide(isotope_symbol, isotope_number, self.percent_type)
 
 
     def add_density(self):
@@ -442,7 +428,7 @@ class Material:
 
         elif self.density == None and self.density_equation != None:
 
-
+            # Potentially used in the eval part
             temperature_in_K = self.temperature_in_K
             temperature_in_C = self.temperature_in_C
             pressure_in_Pa = self.pressure_in_Pa
@@ -455,13 +441,11 @@ class Material:
 
         elif self.atoms_per_unit_cell != None and self.volume_of_unit_cell_cm3 != None:
 
-            self.atoms_per_unit_cell = material_dict[self.material_name]["atoms_per_unit_cell"]
-            self.volume_of_unit_cell_cm3 = material_dict[self.material_name]["volume_of_unit_cell_cm3"]
+            molar_mass = self.get_atoms_in_crystal() * self.neutronics_material.average_molar_mass
 
-            self.density = (self.get_crystal_molar_mass()
-                            * atomic_mass_unit_in_g
-                            * self.atoms_per_unit_cell
-                            ) / self.volume_of_unit_cell_cm3
+            mass = self.atoms_per_unit_cell * molar_mass * atomic_mass_unit_in_g
+
+            self.density = mass / self.volume_of_unit_cell_cm3
         else:
 
             raise ValueError(
@@ -487,66 +471,27 @@ class Material:
 
         self.add_density()
 
-        # return self.neutronics_material
-
-    def read_chemical_equation(self):
-        return [a for a in re.split(r"([A-Z][a-z]*)", self.chemical_equation) if a]
-
-    def get_elements_from_equation(self):
-        chemical_equation_chopped_up = self.read_chemical_equation()
-        list_elements = []
-
-        for counter in range(0, len(chemical_equation_chopped_up)):
-            if chemical_equation_chopped_up[counter].isalpha():
-                element_symbol = chemical_equation_chopped_up[counter]
-                list_elements.append(element_symbol)
-        return list_elements
-
-    def get_element_numbers_normalized(self):
-        if self.list_of_fractions == None:
-            self.get_element_numbers()
-        norm_list_of_fractions = [
-            float(i) / sum(self.list_of_fractions) for i in self.list_of_fractions
-        ]
-        return norm_list_of_fractions
-
-    def get_element_numbers(self):
-        chemical_equation_chopped_up = self.read_chemical_equation()
-        list_of_fractions = []
-
-        for counter in range(0, len(chemical_equation_chopped_up)):
-            if chemical_equation_chopped_up[counter].isalpha():
-                if counter == len(chemical_equation_chopped_up) - 1:
-                    list_of_fractions.append(1.0)
-                elif not (chemical_equation_chopped_up[counter + 1]).isalpha():
-                    list_of_fractions.append(
-                        float(chemical_equation_chopped_up[counter + 1])
-                    )
-                else:
-                    list_of_fractions.append(1.0)
-        self.list_of_fractions = list_of_fractions
 
     def get_atoms_in_crystal(self):
-        self.get_element_numbers()
-        atoms_in_crystal = sum(self.list_of_fractions)
-        return atoms_in_crystal
+        tokens = [a for a in re.split(r"([A-Z][a-z]*)", self.chemical_equation) if a]
 
-    def get_crystal_molar_mass(self):
-        molar_mass = (
-            self.neutronics_material.average_molar_mass * self.get_atoms_in_crystal()
-        )
+        list_of_fractions = []
 
-        self.molar_mass = molar_mass
-        return molar_mass
+        for counter in range(0, len(tokens)):
+            if tokens[counter].isalpha():
+                if counter == len(tokens) - 1:
+                    list_of_fractions.append(1)
+                elif not (tokens[counter + 1]).isalpha():
+                    list_of_fractions.append(
+                        float(tokens[counter + 1])
+                    )
+                else:
+                    list_of_fractions.append(1)
+        self.list_of_fractions = list_of_fractions
+        return sum(list_of_fractions)
 
-    def calculate_crystal_structure_density(self):
-        density_g_per_cm3 = (
-            self.get_crystal_molar_mass()
-            * atomic_mass_unit_in_g
-            * self.atoms_per_unit_cell
-        ) / self.volume_of_unit_cell_cm3
 
-        self.density = density_g_per_cm3
+
 
 
 class MultiMaterial(list):
@@ -578,4 +523,3 @@ class MultiMaterial(list):
                                                                  materials = openmc_material_objects,
                                                                  fracs = self.fracs,
                                                                  percent_type = self.percent_type)
-
