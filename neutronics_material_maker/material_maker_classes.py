@@ -418,6 +418,8 @@ class Material:
 
         elif type(self.elements) == str:
 
+            self.chemical_equation = self.elements
+
             self.neutronics_material.add_elements_from_formula(self.elements,
                                                               percent_type=self.percent_type,
                                                               enrichment=self.enrichment,
@@ -484,6 +486,7 @@ class Material:
 
 
     def get_atoms_in_crystal(self):
+
         tokens = [a for a in re.split(r"([A-Z][a-z]*)", self.chemical_equation) if a]
 
         list_of_fractions = []
