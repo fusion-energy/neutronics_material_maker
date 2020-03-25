@@ -34,8 +34,8 @@ class test_object_properties(unittest.TestCase):
 
         def test_material_creation_from_chemical_formula(self):
 
-                lead_fraction = 0.3
-                lithium_fraction = 0.7
+                lead_fraction = 3
+                lithium_fraction = 7
 
                 lithium_lead_elements = 'Li'+str(lithium_fraction) +'Pb'+str(lead_fraction)
                 test_material = Material('lithium-lead',
@@ -54,8 +54,8 @@ class test_object_properties(unittest.TestCase):
 
         def test_material_creation_from_chemical_formula_with_enrichment(self):
 
-                lead_fraction = 0.3
-                lithium_fraction = 0.7
+                lead_fraction = 3
+                lithium_fraction = 7
                 enrichment = 20
 
                 lithium_lead_elements = 'Li'+str(lithium_fraction) +'Pb'+str(lead_fraction)
@@ -145,8 +145,8 @@ class test_object_properties(unittest.TestCase):
 
         def test_material_creation_from_chemical_formula(self):
 
-                lead_fraction = 0.3
-                lithium_fraction = 0.7
+                lead_fraction = 3
+                lithium_fraction = 7
 
                 lithium_lead_elements = 'Li'+str(lithium_fraction) +'Pb'+str(lead_fraction)
                 test_material = Material('lithium-lead',
@@ -160,13 +160,13 @@ class test_object_properties(unittest.TestCase):
                                 pb_atom_count = pb_atom_count+ entry[1]
                         if entry[0].startswith('Li'):
                                 li_atom_count = li_atom_count+ entry[1]
-                assert pb_atom_count == lead_fraction
-                assert li_atom_count == lithium_fraction
+                assert pb_atom_count == lead_fraction / (lead_fraction+lithium_fraction)
+                assert li_atom_count == lithium_fraction / (lead_fraction+lithium_fraction)
 
         def test_material_creation_from_chemical_formula_with_enrichment(self):
 
-                lead_fraction = 0.3
-                lithium_fraction = 0.7
+                lead_fraction = 3
+                lithium_fraction = 7
                 enrichment = 20
 
                 lithium_lead_elements = 'Li'+str(lithium_fraction) +'Pb'+str(lead_fraction)
@@ -191,11 +191,12 @@ class test_object_properties(unittest.TestCase):
                         if entry[0] == 'Li7':
                                 li7_atom_count = li7_atom_count+ entry[1]
                 print(nucs)
-                assert pb_atom_count == lead_fraction
-                assert li_atom_count == lithium_fraction
-                # assert li6_atom_count*5. == li7_atom_count #todo use approximatly
-                assert li6_atom_count == pytest.approx(enrichment * lithium_fraction /100, rel=0.01)
-                assert li7_atom_count == pytest.approx((100.-enrichment) * lithium_fraction /100, rel=0.01)
+                assert pb_atom_count == lead_fraction / (lead_fraction+lithium_fraction)
+                assert li_atom_count == lithium_fraction / (lead_fraction+lithium_fraction)
+                assert li6_atom_count*4. == pytest.approx(li7_atom_count)
+                
+                assert li6_atom_count == pytest.approx((enrichment/100.) * (lithium_fraction / (lead_fraction+lithium_fraction)), rel=0.01)
+                assert li7_atom_count == pytest.approx(((100.-enrichment)/100) * (lithium_fraction / (lead_fraction+lithium_fraction)), rel=0.01)
 
 
 
