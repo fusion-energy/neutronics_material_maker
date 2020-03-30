@@ -1,40 +1,34 @@
-[
-    {
-        "Pb842Li158": {
-            "elements": "Pb842Li158",
-            "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
-            "density_unit": "g/cm3",
-            "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
-            "temperature_dependant": true,
-            "enrichable": true,
-            "percent_type": "ao",
-            "enrichment_target":"Li6",
-            "enrichment_type": "ao"
-        }
+{
+    "Pb842Li158": {
+        "elements": "Pb842Li158",
+        "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
+        "density_unit": "g/cm3",
+        "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
+        "temperature_dependant": true,
+        "enrichable": true,
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type": "ao"
     },
-    {
-        "lithium-lead": {
-            "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
-            "density_unit": "g/cm3",
-            "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
-            "temperature_dependant": true,
-            "percent_type": "ao",
-            "enrichment_target":"Li6",
-            "enrichment_type":"ao"
-        }
+    "lithium-lead": {
+        "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
+        "density_unit": "g/cm3",
+        "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
+        "temperature_dependant": true,
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":"ao"
     },
-    {
-        "Li8PbO6": {
-            "elements": "Li8PbO6",
-            "atoms_per_unit_cell": 1,
-            "volume_of_unit_cell_cm3": 0.14400485967e-21,
-            "density_unit":"g/cm3",
-            "enrichable": true,
-            "packable": true,
-            "reference": "DOI 10.17188/1198772 https://materialsproject.org/materials/mp-22538/",
-            "percent_type": "ao",
-            "enrichment_target":"Li6",
-            "enrichment_type":"ao"
-        }
+    "Li8PbO6": {
+        "elements": "Li8PbO6",
+        "atoms_per_unit_cell": 1,
+        "volume_of_unit_cell_cm3": 0.14400485967e-21,
+        "density_unit":"g/cm3",
+        "enrichable": true,
+        "packable": true,
+        "reference": "DOI 10.17188/1198772 https://materialsproject.org/materials/mp-22538/",
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":"ao"
     }
-]
+}

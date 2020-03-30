@@ -1,221 +1,199 @@
-[
-    {
-        "SiC": {
-            "elements": "SiC",
-            "density": 3,
-            "density_unit": "g/cm3",
-            "percent_type": "ao"
-        }
+{
+    "SiC": {
+        "elements": "SiC",
+        "density": 3,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
     },
-    {
-        "eurofer": {
-            "elements": {
-                "Fe": 0.88821,
-                "B": 1e-05,
-                "C": 0.00105,
-                "N": 0.0004,
-                "O": 1e-05,
-                "Al": 4e-05,
-                "Si": 0.00026,
-                "P": 2e-05,
-                "S": 3e-05,
-                "Ti": 1e-05,
-                "V": 0.002,
-                "Cr": 0.09,
-                "Mn": 0.0055,
-                "Co": 5e-05,
-                "Ni": 0.0001,
-                "Cu": 3e-05,
-                "Nb": 5e-05,
-                "Mo": 3e-05,
-                "Ta": 0.0012,
-                "W": 0.011
-            },
-            "density": 7.78,
-            "density_unit": "g/cm3",
-            "reference": "Eurofusion neutronics handbook",
-            "percent_type": "ao"
-        }
+    "eurofer": {
+        "elements": {
+            "Fe": 0.88821,
+            "B": 1e-05,
+            "C": 0.00105,
+            "N": 0.0004,
+            "O": 1e-05,
+            "Al": 4e-05,
+            "Si": 0.00026,
+            "P": 2e-05,
+            "S": 3e-05,
+            "Ti": 1e-05,
+            "V": 0.002,
+            "Cr": 0.09,
+            "Mn": 0.0055,
+            "Co": 5e-05,
+            "Ni": 0.0001,
+            "Cu": 3e-05,
+            "Nb": 5e-05,
+            "Mo": 3e-05,
+            "Ta": 0.0012,
+            "W": 0.011
+        },
+        "density": 7.78,
+        "density_unit": "g/cm3",
+        "reference": "Eurofusion neutronics handbook",
+        "percent_type": "ao"
     },
-    {
-        "SS_316L_N_IG": {
-            "elements": {
-                "Fe": 62.973,
-                "C": 0.030,
-                "Mn": 2.00,
-                "Si": 0.50,
-                "P": 0.03,
-                "S": 0.015,
-                "Cr": 18.00,
-                "Ni": 12.50,
-                "Mo": 2.70,
-                "N": 0.080,
-                "B": 0.002,
-                "Cu": 1.0,
-                "Co": 0.05,
-                "Nb": 0.01,
-                "Ti": 0.10,
-                "Ta": 0.01
-            },
-            "density": 7.93,
-            "density_unit": "g/cm3",
-            "reference": "Eurofusion neutronics handbook",
-            "percent_type": "ao"
-        }
+    "SS_316L_N_IG": {
+        "elements": {
+            "Fe": 62.973,
+            "C": 0.030,
+            "Mn": 2.00,
+            "Si": 0.50,
+            "P": 0.03,
+            "S": 0.015,
+            "Cr": 18.00,
+            "Ni": 12.50,
+            "Mo": 2.70,
+            "N": 0.080,
+            "B": 0.002,
+            "Cu": 1.0,
+            "Co": 0.05,
+            "Nb": 0.01,
+            "Ti": 0.10,
+            "Ta": 0.01
+        },
+        "density": 7.93,
+        "density_unit": "g/cm3",
+        "reference": "Eurofusion neutronics handbook",
+        "percent_type": "ao"
     },
-    {
-        "tungsten": {
-            "elements": {
-                "W": 0.999595,
-                "Ag": 1e-05,
-                "Al": 1.5e-05,
-                "As": 5e-06,
-                "Ba": 5e-06,
-                "Ca": 5e-06,
-                "Cd": 5e-06,
-                "Co": 1e-05,
-                "Cr": 2e-05,
-                "Cu": 1e-05,
-                "Fe": 3e-05,
-                "K": 1e-05,
-                "Mg": 5e-06,
-                "Mn": 5e-06,
-                "Na": 1e-05,
-                "Nb": 1e-05,
-                "Ni": 5e-06,
-                "Pb": 5e-06,
-                "Ta": 2e-05,
-                "Ti": 5e-06,
-                "Zn": 5e-06,
-                "Zr": 5e-06,
-                "Mo": 1e-04,
-                "C": 3e-05,
-                "H": 5e-06,
-                "N": 5e-06,
-                "O": 2e-05,
-                "P": 2e-05,
-                "S": 5e-06,
-                "Si": 2e-05
-            },
-            "density": 19.0,
-            "density_unit": "g/cm3",
-            "reference": "Eurofusion neutronics handbook",
-            "percent_type": "ao"
-        }
+    "tungsten": {
+        "elements": {
+            "W": 0.999595,
+            "Ag": 1e-05,
+            "Al": 1.5e-05,
+            "As": 5e-06,
+            "Ba": 5e-06,
+            "Ca": 5e-06,
+            "Cd": 5e-06,
+            "Co": 1e-05,
+            "Cr": 2e-05,
+            "Cu": 1e-05,
+            "Fe": 3e-05,
+            "K": 1e-05,
+            "Mg": 5e-06,
+            "Mn": 5e-06,
+            "Na": 1e-05,
+            "Nb": 1e-05,
+            "Ni": 5e-06,
+            "Pb": 5e-06,
+            "Ta": 2e-05,
+            "Ti": 5e-06,
+            "Zn": 5e-06,
+            "Zr": 5e-06,
+            "Mo": 1e-04,
+            "C": 3e-05,
+            "H": 5e-06,
+            "N": 5e-06,
+            "O": 2e-05,
+            "P": 2e-05,
+            "S": 5e-06,
+            "Si": 2e-05
+        },
+        "density": 19.0,
+        "density_unit": "g/cm3",
+        "reference": "Eurofusion neutronics handbook",
+        "percent_type": "ao"
     },
-    {
-        "SS347": {
-            "elements": {
-                "Fe": 67.42,
-                "Cr": 18,
-                "Ni": 10.5,
-                "Nb": 1,
-                "Mn": 2,
-                "Si": 1,
-                "C": 0.08
-            },
-            "density": 7.92,
-            "density_unit": "g/cm3",
-            "percent_type": "ao"
-        }
+    "SS347": {
+        "elements": {
+            "Fe": 67.42,
+            "Cr": 18,
+            "Ni": 10.5,
+            "Nb": 1,
+            "Mn": 2,
+            "Si": 1,
+            "C": 0.08
+        },
+        "density": 7.92,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
     },
-    {
-        "SS321": {
-            "elements": {
-                "Fe": 67.72,
-                "Cr": 18,
-                "Ni": 10.5,
-                "Ti": 0.7,
-                "Mn": 2,
-                "Si": 1,
-                "C": 0.08
-            },
-            "density": 7.92,
-            "density_unit": "g/cm3",
-            "percent_type": "ao"
-        }
+    "SS321": {
+        "elements": {
+            "Fe": 67.72,
+            "Cr": 18,
+            "Ni": 10.5,
+            "Ti": 0.7,
+            "Mn": 2,
+            "Si": 1,
+            "C": 0.08
+        },
+        "density": 7.92,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
     },
-    {
-        "SS316": {
-            "elements": {
-                "Fe": 67, 
-                "Cr": 17, 
-                "Ni": 14, 
-                "Mo": 2
-            },
-            "density": 7.97,
-            "density_unit": "g/cm3",
-            "percent_type": "ao"
-        }
+    "SS316": {
+        "elements": {
+            "Fe": 67, 
+            "Cr": 17, 
+            "Ni": 14, 
+            "Mo": 2
+        },
+        "density": 7.97,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
     },
-    {
-        "SS304": {
-            "elements": {
-                "Fe": 68.82,
-                "Cr": 19,
-                "Ni": 9.25,
-                "Mn": 2,
-                "Si": 0.75,
-                "N": 0.1,
-                "C": 0.08
-            },
-            "density": 7.96,
-            "density_unit": "g/cm3",
-            "percent_type": "ao"
-        }
+    "SS304": {
+        "elements": {
+            "Fe": 68.82,
+            "Cr": 19,
+            "Ni": 9.25,
+            "Mn": 2,
+            "Si": 0.75,
+            "N": 0.1,
+            "C": 0.08
+        },
+        "density": 7.96,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
     },
-    {
-        "P91": {
-            "elements": {
-                "Fe": 89,
-                "Cr": 9.1,
-                "Mo": 1,
-                "Mn": 0.5,
-                "Si": 0.4
-            },
-            "density": 7.96,
-            "density_unit": "g/cm3",
-            "percent_type": "ao"
-        }
+    "P91": {
+        "elements": {
+            "Fe": 89,
+            "Cr": 9.1,
+            "Mo": 1,
+            "Mn": 0.5,
+            "Si": 0.4
+        },
+        "density": 7.96,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
     },
-    {
-        "SS316L": {
-            "elements": {
-                "C": 0.001384,
-                "Si": 0.019722,
-                "P": 0.000805,
-                "S": 0.000518,
-                "Cr": 0.181098,
-                "Mn": 0.020165,
-                "Fe": 0.648628,
-                "Ni": 0.113247,
-                "Mo": 0.014434
-            },
-            "density": 8.00,
-            "density_unit": "g/cm3",
-            "percent_type": "wo"
-        }
+    "SS316L": {
+        "elements": {
+            "C": 0.001384,
+            "Si": 0.019722,
+            "P": 0.000805,
+            "S": 0.000518,
+            "Cr": 0.181098,
+            "Mn": 0.020165,
+            "Fe": 0.648628,
+            "Ni": 0.113247,
+            "Mo": 0.014434
+        },
+        "density": 8.00,
+        "density_unit": "g/cm3",
+        "percent_type": "wo"
     },
-    {
-        "SST91": {
-            "elements": {
-                "C": 0.10,
-                "Mn": 0.45,
-                "P": 0.02,
-                "S": 0.01,
-                "Si": 0.35,
-                "Cr": 8.75,
-                "Mo": 0.95,
-                "V": 0.215,
-                "N": 0.05,
-                "Ni": 0.4,
-                "Al": 0.04,
-                "Nb": 0.08,
-                "Fe": 88.585
-            },
-            "density": 7.77,
-            "density_unit": "g/cm3",
-            "percent_type": "wo"
-        }
+    "SST91": {
+        "elements": {
+            "C": 0.10,
+            "Mn": 0.45,
+            "P": 0.02,
+            "S": 0.01,
+            "Si": 0.35,
+            "Cr": 8.75,
+            "Mo": 0.95,
+            "V": 0.215,
+            "N": 0.05,
+            "Ni": 0.4,
+            "Al": 0.04,
+            "Nb": 0.08,
+            "Fe": 88.585
+        },
+        "density": 7.77,
+        "density_unit": "g/cm3",
+        "percent_type": "wo"
     }
-]
+}
