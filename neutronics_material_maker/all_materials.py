@@ -3,14 +3,11 @@
 
 import os
 import json
+from pathlib import Path
 
 material_dict = {}
 
-materials_files = [
-    pos_json for pos_json in os.listdir("data") if pos_json.endswith(".json")
-]
-
-for filename in materials_files:
+for filename in Path(Path(__file__).parent / 'data').glob('*.json'):
     with open(os.path.join("data", filename), "r") as f:
         new_data = json.load(f)
         material_dict.update(new_data)
