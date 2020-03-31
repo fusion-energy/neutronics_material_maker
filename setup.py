@@ -15,7 +15,7 @@ setuptools.setup(
     url="https://github.com/ukaea/neutronics_material_maker",
     packages=setuptools.find_packages(),
     include_package_data=True,
-    package_data={'':['requirements.txt', 'README.md', 'LICENSE']},
+    package_data={'':['neutronics_material_maker/data/breeder_materials.json', 'requirements.txt', 'README.md', 'LICENSE']},
     # classifiers=[
     #     "Programming Language :: Python :: 3",
     #     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
