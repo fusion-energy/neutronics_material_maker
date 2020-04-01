@@ -1,0 +1,66 @@
+{
+    "Pb": {
+        "elements": "Pb",
+        "density": "10.678 - 13.174e-4 * (temperature_in_K-600.6)",
+        "density_unit": "g/cm3",
+        "reference": "https://www.sciencedirect.com/science/article/abs/pii/0022190261802261",
+        "percent_type": "ao"
+    },
+    "Be": {
+        "elements": "Be",
+        "atoms_per_unit_cell": 2,
+        "volume_of_unit_cell_cm3": 0.01587959994e-21,
+        "density_unit": "g/cm3",
+        "enrichable": false,
+        "packable": true,
+        "reference": "DOI 10.17188/1312591 https://materialsproject.org/materials/mp-87/",
+        "percent_type": "ao"
+    },
+    "Be12Ti": {
+        "elements": "Be12Ti",
+        "atoms_per_unit_cell": 1,
+        "volume_of_unit_cell_cm3": 0.11350517285e-21,
+        "enrichable": false,
+        "density_unit": "g/cm3",
+        "packable": true,
+        "reference": "DOI 10.17188/1187703 https://materialsproject.org/materials/mp-11280/",
+        "percent_type": "ao"
+    },
+    "Ba5Pb3": {
+        "elements": "Ba5Pb3",
+        "atoms_per_unit_cell": 2,
+        "volume_of_unit_cell_cm3": 0.74343377212e-21,
+        "density_unit": "g/cm3",
+        "enrichable": false,
+        "packable": true,
+        "reference": "DOI 10.17188/1278091 https://materialsproject.org/materials/mp-622106/",
+        "percent_type": "ao"
+    },
+    "Nd5Pb4": {
+        "elements": "Nd5Pb4",
+        "atoms_per_unit_cell": 4,
+        "volume_of_unit_cell_cm3": 1.17174024048e-21,
+        "density_unit": "g/cm3",
+        "enrichable": false,
+        "packable": true,
+        "reference": "https://materialsproject.org/materials/mp-1204902/",
+        "percent_type": "ao"
+    },
+    "Zr5Pb3": {
+        "elements": "Zr5Pb3",
+        "atoms_per_unit_cell": 2,
+        "volume_of_unit_cell_cm3": 0.43511266920e-21,
+        "density_unit": "g/cm3",
+        "enrichable": false,
+        "packable": true,
+        "reference": "DOI 10.17188/1283750 https://materialsproject.org/materials/mp-681992/",
+        "percent_type": "ao"
+    },
+    "Zr5Pb4": {
+        "elements": "Zr5Pb4",
+        "atoms_per_unit_cell": 2,
+        "volume_of_unit_cell_cm3": 0.40435e-21,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
+    }
+}

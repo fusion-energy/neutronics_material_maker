@@ -1,0 +1,39 @@
+{
+    "He": {
+        "elements": {"He": 1.0},
+        "density_equation": "PropsSI('D', 'T', temperature_in_K, 'P', pressure_in_Pa, 'Helium')",
+        "density_unit": "kg/m3",
+        "reference": "CoolProp python package for density equation",
+        "temperature_dependant": true,
+        "pressure_dependant": true,
+        "percent_type": "ao"
+    },
+    "DT_plasma": {
+        "isotopes": {"H2": 0.5, "H3": 0.5},
+        "density": 0.000001,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
+    },
+    "WC": {"elements": "WC",
+        "density": 18.0,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
+    },
+    "H2O": {"elements": "H2O",
+        "density_equation": "PropsSI('D', 'T', temperature_in_K, 'P', pressure_in_Pa, 'Water')/1000.",
+        "density_unit": "g/cm3",
+        "reference": "CoolProp python package",
+        "temperature_dependant": true,
+        "pressure_dependant": true,
+        "percent_type": "ao"
+    },
+    "D2O": {
+        "isotopes": {"H2": 2.0,
+                        "O16": 0.99962,
+                        "O17": 0.00038
+                    },
+        "density": 1.1,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
+    }
+}

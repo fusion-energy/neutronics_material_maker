@@ -42,16 +42,6 @@ from .all_materials import material_dict
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
-# percent_type = fraction type for the element as a whole
-# enrichment_type = fraction type for the enrichment
-# See To Do List for explanation on the current issues
-# We may not want the functionality to override the percent_type specified in the dictionary because the material specifications are correct for that percent_type
-# if we want to change the material significantly, we need to create a new material that is not populated from a dictionary and we have full control over percent_type etc.
-# if this is the case, then this is basically done
-# just need to take into account some flags such as explained below
-# We need to also incorporate the 'enrichable' flag into our enrichment flow.
-# This enrichable flag will be to do with the new method of enriching, i.e. will only be valid on two isotope elements, for now we will keep it just for Lithium
-
 class Material:
     def __init__(
         self,
