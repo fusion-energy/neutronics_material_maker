@@ -30,13 +30,10 @@ material values such as density, chemical present etc ."""
 
 __author__ = "Jonathan Shimwell"
 
-import json
-import math
 import re
 
-from CoolProp.CoolProp import PropsSI
-
 import openmc
+from CoolProp.CoolProp import PropsSI
 
 from .all_materials import material_dict
 
@@ -47,6 +44,7 @@ class Material:
         self,
         material_name,
         packing_fraction=1.0,
+        material_tag=None,
         elements=None,
         isotopes=None,
         percent_type=None,
@@ -92,6 +90,7 @@ class Material:
         """
 
         self._material_name = material_name
+        self._material_tag = material_tag
         self._temperature_in_C = temperature_in_C
         self._temperature_in_K = temperature_in_K
         self._pressure_in_Pa = pressure_in_Pa
@@ -162,6 +161,15 @@ class Material:
             raise ValueError("Material names must be a string")
         self._material_name = value
 
+    @property
+    def material_tag(self):
+        return self._material_tag
+
+    @material_tag.setter
+    def material_tag(self, value):
+        if type(value) is not str:
+            raise ValueError("Material tags must be a string")
+        self._material_tag = value
 
     @property
     def packing_fraction(self):
@@ -499,8 +507,8 @@ class Material:
 
 
 class MultiMaterial(list):
-    def __init__(self, material_name, materials=[], fracs=[], percent_type='vo'):
-        self.material_name = material_name
+    def __init__(self, material_tag, materials=[], fracs=[], percent_type='vo'):
+        self.material_tag = material_tag
         self.materials = materials
         self.fracs = fracs
         self.percent_type = percent_type
@@ -523,7 +531,7 @@ class MultiMaterial(list):
 
         print(openmc_material_objects)
 
-        self.neutronics_material = openmc.Material.mix_materials(name = self.material_name,
+        self.neutronics_material = openmc.Material.mix_materials(name = self.material_tag,
                                                                  materials = openmc_material_objects,
                                                                  fracs = self.fracs,
                                                                  percent_type = self.percent_type)
