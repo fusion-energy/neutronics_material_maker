@@ -1,4 +1,9 @@
 {
+    "WC": {"elements": "WC",
+        "density": 18.0,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
+    },
     "SiC": {
         "elements": "SiC",
         "density": 3,
