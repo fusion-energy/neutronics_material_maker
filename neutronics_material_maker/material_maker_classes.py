@@ -529,8 +529,6 @@ class MultiMaterial(list):
             else:
                 openmc_material_objects.append(material.neutronics_material)
 
-        print(openmc_material_objects)
-
         self.neutronics_material = openmc.Material.mix_materials(name = self.material_tag,
                                                                  materials = openmc_material_objects,
                                                                  fracs = self.fracs,
