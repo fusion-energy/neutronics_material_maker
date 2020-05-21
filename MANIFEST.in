@@ -1,0 +1,4 @@
+include README.md
+include requirements.txt
+include neutronics_material_maker/data/*.json
+include LICENSE

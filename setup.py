@@ -5,7 +5,7 @@ import setuptools
 
 setuptools.setup(
     name="neutronics_material_maker",
-    version="0.1235.25",
+    version="0.1235.33",
     summary='Package for making material cards for OpenMC',
     author="Jonathan Shimwell",
     author_email="jonathan.shimwell@ukaea.uk",
@@ -14,8 +14,11 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/ukaea/neutronics_material_maker",
     packages=setuptools.find_packages(),
-    include_package_data=True,
+    # include_package_data=True,
+    # packages=['neutronics_material_maker'],
+    package_dir={'neutronics_material_maker': 'neutronics_material_maker'},
     package_data={'neutronics_material_maker':['requirements.txt', 'README.md', 'LICENSE', 'data/*.json']},
+    # data_files=[('data', ['*.json'])],
     # classifiers=[
     #     "Programming Language :: Python :: 3",
     #     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
