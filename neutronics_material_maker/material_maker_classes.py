@@ -470,7 +470,7 @@ class Material:
 
     def make_material(self):
 
-        self.openmc_material = openmc.Material(name=self.material_name)
+        self.openmc_material = openmc.Material(name=self.material_tag)
 
         if self.isotopes is not None:
 
@@ -522,6 +522,9 @@ class MultiMaterial(list):
         if len(self.fracs) != len(self.materials):
             raise ValueError("There must be equal numbers of fracs and materials")
 
+        if sum(self.fracs) != 1.:
+            print('warning sum of MutliMaterials do not sum to 1.', self.fracs, ' = ', sum(self.fracs))
+
         openmc_material_objects = []
         for material in self.materials:
             if isinstance(material, openmc.Material) == True:
@@ -530,6 +533,6 @@ class MultiMaterial(list):
                 openmc_material_objects.append(material.openmc_material)
 
         self.openmc_material = openmc.Material.mix_materials(name = self.material_tag,
-                                                                 materials = openmc_material_objects,
-                                                                 fracs = self.fracs,
-                                                                 percent_type = self.percent_type)
+                                                             materials = openmc_material_objects,
+                                                             fracs = self.fracs,
+                                                             percent_type = self.percent_type)
