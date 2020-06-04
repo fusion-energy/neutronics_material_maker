@@ -41,7 +41,7 @@ class test_object_properties(unittest.TestCase):
                 test_material = Material('lithium-lead',
                                          elements=lithium_lead_elements,
                                          temperature_in_C=450)
-                nucs = test_material.neutronics_material.nuclides
+                nucs = test_material.openmc_material.nuclides
                 pb_atom_count = 0
                 li_atom_count = 0
                 for entry in nucs:
@@ -65,7 +65,7 @@ class test_object_properties(unittest.TestCase):
                                          enrichment_type='ao',
                                          elements=lithium_lead_elements,
                                          temperature_in_C=450)
-                nucs = test_material.neutronics_material.nuclides
+                nucs = test_material.openmc_material.nuclides
                 pb_atom_count = 0
                 li_atom_count = 0
                 li6_atom_count = 0
@@ -92,37 +92,37 @@ class test_object_properties(unittest.TestCase):
                 # however, this could be becuase the density values are rounded to 2 dp
 
                 test_material = Material(material_name="Li4SiO4")
-                assert test_material.neutronics_material.density == pytest.approx(2.32, rel=0.01)
+                assert test_material.openmc_material.density == pytest.approx(2.32, rel=0.01)
 
                 test_material = Material(material_name="Li2SiO3")
-                assert test_material.neutronics_material.density == pytest.approx(2.44, rel=0.01)
+                assert test_material.openmc_material.density == pytest.approx(2.44, rel=0.01)
 
                 test_material = Material(material_name="Li2ZrO3")
-                assert test_material.neutronics_material.density == pytest.approx(4.03, rel=0.01)
+                assert test_material.openmc_material.density == pytest.approx(4.03, rel=0.01)
 
                 test_material = Material(material_name="Li2TiO3")
-                assert test_material.neutronics_material.density == pytest.approx(3.34, rel=0.01)
+                assert test_material.openmc_material.density == pytest.approx(3.34, rel=0.01)
 
                 test_material = Material(material_name="Li8PbO6")
-                assert test_material.neutronics_material.density == pytest.approx(4.14, rel=0.01)
+                assert test_material.openmc_material.density == pytest.approx(4.14, rel=0.01)
 
                 test_material = Material(material_name="Be")
-                assert test_material.neutronics_material.density == pytest.approx(1.88, rel=0.01)
+                assert test_material.openmc_material.density == pytest.approx(1.88, rel=0.01)
 
                 test_material = Material(material_name="Be12Ti")
-                assert test_material.neutronics_material.density == pytest.approx(2.28, rel=0.01)
+                assert test_material.openmc_material.density == pytest.approx(2.28, rel=0.01)
 
                 test_material = Material(material_name="Ba5Pb3")
-                assert test_material.neutronics_material.density == pytest.approx(5.84, rel=0.01)
+                assert test_material.openmc_material.density == pytest.approx(5.84, rel=0.01)
 
                 test_material = Material(material_name="Nd5Pb4")
-                assert test_material.neutronics_material.density == pytest.approx(8.79, rel=0.01)
+                assert test_material.openmc_material.density == pytest.approx(8.79, rel=0.01)
 
                 test_material = Material(material_name="Zr5Pb3")
-                assert test_material.neutronics_material.density == pytest.approx(8.23, rel=0.01)
+                assert test_material.openmc_material.density == pytest.approx(8.23, rel=0.01)
 
                 # test_material = Material(material_name="Zr5Pb4")
-                # assert test_material.neutronics_material.density == pytest.approx(#insert)
+                # assert test_material.openmc_material.density == pytest.approx(#insert)
 
                 #  TODO extra checks for all the crystals needed here
 
@@ -131,7 +131,7 @@ class test_object_properties(unittest.TestCase):
                 test_material = Material(material_name="Li4SiO4")
                 test_material_enriched = Material(material_name="Li4SiO4", enrichment=50., enrichment_target='Li6',
                                          enrichment_type='ao',)
-                assert test_material.neutronics_material.density > test_material_enriched.neutronics_material.density
+                assert test_material.openmc_material.density > test_material_enriched.openmc_material.density
 
 
 
@@ -139,7 +139,7 @@ class test_object_properties(unittest.TestCase):
 
                 test_material = Material(material_name="Li4SiO4")
                 test_material_packed = Material(material_name="Li4SiO4", packing_fraction=0.35)
-                assert test_material.neutronics_material.density * 0.35 == test_material_packed.neutronics_material.density
+                assert test_material.openmc_material.density * 0.35 == test_material_packed.openmc_material.density
 
 
 
@@ -152,7 +152,7 @@ class test_object_properties(unittest.TestCase):
                 test_material = Material('lithium-lead',
                                          elements=lithium_lead_elements,
                                          temperature_in_C=450)
-                nucs = test_material.neutronics_material.nuclides
+                nucs = test_material.openmc_material.nuclides
                 pb_atom_count = 0
                 li_atom_count = 0
                 for entry in nucs:
@@ -176,7 +176,7 @@ class test_object_properties(unittest.TestCase):
                                          enrichment_type='ao',
                                          elements=lithium_lead_elements,
                                          temperature_in_C=450)
-                nucs = test_material.neutronics_material.nuclides
+                nucs = test_material.openmc_material.nuclides
                 pb_atom_count = 0
                 li_atom_count = 0
                 li6_atom_count = 0
