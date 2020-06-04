@@ -112,7 +112,7 @@ class Material:
         self.enrichment_element = None
         self.density_packed = None
 
-        self.neutronics_material = None
+        self.openmc_material = None
         self.list_of_fractions = None
         self.chemical_equation = None
         self.element_numbers = None
@@ -401,7 +401,7 @@ class Material:
             for element_symbol, element_number in zip(self.elements.keys(), self.elements.values()):
 
                 if element_symbol == enrichment_element:
-                    self.neutronics_material.add_element(element_symbol,
+                    self.openmc_material.add_element(element_symbol,
                                                          element_number,
                                                          percent_type=self.percent_type,
                                                          enrichment=self.enrichment,
@@ -409,7 +409,7 @@ class Material:
                                                          enrichment_type=self.enrichment_type
                                                          )
                 else:
-                    self.neutronics_material.add_element(element_symbol,
+                    self.openmc_material.add_element(element_symbol,
                                                          element_number,
                                                          self.percent_type
                                                         )
@@ -418,7 +418,7 @@ class Material:
 
             self.chemical_equation = self.elements
 
-            self.neutronics_material.add_elements_from_formula(self.elements,
+            self.openmc_material.add_elements_from_formula(self.elements,
                                                               percent_type=self.percent_type,
                                                               enrichment=self.enrichment,
                                                               enrichment_target=self.enrichment_target,
@@ -429,7 +429,7 @@ class Material:
 
         for isotope_symbol, isotope_number in zip(self.isotopes.keys(), self.isotopes.values()):
 
-            self.neutronics_material.add_nuclide(isotope_symbol, isotope_number, self.percent_type)
+            self.openmc_material.add_nuclide(isotope_symbol, isotope_number, self.percent_type)
 
 
     def add_density(self):
@@ -452,7 +452,7 @@ class Material:
 
         elif self.atoms_per_unit_cell != None and self.volume_of_unit_cell_cm3 != None:
 
-            molar_mass = self.get_atoms_in_crystal() * self.neutronics_material.average_molar_mass
+            molar_mass = self.get_atoms_in_crystal() * self.openmc_material.average_molar_mass
 
             mass = self.atoms_per_unit_cell * molar_mass * atomic_mass_unit_in_g
 
@@ -464,13 +464,13 @@ class Material:
                 " provide either a density value, equation as a string, or atoms_per_unit_cell and volume_of_unit_cell_cm3",
             )
 
-        self.neutronics_material.set_density(self.density_unit, self.density * self.packing_fraction)
+        self.openmc_material.set_density(self.density_unit, self.density * self.packing_fraction)
 
-        return self.neutronics_material
+        return self.openmc_material
 
     def make_material(self):
 
-        self.neutronics_material = openmc.Material(name=self.material_name)
+        self.openmc_material = openmc.Material(name=self.material_name)
 
         if self.isotopes is not None:
 
@@ -512,7 +512,7 @@ class MultiMaterial(list):
         self.materials = materials
         self.fracs = fracs
         self.percent_type = percent_type
-        self.neutronics_material = None
+        self.openmc_material = None
 
         self.make_material()
 
@@ -527,9 +527,9 @@ class MultiMaterial(list):
             if isinstance(material, openmc.Material) == True:
                 openmc_material_objects.append(material)
             else:
-                openmc_material_objects.append(material.neutronics_material)
+                openmc_material_objects.append(material.openmc_material)
 
-        self.neutronics_material = openmc.Material.mix_materials(name = self.material_tag,
+        self.openmc_material = openmc.Material.mix_materials(name = self.material_tag,
                                                                  materials = openmc_material_objects,
                                                                  fracs = self.fracs,
                                                                  percent_type = self.percent_type)

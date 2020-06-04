@@ -5,7 +5,7 @@ import setuptools
 
 setuptools.setup(
     name="neutronics_material_maker",
-    version="0.1235.33",
+    version="0.1235.35",
     summary='Package for making material cards for OpenMC',
     author="Jonathan Shimwell",
     author_email="jonathan.shimwell@ukaea.uk",
