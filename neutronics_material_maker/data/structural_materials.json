@@ -4,10 +4,26 @@
         "density_unit": "g/cm3",
         "percent_type": "ao"
     },
+    "WB": {"elements": "WB",
+        "density": 15.3,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
+    },
     "SiC": {
         "elements": "SiC",
         "density": 3,
         "density_unit": "g/cm3",
+        "percent_type": "ao"
+    },
+    "borated_polythylene": {
+        "elements": {
+            "H": 0.125355,
+            "B": 0.1,
+            "C": 0.774645
+        },
+        "density": 1.0,
+        "density_unit": "g/cm3",
+        "reference": "https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "percent_type": "ao"
     },
     "eurofer": {
@@ -214,7 +230,9 @@
             "Na" : 0.0171,
             "K" : 0.0192
         },
-        "density": 2.2
+        "density": 2.2,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
     },
     "concrete_heavy":{
         "elements": {
@@ -228,7 +246,9 @@
             "Fe" : 0.568,
             "P" : 0.0015
         },
-        "density": 3.6
+        "density": 3.6,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
     },
     "concrete_boronated_heavy":{
         "elements": {
@@ -243,6 +263,14 @@
             "Fe" :0.5667,
             "P" :0.0015
         },
-        "density": 3.6
+        "density": 3.6,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
+    },
+    "B4C":{
+        "elements": "B4C",
+        "density": 2.52,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
     }
 }
