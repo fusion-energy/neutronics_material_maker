@@ -470,7 +470,11 @@ class Material:
 
     def make_material(self):
 
-        self.openmc_material = openmc.Material(name=self.material_tag)
+        if self.material_tag == None:
+            name = self.material_name
+        else:
+            name = self.material_tag
+        self.openmc_material = openmc.Material(name=name)
 
         if self.isotopes is not None:
 
