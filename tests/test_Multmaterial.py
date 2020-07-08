@@ -208,6 +208,33 @@ class test_object_properties(unittest.TestCase):
 
             assert test_material_7.density == pytest.approx(test_material_5.density * 0.5)
 
+        def test_packing_fraction_of_a_multimaterial(self):
+
+
+            test_material_6 = MultiMaterial('test_material_6',
+                                    materials = [
+                                        Material('tungsten', packing_fraction=0.34),
+                                        Material('eurofer', packing_fraction=0.60)
+                                    ],
+                                    fracs = [
+                                        0.5,
+                                        0.5
+                                    ]).openmc_material
+
+
+            test_material_7 = MultiMaterial('test_material_7',
+                                    materials = [
+                                        Material('tungsten', packing_fraction=0.34),
+                                        Material('eurofer', packing_fraction=0.60)
+                                    ],
+                                    fracs = [
+                                        0.5,
+                                        0.5
+                                    ],
+                                    packing_fraction=0.25).openmc_material
+
+            assert test_material_6.get_mass_density() * 0.25 == pytest.approx(test_material_7.get_mass_density())
+
 
         def test_packing_fraction_for_mix_materials_function(self):
 

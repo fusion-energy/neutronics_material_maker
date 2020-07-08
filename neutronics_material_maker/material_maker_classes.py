@@ -1,33 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-This file is part of Neutronics Material Maker which is a tool capable
-of creating neutronics materials from a varity of input parameters.
-
-Neutronics Material Maker is released under GNU General Public License v3.0.
-Go to https://github.com/ukaea/neutronics_material_maker/blob/master/LICENSE
-for full license details.
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Copyright (C) 2019  UKAEA
-
-THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
-APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT
-HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY
-OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,
-THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM
-IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF
-ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
-"""
-
-""" material_maker_classes.py: obtains the main classes as well as
-material values such as density, chemical present etc ."""
-
 __author__ = "Jonathan Shimwell"
 
 import re
@@ -45,6 +17,10 @@ class Material:
         material_name,
         packing_fraction=1.0,
         material_tag=None,
+        enrichment=None,
+        temperature_in_C=None,
+        temperature_in_K=None,
+        pressure_in_Pa=None,
         elements=None,
         isotopes=None,
         percent_type=None,
@@ -53,41 +29,85 @@ class Material:
         atoms_per_unit_cell=None,
         volume_of_unit_cell_cm3=None,
         density_unit=None,
-        enrichment=None,
         enrichment_target=None,
         enrichment_type=None,
-        temperature_in_C=None,
-        temperature_in_K=None,
-        pressure_in_Pa=None,
         reference=None
     ):
-        """Makes an OpenMC material object complete with isotopes and density 
-        that vary with temperature, pressure and crystall stucture when appropiate. 
-        Uses an internal database that contains fusion relevant materials
 
-        Arguments:
-            material_name {[type]} -- [description]
+        """Produces a material by looking up the material_name in a
+        collection of prepared materials. Modifiers to the material
+        isotopes are applied according to arguments such
+        as enrichment. Modifiers to the material density are applied
+        according to arguments like temperature_in_C and pressure_in_Pa
+        where appropiate (gases, liquids). The collection of materials
+        includes presure density, temperature relationships so can
+        adjust the density accordingly. The intended use is a tool to
+        facilitate the use common materials library from a collection,
+        however it is also possible to make complete Materials without
+        using the reference collection but more inputs are needed from
+        the user.
 
-        Keyword Arguments:
-            temperature_in_C {[type]} -- [description] (default: {None})
-            temperature_in_K {[type]} -- [description] (default: {None})
-            pressure_in_Pa {[type]} -- [description] (default: {None})
-            enrichment_fraction {[type]} -- [description] (default: {None})
-            packing_fraction {float} -- [description] (default: {1.0})
-            elements {[type]} -- [description] (default: {None})
-            isotopes {[type]} -- [description] (default: {None})
-            density {[type]} -- [description] (default: {None})
-            density_equation {[type]} -- [description] (default: {None})
-            atoms_per_unit_cell {[type]} -- [description] (default: {None})
-            volume_of_unit_cell_cm3 {[type]} -- [description] (default: {None})
-            density_unit {str} -- [description] (default: {"g/cm3"})
+       :param material_name: this is the reference name used to look up
+        the material from the internal collection. Currently avaialbe
+        options are ['DT_plasma', 'Pb', 'Be', 'Be12Ti', 'Ba5Pb3', 'Nd5Pb4',
+        'Zr5Pb3', 'Zr5Pb4', 'Li', 'Li4SiO4', 'Li2SiO3', 'Li2ZrO3',
+        'Li2TiO3', 'Nb3Sn', 'CuCrZr', 'copper', 'ReBCO', 'Pb842Li158',
+        'lithium-lead', 'Li8PbO6', 'WC', 'WB', 'SiC', 'borated_polythylene',
+        'eurofer', 'SS_316L_N_IG', 'tungsten', 'SS347', 'SS321', 'SS316',
+        'SS304', 'P91', 'SS316L', 'SST91', 'concrete_ordinary',
+        'concrete_heavy', 'concrete_boronated_heavy', 'B4C', 'He', 'H2O',
+        'D2O', 'CO2', 'nitrogen', 'argon', 'xenon']
+       :type material_name: string
+       :param packing_fraction: this value is mutliplier by the density
+        which allows packing_fraction to be taken into account for materials
+        involving an amount of void. Recall that packing_fraction is equal
+        to 1/void fraction
+       :type packing_fraction: float
+       :param material_tag: this is a string that is assigned to the
+        multimaterial as an identifier. This is used by neutronics
+        codes that need to access materials via a unique identifier
+       :type material_tag: string
+       :param enrichment: this is the percentage of isotope enrichement
+       required for the material. This works for materials that have
+       an enrichment_target specified. The internal material collection
+       have Li6 specified as an enrichment_target for Li, Li4SiO4, Li2SiO3,
+       Li2ZrO3, Li2TiO3, lithium-lead and Li8PbO6. Enrichment of the Li6
+       and depention of Li7 impacts the density of a material and the
+       materials within the collection take this into account. It is also
+       possible to use this when making materials not included in the
+       reference collection but an enrichment_target must also be provided.
+       :type enrichment: float
+       :param temperature_in_C: the temperature of the material in degrees
+        Celsius. Temperature impacts the density of some materials in the
+        collection. Materials in the collection that are impacted by
+        temperature have density equaltions that depend on temperature.
+        These tend to be liquids and gases used for coolants and even
+        liquids such as lithium-lead and FLiBe that are used as a breeder
+        materials.
+       :type temperature_in_C: float
+       :param temperature_in_K: the temperature of the material in degrees
+        Kelvin. Temperature impacts the density of some materials in the
+        collection. Materials in the collection that are impacted by
+        temperature have density equaltions that depend on temperature.
+        These tend to be liquids and gases used for coolants and even
+        liquids such as lithium-lead and FLiBe that are used as a breeder
+        materials.
+       :type temperature_in_K: float
+       :param pressure_in_Pa: the temperature of the material in degrees
+        C. Temperature impacts the density of some materials in the collection.
+        Materials in the collection that are impacted by temperature have
+        density equaltions that depend on temperature. These tend to be
+        liquids and gases used for coolants and even liquids such as
+        lithium-lead and FLiBe that are used as a breeder materials.
+       :type pressure_in_Pa:
 
-        Raises:
-            ValueError: [description]
 
-        Returns:
-            [type] -- [description]
-        """
+        :return: a neutronics_material_maker.Material object that has
+        isotopes and density based on the input material name and modifiers.
+        The Material has can return a openmc_material using the
+        .openmc_material property
+        :rtype: neutronics_material_maker.Material
+    """
 
         self._material_name = material_name
         self._material_tag = material_tag
@@ -177,8 +197,13 @@ class Material:
 
     @packing_fraction.setter
     def packing_fraction(self, value):
+        value = float(value)
         if type(value) is not float:
-            raise ValueError("Material names must be a float")
+            raise ValueError("packing_fraction must be a float")
+        if value < 0.:
+            raise ValueError("packing_fraction must be greater than 0")
+        if value > 1.:
+            raise ValueError("packing_fraction must be less than 1.")
         self._packing_fraction = value
 
 
@@ -511,15 +536,64 @@ class Material:
 
 
 class MultiMaterial(list):
-    def __init__(self, material_tag, materials=[], fracs=[], percent_type='vo'):
+    """Produces a mixed material from several indivdual materials.
+        This class extends the existing openmc.Material.mix_materials
+        to perform this mixing on neutronics_materail_maker.Materials
+        and packing fractions (inverse of void fraction) to be applied
+
+       :param material_tag: this is a string that is assigned to the
+        multimaterial as an identifier. This is used by neutronics
+        codes that need to access materials via a unique identifier
+       :type material_tag: string
+       :param materials: a list of neutronics_material_maker.Materials
+        or openmc.Materials that are to be mixed
+       :type materials: list of Material objects
+       :param fracs: a list of fractions that represent the amount of
+        each material to mix
+       :type fracs: a list of floats
+       :param percent_type: Type of frac percentage, must be one of
+        'ao', 'wo', or 'vo', to signify atom percent (molar percent),
+        weight percent, or volume percent, optional. Defaults to 'vo'
+       :type percent_type: string
+       :param packing_fraction: this value is mutliplier by the density
+        which allows packing_fraction to be taken into account for materials
+        involving an amount of void. Recall that packing_fraction is equal
+        to 1/void fraction
+       :type packing_fraction: float
+
+        :return: a neutronics_material_maker.MultiMaterial object that has 
+        isotopes and density based on the input materials and modifiers.
+        The MultiMaterial has can return a openmc_material using the 
+        .openmc_material property
+        :rtype: neutronics_material_maker.MultiMaterial
+    """
+
+
+    
+    def __init__(self, material_tag, materials=[], fracs=[], percent_type='vo', packing_fraction=1.0):
         self.material_tag = material_tag
         self.materials = materials
         self.fracs = fracs
         self.percent_type = percent_type
+        self.packing_fraction = packing_fraction
         self.openmc_material = None
 
         self.make_material()
 
+    @property
+    def packing_fraction(self):
+        return self._packing_fraction
+
+    @packing_fraction.setter
+    def packing_fraction(self, value):
+        value = float(value)
+        if type(value) is not float:
+            raise ValueError("packing_fraction must be a float")
+        if value < 0.:
+            raise ValueError("packing_fraction must be greater than 0")
+        if value > 1.:
+            raise ValueError("packing_fraction must be less than 1.")
+        self._packing_fraction = value
 
     def make_material(self):
 
@@ -536,7 +610,15 @@ class MultiMaterial(list):
             else:
                 openmc_material_objects.append(material.openmc_material)
 
-        self.openmc_material = openmc.Material.mix_materials(name = self.material_tag,
-                                                             materials = openmc_material_objects,
-                                                             fracs = self.fracs,
-                                                             percent_type = self.percent_type)
+        openmc_material = openmc.Material.mix_materials(name = self.material_tag,
+                                                        materials = openmc_material_objects,
+                                                        fracs = self.fracs,
+                                                        percent_type = self.percent_type)
+
+        # this modifies the density by the packing fraction of the material
+        if self.packing_fraction != 1.0:
+            density_in_g_per_cm3 = openmc_material.get_mass_density()
+
+            openmc_material.set_density('g/cm3', density_in_g_per_cm3 * self.packing_fraction)
+
+        self.openmc_material = openmc_material
