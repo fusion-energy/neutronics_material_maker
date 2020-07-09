@@ -14,7 +14,11 @@ Materials for using in neutronics codes have two main aspects; a list of isotope
 
 This code contains an internal collection of materials with their isotopes abundances and densities all from public references.
 
-A small amount of python code is built upon existing material creation and mixing functions in OpenMC to allow the internal collection of materials to be created in OpenMC format.
+A small amount of python code is built upon existing material creation and mixing functions in OpenMC to allow the internal collection of materials to be created in OpenMC format. Therefore you will need to install [OpenMC](https://docs.openmc.org/en/latest/quickinstall.html) and Python to use this code.
+
+The code can be easily installed using pip
+
+```pip install neutronics_material_maker```
 
 Here is an example that access a material from the internal collection called eurofer which has about 60 isotopes of various redundancies and a density of 7.78g/cm3.
 
