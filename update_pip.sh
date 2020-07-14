@@ -13,7 +13,7 @@ rm -r neutronics_material_maker.egg-info/
 bump
 
 # create distribution
-python3 setup.py sdist
+python setup.py sdist
 
 #upload to pypi
 twine upload dist/* --verbose
