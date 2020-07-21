@@ -535,7 +535,7 @@ class Material:
 
 
 
-class MultiMaterial(list):
+class MultiMaterial():
     """Produces a mixed material from several indivdual materials.
         This class extends the existing openmc.Material.mix_materials
         to perform this mixing on neutronics_materail_maker.Materials
@@ -569,8 +569,9 @@ class MultiMaterial(list):
     """
 
 
-    
-    def __init__(self, material_tag, materials=[], fracs=[], percent_type='vo', packing_fraction=1.0):
+
+    def __init__(self, material_tag, materials=[], fracs=[],
+                 percent_type='vo', packing_fraction=1.0):
         self.material_tag = material_tag
         self.materials = materials
         self.fracs = fracs
@@ -607,8 +608,11 @@ class MultiMaterial(list):
         for material in self.materials:
             if isinstance(material, openmc.Material) == True:
                 openmc_material_objects.append(material)
-            else:
+            elif isinstance(material, Material):
                 openmc_material_objects.append(material.openmc_material)
+            else:
+                raise ValueError("only openmc.Material or neutronics_material_maker.Materials are accepted. Not", type(material))
+
 
         openmc_material = openmc.Material.mix_materials(name = self.material_tag,
                                                         materials = openmc_material_objects,
