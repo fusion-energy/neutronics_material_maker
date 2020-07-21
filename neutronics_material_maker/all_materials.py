@@ -12,4 +12,4 @@ for filename in Path(Path(__file__).parent / 'data').glob('*.json'):
         new_data = json.load(f)
         material_dict.update(new_data)
 
-print('Available materials', list(material_dict.keys()))
+print('Available materials', sorted(list(material_dict.keys())))
