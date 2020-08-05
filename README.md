@@ -22,34 +22,39 @@ The code can be easily installed using pip
 
 Here is an example that access a material from the internal collection called eurofer which has about 60 isotopes of various redundancies and a density of 7.78g/cm3.
 
-```import neutronics_material_maker as nmm```
+```python
 
-```my_mat = nmm.Material('eurofer')```
-
-```my_mat.openmc_material```
+import neutronics_material_maker as nmm```
+my_mat = nmm.Material('eurofer')```
+my_mat.openmc_material
+```
 
 For several materials within the collection the temperature and the pressure impacts the density of the material. The neutronics_material_maker adjusts the density to take temperature and the pressure into account when appropriate. 
 
-```import neutronics_material_maker as nmm```
+```python
 
-```my_mat1 = nmm.Material('H2O', temperature_in_C=300, pressure_in_Pa=15e6)```
-
-```my_mat1.openmc_material```
+import neutronics_material_maker as nmm
+my_mat1 = nmm.Material('H2O', temperature_in_C=300, pressure_in_Pa=15e6)```
+my_mat1.openmc_material
+```
 
 For several materials within the collection the desnity is adjusted when the material is enriched. For breeder blankets in fusion it is common to enrich the lithium 6 content.
 
-```import neutronics_material_maker as nmm```
+```python
 
-```my_mat2 = nmm.Material('Li4SiO4', enrichment=60)```
-
-```my_mat2.openmc_material```
+import neutronics_material_maker as nmm
+my_mat2 = nmm.Material('Li4SiO4', enrichment=60)
+my_mat2.openmc_material
+```
 
 Materials can also be mixed together using the MultiMaterial class. This accepts combinations of neutronics_material_maker.Materials or with openmc.Material objects.
 
-```my_mat3 = MultiMaterial(material_name='mixed_mat',```
-```                        materials=[my_mat1, my_mat2],```
-```                        fracs=[0.4, 0.6],```
-```                        percent_type='vo')```
+```
+my_mat3 = MultiMaterial(material_name='mixed_mat',
+                        materials=[my_mat1, my_mat2],
+                        fracs=[0.4, 0.6],
+                        percent_type='vo')
+```
 
 
 Further examples can be found in the [UKAEA OpenMC workshop task 11](https://github.com/ukaea/openmc_workshop/tree/master/tasks/task_11)
