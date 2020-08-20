@@ -3,6 +3,9 @@
 __author__ = "Jonathan Shimwell"
 
 import re
+import json
+from json import JSONEncoder
+
 
 import openmc
 from CoolProp.CoolProp import PropsSI
@@ -10,6 +13,16 @@ from CoolProp.CoolProp import PropsSI
 from .all_materials import material_dict
 
 atomic_mass_unit_in_g = 1.660539040e-24
+
+
+""" monkey-patches json module so that the custom to_json 
+method is used which allows Materials to be json dumped
+"""
+def _default(self, obj):
+    return getattr(obj.__class__, "to_json", _default.default)(obj)
+
+_default.default = JSONEncoder.default
+JSONEncoder.default = _default
 
 class Material:
     def __init__(
@@ -299,6 +312,8 @@ class Material:
 
     @temperature_in_K.setter
     def temperature_in_K(self, value):
+        if value < 0.:
+            raise ValueError("temperature_in_K must be greater than 0")
         self._temperature_in_K = value
 
 
@@ -308,6 +323,8 @@ class Material:
 
     @temperature_in_C.setter
     def temperature_in_C(self, value):
+        if value < -273.15:
+            raise ValueError("temperature_in_C must be greater than -273.15")
         self._temperature_in_C = value
 
 
@@ -343,6 +360,8 @@ class Material:
 
     @enrichment_target.setter
     def enrichment_target(self, value):
+        if value not in openmc.data.NATURAL_ABUNDANCE.keys():
+            raise ValueError("enrichment_target must be a naturally occuring isotope from this list", openmc.data.NATURAL_ABUNDANCE.keys())
         self._enrichment_target = value
 
 
@@ -352,6 +371,8 @@ class Material:
 
     @pressure_in_Pa.setter
     def pressure_in_Pa(self, value):
+        if value < 0.:
+            raise ValueError("pressure_in_Pa must be greater than 0")
         self._pressure_in_Pa = value
 
 
@@ -361,6 +382,8 @@ class Material:
 
     @reference.setter
     def reference(self, value):
+        if not isinstance(value,str):
+            raise ValueError("reference must be a string")
         self._reference = value
 
 
@@ -413,7 +436,6 @@ class Material:
 
         if self.reference is None and "reference" in material_dict[self.material_name].keys():
             self.reference = material_dict[self.material_name]["reference"]
-
 
     def add_elements(self):
 
@@ -532,6 +554,31 @@ class Material:
         return sum(list_of_fractions)
 
 
+    def to_json(self):
+
+        jsonified_object = {'material_name':self._material_name,
+                            'material_tag':self._material_tag,
+                            'temperature_in_C':self._temperature_in_C,
+                            'temperature_in_K':self._temperature_in_K,
+                            'pressure_in_Pa':self._pressure_in_Pa,
+                            'packing_fraction':self._packing_fraction,
+                            'elements':self._elements,
+                            'isotopes':self._isotopes,
+                            'density':self._density,
+                            'density_equation':self._density_equation,
+                            'atoms_per_unit_cell':self._atoms_per_unit_cell,
+                            'volume_of_unit_cell_cm3':self._volume_of_unit_cell_cm3,
+                            'density_unit':self._density_unit,
+                            'percent_type':self._percent_type,
+                            'enrichment':self._enrichment,
+                            'enrichment_target':self._enrichment_target,
+                            'enrichment_type':self._enrichment_type,
+                            'reference':self._reference,
+        }
+
+        return json.dumps(self, default=lambda o: jsonified_object, 
+            sort_keys=True, indent=4)
+
 
 
 
@@ -626,3 +673,61 @@ class MultiMaterial():
             openmc_material.set_density('g/cm3', density_in_g_per_cm3 * self.packing_fraction)
 
         self.openmc_material = openmc_material
+
+    def to_json(self):
+        
+        materials_list = []
+        for material in self.materials:
+            materials_list.append({'material_name':material._material_name,
+            'material_tag':material._material_tag,
+            'temperature_in_C':material._temperature_in_C,
+            'temperature_in_K':material._temperature_in_K,
+            'pressure_in_Pa':material._pressure_in_Pa,
+            'packing_fraction':material._packing_fraction,
+            'elements':material._elements,
+            'isotopes':material._isotopes,
+            'density':material._density,
+            'density_equation':material._density_equation,
+            'atoms_per_unit_cell':material._atoms_per_unit_cell,
+            'volume_of_unit_cell_cm3':material._volume_of_unit_cell_cm3,
+            'density_unit':material._density_unit,
+            'percent_type':material._percent_type,
+            'enrichment':material._enrichment,
+            'enrichment_target':material._enrichment_target,
+            'enrichment_type':material._enrichment_type,
+            'reference':material._reference,})
+            
+
+        jsonified_object = {'material_tag':self.material_tag,
+                            'materials':materials_list,
+                            'fracs':self.fracs,
+                            'percent_type':self.percent_type,
+                            'packing_fraction':self.packing_fraction,
+        }
+        # materials=[],
+        # fracs=[],
+        # percent_type='vo',
+        # packing_fraction=1.0
+
+        # jsonified_object = {'material_name':self._material_name,
+        #                     'material_tag':self._material_tag,
+        #                     'temperature_in_C':self._temperature_in_C,
+        #                     'temperature_in_K':self._temperature_in_K,
+        #                     'pressure_in_Pa':self._pressure_in_Pa,
+        #                     'packing_fraction':self._packing_fraction,
+        #                     'elements':self._elements,
+        #                     'isotopes':self._isotopes,
+        #                     'density':self._density,
+        #                     'density_equation':self._density_equation,
+        #                     'atoms_per_unit_cell':self._atoms_per_unit_cell,
+        #                     'volume_of_unit_cell_cm3':self._volume_of_unit_cell_cm3,
+        #                     'density_unit':self._density_unit,
+        #                     'percent_type':self._percent_type,
+        #                     'enrichment':self._enrichment,
+        #                     'enrichment_target':self._enrichment_target,
+        #                     'enrichment_type':self._enrichment_type,
+        #                     'reference':self._reference,
+        # }
+
+        return json.dumps(self, default=lambda o: jsonified_object, 
+            sort_keys=True, indent=4)
