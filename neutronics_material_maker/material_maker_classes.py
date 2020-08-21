@@ -122,24 +122,24 @@ class Material:
         :rtype: neutronics_material_maker.Material
     """
 
-        self._material_name = material_name
-        self._material_tag = material_tag
-        self._temperature_in_C = temperature_in_C
-        self._temperature_in_K = temperature_in_K
-        self._pressure_in_Pa = pressure_in_Pa
-        self._packing_fraction = packing_fraction
-        self._elements = elements
-        self._isotopes = isotopes
-        self._density = density
-        self._density_equation = density_equation
-        self._atoms_per_unit_cell = atoms_per_unit_cell
-        self._volume_of_unit_cell_cm3 = volume_of_unit_cell_cm3
-        self._density_unit = density_unit
-        self._percent_type = percent_type
-        self._enrichment = enrichment
-        self._enrichment_target = enrichment_target
-        self._enrichment_type = enrichment_type
-        self._reference = reference
+        self.material_name = material_name
+        self.material_tag = material_tag
+        self.temperature_in_C = temperature_in_C
+        self.temperature_in_K = temperature_in_K
+        self.pressure_in_Pa = pressure_in_Pa
+        self.packing_fraction = packing_fraction
+        self.elements = elements
+        self.isotopes = isotopes
+        self.density = density
+        self.density_equation = density_equation
+        self.atoms_per_unit_cell = atoms_per_unit_cell
+        self.volume_of_unit_cell_cm3 = volume_of_unit_cell_cm3
+        self.density_unit = density_unit
+        self.percent_type = percent_type
+        self.enrichment = enrichment
+        self.enrichment_target = enrichment_target
+        self.enrichment_type = enrichment_type
+        self.reference = reference
 
         # derived values
         self.enrichment_element = None
@@ -190,8 +190,9 @@ class Material:
 
     @material_name.setter
     def material_name(self, value):
-        if type(value) is not str:
-            raise ValueError("Material names must be a string")
+        if value is not None:
+            if type(value) is not str:
+                raise ValueError("material_name must be a string")
         self._material_name = value
 
     @property
@@ -200,8 +201,9 @@ class Material:
 
     @material_tag.setter
     def material_tag(self, value):
-        if type(value) is not str:
-            raise ValueError("Material tags must be a string")
+        if value is not None:
+            if type(value) is not str:
+                raise ValueError("material_tag must be a string")
         self._material_tag = value
 
     @property
@@ -226,7 +228,10 @@ class Material:
 
     @elements.setter
     def elements(self, value):
-        self._elements = value
+        if type(value) is dict or type(value) is str or value is None:
+            self._elements = value
+        else:
+            raise ValueError("Elements must be dictionaries e.g. {'Li':0.07, 'Si': 0.93}")
 
 
     @property
@@ -247,6 +252,9 @@ class Material:
 
     @density_equation.setter
     def density_equation(self, value):
+        if value is not None:
+            if type(value) is not str:
+                raise ValueError("density_equation should be a string")
         self._density_equation = value
 
 
@@ -280,10 +288,10 @@ class Material:
 
     @enrichment_type.setter
     def enrichment_type(self, value):
-        if value in ['ao', 'wo']:
-            self._enrichment_type = value
-        else:
-            raise ValueError("only 'ao' and 'wo' are supported for the enrichment_type")
+        if value is not None:
+            if value not in ['ao', 'wo']:
+                raise ValueError("only 'ao' and 'wo' are supported for the enrichment_type")
+        self._enrichment_type = value
 
 
 
@@ -293,6 +301,9 @@ class Material:
 
     @atoms_per_unit_cell.setter
     def atoms_per_unit_cell(self, value):
+        if value is not None:
+            if value < 0.:
+                raise ValueError("atoms_per_unit_cell must be greater than 0")
         self._atoms_per_unit_cell = value
 
 
@@ -303,6 +314,9 @@ class Material:
 
     @volume_of_unit_cell_cm3.setter
     def volume_of_unit_cell_cm3(self, value):
+        if value is not None:
+            if value < 0.:
+                raise ValueError("volume_of_unit_cell_cm3 must be greater than 0")
         self._volume_of_unit_cell_cm3 = value
 
 
@@ -312,8 +326,9 @@ class Material:
 
     @temperature_in_K.setter
     def temperature_in_K(self, value):
-        if value < 0.:
-            raise ValueError("temperature_in_K must be greater than 0")
+        if value is not None:
+            if value < 0.:
+                raise ValueError("temperature_in_K must be greater than 0")
         self._temperature_in_K = value
 
 
@@ -323,8 +338,9 @@ class Material:
 
     @temperature_in_C.setter
     def temperature_in_C(self, value):
-        if value < -273.15:
-            raise ValueError("temperature_in_C must be greater than -273.15")
+        if value is not None:
+            if value < -273.15:
+                raise ValueError("temperature_in_C must be greater than -273.15")
         self._temperature_in_C = value
 
 
@@ -334,10 +350,10 @@ class Material:
 
     @density.setter
     def density(self, value):
-        if value > 0:
-            self._density = value
-        else:
-            raise ValueError("Density have been incorrectly set, density should be above 0")
+        if value is not None:        
+            if value < 0:
+                raise ValueError("Density have been incorrectly set, density should be above 0")
+        self._density = value
 
 
     @property
@@ -346,12 +362,10 @@ class Material:
 
     @enrichment.setter
     def enrichment(self, value):
-        if value is None:
-            self._enrichment = value
-        elif value < 0 or value > 100:
-            raise ValueError("Enrichment must be between 0 and 100")
-        else:
-            self._enrichment = value
+        if value is not None:
+            if value < 0 or value > 100:
+                raise ValueError("Enrichment must be between 0 and 100")
+        self._enrichment = value
 
 
     @property
@@ -360,8 +374,9 @@ class Material:
 
     @enrichment_target.setter
     def enrichment_target(self, value):
-        if value not in openmc.data.NATURAL_ABUNDANCE.keys():
-            raise ValueError("enrichment_target must be a naturally occuring isotope from this list", openmc.data.NATURAL_ABUNDANCE.keys())
+        if value is not None:
+            if value not in openmc.data.NATURAL_ABUNDANCE.keys():
+                raise ValueError("enrichment_target must be a naturally occuring isotope from this list", openmc.data.NATURAL_ABUNDANCE.keys())
         self._enrichment_target = value
 
 
@@ -371,8 +386,9 @@ class Material:
 
     @pressure_in_Pa.setter
     def pressure_in_Pa(self, value):
-        if value < 0.:
-            raise ValueError("pressure_in_Pa must be greater than 0")
+        if value is not None:
+            if value < 0.:
+                raise ValueError("pressure_in_Pa must be greater than 0")
         self._pressure_in_Pa = value
 
 
@@ -382,8 +398,9 @@ class Material:
 
     @reference.setter
     def reference(self, value):
-        if not isinstance(value,str):
-            raise ValueError("reference must be a string")
+        if value is not None:
+            if not isinstance(value,str):
+                raise ValueError("reference must be a string")
         self._reference = value
 
 
@@ -556,24 +573,24 @@ class Material:
 
     def to_json(self):
 
-        jsonified_object = {'material_name':self._material_name,
-                            'material_tag':self._material_tag,
-                            'temperature_in_C':self._temperature_in_C,
-                            'temperature_in_K':self._temperature_in_K,
-                            'pressure_in_Pa':self._pressure_in_Pa,
-                            'packing_fraction':self._packing_fraction,
-                            'elements':self._elements,
-                            'isotopes':self._isotopes,
-                            'density':self._density,
-                            'density_equation':self._density_equation,
-                            'atoms_per_unit_cell':self._atoms_per_unit_cell,
-                            'volume_of_unit_cell_cm3':self._volume_of_unit_cell_cm3,
-                            'density_unit':self._density_unit,
-                            'percent_type':self._percent_type,
-                            'enrichment':self._enrichment,
-                            'enrichment_target':self._enrichment_target,
-                            'enrichment_type':self._enrichment_type,
-                            'reference':self._reference,
+        jsonified_object = {'material_name':self.material_name,
+                            'material_tag':self.material_tag,
+                            'temperature_in_C':self.temperature_in_C,
+                            'temperature_in_K':self.temperature_in_K,
+                            'pressure_in_Pa':self.pressure_in_Pa,
+                            'packing_fraction':self.packing_fraction,
+                            'elements':self.elements,
+                            'isotopes':self.isotopes,
+                            'density':self.density,
+                            'density_equation':self.density_equation,
+                            'atoms_per_unit_cell':self.atoms_per_unit_cell,
+                            'volume_of_unit_cell_cm3':self.volume_of_unit_cell_cm3,
+                            'density_unit':self.density_unit,
+                            'percent_type':self.percent_type,
+                            'enrichment':self.enrichment,
+                            'enrichment_target':self.enrichment_target,
+                            'enrichment_type':self.enrichment_type,
+                            'reference':self.reference,
         }
 
         return json.dumps(self, default=lambda o: jsonified_object, 
@@ -678,25 +695,24 @@ class MultiMaterial():
         
         materials_list = []
         for material in self.materials:
-            materials_list.append({'material_name':material._material_name,
-            'material_tag':material._material_tag,
-            'temperature_in_C':material._temperature_in_C,
-            'temperature_in_K':material._temperature_in_K,
-            'pressure_in_Pa':material._pressure_in_Pa,
-            'packing_fraction':material._packing_fraction,
-            'elements':material._elements,
-            'isotopes':material._isotopes,
-            'density':material._density,
-            'density_equation':material._density_equation,
-            'atoms_per_unit_cell':material._atoms_per_unit_cell,
-            'volume_of_unit_cell_cm3':material._volume_of_unit_cell_cm3,
-            'density_unit':material._density_unit,
-            'percent_type':material._percent_type,
-            'enrichment':material._enrichment,
-            'enrichment_target':material._enrichment_target,
-            'enrichment_type':material._enrichment_type,
-            'reference':material._reference,})
-            
+            materials_list.append({'material_name':material.material_name,
+                                    'material_tag':material.material_tag,
+                                    'temperature_in_C':material.temperature_in_C,
+                                    'temperature_in_K':material.temperature_in_K,
+                                    'pressure_in_Pa':material.pressure_in_Pa,
+                                    'packing_fraction':material.packing_fraction,
+                                    'elements':material.elements,
+                                    'isotopes':material.isotopes,
+                                    'density':material.density,
+                                    'density_equation':material.density_equation,
+                                    'atoms_per_unit_cell':material.atoms_per_unit_cell,
+                                    'volume_of_unit_cell_cm3':material.volume_of_unit_cell_cm3,
+                                    'density_unit':material.density_unit,
+                                    'percent_type':material.percent_type,
+                                    'enrichment':material.enrichment,
+                                    'enrichment_target':material.enrichment_target,
+                                    'enrichment_type':material.enrichment_type,
+                                    'reference':material.reference,})
 
         jsonified_object = {'material_tag':self.material_tag,
                             'materials':materials_list,
@@ -704,30 +720,6 @@ class MultiMaterial():
                             'percent_type':self.percent_type,
                             'packing_fraction':self.packing_fraction,
         }
-        # materials=[],
-        # fracs=[],
-        # percent_type='vo',
-        # packing_fraction=1.0
-
-        # jsonified_object = {'material_name':self._material_name,
-        #                     'material_tag':self._material_tag,
-        #                     'temperature_in_C':self._temperature_in_C,
-        #                     'temperature_in_K':self._temperature_in_K,
-        #                     'pressure_in_Pa':self._pressure_in_Pa,
-        #                     'packing_fraction':self._packing_fraction,
-        #                     'elements':self._elements,
-        #                     'isotopes':self._isotopes,
-        #                     'density':self._density,
-        #                     'density_equation':self._density_equation,
-        #                     'atoms_per_unit_cell':self._atoms_per_unit_cell,
-        #                     'volume_of_unit_cell_cm3':self._volume_of_unit_cell_cm3,
-        #                     'density_unit':self._density_unit,
-        #                     'percent_type':self._percent_type,
-        #                     'enrichment':self._enrichment,
-        #                     'enrichment_target':self._enrichment_target,
-        #                     'enrichment_type':self._enrichment_type,
-        #                     'reference':self._reference,
-        # }
 
         return json.dumps(self, default=lambda o: jsonified_object, 
             sort_keys=True, indent=4)
