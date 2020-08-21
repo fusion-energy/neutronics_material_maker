@@ -250,7 +250,7 @@ class test_object_properties(unittest.TestCase):
 
         def test_json_dump_contains_correct_keys(self):
                 test_material = Material('H2O', temperature_in_C=100, pressure_in_Pa=1e6)
-                test_material_in_json_form = json.loads(test_material.to_json())  
+                test_material_in_json_form = test_material.to_json() 
                 
                 assert 'atoms_per_unit_cell' in test_material_in_json_form.keys()
                 assert 'density' in test_material_in_json_form.keys()
@@ -273,7 +273,7 @@ class test_object_properties(unittest.TestCase):
 
         def test_json_dump_contains_correct_values(self):
                 test_material = Material('H2O', temperature_in_C=100, pressure_in_Pa=1e6)
-                test_material_in_json_form = json.loads(test_material.to_json())  
+                test_material_in_json_form = test_material.to_json()
                 
                 assert test_material_in_json_form['pressure_in_Pa'] == 1e6
                 assert test_material_in_json_form['temperature_in_C'] == 100

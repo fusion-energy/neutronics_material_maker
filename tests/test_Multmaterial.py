@@ -347,7 +347,7 @@ class test_object_properties(unittest.TestCase):
                                         0.3,
                                         0.7
                                     ])
-                test_material_in_json_form = json.loads(test_material.to_json())  
+                test_material_in_json_form = test_material.to_json()
                 
                 assert 'material_tag' in test_material_in_json_form.keys()
                 assert 'materials' in test_material_in_json_form.keys()
@@ -365,7 +365,7 @@ class test_object_properties(unittest.TestCase):
                                         0.3,
                                         0.7
                                     ])
-                test_material_in_json_form = json.loads(test_material.to_json())  
+                test_material_in_json_form = test_material.to_json()
                 
                 assert test_material_in_json_form['material_tag'] == 'test_material'
                 assert len(test_material_in_json_form['materials']) == 2

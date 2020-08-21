@@ -593,9 +593,7 @@ class Material:
                             'reference':self.reference,
         }
 
-        return json.dumps(self, default=lambda o: jsonified_object, 
-            sort_keys=True, indent=4)
-
+        return jsonified_object
 
 
 
@@ -721,5 +719,4 @@ class MultiMaterial():
                             'packing_fraction':self.packing_fraction,
         }
 
-        return json.dumps(self, default=lambda o: jsonified_object, 
-            sort_keys=True, indent=4)
+        return jsonified_object
