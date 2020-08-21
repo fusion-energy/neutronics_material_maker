@@ -26,6 +26,7 @@ ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
 
 import pytest
 import unittest
+import json
 
 from neutronics_material_maker import Material, MultiMaterial
 
@@ -323,3 +324,51 @@ class test_object_properties(unittest.TestCase):
                                     percent_type = 'vo')
 
             assert test_material_13.density == test_material_14.density
+
+        def test_json_dump_works(self):
+                test_material = MultiMaterial('test_material',
+                                    materials = [
+                                        Material('tungsten', packing_fraction=0.6),
+                                        Material('eurofer', packing_fraction=0.8)
+                                    ],
+                                    fracs = [
+                                        0.3,
+                                        0.7
+                                    ])
+                assert type(json.dumps(test_material)) == str
+
+        def test_json_dump_contains_correct_keys(self):
+                test_material = MultiMaterial('test_material',
+                                    materials = [
+                                        Material('tungsten', packing_fraction=0.6),
+                                        Material('eurofer', packing_fraction=0.8)
+                                    ],
+                                    fracs = [
+                                        0.3,
+                                        0.7
+                                    ])
+                test_material_in_json_form = json.loads(test_material.to_json())  
+                
+                assert 'material_tag' in test_material_in_json_form.keys()
+                assert 'materials' in test_material_in_json_form.keys()
+                assert 'fracs' in test_material_in_json_form.keys()
+                assert 'percent_type' in test_material_in_json_form.keys()
+                assert 'packing_fraction' in test_material_in_json_form.keys()
+
+        def test_json_dump_contains_correct_values(self):
+                test_material = MultiMaterial('test_material',
+                                    materials = [
+                                        Material('tungsten', packing_fraction=0.6),
+                                        Material('eurofer', packing_fraction=0.8)
+                                    ],
+                                    fracs = [
+                                        0.3,
+                                        0.7
+                                    ])
+                test_material_in_json_form = json.loads(test_material.to_json())  
+                
+                assert test_material_in_json_form['material_tag'] == 'test_material'
+                assert len(test_material_in_json_form['materials']) == 2
+                assert test_material_in_json_form['fracs'] == [0.3, 0.7]
+                assert test_material_in_json_form['percent_type'] == 'vo'
+                assert test_material_in_json_form['packing_fraction'] == 1.
