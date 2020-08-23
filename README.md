@@ -6,7 +6,7 @@
 
 [![codecov](https://codecov.io/gh/Shimwell/neutronics_material_maker/branch/openmc_version/graph/badge.svg)](https://codecov.io/gh/ukaea/neutronics_material_maker)
 
-[![PyPI version](https://badge.fury.io/py/neutronics_material_maker.svg)](https://badge.fury.io/py/neutronics_material_maker)
+[![PyPI version](https://badge.fury.io/py/neutronics-material-maker.svg)](https://badge.fury.io/py/neutronics-material-maker)
 
 The aim of this project is to facilitate the creation of neutronics materials for use in OpenMC.
 
