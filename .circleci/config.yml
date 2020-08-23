@@ -32,7 +32,7 @@ jobs:
       - run:
           name: run tests
           command: 
-            pytest tests -v --cov=neutronics_material_makergit  --cov-report term --cov-report html:htmlcov --cov-report xml --junitxml=test-reports/junit.xml
+            pytest tests -v --cov=neutronics_material_maker --cov-report term --cov-report html:htmlcov --cov-report xml --junitxml=test-reports/junit.xml
       - store_test_results:
           path: test-reports
 
