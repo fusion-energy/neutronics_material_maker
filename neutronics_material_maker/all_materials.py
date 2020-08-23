@@ -1,4 +1,5 @@
-# Reads in materials from all json files in data folder and creates single dictionary with no repeat entries
+# Reads in materials from all json files in data folder and creates single
+# dictionary with no repeat entries
 
 import os
 import json
