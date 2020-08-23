@@ -26,6 +26,7 @@ ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
 
 import pytest
 import unittest
+import json
 
 from neutronics_material_maker import Material
 
@@ -39,8 +40,8 @@ class test_object_properties(unittest.TestCase):
 
                 lithium_lead_elements = 'Li'+str(lithium_fraction) +'Pb'+str(lead_fraction)
                 test_material = Material('lithium-lead',
-                                         elements=lithium_lead_elements,
-                                         temperature_in_C=450)
+                                                elements=lithium_lead_elements,
+                                                temperature_in_C=450)
                 nucs = test_material.openmc_material.nuclides
                 pb_atom_count = 0
                 li_atom_count = 0
@@ -60,11 +61,11 @@ class test_object_properties(unittest.TestCase):
 
                 lithium_lead_elements = 'Li'+str(lithium_fraction) +'Pb'+str(lead_fraction)
                 test_material = Material('lithium-lead',
-                                         enrichment=enrichment,
-                                         enrichment_target='Li6',
-                                         enrichment_type='ao',
-                                         elements=lithium_lead_elements,
-                                         temperature_in_C=450)
+                                                enrichment=enrichment,
+                                                enrichment_target='Li6',
+                                                enrichment_type='ao',
+                                                elements=lithium_lead_elements,
+                                                temperature_in_C=450)
                 nucs = test_material.openmc_material.nuclides
                 pb_atom_count = 0
                 li_atom_count = 0
@@ -130,7 +131,7 @@ class test_object_properties(unittest.TestCase):
 
                 test_material = Material(material_name="Li4SiO4")
                 test_material_enriched = Material(material_name="Li4SiO4", enrichment=50., enrichment_target='Li6',
-                                         enrichment_type='ao',)
+                                                enrichment_type='ao',)
                 assert test_material.openmc_material.density > test_material_enriched.openmc_material.density
 
 
@@ -150,8 +151,8 @@ class test_object_properties(unittest.TestCase):
 
                 lithium_lead_elements = 'Li'+str(lithium_fraction) +'Pb'+str(lead_fraction)
                 test_material = Material('lithium-lead',
-                                         elements=lithium_lead_elements,
-                                         temperature_in_C=450)
+                                                elements=lithium_lead_elements,
+                                                temperature_in_C=450)
                 nucs = test_material.openmc_material.nuclides
                 pb_atom_count = 0
                 li_atom_count = 0
@@ -171,11 +172,11 @@ class test_object_properties(unittest.TestCase):
 
                 lithium_lead_elements = 'Li'+str(lithium_fraction) +'Pb'+str(lead_fraction)
                 test_material = Material('lithium-lead',
-                                         enrichment=enrichment,
-                                         enrichment_target='Li6',
-                                         enrichment_type='ao',
-                                         elements=lithium_lead_elements,
-                                         temperature_in_C=450)
+                                                enrichment=enrichment,
+                                                enrichment_target='Li6',
+                                                enrichment_type='ao',
+                                                elements=lithium_lead_elements,
+                                                temperature_in_C=450)
                 nucs = test_material.openmc_material.nuclides
                 pb_atom_count = 0
                 li_atom_count = 0
@@ -198,6 +199,85 @@ class test_object_properties(unittest.TestCase):
                 assert li6_atom_count == pytest.approx((enrichment/100.) * (lithium_fraction / (lead_fraction+lithium_fraction)), rel=0.01)
                 assert li7_atom_count == pytest.approx(((100.-enrichment)/100) * (lithium_fraction / (lead_fraction+lithium_fraction)), rel=0.01)
 
+        def test_incorrect_settings(self):
+
+                def incorrect_temperature_in_K():
+                        """checks a ValueError is raised when the temperature_in_K is below 0"""
+
+                        Material('H2O', temperature_in_K=-10, pressure_in_Pa=1e6)
+
+                self.assertRaises(
+                ValueError,
+                incorrect_temperature_in_K)
+
+                def incorrect_temperature_in_C():
+                        """checks a ValueError is raised when the temperature_in_C is below absolute zero"""
+
+                        Material('H2O', temperature_in_C=-300, pressure_in_Pa=1e6)
+
+                self.assertRaises(
+                ValueError,
+                incorrect_temperature_in_C)
+
+                def incorrect_enrichment_target():
+                        """checks a ValueError is raised when the enrichment target is not a natural isotope"""
+
+                        Material(material_name="Li4SiO4",
+                                enrichment=50.,
+                                enrichment_target='Li9',
+                                enrichment_type='ao',)
+                
+                self.assertRaises(
+                ValueError,
+                incorrect_enrichment_target)
+
+                def incorrect_reference_type():
+                        """checks a ValueError is raised when the refernces is the wrong type"""
+
+                        Material(material_name="Li4SiO4",
+                                enrichment=50.,
+                                enrichment_target='Li6',
+                                enrichment_type='ao',
+                                reference=1)
+
+                self.assertRaises(
+                ValueError,
+                incorrect_reference_type)
+
+        def test_json_dump_works(self):
+                test_material = Material('H2O', temperature_in_C=100, pressure_in_Pa=1e6)
+                assert type(json.dumps(test_material)) == str
+
+        def test_json_dump_contains_correct_keys(self):
+                test_material = Material('H2O', temperature_in_C=100, pressure_in_Pa=1e6)
+                test_material_in_json_form = test_material.to_json() 
+                
+                assert 'atoms_per_unit_cell' in test_material_in_json_form.keys()
+                assert 'density' in test_material_in_json_form.keys()
+                assert 'density_equation' in test_material_in_json_form.keys()
+                assert 'density_unit' in test_material_in_json_form.keys()
+                assert 'elements' in test_material_in_json_form.keys()
+                assert 'enrichment' in test_material_in_json_form.keys()
+                assert 'enrichment_target' in test_material_in_json_form.keys()
+                assert 'enrichment_type' in test_material_in_json_form.keys()
+                assert 'isotopes' in test_material_in_json_form.keys()
+                assert 'material_name' in test_material_in_json_form.keys()
+                assert 'material_tag' in test_material_in_json_form.keys()
+                assert 'packing_fraction' in test_material_in_json_form.keys()
+                assert 'percent_type' in test_material_in_json_form.keys()
+                assert 'pressure_in_Pa' in test_material_in_json_form.keys()
+                assert 'reference' in test_material_in_json_form.keys()
+                assert 'temperature_in_C' in test_material_in_json_form.keys()
+                assert 'temperature_in_K' in test_material_in_json_form.keys()
+                assert 'volume_of_unit_cell_cm3' in test_material_in_json_form.keys()
+
+        def test_json_dump_contains_correct_values(self):
+                test_material = Material('H2O', temperature_in_C=100, pressure_in_Pa=1e6)
+                test_material_in_json_form = test_material.to_json()
+                
+                assert test_material_in_json_form['pressure_in_Pa'] == 1e6
+                assert test_material_in_json_form['temperature_in_C'] == 100
+                assert test_material_in_json_form['material_name'] == 'H2O'
 
 
 if __name__ == '__main__':
