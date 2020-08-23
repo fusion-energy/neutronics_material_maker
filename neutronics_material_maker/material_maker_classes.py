@@ -118,7 +118,7 @@ class Material:
         :return: a neutronics_material_maker.Material object that has
         isotopes and density based on the input material name and modifiers.
         The Material has can return a openmc_material using the
-        .openmc_material property
+        Material.openmc_material property
         :rtype: neutronics_material_maker.Material
     """
 
@@ -151,7 +151,7 @@ class Material:
         self.element_numbers = None
         self.element_symbols = None
 
-        self.populate_from_dictionary()
+        self._populate_from_inbuilt_dictionary()
 
  
 
@@ -182,8 +182,6 @@ class Material:
         self.make_material()
 
 
-
-
     @property
     def material_name(self):
         return self._material_name
@@ -192,7 +190,7 @@ class Material:
     def material_name(self, value):
         if value is not None:
             if type(value) is not str:
-                raise ValueError("material_name must be a string")
+                raise ValueError("material_name must be a string", value)
         self._material_name = value
 
     @property
@@ -203,7 +201,7 @@ class Material:
     def material_tag(self, value):
         if value is not None:
             if type(value) is not str:
-                raise ValueError("material_tag must be a string")
+                raise ValueError("material_tag must be a string", value)
         self._material_tag = value
 
     @property
@@ -221,7 +219,6 @@ class Material:
             raise ValueError("packing_fraction must be less than 1.")
         self._packing_fraction = value
 
-
     @property
     def elements(self):
         return self._elements
@@ -232,7 +229,6 @@ class Material:
             self._elements = value
         else:
             raise ValueError("Elements must be dictionaries e.g. {'Li':0.07, 'Si': 0.93}")
-
 
     @property
     def isotopes(self):
@@ -245,7 +241,6 @@ class Material:
         else:
             raise ValueError("Isotopes must be dictionaries e.g. {'Li6':0.07, 'Li7': 0.93}")
 
-
     @property
     def density_equation(self):
         return self._density_equation
@@ -256,7 +251,6 @@ class Material:
             if type(value) is not str:
                 raise ValueError("density_equation should be a string")
         self._density_equation = value
-
 
     @property
     def density_unit(self):
@@ -269,7 +263,6 @@ class Material:
         else:
             raise ValueError("only 'g/cm3', 'g/cc', 'kg/m3', 'atom/b-cm', 'atom/cm3' are supported for the density_units")
 
-
     @property
     def percent_type(self):
         return self._percent_type
@@ -280,7 +273,6 @@ class Material:
             self._percent_type = value
         else:
             raise ValueError("only 'ao' and 'wo' are supported for the percent_type")
-
 
     @property
     def enrichment_type(self):
@@ -293,8 +285,6 @@ class Material:
                 raise ValueError("only 'ao' and 'wo' are supported for the enrichment_type")
         self._enrichment_type = value
 
-
-
     @property
     def atoms_per_unit_cell(self):
         return self._atoms_per_unit_cell
@@ -305,8 +295,6 @@ class Material:
             if value < 0.:
                 raise ValueError("atoms_per_unit_cell must be greater than 0")
         self._atoms_per_unit_cell = value
-
-
 
     @property
     def volume_of_unit_cell_cm3(self):
@@ -404,7 +392,12 @@ class Material:
         self._reference = value
 
 
-    def populate_from_dictionary(self):
+    def _populate_from_inbuilt_dictionary(self):
+        """This runs on initilisation and if attributes of the Material object are not specified (left as None)
+        then the internal material dictionary is checked to see if defaults are pressent for the particular material.
+        If the attributed has defaults that are present in the internal dictionary then these are used to populated
+        the attributes of the Material object when present.
+        """
 
         if self.temperature_in_C is None and "temperature_in_C" in material_dict[self.material_name].keys():
             self.temperature_in_C = material_dict[self.material_name]["temperature_in_C"]
@@ -550,7 +543,6 @@ class Material:
 
         self.add_density()
 
-
     def get_atoms_in_crystal(self):
 
         tokens = [a for a in re.split(r"([A-Z][a-z]*)", self.chemical_equation) if a]
@@ -569,7 +561,6 @@ class Material:
                     list_of_fractions.append(1)
         self.list_of_fractions = list_of_fractions
         return sum(list_of_fractions)
-
 
     def to_json(self):
 
@@ -632,7 +623,7 @@ class MultiMaterial():
 
 
 
-    def __init__(self, material_tag, materials=[], fracs=[],
+    def __init__(self, material_tag=None, materials=[], fracs=[],
                  percent_type='vo', packing_fraction=1.0):
         self.material_tag = material_tag
         self.materials = materials
@@ -676,7 +667,7 @@ class MultiMaterial():
                 raise ValueError("only openmc.Material or neutronics_material_maker.Materials are accepted. Not", type(material))
 
 
-        openmc_material = openmc.Material.mix_materials(name = self.material_tag,
+        openmc_material = openmc.Material.mix_materials(#name = self.material_tag,
                                                         materials = openmc_material_objects,
                                                         fracs = self.fracs,
                                                         percent_type = self.percent_type)
