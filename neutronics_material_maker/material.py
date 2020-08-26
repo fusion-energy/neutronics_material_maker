@@ -21,35 +21,37 @@ def _default(self, obj):
     """
     return getattr(obj.__class__, "to_json", _default.default)(obj)
 
+
 _default.default = JSONEncoder.default
 JSONEncoder.default = _default
 
 
 def AddMaterialFromDir(directory=None):
-        """Add materials to the internal library from a directory of json files"""
-        for filename in Path(directory).glob("*.json"):
-            with open(filename, "r") as f:
-                new_data = json.load(f)
-                material_dict.update(new_data)
-
-        print("Added materials to library", sorted(list(material_dict.keys())))
-
-
-def AddMaterialFromFile(filename=None):
-        """Add materials to the internal library from a json file"""
+    """Add materials to the internal library from a directory of json files"""
+    for filename in Path(directory).glob("*.json"):
         with open(filename, "r") as f:
             new_data = json.load(f)
             material_dict.update(new_data)
-        print("Added materials to library", sorted(list(material_dict.keys())))
-    
+
+    print("Added materials to library", sorted(list(material_dict.keys())))
+
+
+def AddMaterialFromFile(filename=None):
+    """Add materials to the internal library from a json file"""
+    with open(filename, "r") as f:
+        new_data = json.load(f)
+        material_dict.update(new_data)
+    print("Added materials to library", sorted(list(material_dict.keys())))
+
+
 def AvailableMaterials():
     """Returns a dictionary of avaialbe materials"""
     return material_dict
 
+
 # loads the internal material library of materials
 material_dict = {}
 AddMaterialFromDir(Path(__file__).parent / "data")
-
 
 
 class Material():
