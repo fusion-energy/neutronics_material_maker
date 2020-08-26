@@ -17,8 +17,10 @@ atomic_mass_unit_in_g = 1.660539040e-24
 method is used which allows Materials to be json dumped
 """
 
+
 def _default(self, obj):
     return getattr(obj.__class__, "to_json", _default.default)(obj)
+
 
 _default.default = JSONEncoder.default
 JSONEncoder.default = _default

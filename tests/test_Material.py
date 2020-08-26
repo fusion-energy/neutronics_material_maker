@@ -37,11 +37,11 @@ class test_object_properties(unittest.TestCase):
 
     def test_adding_one_material_AddMaterialFromFile(self):
         test_material_1 = {"WC2": {"elements": "WC",
-                                    "density": 18.0,
-                                    "density_unit": "g/cm3",
-                                    "percent_type": "ao"
-                                    }
-                            }
+                                   "density": 18.0,
+                                   "density_unit": "g/cm3",
+                                   "percent_type": "ao"
+                                   }
+                           }
 
         with open('extra_material_1.json', 'w') as outfile:
             json.dump(test_material_1, outfile)
@@ -55,16 +55,16 @@ class test_object_properties(unittest.TestCase):
 
     def test_adding_two_material_AddMaterialFromFile(self):
         test_material_1 = {"WC3": {"elements": "WC",
-                                    "density": 18.0,
-                                    "density_unit": "g/cm3",
-                                    "percent_type": "ao"
-                                    },
-                            "WB2": {"elements": "WB",
-                                    "density": 15.3,
-                                    "density_unit": "g/cm3",
-                                    "percent_type": "ao"
-                                    }
-                            }
+                                   "density": 18.0,
+                                   "density_unit": "g/cm3",
+                                   "percent_type": "ao"
+                                   },
+                           "WB2": {"elements": "WB",
+                                   "density": 15.3,
+                                   "density_unit": "g/cm3",
+                                   "percent_type": "ao"
+                                   }
+                           }
 
         with open('extra_material_1.json', 'w') as outfile:
             json.dump(test_material_1, outfile)
@@ -79,11 +79,11 @@ class test_object_properties(unittest.TestCase):
 
     def test_replacing_material_using_AddMaterialFromFile(self):
         test_material_1 = {"Li4SiO4": {"elements": "WC",
-                                    "density": 18.0,
-                                    "density_unit": "g/cm3",
-                                    "percent_type": "ao"
-                                    }
-                            }
+                                       "density": 18.0,
+                                       "density_unit": "g/cm3",
+                                       "percent_type": "ao"
+                                       }
+                           }
 
         with open('extra_material_1.json', 'w') as outfile:
             json.dump(test_material_1, outfile)
@@ -99,23 +99,23 @@ class test_object_properties(unittest.TestCase):
         os.system('mkdir new_materials')
 
         test_material_1 = {"Li4SiO42": {"elements": "WC",
-                                    "density": 18.0,
-                                    "density_unit": "g/cm3",
-                                    "percent_type": "ao"
-                                    }
-                            }
+                                        "density": 18.0,
+                                        "density_unit": "g/cm3",
+                                        "percent_type": "ao"
+                                        }
+                           }
 
-        with open(os.path.join('new_materials','extra_material_1.json'), 'w') as outfile:
+        with open(os.path.join('new_materials', 'extra_material_1.json'), 'w') as outfile:
             json.dump(test_material_1, outfile)
 
         test_material_2 = {"Li4SiO43": {"elements": "WC",
-                                    "density": 18.0,
-                                    "density_unit": "g/cm3",
-                                    "percent_type": "ao"
-                                    }
-                            }
+                                        "density": 18.0,
+                                        "density_unit": "g/cm3",
+                                        "percent_type": "ao"
+                                        }
+                           }
 
-        with open(os.path.join('new_materials','extra_material_2.json'), 'w') as outfile:
+        with open(os.path.join('new_materials', 'extra_material_2.json'), 'w') as outfile:
             json.dump(test_material_2, outfile)
 
         number_of_materials = len(nmm.AvailableMaterials())
