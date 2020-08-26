@@ -440,6 +440,51 @@ class Material():
                 raise ValueError("reference must be a string")
         self._reference = value
 
+    def isotope_to_zaid(isotope):
+        
+        return isotope
+
+    def fispact_material(self, volume):
+        mat_card = ['DENSITY '+str(self.openmc_material.get_mass_density()),
+                    'FUEL ' str(len(self.openmc_material.nuclides))]
+        for isotope in self.openmc_material.nuclides:
+            number_of_atoms = #Todo molar mass openmc_material.get_mass_density()
+            mat_card.append(isotope[1][0] + ' ' + '{:.12e}'.format(number_of_atoms))
+        https://github.com/ukaea/neutronics_material_maker/blob/d35d6c17f255480954aa37b904d514a54ddee7a5/neutronics_material_maker/nmm.py#L122
+
+    def serpent_material(self, zaid_suffix='.31c'):
+        """Returns the material in a string compatable with Serpent II"""
+        mat_card = ['mat '+self.material_tag+str(self.openmc_material.get_mass_density())]
+        # should check if percent type is 'ao' or 'wo'
+
+        for isotope in self.openmc_material.nuclides:
+            if isotope[1][2] == 'ao':
+                mat_card.append('     '+isotope[1][0]+ zaid_suffix + ' ' + isotope[1][1])
+            elif isotope[1][2] == 'wo':
+                mat_card.append('     '+isotope[1][0]+ zaid_suffix + ' -' + isotope[1][1])
+
+        return '\n'.join(mat_card)
+
+    def mcnp_material(self, id, zaid_suffix='.31c'):
+        """Returns the material in a string compatable with MCNP6"""
+
+        mat_card = []
+        for i, isotope in enumerate(self.openmc_material.nuclides):
+
+            if i == 0:
+                start = 'M' + str(id)
+            else:
+                start = '     '
+
+            if isotope[1][2] == 'ao':
+                rest = isotope[1][0]+ zaid_suffix + ' ' + isotope[1][1])
+            elif isotope[1][2] == 'wo':
+                rest = isotope[1][0]+ zaid_suffix + ' -' + isotope[1][1])
+
+            mat_card.append(start + rest)
+            
+        return '\n'.join(mat_card)
+
     def _populate_from_inbuilt_dictionary(self):
         """This runs on initilisation and if attributes of the Material object are not specified (left as None)
         then the internal material dictionary is checked to see if defaults are pressent for the particular material.
