@@ -24,14 +24,107 @@ IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF
 ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
 """
 
-import pytest
-import unittest
 import json
+import os
+import unittest
 
-from neutronics_material_maker import Material
+import pytest
+
+import neutronics_material_maker as nmm
 
 
 class test_object_properties(unittest.TestCase):
+
+    def test_adding_one_material_AddMaterialFromFile(self):
+        test_material_1 = {"WC2": {"elements": "WC",
+                                   "density": 18.0,
+                                   "density_unit": "g/cm3",
+                                   "percent_type": "ao"
+                                   }
+                           }
+
+        with open('extra_material_1.json', 'w') as outfile:
+            json.dump(test_material_1, outfile)
+
+        number_of_materials = len(nmm.AvailableMaterials())
+        nmm.AddMaterialFromFile('extra_material_1.json')
+
+        assert number_of_materials + 1 == len(nmm.AvailableMaterials())
+        assert 'WC2' in nmm.AvailableMaterials().keys()
+        os.system('rm extra_material_1.json')
+
+    def test_adding_two_material_AddMaterialFromFile(self):
+        test_material_1 = {"WC3": {"elements": "WC",
+                                   "density": 18.0,
+                                   "density_unit": "g/cm3",
+                                   "percent_type": "ao"
+                                   },
+                           "WB2": {"elements": "WB",
+                                   "density": 15.3,
+                                   "density_unit": "g/cm3",
+                                   "percent_type": "ao"
+                                   }
+                           }
+
+        with open('extra_material_1.json', 'w') as outfile:
+            json.dump(test_material_1, outfile)
+
+        number_of_materials = len(nmm.AvailableMaterials())
+        nmm.AddMaterialFromFile('extra_material_1.json')
+
+        assert number_of_materials + 2 == len(nmm.AvailableMaterials())
+        assert 'WC3' in nmm.AvailableMaterials().keys()
+        assert 'WB2' in nmm.AvailableMaterials().keys()
+        os.system('rm extra_material_1.json')
+
+    def test_replacing_material_using_AddMaterialFromFile(self):
+        test_material_1 = {"Li4SiO4": {"elements": "WC",
+                                       "density": 18.0,
+                                       "density_unit": "g/cm3",
+                                       "percent_type": "ao"
+                                       }
+                           }
+
+        with open('extra_material_1.json', 'w') as outfile:
+            json.dump(test_material_1, outfile)
+
+        number_of_materials = len(nmm.AvailableMaterials())
+        nmm.AddMaterialFromFile('extra_material_1.json')
+
+        assert number_of_materials == len(nmm.AvailableMaterials())
+        assert 'Li4SiO4' in nmm.AvailableMaterials().keys()
+        os.system('rm extra_material_1.json')
+
+    def test_AddMaterialFromDir(self):
+        os.system('mkdir new_materials')
+
+        test_material_1 = {"Li4SiO42": {"elements": "WC",
+                                        "density": 18.0,
+                                        "density_unit": "g/cm3",
+                                        "percent_type": "ao"
+                                        }
+                           }
+
+        with open(os.path.join('new_materials', 'extra_material_1.json'), 'w') as outfile:
+            json.dump(test_material_1, outfile)
+
+        test_material_2 = {"Li4SiO43": {"elements": "WC",
+                                        "density": 18.0,
+                                        "density_unit": "g/cm3",
+                                        "percent_type": "ao"
+                                        }
+                           }
+
+        with open(os.path.join('new_materials', 'extra_material_2.json'), 'w') as outfile:
+            json.dump(test_material_2, outfile)
+
+        number_of_materials = len(nmm.AvailableMaterials())
+        nmm.AddMaterialFromDir('new_materials')
+
+        assert number_of_materials + 2 == len(nmm.AvailableMaterials())
+        assert 'Li4SiO42' in nmm.AvailableMaterials().keys()
+        assert 'Li4SiO43' in nmm.AvailableMaterials().keys()
+
     def test_material_creation_from_chemical_formula(self):
 
         lead_fraction = 3
@@ -39,7 +132,7 @@ class test_object_properties(unittest.TestCase):
 
         lithium_lead_elements = "Li" + \
             str(lithium_fraction) + "Pb" + str(lead_fraction)
-        test_material = Material(
+        test_material = nmm.Material(
             "lithium-lead",
             elements=lithium_lead_elements,
             temperature_in_C=450)
@@ -62,7 +155,7 @@ class test_object_properties(unittest.TestCase):
 
         lithium_lead_elements = "Li" + \
             str(lithium_fraction) + "Pb" + str(lead_fraction)
-        test_material = Material(
+        test_material = nmm.Material(
             "lithium-lead",
             enrichment=enrichment,
             enrichment_target="Li6",
@@ -100,47 +193,47 @@ class test_object_properties(unittest.TestCase):
         # these tests fail because the density value is too far away from calculated value
         # however, this could be becuase the density values are rounded to 2 dp
 
-        test_material = Material(material_name="Li4SiO4")
+        test_material = nmm.Material(material_name="Li4SiO4")
         assert test_material.openmc_material.density == pytest.approx(
             2.32, rel=0.01)
 
-        test_material = Material(material_name="Li2SiO3")
+        test_material = nmm.Material(material_name="Li2SiO3")
         assert test_material.openmc_material.density == pytest.approx(
             2.44, rel=0.01)
 
-        test_material = Material(material_name="Li2ZrO3")
+        test_material = nmm.Material(material_name="Li2ZrO3")
         assert test_material.openmc_material.density == pytest.approx(
             4.03, rel=0.01)
 
-        test_material = Material(material_name="Li2TiO3")
+        test_material = nmm.Material(material_name="Li2TiO3")
         assert test_material.openmc_material.density == pytest.approx(
             3.34, rel=0.01)
 
-        test_material = Material(material_name="Li8PbO6")
+        test_material = nmm.Material(material_name="Li8PbO6")
         assert test_material.openmc_material.density == pytest.approx(
             4.14, rel=0.01)
 
-        test_material = Material(material_name="Be")
+        test_material = nmm.Material(material_name="Be")
         assert test_material.openmc_material.density == pytest.approx(
             1.88, rel=0.01)
 
-        test_material = Material(material_name="Be12Ti")
+        test_material = nmm.Material(material_name="Be12Ti")
         assert test_material.openmc_material.density == pytest.approx(
             2.28, rel=0.01)
 
-        test_material = Material(material_name="Ba5Pb3")
+        test_material = nmm.Material(material_name="Ba5Pb3")
         assert test_material.openmc_material.density == pytest.approx(
             5.84, rel=0.01)
 
-        test_material = Material(material_name="Nd5Pb4")
+        test_material = nmm.Material(material_name="Nd5Pb4")
         assert test_material.openmc_material.density == pytest.approx(
             8.79, rel=0.01)
 
-        test_material = Material(material_name="Zr5Pb3")
+        test_material = nmm.Material(material_name="Zr5Pb3")
         assert test_material.openmc_material.density == pytest.approx(
             8.23, rel=0.01)
 
-        # test_material = Material(material_name="Zr5Pb4")
+        # test_material = nmm.Material(material_name="Zr5Pb4")
         # assert test_material.openmc_material.density ==
         # pytest.approx(#insert)
 
@@ -148,8 +241,8 @@ class test_object_properties(unittest.TestCase):
 
     def test_density_of_enriched_crystals(self):
 
-        test_material = Material(material_name="Li4SiO4")
-        test_material_enriched = Material(
+        test_material = nmm.Material(material_name="Li4SiO4")
+        test_material_enriched = nmm.Material(
             material_name="Li4SiO4",
             enrichment=50.0,
             enrichment_target="Li6",
@@ -162,8 +255,8 @@ class test_object_properties(unittest.TestCase):
 
     def test_density_of_packed_crystals(self):
 
-        test_material = Material(material_name="Li4SiO4")
-        test_material_packed = Material(
+        test_material = nmm.Material(material_name="Li4SiO4")
+        test_material_packed = nmm.Material(
             material_name="Li4SiO4", packing_fraction=0.35)
         assert (
             test_material.openmc_material.density * 0.35
@@ -177,7 +270,7 @@ class test_object_properties(unittest.TestCase):
 
         lithium_lead_elements = "Li" + \
             str(lithium_fraction) + "Pb" + str(lead_fraction)
-        test_material = Material(
+        test_material = nmm.Material(
             "lithium-lead",
             elements=lithium_lead_elements,
             temperature_in_C=450)
@@ -202,7 +295,7 @@ class test_object_properties(unittest.TestCase):
 
         lithium_lead_elements = "Li" + \
             str(lithium_fraction) + "Pb" + str(lead_fraction)
-        test_material = Material(
+        test_material = nmm.Material(
             "lithium-lead",
             enrichment=enrichment,
             enrichment_target="Li6",
@@ -246,21 +339,21 @@ class test_object_properties(unittest.TestCase):
         def incorrect_temperature_in_K():
             """checks a ValueError is raised when the temperature_in_K is below 0"""
 
-            Material("H2O", temperature_in_K=-10, pressure_in_Pa=1e6)
+            nmm.Material("H2O", temperature_in_K=-10, pressure_in_Pa=1e6)
 
         self.assertRaises(ValueError, incorrect_temperature_in_K)
 
         def incorrect_temperature_in_C():
             """checks a ValueError is raised when the temperature_in_C is below absolute zero"""
 
-            Material("H2O", temperature_in_C=-300, pressure_in_Pa=1e6)
+            nmm.Material("H2O", temperature_in_C=-300, pressure_in_Pa=1e6)
 
         self.assertRaises(ValueError, incorrect_temperature_in_C)
 
         def incorrect_enrichment_target():
             """checks a ValueError is raised when the enrichment target is not a natural isotope"""
 
-            Material(
+            nmm.Material(
                 material_name="Li4SiO4",
                 enrichment=50.0,
                 enrichment_target="Li9",
@@ -272,7 +365,7 @@ class test_object_properties(unittest.TestCase):
         def incorrect_reference_type():
             """checks a ValueError is raised when the refernces is the wrong type"""
 
-            Material(
+            nmm.Material(
                 material_name="Li4SiO4",
                 enrichment=50.0,
                 enrichment_target="Li6",
@@ -283,14 +376,14 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, incorrect_reference_type)
 
     def test_json_dump_works(self):
-        test_material = Material(
+        test_material = nmm.Material(
             "H2O",
             temperature_in_C=100,
             pressure_in_Pa=1e6)
         assert isinstance(json.dumps(test_material), str)
 
     def test_json_dump_contains_correct_keys(self):
-        test_material = Material(
+        test_material = nmm.Material(
             "H2O",
             temperature_in_C=100,
             pressure_in_Pa=1e6)
@@ -316,7 +409,7 @@ class test_object_properties(unittest.TestCase):
         assert "volume_of_unit_cell_cm3" in test_material_in_json_form.keys()
 
     def test_json_dump_contains_correct_values(self):
-        test_material = Material(
+        test_material = nmm.Material(
             "H2O",
             temperature_in_C=100,
             pressure_in_Pa=1e6)
