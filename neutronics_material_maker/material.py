@@ -14,11 +14,11 @@ from CoolProp.CoolProp import PropsSI
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
-""" monkey-patches json module so that the custom to_json
-method is used which allows Materials to be json dumped
-"""
 
 def _default(self, obj):
+    """ monkey-patches json module so that the custom to_json
+    method is used which allows Materials to be json dumped
+    """
     return getattr(obj.__class__, "to_json", _default.default)(obj)
 
 _default.default = JSONEncoder.default
@@ -41,10 +41,15 @@ def AddMaterialFromFile(filename=None):
             new_data = json.load(f)
             material_dict.update(new_data)
         print("Added materials to library", sorted(list(material_dict.keys())))
+    
+def AvailableMaterials():
+    """Returns a dictionary of avaialbe materials"""
+    return material_dict
 
 # loads the internal material library of materials
 material_dict = {}
 AddMaterialFromDir(Path(__file__).parent / "data")
+
 
 
 class Material():
@@ -551,6 +556,7 @@ class Material():
             self.reference = material_dict[self.material_name]["reference"]
 
     def add_elements(self):
+        """Adds elements from a dictionary or chemical formula to the Material"""
 
         if isinstance(self.elements, dict):
 
@@ -590,6 +596,7 @@ class Material():
             )
 
     def add_isotopes(self):
+        """Adds isotopes from a dictionary or chemical formula to the Material"""
 
         for isotope_symbol, isotope_number in zip(
             self.isotopes.keys(), self.isotopes.values()
@@ -600,6 +607,7 @@ class Material():
             )
 
     def add_density(self):
+        """Calculates the density of the Material"""
 
         if isinstance(self.density, float):
             pass
@@ -663,6 +671,7 @@ class Material():
         self.add_density()
 
     def get_atoms_in_crystal(self):
+        """Finds the number of atoms in the crystal lactic"""
 
         tokens = [
             a for a in re.split(
