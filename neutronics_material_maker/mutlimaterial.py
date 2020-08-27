@@ -12,8 +12,6 @@ import neutronics_material_maker
 atomic_mass_unit_in_g = 1.660539040e-24
 
 
-
-
 def _default(self, obj):
     """ monkey-patches json module so that the custom to_json
     method is used which allows Materials to be json dumped
