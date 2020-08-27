@@ -446,7 +446,7 @@ class Material():
 
     def fispact_material(self, volume):
         mat_card = ['DENSITY '+str(self.openmc_material.get_mass_density()),
-                    'FUEL ' str(len(self.openmc_material.nuclides))]
+                    'FUEL ' +str(len(self.openmc_material.nuclides))]
         for isotope in self.openmc_material.nuclides:
             number_of_atoms = #Todo molar mass openmc_material.get_mass_density()
             mat_card.append(isotope[1][0] + ' ' + '{:.12e}'.format(number_of_atoms))
