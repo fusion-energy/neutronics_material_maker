@@ -26,8 +26,8 @@ Here is an example that access a material from the internal collection called eu
 
 ```python
 
-import neutronics_material_maker as nmm```
-my_mat = nmm.Material('eurofer')```
+import neutronics_material_maker as nmm
+my_mat = nmm.Material('eurofer')
 my_mat.openmc_material
 ```
 
@@ -36,7 +36,7 @@ For several materials within the collection the temperature and the pressure imp
 ```python
 
 import neutronics_material_maker as nmm
-my_mat1 = nmm.Material('H2O', temperature_in_C=300, pressure_in_Pa=15e6)```
+my_mat1 = nmm.Material('H2O', temperature_in_C=300, pressure_in_Pa=15e6)
 my_mat1.openmc_material
 ```
 
