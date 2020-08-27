@@ -3,7 +3,6 @@
 __author__ = "neutronics material maker development team"
 
 import json
-import re
 from json import JSONEncoder
 
 import openmc
@@ -13,12 +12,10 @@ import neutronics_material_maker
 atomic_mass_unit_in_g = 1.660539040e-24
 
 
-""" monkey-patches json module so that the custom to_json
-method is used which allows Materials to be json dumped
-"""
-
-
 def _default(self, obj):
+    """ monkey-patches json module so that the custom to_json
+    method is used which allows Materials to be json dumped
+    """
     return getattr(obj.__class__, "to_json", _default.default)(obj)
 
 
