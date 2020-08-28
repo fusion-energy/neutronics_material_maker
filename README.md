@@ -4,9 +4,11 @@
 
 [![CircleCI](https://circleci.com/gh/ukaea/neutronics_material_maker/tree/openmc_version.svg?style=svg)](https://circleci.com/gh/ukaea/neutronics_material_maker/tree/openmc_version)
 
-[![codecov](https://codecov.io/gh/Shimwell/neutronics_material_maker/branch/openmc_version/graph/badge.svg)](https://codecov.io/gh/ukaea/neutronics_material_maker)
+[![codecov](https://codecov.io/gh/ukaea/neutronics_material_maker/branch/openmc_version/graph/badge.svg)](https://codecov.io/gh/ukaea/neutronics_material_maker)
 
 [![PyPI version](https://badge.fury.io/py/neutronics-material-maker.svg)](https://badge.fury.io/py/neutronics-material-maker)
+
+:point_right: [Documentation](https://neutronics-material-maker.readthedocs.io/en/latest/)
 
 The aim of this project is to facilitate the creation of neutronics materials for use in OpenMC.
 
@@ -14,9 +16,11 @@ The hope is that by having this collection of materials it is easier to reuse ma
 
 Materials for using in neutronics codes have two main aspects; a list of isotopes along with their abundance and the material density.
 
-This code contains an internal collection of materials with their isotopes abundances and densities all from public references.
+This code contains an internal collection of materials with their isotopes abundances and densities all from public references but you may also add your own materials collection.
 
 A small amount of python code is built upon existing material creation and mixing functions in OpenMC to allow the internal collection of materials to be created in OpenMC format. Therefore you will need to install [OpenMC](https://docs.openmc.org/en/latest/quickinstall.html) and Python to use this code.
+
+
 
 The code can be easily installed using pip
 
