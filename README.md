@@ -50,7 +50,7 @@ my_mat.openmc_material
 
 ## Usage - hot pressurised Material
 
-For several materials within the collection the temperature and the pressure impacts the density of the material. The neutronics_material_maker adjusts the density to take temperature and the pressure into account when appropriate. 
+For several materials within the collection the temperature and the pressure impacts the density of the material. The neutronics_material_maker adjusts the density to take temperature and the pressure into account when appropriate. Densities are caluclated either by an material specific formula (for example [FLiBe](https://github.com/ukaea/neutronics_material_maker/blob/adding_other_code_support/neutronics_material_maker/data/multiplier_and_breeder_materials.json)) or using [CoolProps](https://pypi.org/project/CoolProp/) (for example[coolants](https://github.com/ukaea/neutronics_material_maker/blob/adding_other_code_support/neutronics_material_maker/data/multiplier_and_breeder_materials.json))
 
 ```python
 import neutronics_material_maker as nmm
@@ -58,9 +58,11 @@ my_mat1 = nmm.Material('H2O', temperature_in_C=300, pressure_in_Pa=15e6)
 my_mat1.openmc_material
 ```
 
-For several materials within the collection the desnity is adjusted when the material is enriched. For breeder blankets in fusion it is common to enrich the lithium 6 content.
+For several materials within the collection the density is adjusted when the material is enriched. For breeder blankets in fusion it is common to enrich the lithium 6 content.
 
 ## Usage - enriched Material
+
+Lithium ceramics used in fusion breeder blankets often contain enriched lithium-6 content. This slightly changes the density and  
 
 ```python
 import neutronics_material_maker as nmm
