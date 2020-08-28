@@ -3,6 +3,7 @@
 [![CircleCI](https://circleci.com/gh/ukaea/neutronics_material_maker/tree/openmc_version.svg?style=svg)](https://circleci.com/gh/ukaea/neutronics_material_maker/tree/openmc_version)
 [![codecov](https://codecov.io/gh/ukaea/neutronics_material_maker/branch/openmc_version/graph/badge.svg)](https://codecov.io/gh/ukaea/neutronics_material_maker)
 [![PyPI version](https://badge.fury.io/py/neutronics-material-maker.svg)](https://badge.fury.io/py/neutronics-material-maker)
+[![Documentation Status](https://readthedocs.org/projects/neutronics-material-maker/badge/?version=latest)](https://neutronics-material-maker.readthedocs.io/en/latest/?badge=latest)
 
 # **Neutronics material maker**
 
