@@ -442,8 +442,9 @@ class Material():
         self._reference = value
 
     def isotope_to_zaid(isotope):
-
-        return isotope
+        z,a,m = openmc.data.zam(isotope)    
+        zaid = str(z).zfill(3) + str(a).zfill(3)
+        return zaid
 
     def fispact_material(self, volume):
         mat_card = ['DENSITY ' + str(self.openmc_material.get_mass_density()),
@@ -460,13 +461,13 @@ class Material():
 
         for isotope in self.openmc_material.nuclides:
             if isotope[1][2] == 'ao':
-                mat_card.append('     ' + isotope[1][0] + zaid_suffix + ' ' + isotope[1][1])
+                mat_card.append('     ' + self.isotope_to_zaid(isotope[1][0]) + zaid_suffix + ' ' + isotope[1][1])
             elif isotope[1][2] == 'wo':
-                mat_card.append('     ' + isotope[1][0] + zaid_suffix + ' -' + isotope[1][1])
+                mat_card.append('     ' + self.isotope_to_zaid(isotope[1][0]) + zaid_suffix + ' -' + isotope[1][1])
 
         return '\n'.join(mat_card)
 
-    def mcnp_material(self, id, zaid_suffix='.31c'):
+    def mcnp_material(self, id=1, zaid_suffix='.31c'):
         """Returns the material in a string compatable with MCNP6"""
 
         mat_card = []
@@ -478,9 +479,9 @@ class Material():
                 start = '     '
 
             if isotope[1][2] == 'ao':
-                rest = isotope[1][0] + zaid_suffix + ' ' + isotope[1][1]
+                rest = self.isotope_to_zaid(isotope[1][0]) + zaid_suffix + ' ' + isotope[1][1]
             elif isotope[1][2] == 'wo':
-                rest=isotope[1][0] + zaid_suffix + ' -' + isotope[1][1]
+                rest = self.isotope_to_zaid(isotope[1][0]) + zaid_suffix + ' -' + isotope[1][1]
 
             mat_card.append(start + rest)
 
