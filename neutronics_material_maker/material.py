@@ -46,6 +46,7 @@ def AddMaterialFromFile(filename=None):
 
 def AvailableMaterials():
     """Returns a dictionary of avaialbe materials"""
+    print(material_dict)
     return material_dict
 
 
