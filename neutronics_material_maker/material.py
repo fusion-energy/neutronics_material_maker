@@ -523,12 +523,17 @@ class Material:
                 "Material.id needs setting before serpent_material can be made"
             )
 
+        if self.material_tag is None:
+            name = self.material_name
+        else:
+            name = self.material_tag
+
         if self.zaid_suffix is None:
             zaid_suffix = ""
         else:
             zaid_suffix = self.zaid_suffix
 
-        mat_card = []
+        mat_card = ['c     '+ name + ' density ' + str(self.openmc_material_obj.get_mass_density())+ ' g/cm3']
         for i, isotope in enumerate(self.openmc_material_obj.nuclides):
 
             if i == 0:

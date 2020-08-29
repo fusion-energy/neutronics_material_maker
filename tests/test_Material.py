@@ -49,6 +49,42 @@ class test_object_properties(unittest.TestCase):
     #     assert a.fispact_material(volume=1).split('\n')[-2].startswith('O17 8.401823440')
     #     assert a.fispact_material(volume=1).split('\n')[-1].startswith('O18 4.532562645')
 
+    def test_mcnp_material_suffix(self):
+        test_material1 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".21c", id=27)
+        mcnp_material1 = test_material1.mcnp_material()
+        test_material2 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".30c", id=27)
+        mcnp_material2 = test_material2.mcnp_material()
+        test_material3 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", id=27)
+        mcnp_material3 = test_material3.mcnp_material()
+
+        assert len(mcnp_material3) < len(mcnp_material2)
+        assert len(mcnp_material1) == len(mcnp_material2)
+        assert mcnp_material1.count("21c") == mcnp_material2.count("30c")
+
+    def test_mcnp_material_lines(self):
+        test_material = nmm.Material("Nb3Sn", material_tag="test", density=3, zaid_suffix=".30c", id=27)
+        mcnp_material = test_material.mcnp_material()
+        line_by_line_material = mcnp_material.split("\n")
+
+        assert line_by_line_material[0].split()[0] == 'c'
+        assert line_by_line_material[0].split()[1] == 'test'
+        assert line_by_line_material[0].split()[2] == 'density'
+        assert float(line_by_line_material[0].split()[3]) == 3
+        assert line_by_line_material[0].split()[4] == 'g/cm3'
+
+        assert line_by_line_material[1] == "M27 041093.30c  0.75"
+
+        assert line_by_line_material[2] == "     050112.30c  0.002425"
+        assert line_by_line_material[3] == "     050114.30c  0.00165"
+        assert line_by_line_material[4] == "     050115.30c  0.00085"
+        assert line_by_line_material[5] == "     050116.30c  0.03635"
+        assert line_by_line_material[6] == "     050117.30c  0.0192"
+        assert line_by_line_material[7] == "     050118.30c  0.06055"
+        assert line_by_line_material[8] == "     050119.30c  0.021475"
+        assert line_by_line_material[9] == "     050120.30c  0.08145"
+        assert line_by_line_material[10] == "     050122.30c  0.011575"
+        assert line_by_line_material[11] == "     050124.30c  0.014475"
+
     def test_serpent_material_suffix(self):
         test_material1 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".21c")
         serpent_material1 = test_material1.serpent_material()
