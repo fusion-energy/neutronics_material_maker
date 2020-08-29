@@ -13,12 +13,10 @@ import neutronics_material_maker
 atomic_mass_unit_in_g = 1.660539040e-24
 
 
-""" monkey-patches json module so that the custom to_json
-method is used which allows Materials to be json dumped
-"""
-
-
 def _default(self, obj):
+    """ monkey-patches json module so that the custom to_json
+    method is used which allows Materials to be json dumped
+    """
     return getattr(obj.__class__, "to_json", _default.default)(obj)
 
 
@@ -72,7 +70,9 @@ class MultiMaterial:
         self.fracs = fracs
         self.percent_type = percent_type
         self.packing_fraction = packing_fraction
-        self.openmc_material = None
+
+        # derived values
+        self.openmc_material_obj = None
 
         self.make_material()
 
@@ -90,6 +90,9 @@ class MultiMaterial:
         if value > 1.0:
             raise ValueError("packing_fraction must be less than 1.")
         self._packing_fraction = value
+
+    def openmc_material(self):
+        return self.openmc_material_obj
 
     def make_material(self):
 
@@ -109,7 +112,7 @@ class MultiMaterial:
             if isinstance(material, openmc.Material):
                 openmc_material_objects.append(material)
             elif isinstance(material, neutronics_material_maker.Material):
-                openmc_material_objects.append(material.openmc_material)
+                openmc_material_objects.append(material.openmc_material())
             else:
                 raise ValueError(
                     "only openmc.Material or neutronics_material_maker.Materials are accepted. Not",
@@ -130,7 +133,7 @@ class MultiMaterial:
                 "g/cm3", density_in_g_per_cm3 * self.packing_fraction
             )
 
-        self.openmc_material = openmc_material
+        self.openmc_material_obj = openmc_material
 
     def to_json(self):
 
