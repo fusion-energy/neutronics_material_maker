@@ -77,7 +77,7 @@ class Material:
         reference=None,
         zaid_suffix=None,
         id=None,
-        volume_cm3=None,
+        volume_in_cm3=None,
     ):
         """Produces a material by looking up the material_name in a
         collection of prepared materials. Modifiers to the material
@@ -149,6 +149,8 @@ class Material:
        zaid_suffix
        id
        id
+       volume_in_cm3
+       volume_in_cm3
 
 
         :return: a neutronics_material_maker.Material object that has
@@ -178,6 +180,7 @@ class Material:
         self.reference = reference
         self.zaid_suffix = zaid_suffix
         self.id = id
+        self.volume_in_cm3 = volume_in_cm3
 
         # derived values
         self.enrichment_element = None
@@ -467,21 +470,30 @@ class Material:
 
     def fispact_material(self):
 
-        if self.volume == None:
+        if self.volume_in_cm3 == None:
             raise ValueError(
                 "Material.material_tag needs setting before serpent_material can be made"
             )
+
+        mass = self.openmc_material_obj.get_mass_density() * self.volume_in_cm3
+
+        number_of_moles = mass / self.openmc_material_obj.average_molar_mass
+
+        number_of_atoms = number_of_moles * 6.022e23        
 
         mat_card = [
             "DENSITY " + str(self.openmc_material_obj.get_mass_density()),
             "FUEL " + str(len(self.openmc_material_obj.nuclides)),
         ]
         for isotope in self.openmc_material_obj.nuclides:
-            number_of_atoms = (
-                1  # Todo molar mass openmc_material_obj.get_mass_density()
-            )
-            mat_card.append(isotope[0] + " " + "{:.12e}".format(number_of_atoms))
-        # https: // github.com / ukaea / neutronics_material_maker / blob / d35d6c17f255480954aa37b904d514a54ddee7a5 / neutronics_material_maker / nmm.py  # L122
+            if isotope[2] != 'ao':
+                raise ValueError(
+                    "Currently fispact materials can only be made from materials that are specified in atom fraction and mass fraction is not supported"
+                )
+            number_of_atoms_for_isotope = number_of_atoms * isotope[1]
+            mat_card.append(isotope[0] + " " + "{:.12e}".format(number_of_atoms_for_isotope))
+        
+        return "\n".join(mat_card)
 
     def serpent_material(self):
         """Returns the material in a string compatable with Serpent II"""
