@@ -76,6 +76,7 @@ class Material:
         enrichment_type=None,
         reference=None,
         zaid_suffix=None,
+        id=None,
         volume_cm3=None,
     ):
         """Produces a material by looking up the material_name in a
@@ -389,12 +390,14 @@ class Material:
 
     @density.setter
     def density(self, value):
-        if value is not None:
+        if value is None:
+            self._density = value
+        else:
             if value < 0:
                 raise ValueError(
                     "Density have been incorrectly set, density should be above 0"
                 )
-        self._density = value
+            self._density = float(value)
 
     @property
     def enrichment(self):
@@ -522,12 +525,14 @@ class Material:
 
         if self.zaid_suffix is None:
             zaid_suffix = ""
+        else:
+            zaid_suffix = self.zaid_suffix
 
         mat_card = []
         for i, isotope in enumerate(self.openmc_material_obj.nuclides):
 
             if i == 0:
-                start = "M" + str(id)
+                start = "M" + str(self.id) + " "
             else:
                 start = "     "
 
@@ -722,44 +727,43 @@ class Material:
     def _add_density(self):
         """Calculates the density of the Material"""
 
-        if isinstance(self.density, float):
-            pass
+        if not isinstance(self.density, float):
 
-        elif self.density is None and self.density_equation is not None:
+            if self.density is None and self.density_equation is not None:
 
-            # Potentially used in the eval part
-            temperature_in_K = self.temperature_in_K
-            temperature_in_C = self.temperature_in_C
-            pressure_in_Pa = self.pressure_in_Pa
+                # Potentially used in the eval part
+                temperature_in_K = self.temperature_in_K
+                temperature_in_C = self.temperature_in_C
+                pressure_in_Pa = self.pressure_in_Pa
 
-            density = eval(self.density_equation)
-            if density is None:
-                raise ValueError(
-                    "Density value of ", self.material_name, " can not be found"
+                density = eval(self.density_equation)
+                if density is None:
+                    raise ValueError(
+                        "Density value of ", self.material_name, " can not be found"
+                    )
+                else:
+                    self.density = density
+
+            elif (
+                self.atoms_per_unit_cell is not None
+                and self.volume_of_unit_cell_cm3 is not None
+            ):
+
+                molar_mass = (
+                    self._get_atoms_in_crystal()
+                    * self.openmc_material_obj.average_molar_mass
                 )
+
+                mass = self.atoms_per_unit_cell * molar_mass * atomic_mass_unit_in_g
+
+                self.density = mass / self.volume_of_unit_cell_cm3
             else:
-                self.density = density
 
-        elif (
-            self.atoms_per_unit_cell is not None
-            and self.volume_of_unit_cell_cm3 is not None
-        ):
-
-            molar_mass = (
-                self._get_atoms_in_crystal()
-                * self.openmc_material_obj.average_molar_mass
-            )
-
-            mass = self.atoms_per_unit_cell * molar_mass * atomic_mass_unit_in_g
-
-            self.density = mass / self.volume_of_unit_cell_cm3
-        else:
-
-            raise ValueError(
-                "density can't be set for "
-                + str(self.material_name)
-                + " provide either a density value, equation as a string, or atoms_per_unit_cell and volume_of_unit_cell_cm3"
-            )
+                raise ValueError(
+                    "density can't be set for "
+                    + str(self.material_name)
+                    + " provide either a density value, equation as a string, or atoms_per_unit_cell and volume_of_unit_cell_cm3"
+                )
 
         self.openmc_material_obj.set_density(
             self.density_unit, self.density * self.packing_fraction
