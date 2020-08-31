@@ -469,29 +469,22 @@ class Material:
         return self.openmc_material_obj
 
     def fispact_material(self):
+        """Returns a Fispact material card for the material. This contains the required keywords
+        (DENSITY and FUEL) and the number of atoms of each isotope in the material for the given volume.
+        The Material.volume_in_cm3 must be set to use this method"""
 
         if self.volume_in_cm3 == None:
             raise ValueError(
                 "Material.material_tag needs setting before serpent_material can be made"
             )
-
-        mass = self.openmc_material_obj.get_mass_density() * self.volume_in_cm3
-
-        number_of_moles = mass / self.openmc_material_obj.average_molar_mass
-
-        number_of_atoms = number_of_moles * 6.022e23        
-
+  
         mat_card = [
             "DENSITY " + str(self.openmc_material_obj.get_mass_density()),
             "FUEL " + str(len(self.openmc_material_obj.nuclides)),
         ]
-        for isotope in self.openmc_material_obj.nuclides:
-            if isotope[2] != 'ao':
-                raise ValueError(
-                    "Currently fispact materials can only be made from materials that are specified in atom fraction and mass fraction is not supported"
-                )
-            number_of_atoms_for_isotope = number_of_atoms * isotope[1]
-            mat_card.append(isotope[0] + " " + "{:.12e}".format(number_of_atoms_for_isotope))
+        for isotope, atoms_barn_cm in self.openmc_material_obj.get_nuclide_atom_densities().values():
+            atoms_cm3 = atoms_barn_cm * 1.e24
+            mat_card.append(isotope + " " + "{:.12e}".format(atoms_cm3))
         
         return "\n".join(mat_card)
 
