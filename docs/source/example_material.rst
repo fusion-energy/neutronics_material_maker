@@ -85,3 +85,25 @@ The default enrichment target for 'Li4SiO4' is Li6 but this can be changed if re
     my_mat2 = nmm.Material('Li4SiO4', enrichment_target='Li7', enrichment=40)
 
     my_mat2.openmc_material
+
+
+
+Usage - make a Material() from a dictionary
+-------------------------------------------
+
+There are options to extent the material library however it is also possible to make materials directy from a dictionary by making use of the python syntax **
+
+::
+
+    import neutronics_material_maker as nmm
+    my_dict = { "material_name": "li_with_si",
+                "elements": {
+                                "Li":4,
+                                "Si":2
+                            },
+                "density": 3.0,
+                "density_unit": "g/cm3",
+                "percent_type": "ao",
+                }
+
+    nmm.Material(**my_dict)
