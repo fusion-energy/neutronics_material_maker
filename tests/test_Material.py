@@ -35,19 +35,32 @@ import neutronics_material_maker as nmm
 
 class test_object_properties(unittest.TestCase):
 
-    # def test_fispact_material(self):
-    #     a=nmm.Material('Li4SiO4')
-    #     assert a.fispact_material(volume=1).split('
-    # [-10]=='DENSITY 2.2'
-    #     assert a.fispact_material(volume=1).split('\n')[-9]=='FUEL 8'
-    #     assert a.fispact_material(volume=1).split('\n')[-8].startswith('Li6 1.678153682')
-    #     assert a.fispact_material(volume=1).split('\n')[-7].startswith('Li7 2.043190800')
-    #     assert a.fispact_material(volume=1).split('\n')[-6].startswith('Si28 5.09764054')
-    #     assert a.fispact_material(volume=1).split('\n')[-5].startswith('Si29 2.58964097')
-    #     assert a.fispact_material(volume=1).split('\n')[-4].startswith('Si30 1.70910776')
-    #     assert a.fispact_material(volume=1).split('\n')[-3].startswith('O16 2.205633423')
-    #     assert a.fispact_material(volume=1).split('\n')[-2].startswith('O17 8.401823440')
-    #     assert a.fispact_material(volume=1).split('\n')[-1].startswith('O18 4.532562645')
+    def test_fispact_material(self):
+        a=nmm.Material('Li4SiO4', volume_in_cm3=1.)
+        assert a.fispact_material().split('\n')[-9]=='DENSITY 2.3186896075603562'
+        assert a.fispact_material().split('\n')[-8]=='FUEL 7'
+        assert a.fispact_material().split('\n')[-7] == 'Li6 3.537400925715E+21'
+        assert a.fispact_material().split('\n')[-6] == 'Li7 4.307481314353E+22'
+        assert a.fispact_material().split('\n')[-5] == 'Si28 1.074757396925E+22'
+        assert a.fispact_material().split('\n')[-4] == 'Si29 5.457311411014E+20'
+        assert a.fispact_material().split('\n')[-3] == 'Si30 3.597484069651E+20'
+        assert a.fispact_material().split('\n')[-2] == 'O16 4.659454804012E+22'
+        assert a.fispact_material().split('\n')[-1] == 'O17 1.766602913225E+19'
+        # assert a.fispact_material(volume=1).split('\n')[-1] == 'O18 4.532562645'
+
+    def test_fispact_material_with_volume(self):
+        a=nmm.Material('Li4SiO4', volume_in_cm3=2.)
+        assert a.fispact_material().split('\n')[-9]=='DENSITY 2.3186896075603562'
+        assert a.fispact_material().split('\n')[-8]=='FUEL 7'
+        assert a.fispact_material().split('\n')[-7] == 'Li6 7.074801851431E+21'
+        assert a.fispact_material().split('\n')[-6] == 'Li7 8.614962628707E+22'
+        assert a.fispact_material().split('\n')[-5] == 'Si28 2.149514793849E+22'
+        assert a.fispact_material().split('\n')[-4] == 'Si29 1.091462282203E+21'
+        assert a.fispact_material().split('\n')[-3] == 'Si30 7.194968139301E+20'
+        assert a.fispact_material().split('\n')[-2] == 'O16 9.318909608023E+22'
+        assert a.fispact_material().split('\n')[-1] == 'O17 3.533205826449E+19'
+        # assert a.fispact_material(volume=1).split('\n')[-1] == 'O18 4.532562645'
+
 
     def test_mcnp_material_suffix(self):
         test_material1 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".21c", id=27)

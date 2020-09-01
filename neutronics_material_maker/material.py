@@ -471,7 +471,8 @@ class Material:
     def fispact_material(self):
         """Returns a Fispact material card for the material. This contains the required keywords
         (DENSITY and FUEL) and the number of atoms of each isotope in the material for the given volume.
-        The Material.volume_in_cm3 must be set to use this method"""
+        The Material.volume_in_cm3 must be set to use this method. See the Fispact FUEL keyword
+        documentation for more information https://fispact.ukaea.uk/wiki/Keyword:FUEL"""
 
         if self.volume_in_cm3 == None:
             raise ValueError(
@@ -484,7 +485,8 @@ class Material:
         ]
         for isotope, atoms_barn_cm in self.openmc_material_obj.get_nuclide_atom_densities().values():
             atoms_cm3 = atoms_barn_cm * 1.e24
-            mat_card.append(isotope + " " + "{:.12e}".format(atoms_cm3))
+            atoms = self.volume_in_cm3 * atoms_cm3
+            mat_card.append(isotope + " " + "{:.12E}".format(atoms))
         
         return "\n".join(mat_card)
 
