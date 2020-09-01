@@ -1,7 +1,14 @@
 Neutronics Material Maker
 =========================
 
-The neutronics-material-maker python package allows rapid production of neutronics materials from a library
+The aim of this project is to facilitate the creation of materials for use in neutronics codes such as OpenMC, Serpent, MCNP and Fispact.
+
+The hope is that by having this collection of materials it is easier to reuse materials across projects, use a common source with less room for user error.
+
+The package allows for materials to be made from either an internal library of materials or from your own material library.
+
+Material densities can be made to account for temperature, pressure isotopic enrichment.
+
 
 .. toctree::
    :maxdepth: 1
@@ -11,6 +18,7 @@ The neutronics-material-maker python package allows rapid production of neutroni
    multimaterial
    example_material
    example_multimaterial
+   example_library_usage
 
 
 Prerequisites
@@ -43,44 +51,12 @@ Alternativly you can clone the repository, and install using the setup.py
 Features
 --------
 
-Usage - Materials
------------------
-
-Making a material from the inbuilt material database
-
-::
-
-   import neutronics-material-maker as nmm
-
-   my_mat = nmm.Material('eurofer')
-
-Once the object has been initiated the material card can be accessed
-
-::
-
-   my_mat_shape.openmc_material
-
-
-Usage - MutliMaterial
----------------------
-
-Making two materials and mixing them to create a MultiMaterial
-
-::
-
-   import neutronics-material-maker as nmm
-
-   my_mat1 = nmm.Material('eurofer')
-   my_mat2 = nmm.Material('tungsten')
-
-   my_mat3 = MultiMaterial(material_name='mixed_mat',
-                           materials=[my_mat1, my_mat2],
-                           fracs=[0.4, 0.6],
-                           percent_type='vo')
-
+There are two main user classes `Material() <https://neutronics-material-maker.readthedocs.io/en/latest/material.html>`_ and `MutliMaterial() <https://neutronics-material-maker.readthedocs.io/en/latest/multimaterial.html>`_ which are both fully documented.
 
 
 Example Scripts
 ---------------
 
-There are several example scripts in the `examples folder <https://github.com/ukaea/openmc_workshop/tree/master/tasks/task_11>`_ .
+There are several examples in the relevent example webpages `example Material usage <https://neutronics-material-maker.readthedocs.io/en/latest/example_material.html>`_ and `example MutliMaterial usage <https://neutronics-material-maker.readthedocs.io/en/latest/example_multimaterial.html>`_
+
+Additionally there are more examples in the `OpenMC workshop <https://github.com/ukaea/openmc_workshop/tree/master/tasks/task_11>`_ .
