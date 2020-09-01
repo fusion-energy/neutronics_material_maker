@@ -36,36 +36,51 @@ import neutronics_material_maker as nmm
 class test_object_properties(unittest.TestCase):
 
     def test_fispact_material(self):
-        a=nmm.Material('Li4SiO4', volume_in_cm3=1.)
-        assert a.fispact_material().split('\n')[-9]=='DENSITY 2.3186896075603562'
-        assert a.fispact_material().split('\n')[-8]=='FUEL 7'
+        a = nmm.Material('Li4SiO4', volume_in_cm3=1.)
+        assert a.fispact_material().split(
+            '\n')[-9] == 'DENSITY 2.3186896075603562'
+        assert a.fispact_material().split('\n')[-8] == 'FUEL 7'
         assert a.fispact_material().split('\n')[-7] == 'Li6 3.537400925715E+21'
         assert a.fispact_material().split('\n')[-6] == 'Li7 4.307481314353E+22'
-        assert a.fispact_material().split('\n')[-5] == 'Si28 1.074757396925E+22'
-        assert a.fispact_material().split('\n')[-4] == 'Si29 5.457311411014E+20'
-        assert a.fispact_material().split('\n')[-3] == 'Si30 3.597484069651E+20'
+        assert a.fispact_material().split(
+            '\n')[-5] == 'Si28 1.074757396925E+22'
+        assert a.fispact_material().split(
+            '\n')[-4] == 'Si29 5.457311411014E+20'
+        assert a.fispact_material().split(
+            '\n')[-3] == 'Si30 3.597484069651E+20'
         assert a.fispact_material().split('\n')[-2] == 'O16 4.659454804012E+22'
         assert a.fispact_material().split('\n')[-1] == 'O17 1.766602913225E+19'
         # assert a.fispact_material(volume=1).split('\n')[-1] == 'O18 4.532562645'
 
     def test_fispact_material_with_volume(self):
-        a=nmm.Material('Li4SiO4', volume_in_cm3=2.)
-        assert a.fispact_material().split('\n')[-9]=='DENSITY 2.3186896075603562'
-        assert a.fispact_material().split('\n')[-8]=='FUEL 7'
+        a = nmm.Material('Li4SiO4', volume_in_cm3=2.)
+        assert a.fispact_material().split(
+            '\n')[-9] == 'DENSITY 2.3186896075603562'
+        assert a.fispact_material().split('\n')[-8] == 'FUEL 7'
         assert a.fispact_material().split('\n')[-7] == 'Li6 7.074801851431E+21'
         assert a.fispact_material().split('\n')[-6] == 'Li7 8.614962628707E+22'
-        assert a.fispact_material().split('\n')[-5] == 'Si28 2.149514793849E+22'
-        assert a.fispact_material().split('\n')[-4] == 'Si29 1.091462282203E+21'
-        assert a.fispact_material().split('\n')[-3] == 'Si30 7.194968139301E+20'
+        assert a.fispact_material().split(
+            '\n')[-5] == 'Si28 2.149514793849E+22'
+        assert a.fispact_material().split(
+            '\n')[-4] == 'Si29 1.091462282203E+21'
+        assert a.fispact_material().split(
+            '\n')[-3] == 'Si30 7.194968139301E+20'
         assert a.fispact_material().split('\n')[-2] == 'O16 9.318909608023E+22'
         assert a.fispact_material().split('\n')[-1] == 'O17 3.533205826449E+19'
         # assert a.fispact_material(volume=1).split('\n')[-1] == 'O18 4.532562645'
 
-
     def test_mcnp_material_suffix(self):
-        test_material1 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".21c", id=27)
+        test_material1 = nmm.Material(
+            "Nb3Sn",
+            material_tag="Nb3Sn",
+            zaid_suffix=".21c",
+            id=27)
         mcnp_material1 = test_material1.mcnp_material()
-        test_material2 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".30c", id=27)
+        test_material2 = nmm.Material(
+            "Nb3Sn",
+            material_tag="Nb3Sn",
+            zaid_suffix=".30c",
+            id=27)
         mcnp_material2 = test_material2.mcnp_material()
         test_material3 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", id=27)
         mcnp_material3 = test_material3.mcnp_material()
@@ -75,7 +90,12 @@ class test_object_properties(unittest.TestCase):
         assert mcnp_material1.count("21c") == mcnp_material2.count("30c")
 
     def test_mcnp_material_lines(self):
-        test_material = nmm.Material("Nb3Sn", material_tag="test", density=3, zaid_suffix=".30c", id=27)
+        test_material = nmm.Material(
+            "Nb3Sn",
+            material_tag="test",
+            density=3,
+            zaid_suffix=".30c",
+            id=27)
         mcnp_material = test_material.mcnp_material()
         line_by_line_material = mcnp_material.split("\n")
 
@@ -99,9 +119,11 @@ class test_object_properties(unittest.TestCase):
         assert line_by_line_material[11] == "     050124.30c  0.014475"
 
     def test_serpent_material_suffix(self):
-        test_material1 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".21c")
+        test_material1 = nmm.Material(
+            "Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".21c")
         serpent_material1 = test_material1.serpent_material()
-        test_material2 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".30c")
+        test_material2 = nmm.Material(
+            "Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".30c")
         serpent_material2 = test_material2.serpent_material()
         test_material3 = nmm.Material("Nb3Sn", material_tag="Nb3Sn")
         serpent_material3 = test_material3.serpent_material()
@@ -111,7 +133,11 @@ class test_object_properties(unittest.TestCase):
         assert serpent_material1.count("21c") == serpent_material2.count("30c")
 
     def test_serpent_material_lines(self):
-        test_material = nmm.Material("Nb3Sn", material_tag="test", density=3, zaid_suffix=".30c")
+        test_material = nmm.Material(
+            "Nb3Sn",
+            material_tag="test",
+            density=3,
+            zaid_suffix=".30c")
         serpent_material = test_material.serpent_material()
         line_by_line_material = serpent_material.split("\n")
 
@@ -129,7 +155,6 @@ class test_object_properties(unittest.TestCase):
         assert line_by_line_material[9] == "     050120.30c  0.08145"
         assert line_by_line_material[10] == "     050122.30c  0.011575"
         assert line_by_line_material[11] == "     050124.30c  0.014475"
-
 
     def test_adding_one_material_AddMaterialFromFile(self):
         test_material_1 = {
@@ -241,10 +266,12 @@ class test_object_properties(unittest.TestCase):
         lead_fraction = 3
         lithium_fraction = 7
 
-        lithium_lead_elements = "Li" + str(lithium_fraction) + "Pb" + str(lead_fraction)
+        lithium_lead_elements = "Li" + \
+            str(lithium_fraction) + "Pb" + str(lead_fraction)
         test_material = nmm.Material(
-            "lithium-lead", elements=lithium_lead_elements, temperature_in_C=450
-        )
+            "lithium-lead",
+            elements=lithium_lead_elements,
+            temperature_in_C=450)
         nucs = test_material.openmc_material().nuclides
         pb_atom_count = 0
         li_atom_count = 0
@@ -262,7 +289,8 @@ class test_object_properties(unittest.TestCase):
         lithium_fraction = 7
         enrichment = 20
 
-        lithium_lead_elements = "Li" + str(lithium_fraction) + "Pb" + str(lead_fraction)
+        lithium_lead_elements = "Li" + \
+            str(lithium_fraction) + "Pb" + str(lead_fraction)
         test_material = nmm.Material(
             "lithium-lead",
             enrichment=enrichment,
@@ -367,10 +395,12 @@ class test_object_properties(unittest.TestCase):
         lead_fraction = 3
         lithium_fraction = 7
 
-        lithium_lead_elements = "Li" + str(lithium_fraction) + "Pb" + str(lead_fraction)
+        lithium_lead_elements = "Li" + \
+            str(lithium_fraction) + "Pb" + str(lead_fraction)
         test_material = nmm.Material(
-            "lithium-lead", elements=lithium_lead_elements, temperature_in_C=450
-        )
+            "lithium-lead",
+            elements=lithium_lead_elements,
+            temperature_in_C=450)
         nucs = test_material.openmc_material().nuclides
         pb_atom_count = 0
         li_atom_count = 0
@@ -379,8 +409,10 @@ class test_object_properties(unittest.TestCase):
                 pb_atom_count = pb_atom_count + entry[1]
             if entry[0].startswith("Li"):
                 li_atom_count = li_atom_count + entry[1]
-        assert pb_atom_count == lead_fraction / (lead_fraction + lithium_fraction)
-        assert li_atom_count == lithium_fraction / (lead_fraction + lithium_fraction)
+        assert pb_atom_count == lead_fraction / \
+            (lead_fraction + lithium_fraction)
+        assert li_atom_count == lithium_fraction / \
+            (lead_fraction + lithium_fraction)
 
     def test_material_creation_from_chemical_formula_with_enrichment(self):
 
@@ -388,7 +420,8 @@ class test_object_properties(unittest.TestCase):
         lithium_fraction = 7
         enrichment = 20
 
-        lithium_lead_elements = "Li" + str(lithium_fraction) + "Pb" + str(lead_fraction)
+        lithium_lead_elements = "Li" + \
+            str(lithium_fraction) + "Pb" + str(lead_fraction)
         test_material = nmm.Material(
             "lithium-lead",
             enrichment=enrichment,
@@ -412,8 +445,10 @@ class test_object_properties(unittest.TestCase):
             if entry[0] == "Li7":
                 li7_atom_count = li7_atom_count + entry[1]
         print(nucs)
-        assert pb_atom_count == lead_fraction / (lead_fraction + lithium_fraction)
-        assert li_atom_count == lithium_fraction / (lead_fraction + lithium_fraction)
+        assert pb_atom_count == lead_fraction / \
+            (lead_fraction + lithium_fraction)
+        assert li_atom_count == lithium_fraction / \
+            (lead_fraction + lithium_fraction)
         assert li6_atom_count * 4.0 == pytest.approx(li7_atom_count)
 
         assert li6_atom_count == pytest.approx(
@@ -468,11 +503,13 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, incorrect_reference_type)
 
     def test_json_dump_works(self):
-        test_material = nmm.Material("H2O", temperature_in_C=100, pressure_in_Pa=1e6)
+        test_material = nmm.Material(
+            "H2O", temperature_in_C=100, pressure_in_Pa=1e6)
         assert isinstance(json.dumps(test_material), str)
 
     def test_json_dump_contains_correct_keys(self):
-        test_material = nmm.Material("H2O", temperature_in_C=100, pressure_in_Pa=1e6)
+        test_material = nmm.Material(
+            "H2O", temperature_in_C=100, pressure_in_Pa=1e6)
         test_material_in_json_form = test_material.to_json()
 
         assert "atoms_per_unit_cell" in test_material_in_json_form.keys()
@@ -495,7 +532,8 @@ class test_object_properties(unittest.TestCase):
         assert "volume_of_unit_cell_cm3" in test_material_in_json_form.keys()
 
     def test_json_dump_contains_correct_values(self):
-        test_material = nmm.Material("H2O", temperature_in_C=100, pressure_in_Pa=1e6)
+        test_material = nmm.Material(
+            "H2O", temperature_in_C=100, pressure_in_Pa=1e6)
         test_material_in_json_form = test_material.to_json()
 
         assert test_material_in_json_form["pressure_in_Pa"] == 1e6

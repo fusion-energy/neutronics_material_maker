@@ -78,7 +78,8 @@ class test_object_properties(unittest.TestCase):
         assert isinstance(test_material, openmc.Material) == False
         assert isinstance(test_material.openmc_material(), openmc.Material)
 
-    def test_multimaterial_attributes_from_material_objects_and_openmc_materials(self):
+    def test_multimaterial_attributes_from_material_objects_and_openmc_materials(
+            self):
         # tests that multimaterials made from material objects and neutronics
         # materials have the same properties
 
@@ -114,7 +115,8 @@ class test_object_properties(unittest.TestCase):
         )
 
         test_material_2 = Material(material_name="Be12Ti")
-        test_material_packed_2 = Material(material_name="Be12Ti", packing_fraction=0.35)
+        test_material_packed_2 = Material(
+            material_name="Be12Ti", packing_fraction=0.35)
         assert (
             test_material_2.openmc_material().density * 0.35
             == test_material_packed_2.openmc_material().density
@@ -128,10 +130,8 @@ class test_object_properties(unittest.TestCase):
         )
 
         assert mixed_packed_crystals.openmc_material().density == pytest.approx(
-            (test_material_1.openmc_material().density * 0.65 * 0.75)
-            + (test_material_2.openmc_material().density * 0.35 * 0.25),
-            rel=0.01,
-        )
+            (test_material_1.openmc_material().density * 0.65 * 0.75) + (
+                test_material_2.openmc_material().density * 0.35 * 0.25), rel=0.01, )
 
     def test_density_of_mixed_two_packed_and_non_packed_crystals(self):
 
@@ -154,10 +154,14 @@ class test_object_properties(unittest.TestCase):
 
     def test_density_of_mixed_materials_from_density_equation(self):
 
-        test_material = Material("H2O", temperature_in_C=25, pressure_in_Pa=100000)
+        test_material = Material(
+            "H2O",
+            temperature_in_C=25,
+            pressure_in_Pa=100000)
         test_mixed_material = MultiMaterial(
-            material_tag="test_mixed_material", materials=[test_material], fracs=[1]
-        )
+            material_tag="test_mixed_material",
+            materials=[test_material],
+            fracs=[1])
 
         assert (
             test_material.openmc_material().density
@@ -191,17 +195,22 @@ class test_object_properties(unittest.TestCase):
 
         test_material_1 = Material("Li4SiO4").openmc_material()
 
-        test_material_2 = Material("Li4SiO4", packing_fraction=1).openmc_material()
+        test_material_2 = Material(
+            "Li4SiO4", packing_fraction=1).openmc_material()
 
         assert test_material_1.density == test_material_2.density
 
-        test_material_3 = Material("Li4SiO4", packing_fraction=0.5).openmc_material()
+        test_material_3 = Material(
+            "Li4SiO4", packing_fraction=0.5).openmc_material()
 
-        assert test_material_3.density == pytest.approx(test_material_1.density * 0.5)
+        assert test_material_3.density == pytest.approx(
+            test_material_1.density * 0.5)
 
-        test_material_4 = Material("Li4SiO4", packing_fraction=0.75).openmc_material()
+        test_material_4 = Material(
+            "Li4SiO4", packing_fraction=0.75).openmc_material()
 
-        assert test_material_4.density == pytest.approx(test_material_1.density * 0.75)
+        assert test_material_4.density == pytest.approx(
+            test_material_1.density * 0.75)
 
     def test_packing_fraction_for_multimaterial_function(self):
 
@@ -231,7 +240,8 @@ class test_object_properties(unittest.TestCase):
             fracs=[0.5, 0.5],
         ).openmc_material()
 
-        assert test_material_7.density == pytest.approx(test_material_5.density * 0.5)
+        assert test_material_7.density == pytest.approx(
+            test_material_5.density * 0.5)
 
     def test_packing_fraction_of_a_multimaterial(self):
 
@@ -292,7 +302,8 @@ class test_object_properties(unittest.TestCase):
             percent_type="vo",
         )
 
-        assert test_material_10.density == pytest.approx(test_material_8.density * 0.5)
+        assert test_material_10.density == pytest.approx(
+            test_material_8.density * 0.5)
 
     def test_multimaterial_vs_mix_materials(self):
 

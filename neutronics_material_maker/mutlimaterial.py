@@ -96,7 +96,8 @@ class MultiMaterial:
     def make_material(self):
 
         if len(self.fracs) != len(self.materials):
-            raise ValueError("There must be equal numbers of fracs and materials")
+            raise ValueError(
+                "There must be equal numbers of fracs and materials")
 
         if sum(self.fracs) != 1.0:
             print(
@@ -158,8 +159,7 @@ class MultiMaterial:
                     "enrichment_target": material.enrichment_target,
                     "enrichment_type": material.enrichment_type,
                     "reference": material.reference,
-                }
-            )
+                })
 
         jsonified_object = {
             "material_tag": self.material_tag,

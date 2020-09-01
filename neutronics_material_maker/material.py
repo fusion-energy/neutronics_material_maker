@@ -226,7 +226,9 @@ class Material:
 
         if "pressure_dependant" in material_dict[self.material_name].keys():
             if pressure_in_Pa is None:
-                raise ValueError("pressure_in_Pa is needed for", self.material_name)
+                raise ValueError(
+                    "pressure_in_Pa is needed for",
+                    self.material_name)
 
         self.openmc_material()
 
@@ -326,7 +328,8 @@ class Material:
         if value in ["ao", "wo", None]:
             self._percent_type = value
         else:
-            raise ValueError("only 'ao' and 'wo' are supported for the percent_type")
+            raise ValueError(
+                "only 'ao' and 'wo' are supported for the percent_type")
 
     @property
     def enrichment_type(self):
@@ -360,7 +363,8 @@ class Material:
     def volume_of_unit_cell_cm3(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError("volume_of_unit_cell_cm3 must be greater than 0")
+                raise ValueError(
+                    "volume_of_unit_cell_cm3 must be greater than 0")
         self._volume_of_unit_cell_cm3 = value
 
     @property
@@ -382,7 +386,8 @@ class Material:
     def temperature_in_C(self, value):
         if value is not None:
             if value < -273.15:
-                raise ValueError("temperature_in_C must be greater than -273.15")
+                raise ValueError(
+                    "temperature_in_C must be greater than -273.15")
         self._temperature_in_C = value
 
     @property
@@ -472,11 +477,11 @@ class Material:
         The Material.volume_in_cm3 must be set to use this method. See the Fispact FUEL keyword
         documentation for more information https://fispact.ukaea.uk/wiki/Keyword:FUEL"""
 
-        if self.volume_in_cm3 == None:
+        if self.volume_in_cm3 is None:
             raise ValueError(
                 "Material.material_tag needs setting before serpent_material can be made"
             )
-  
+
         mat_card = [
             "DENSITY " + str(self.openmc_material_obj.get_mass_density()),
             "FUEL " + str(len(self.openmc_material_obj.nuclides)),
@@ -485,7 +490,7 @@ class Material:
             atoms_cm3 = atoms_barn_cm * 1.e24
             atoms = self.volume_in_cm3 * atoms_cm3
             mat_card.append(isotope + " " + "{:.12E}".format(atoms))
-        
+
         return "\n".join(mat_card)
 
     def serpent_material(self):
@@ -500,9 +505,8 @@ class Material:
         else:
             zaid_suffix = self.zaid_suffix
 
-        mat_card = [
-            "mat " + name + " " + str(self.openmc_material_obj.get_mass_density())
-        ]
+        mat_card = ["mat " + name + " " +
+                    str(self.openmc_material_obj.get_mass_density())]
         # should check if percent type is 'ao' or 'wo'
 
         for isotope in self.openmc_material_obj.nuclides:
@@ -523,7 +527,7 @@ class Material:
     def mcnp_material(self):
         """Returns the material in a string compatable with MCNP6"""
 
-        if self.id == None:
+        if self.id is None:
             raise ValueError(
                 "Material.id needs setting before serpent_material can be made"
             )
@@ -538,7 +542,8 @@ class Material:
         else:
             zaid_suffix = self.zaid_suffix
 
-        mat_card = ['c     '+ name + ' density ' + str(self.openmc_material_obj.get_mass_density())+ ' g/cm3']
+        mat_card = ['c     ' + name + ' density ' + \
+            str(self.openmc_material_obj.get_mass_density()) + ' g/cm3']
         for i, isotope in enumerate(self.openmc_material_obj.nuclides):
 
             if i == 0:
@@ -690,7 +695,8 @@ class Material:
         if isinstance(self.elements, dict):
 
             if self.enrichment_target is not None:
-                enrichment_element = re.split(r"(\d+)", self.enrichment_target)[0]
+                enrichment_element = re.split(
+                    r"(\d+)", self.enrichment_target)[0]
             else:
                 enrichment_element = None
             for element_symbol, element_number in zip(
@@ -749,8 +755,9 @@ class Material:
                 density = eval(self.density_equation)
                 if density is None:
                     raise ValueError(
-                        "Density value of ", self.material_name, " can not be found"
-                    )
+                        "Density value of ",
+                        self.material_name,
+                        " can not be found")
                 else:
                     self.density = density
 
@@ -770,10 +777,10 @@ class Material:
             else:
 
                 raise ValueError(
-                    "density can't be set for "
-                    + str(self.material_name)
-                    + " provide either a density value, equation as a string, or atoms_per_unit_cell and volume_of_unit_cell_cm3"
-                )
+                    "density can't be set for " +
+                    str(
+                        self.material_name) +
+                    " provide either a density value, equation as a string, or atoms_per_unit_cell and volume_of_unit_cell_cm3")
 
         self.openmc_material_obj.set_density(
             self.density_unit, self.density * self.packing_fraction
@@ -782,7 +789,10 @@ class Material:
     def _get_atoms_in_crystal(self):
         """Finds the number of atoms in the crystal lactic"""
 
-        tokens = [a for a in re.split(r"([A-Z][a-z]*)", self.chemical_equation) if a]
+        tokens = [
+            a for a in re.split(
+                r"([A-Z][a-z]*)",
+                self.chemical_equation) if a]
 
         list_of_fractions = []
 
