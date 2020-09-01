@@ -28,7 +28,7 @@ import pytest
 import unittest
 import json
 
-from neutronics_material_maker import Material, MultiMaterial
+import neutronics_material_maker as nmm
 
 import openmc
 
@@ -47,13 +47,52 @@ if __name__ == "__main__":
 
 
 class test_object_properties(unittest.TestCase):
+
+    def test_serpent_multimaterial_type(self):
+
+        test_material = nmm.MultiMaterial(
+            "test_material",
+            materials=[nmm.Material("Li4SiO4"), nmm.Material("Be12Ti")],
+            fracs=[0.50, 0.50],
+            percent_type="vo",
+        )
+
+        assert len(test_material.serpent_material) > 100
+        assert isinstance(test_material.serpent_material, str)
+
+    def test_mcnp_multimaterial_type(self):
+
+        test_material = nmm.MultiMaterial(
+            "test_material",
+            materials=[nmm.Material("Li4SiO4"), nmm.Material("Be12Ti")],
+            fracs=[0.50, 0.50],
+            percent_type="vo",
+            id=2
+        )
+
+        assert len(test_material.mcnp_material) > 100
+        assert isinstance(test_material.mcnp_material, str)
+
+    def test_fispact_multimaterial_type(self):
+
+        test_material = nmm.MultiMaterial(
+            "test_material",
+            materials=[nmm.Material("Li4SiO4"), nmm.Material("Be12Ti")],
+            fracs=[0.50, 0.50],
+            percent_type="vo",
+            volume_in_cm3=20
+        )
+
+        assert len(test_material.fispact_material) > 100
+        assert isinstance(test_material.fispact_material, str)
+
     def test_make_multimaterial_from_material_objects(self):
         # tests that a multimaterial can be created by passing Material objects
         # into the MultiMaterial function
 
-        test_material = MultiMaterial(
+        test_material = nmm.MultiMaterial(
             "test_material",
-            materials=[Material("Li4SiO4"), Material("Be12Ti")],
+            materials=[nmm.Material("Li4SiO4"), nmm.Material("Be12Ti")],
             fracs=[0.50, 0.50],
             percent_type="vo",
         )
@@ -65,11 +104,11 @@ class test_object_properties(unittest.TestCase):
         # tests that a multimaterial can be created by passing neutronics
         # materials into the MultiMaterial function
 
-        test_material = MultiMaterial(
+        test_material = nmm.MultiMaterial(
             "test_material",
             materials=[
-                Material("Li4SiO4").openmc_material,
-                Material("Be12Ti").openmc_material,
+                nmm.Material("Li4SiO4").openmc_material,
+                nmm.Material("Be12Ti").openmc_material,
             ],
             fracs=[0.50, 0.50],
             percent_type="vo",
@@ -83,18 +122,18 @@ class test_object_properties(unittest.TestCase):
         # tests that multimaterials made from material objects and neutronics
         # materials have the same properties
 
-        test_material_1 = MultiMaterial(
+        test_material_1 = nmm.MultiMaterial(
             "test_material_1",
-            materials=[Material("Li4SiO4"), Material("Be12Ti")],
+            materials=[nmm.Material("Li4SiO4"), nmm.Material("Be12Ti")],
             fracs=[0.5, 0.5],
             percent_type="vo",
         ).openmc_material
 
-        test_material_2 = MultiMaterial(
+        test_material_2 = nmm.MultiMaterial(
             "test_material_2",
             materials=[
-                Material("Li4SiO4").openmc_material,
-                Material("Be12Ti").openmc_material,
+                nmm.Material("Li4SiO4").openmc_material,
+                nmm.Material("Be12Ti").openmc_material,
             ],
             fracs=[0.5, 0.5],
             percent_type="vo",
@@ -105,8 +144,8 @@ class test_object_properties(unittest.TestCase):
 
     def test_density_of_mixed_two_packed_crystals(self):
 
-        test_material_1 = Material(material_name="Li4SiO4")
-        test_material_packed_1 = Material(
+        test_material_1 = nmm.Material(material_name="Li4SiO4")
+        test_material_packed_1 = nmm.Material(
             material_name="Li4SiO4", packing_fraction=0.65
         )
         assert (
@@ -114,15 +153,15 @@ class test_object_properties(unittest.TestCase):
             == test_material_packed_1.openmc_material.density
         )
 
-        test_material_2 = Material(material_name="Be12Ti")
-        test_material_packed_2 = Material(
+        test_material_2 = nmm.Material(material_name="Be12Ti")
+        test_material_packed_2 = nmm.Material(
             material_name="Be12Ti", packing_fraction=0.35)
         assert (
             test_material_2.openmc_material.density * 0.35
             == test_material_packed_2.openmc_material.density
         )
 
-        mixed_packed_crystals = MultiMaterial(
+        mixed_packed_crystals = nmm.MultiMaterial(
             material_tag="mixed_packed_crystals",
             materials=[test_material_packed_1, test_material_packed_2],
             fracs=[0.75, 0.25],
@@ -130,19 +169,17 @@ class test_object_properties(unittest.TestCase):
         )
 
         assert mixed_packed_crystals.openmc_material.density == pytest.approx(
-            (test_material_1.openmc_material.density * 0.65 * 0.75)
-            + (test_material_2.openmc_material.density * 0.35 * 0.25),
-            rel=0.01,
-        )
+            (test_material_1.openmc_material.density * 0.65 * 0.75) + (
+                test_material_2.openmc_material.density * 0.35 * 0.25), rel=0.01, )
 
     def test_density_of_mixed_two_packed_and_non_packed_crystals(self):
 
-        test_material_1 = Material(material_name="Li4SiO4")
-        test_material_1_packed = Material(
+        test_material_1 = nmm.Material(material_name="Li4SiO4")
+        test_material_1_packed = nmm.Material(
             material_name="Li4SiO4", packing_fraction=0.65
         )
 
-        mixed_material = MultiMaterial(
+        mixed_material = nmm.MultiMaterial(
             material_tag="mixed_material",
             materials=[test_material_1, test_material_1_packed],
             fracs=[0.2, 0.8],
@@ -156,11 +193,11 @@ class test_object_properties(unittest.TestCase):
 
     def test_density_of_mixed_materials_from_density_equation(self):
 
-        test_material = Material(
+        test_material = nmm.Material(
             "H2O",
             temperature_in_C=25,
             pressure_in_Pa=100000)
-        test_mixed_material = MultiMaterial(
+        test_mixed_material = nmm.MultiMaterial(
             material_tag="test_mixed_material",
             materials=[test_material],
             fracs=[1])
@@ -172,46 +209,43 @@ class test_object_properties(unittest.TestCase):
 
     def test_density_of_mixed_one_packed_crystal_and_one_non_crystal(self):
 
-        test_material_1 = Material(
+        test_material_1 = nmm.Material(
             material_name="H2O", temperature_in_C=25, pressure_in_Pa=100000
         )
 
-        test_material_2 = Material(material_name="Li4SiO4")
-        test_material_2_packed = Material(
+        test_material_2 = nmm.Material(material_name="Li4SiO4")
+        test_material_2_packed = nmm.Material(
             material_name="Li4SiO4", packing_fraction=0.65
         )
 
-        mixed_packed_crystal_and_non_crystal = MultiMaterial(
+        mixed_packed_crystal_and_non_crystal = nmm.MultiMaterial(
             material_tag="mixed_packed_crystal_and_non_crystal",
             materials=[test_material_1, test_material_2_packed],
             fracs=[0.5, 0.5],
             percent_type="vo",
         )
 
-        assert (
-            mixed_packed_crystal_and_non_crystal.openmc_material.density
-            == pytest.approx(
-                (test_material_1.openmc_material.density * 0.5)
-                + (test_material_2.openmc_material.density * 0.65 * 0.5)
-            )
+        assert mixed_packed_crystal_and_non_crystal.openmc_material.density == pytest.approx(
+            (test_material_1.openmc_material.density * 0.5)
+            + (test_material_2.openmc_material.density * 0.65 * 0.5)
         )
 
     def test_packing_fraction_for_single_materials(self):
 
-        test_material_1 = Material("Li4SiO4").openmc_material
+        test_material_1 = nmm.Material("Li4SiO4").openmc_material
 
-        test_material_2 = Material(
+        test_material_2 = nmm.Material(
             "Li4SiO4", packing_fraction=1).openmc_material
 
         assert test_material_1.density == test_material_2.density
 
-        test_material_3 = Material(
+        test_material_3 = nmm.Material(
             "Li4SiO4", packing_fraction=0.5).openmc_material
 
         assert test_material_3.density == pytest.approx(
             test_material_1.density * 0.5)
 
-        test_material_4 = Material(
+        test_material_4 = nmm.Material(
             "Li4SiO4", packing_fraction=0.75).openmc_material
 
         assert test_material_4.density == pytest.approx(
@@ -219,28 +253,28 @@ class test_object_properties(unittest.TestCase):
 
     def test_packing_fraction_for_multimaterial_function(self):
 
-        test_material_5 = MultiMaterial(
+        test_material_5 = nmm.MultiMaterial(
             "test_material_5",
-            materials=[Material("tungsten"), Material("eurofer"), ],
+            materials=[nmm.Material("tungsten"), nmm.Material("eurofer")],
             fracs=[0.5, 0.5],
         ).openmc_material
 
-        test_material_6 = MultiMaterial(
+        test_material_6 = nmm.MultiMaterial(
             "test_material_6",
             materials=[
-                Material("tungsten", packing_fraction=1),
-                Material("eurofer", packing_fraction=1),
+                nmm.Material("tungsten", packing_fraction=1),
+                nmm.Material("eurofer", packing_fraction=1),
             ],
             fracs=[0.5, 0.5],
         ).openmc_material
 
         assert test_material_5.density == test_material_6.density
 
-        test_material_7 = MultiMaterial(
+        test_material_7 = nmm.MultiMaterial(
             "test_material_7",
             materials=[
-                Material("tungsten", packing_fraction=0.5),
-                Material("eurofer", packing_fraction=0.5),
+                nmm.Material("tungsten", packing_fraction=0.5),
+                nmm.Material("eurofer", packing_fraction=0.5),
             ],
             fracs=[0.5, 0.5],
         ).openmc_material
@@ -250,20 +284,20 @@ class test_object_properties(unittest.TestCase):
 
     def test_packing_fraction_of_a_multimaterial(self):
 
-        test_material_6 = MultiMaterial(
+        test_material_6 = nmm.MultiMaterial(
             "test_material_6",
             materials=[
-                Material("tungsten", packing_fraction=0.34),
-                Material("eurofer", packing_fraction=0.60),
+                nmm.Material("tungsten", packing_fraction=0.34),
+                nmm.Material("eurofer", packing_fraction=0.60),
             ],
             fracs=[0.5, 0.5],
         ).openmc_material
 
-        test_material_7 = MultiMaterial(
+        test_material_7 = nmm.MultiMaterial(
             "test_material_7",
             materials=[
-                Material("tungsten", packing_fraction=0.34),
-                Material("eurofer", packing_fraction=0.60),
+                nmm.Material("tungsten", packing_fraction=0.34),
+                nmm.Material("eurofer", packing_fraction=0.60),
             ],
             fracs=[0.5, 0.5],
             packing_fraction=0.25,
@@ -278,8 +312,8 @@ class test_object_properties(unittest.TestCase):
         test_material_8 = openmc.Material.mix_materials(
             name="test_material_8",
             materials=[
-                Material("tungsten").openmc_material,
-                Material("eurofer").openmc_material,
+                nmm.Material("tungsten").openmc_material,
+                nmm.Material("eurofer").openmc_material,
             ],
             fracs=[0.5, 0.5],
             percent_type="vo",
@@ -288,8 +322,8 @@ class test_object_properties(unittest.TestCase):
         test_material_9 = openmc.Material.mix_materials(
             name="test_material_9",
             materials=[
-                Material("tungsten", packing_fraction=1).openmc_material,
-                Material("eurofer", packing_fraction=1).openmc_material,
+                nmm.Material("tungsten", packing_fraction=1).openmc_material,
+                nmm.Material("eurofer", packing_fraction=1).openmc_material,
             ],
             fracs=[0.5, 0.5],
             percent_type="vo",
@@ -300,8 +334,8 @@ class test_object_properties(unittest.TestCase):
         test_material_10 = openmc.Material.mix_materials(
             name="test_material_10",
             materials=[
-                Material("tungsten", packing_fraction=0.5).openmc_material,
-                Material("eurofer", packing_fraction=0.5).openmc_material,
+                nmm.Material("tungsten", packing_fraction=0.5).openmc_material,
+                nmm.Material("eurofer", packing_fraction=0.5).openmc_material,
             ],
             fracs=[0.5, 0.5],
             percent_type="vo",
@@ -312,17 +346,17 @@ class test_object_properties(unittest.TestCase):
 
     def test_multimaterial_vs_mix_materials(self):
 
-        test_material_11 = MultiMaterial(
+        test_material_11 = nmm.MultiMaterial(
             "test_material_11",
-            materials=[Material("tungsten"), Material("eurofer")],
+            materials=[nmm.Material("tungsten"), nmm.Material("eurofer")],
             fracs=[0.5, 0.5],
         ).openmc_material
 
         test_material_12 = openmc.Material.mix_materials(
             name="test_material_12",
             materials=[
-                Material("tungsten").openmc_material,
-                Material("eurofer").openmc_material,
+                nmm.Material("tungsten").openmc_material,
+                nmm.Material("eurofer").openmc_material,
             ],
             fracs=[0.5, 0.5],
             percent_type="vo",
@@ -330,11 +364,11 @@ class test_object_properties(unittest.TestCase):
 
         assert test_material_11.density == test_material_12.density
 
-        test_material_13 = MultiMaterial(
+        test_material_13 = nmm.MultiMaterial(
             "test_material_13",
             materials=[
-                Material("tungsten", packing_fraction=0.6),
-                Material("eurofer", packing_fraction=0.8),
+                nmm.Material("tungsten", packing_fraction=0.6),
+                nmm.Material("eurofer", packing_fraction=0.8),
             ],
             fracs=[0.3, 0.7],
         ).openmc_material
@@ -342,8 +376,8 @@ class test_object_properties(unittest.TestCase):
         test_material_14 = openmc.Material.mix_materials(
             name="test_material_14",
             materials=[
-                Material("tungsten", packing_fraction=0.6).openmc_material,
-                Material("eurofer", packing_fraction=0.8).openmc_material,
+                nmm.Material("tungsten", packing_fraction=0.6).openmc_material,
+                nmm.Material("eurofer", packing_fraction=0.8).openmc_material,
             ],
             fracs=[0.3, 0.7],
             percent_type="vo",
@@ -352,22 +386,22 @@ class test_object_properties(unittest.TestCase):
         assert test_material_13.density == test_material_14.density
 
     def test_json_dump_works(self):
-        test_material = MultiMaterial(
+        test_material = nmm.MultiMaterial(
             "test_material",
             materials=[
-                Material("tungsten", packing_fraction=0.6),
-                Material("eurofer", packing_fraction=0.8),
+                nmm.Material("tungsten", packing_fraction=0.6),
+                nmm.Material("eurofer", packing_fraction=0.8),
             ],
             fracs=[0.3, 0.7],
         )
         assert isinstance(json.dumps(test_material), str)
 
     def test_json_dump_contains_correct_keys(self):
-        test_material = MultiMaterial(
+        test_material = nmm.MultiMaterial(
             "test_material",
             materials=[
-                Material("tungsten", packing_fraction=0.6),
-                Material("eurofer", packing_fraction=0.8),
+                nmm.Material("tungsten", packing_fraction=0.6),
+                nmm.Material("eurofer", packing_fraction=0.8),
             ],
             fracs=[0.3, 0.7],
         )
@@ -380,11 +414,11 @@ class test_object_properties(unittest.TestCase):
         assert "packing_fraction" in test_material_in_json_form.keys()
 
     def test_json_dump_contains_correct_values(self):
-        test_material = MultiMaterial(
+        test_material = nmm.MultiMaterial(
             "test_material",
             materials=[
-                Material("tungsten", packing_fraction=0.6),
-                Material("eurofer", packing_fraction=0.8),
+                nmm.Material("tungsten", packing_fraction=0.6),
+                nmm.Material("eurofer", packing_fraction=0.8),
             ],
             fracs=[0.3, 0.7],
         )

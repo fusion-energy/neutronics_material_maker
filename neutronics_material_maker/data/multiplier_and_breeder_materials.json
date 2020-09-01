@@ -30,5 +30,15 @@
         "percent_type": "ao",
         "enrichment_target":"Li6",
         "enrichment_type":"ao"
+    },
+    "FLiBe": {
+        "elements": "F2Li2BeF2",
+        "density_equation": "2.214 - 4.2e-4 * temperature_in_C",
+        "density_unit": "g/cm3",
+        "reference": "source http://aries.ucsd.edu/LIB/MEETINGS/0103-TRANSMUT/gohar/Gohar-present.pdf",
+        "temperature_dependant": true,
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":"ao"
     }
 }

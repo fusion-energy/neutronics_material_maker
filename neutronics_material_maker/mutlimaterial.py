@@ -7,7 +7,9 @@ from json import JSONEncoder
 
 import openmc
 from CoolProp.CoolProp import PropsSI
-import neutronics_material_maker
+import neutronics_material_maker as nmm
+
+from neutronics_material_maker import make_fispact_material, make_serpent_material, make_mcnp_material
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
@@ -24,36 +26,36 @@ JSONEncoder.default = _default
 
 
 class MultiMaterial:
-    """Produces a mixed material from several indivdual materials.
-        This class extends the existing openmc.Material.mix_materials
-        to perform this mixing on neutronics_materail_maker.Materials
-        and packing fractions (inverse of void fraction) to be applied
+    """
+    Produces a mixed material from several indivdual materials.
+    This class extends the existing openmc.Material.mix_materials
+    to perform this mixing of neutronics_materail_maker.Materials
+    and openmc.Materials. The MultiMaterial object is json serializable.
 
-       :param material_tag: this is a string that is assigned to the
-        multimaterial as an identifier. This is used by neutronics
-        codes that need to access materials via a unique identifier
-       :type material_tag: string
-       :param materials: a list of neutronics_material_maker.Materials
-        or openmc.Materials that are to be mixed
-       :type materials: list of Material objects
-       :param fracs: a list of fractions that represent the amount of
-        each material to mix
-       :type fracs: a list of floats
-       :param percent_type: Type of frac percentage, must be one of
-        'ao', 'wo', or 'vo', to signify atom percent (molar percent),
-        weight percent, or volume percent, optional. Defaults to 'vo'
-       :type percent_type: string
-       :param packing_fraction: this value is mutliplier by the density
-        which allows packing_fraction to be taken into account for materials
-        involving an amount of void. Recall that packing_fraction is equal
-        to 1/void fraction
-       :type packing_fraction: float
+    Args:
+        material_tag (str): this is a string that is assigned to the
+            material as an identifier. This is used by neutronics
+            codes that the material labeling with a unique identifier
+        materials (list): a list of neutronics_material_maker.Materials
+            or openmc.Materials that are to be mixed
+        fracs (list of floats): a list of fractions that represent the amount of
+            each material to mix
+        percent_type (str): Type of frac percentage, must be one of
+            atom percent 'ao', weight percent 'wo', or volume percent 'vo'.
+            Defaults to 'vo'
+        packing_fraction (float): this value is mutliplier by the density
+            which allows packing_fraction to be taken into account for materials
+            involving an amount of void. Recall that packing_fraction is equal
+            to 1/void fraction
+        zaid_suffix (str): the nuclear library to apply to the zaid, for example
+            .31c this is used in MCNP and Serpent material cards.
+        id (int): the id number or mat number used in the MCNP material card
+        volume_in_cm3 (float): the volume of the material in cm3, used when creating
+            fispact material cards
 
-        :return: a neutronics_material_maker.MultiMaterial object that has
-        isotopes and density based on the input materials and modifiers.
-        The MultiMaterial has can return a openmc_material using the
-        .openmc_material property
-        :rtype: neutronics_material_maker.MultiMaterial
+    Returns:
+        Material: a neutronics_material_maker.Material instance
+
     """
 
     def __init__(
@@ -63,15 +65,36 @@ class MultiMaterial:
         fracs=[],
         percent_type="vo",
         packing_fraction=1.0,
+        zaid_suffix=None,
+        id=None,
+        volume_in_cm3=None,
     ):
         self.material_tag = material_tag
         self.materials = materials
         self.fracs = fracs
         self.percent_type = percent_type
         self.packing_fraction = packing_fraction
-        self.openmc_material = None
+        self.zaid_suffix = zaid_suffix
+        self.id = id
+        self.volume_in_cm3 = volume_in_cm3
 
-        self.make_material()
+        # derived values
+        self.openmc_material = None
+        self.serpent_material = None
+        self.mcnp_material = None
+        self.fispact_material = None
+
+        if len(self.fracs) != len(self.materials):
+            raise ValueError(
+                "There must be equal numbers of fracs and materials")
+
+        if sum(self.fracs) != 1.0:
+            print(
+                "warning sum of MutliMaterials do not sum to 1.",
+                self.fracs,
+                " = ",
+                sum(self.fracs),
+            )
 
     @property
     def packing_fraction(self):
@@ -88,25 +111,70 @@ class MultiMaterial:
             raise ValueError("packing_fraction must be less than 1.")
         self._packing_fraction = value
 
-    def make_material(self):
+    @property
+    def openmc_material(self):
+        """
+        Returns an OpenMC version of the Material.
 
-        if len(self.fracs) != len(self.materials):
-            raise ValueError(
-                "There must be equal numbers of fracs and materials")
+        :type: openmc.Material() object
+        """
+        self._openmc_material = self.make_openmc_material()
+        return self._openmc_material
 
-        if sum(self.fracs) != 1.0:
-            print(
-                "warning sum of MutliMaterials do not sum to 1.",
-                self.fracs,
-                " = ",
-                sum(self.fracs),
-            )
+    @openmc_material.setter
+    def openmc_material(self, value):
+        self._openmc_material = value
+
+    @property
+    def serpent_material(self):
+        """
+        Returns a Serpent version of the Material.
+
+        :type: str
+        """
+
+        self._serpent_material = make_serpent_material(self)
+        return self._serpent_material
+
+    @serpent_material.setter
+    def serpent_material(self, value):
+        self._serpent_material = value
+
+    @property
+    def mcnp_material(self):
+        """
+        Returns a MCNP version of the Material.
+
+        :type: str
+        """
+        self._mcnp_material = make_mcnp_material(self)
+        return self._mcnp_material
+
+    @mcnp_material.setter
+    def mcnp_material(self, value):
+        self._mcnp_material = value
+
+    @property
+    def fispact_material(self):
+        """
+        Returns a fispact version of the Material.
+
+        :type: str
+        """
+        self._fispact_material = make_fispact_material(self)
+        return self._fispact_material
+
+    @fispact_material.setter
+    def fispact_material(self, value):
+        self._fispact_material = value
+
+    def make_openmc_material(self):
 
         openmc_material_objects = []
         for material in self.materials:
             if isinstance(material, openmc.Material):
                 openmc_material_objects.append(material)
-            elif isinstance(material, neutronics_material_maker.Material):
+            elif isinstance(material, nmm.Material):
                 openmc_material_objects.append(material.openmc_material)
             else:
                 raise ValueError(
@@ -128,7 +196,7 @@ class MultiMaterial:
                 "g/cm3", density_in_g_per_cm3 * self.packing_fraction
             )
 
-        self.openmc_material = openmc_material
+        return openmc_material
 
     def to_json(self):
 

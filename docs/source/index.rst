@@ -1,9 +1,14 @@
 Neutronics Material Maker
 =========================
 
-The neutronics-material-maker python package allows rapid production of neutronics materials from a library
+The aim of this project is to facilitate the creation of materials for use in neutronics codes such as OpenMC, Serpent, MCNP and Fispact.
 
-Features have been added to address particular needs and the software is by no means a finished product. Contributions are welcome. CadQuery functions provide the majority the features, and incorporating additional capabilities is straight forward for developers with Python knowledge.
+The hope is that by having this collection of materials it is easier to reuse materials across projects, use a common source with less room for user error.
+
+The package allows for materials to be made from either an internal library of materials or from your own material library.
+
+Material densities can be made to account for temperature, pressure isotopic enrichment.
+
 
 .. toctree::
    :maxdepth: 1
@@ -13,14 +18,16 @@ Features have been added to address particular needs and the software is by no m
    multimaterial
    example_material
    example_multimaterial
+   example_library_usage
 
 
 Prerequisites
 -------------
 
-To use the neutronics-material-maker tool you will need Python 3 installed.
+To use the neutronics-material-maker tool you will need Python 3 and OpenMC installed.
 
 * `Python 3 <https://www.python.org/downloads/>`_
+* `OpenMC <https://docs.openmc.org/en/stable/usersguide/install.html>`_
 
 
 
@@ -33,66 +40,23 @@ The quickest way to install the neutronics-material-maker is to use pip. In the 
 
    pip install neutronics-material-maker
 
-Alternativly you can download the repository using the `download link <https://github.com/ukaea/neutronics_material_maker/archive/openmc_version.zip>`_ 
-clone the repository using `git clone https://github.com/ukaea/neutronics_material_maker.git`.
+Alternativly you can clone the repository, and install using the setup.py 
 
 ::
 
-Navigate to the neutronics_material_maker repository and within the terminal install the neutronics_material_maker package and the dependencies using pip3.
-
-::
-
-   pip install .
-
-Alternatively you can install the neutronics_material_maker with following command.
-
-::
-
+   git clone https://github.com/ukaea/neutronics_material_maker.git
+   cd neutronics_material_maker
    python setup.py install
 
 Features
 --------
 
-Usage - Materials
------------------
-
-There are a collection of Python scripts in the example folder that demonstrate simple shape construction and visualisation. However here is a quick example of a RotateStraightShape.
-
-After importing the class the user then sets the points. By default, points should be a list of (x,z) points. In this case the points are connected with straight lines.
-
-::
-
-   import neutronics-material-maker as nmm
-
-   my_mat = nmm.Material('eurofer')
-
-Once the object has been initiated the material card can be accessed
-
-::
-
-   my_mat_shape.openmc_material
-
-
-Usage - MutliMaterial
----------------------
-
-Parametric components are wrapped versions of the eight basic shapes where parameters drive the construction of the shape. There are numerous parametric components for a varity of different reactor components such as center columns, blankets, poloidal field coils. This example shows the construction of a plasma. Users could also construct a plasma by using a RotateSplineShape() combined with coordinates for the points. However a parametric component called Plasma can construct a plasma from more convenient parameters. Parametric components also inherit from the Shape object so they have access to the same methods like export_stp() and export_stl().
-
-::
-
-   import neutronics-material-maker as nmm
-
-   my_mat1 = nmm.Material('eurofer')
-   my_mat2 = nmm.Material('tungsten')
-
-   my_mat3 = MultiMaterial(material_name='mixed_mat',
-                           materials=[my_mat1, my_mat2],
-                           fracs=[0.4, 0.6],
-                           percent_type='vo')
-
+There are two main user classes `Material() <https://neutronics-material-maker.readthedocs.io/en/latest/material.html>`_ and `MutliMaterial() <https://neutronics-material-maker.readthedocs.io/en/latest/multimaterial.html>`_ which are both fully documented.
 
 
 Example Scripts
 ---------------
 
-There are several example scripts in the `examples folder <https://github.com/ukaea/openmc_workshop/tree/master/tasks/task_11>`_ . A good one to start with is `make_CAD_from_points <https://github.com/ukaea/paramak/blob/develop/examples/make_CAD_from_points.py>`_ which makes simple examples of the different types of shapes (extrude, rotate) with different connection methods (splines, straight lines and circles).
+There are several examples in the relevent example webpages `example Material usage <https://neutronics-material-maker.readthedocs.io/en/latest/example_material.html>`_ and `example MutliMaterial usage <https://neutronics-material-maker.readthedocs.io/en/latest/example_multimaterial.html>`_
+
+Additionally there are more examples in the `OpenMC workshop <https://github.com/ukaea/openmc_workshop/tree/master/tasks/task_11>`_ .

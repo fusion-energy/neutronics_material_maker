@@ -20,8 +20,8 @@ sys.path.insert(0, os.path.abspath("../.."))
 # -- Project information -----------------------------------------------------
 
 project = "NeutronicsMaterialMaker"
-copyright = "2020, John Billingsley"
-author = "John Billingsley"
+copyright = "2020, UKAEA"
+author = "neutronics-material-maker development team"
 
 # The short X.Y version
 version = ""
@@ -142,7 +142,12 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "NeutronicsMaterialMaker", "NeutronicsMaterialMaker Documentation", [author], 1)]
+man_pages = [
+    (master_doc,
+     "NeutronicsMaterialMaker",
+     "NeutronicsMaterialMaker Documentation",
+     [author],
+     1)]
 
 
 # -- Options for Texinfo output ----------------------------------------------
