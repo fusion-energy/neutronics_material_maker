@@ -5,8 +5,6 @@ __author__ = "neutronics material maker development team"
 import json
 import re
 from json import JSONEncoder
-import os
-import json
 from pathlib import Path
 
 import openmc

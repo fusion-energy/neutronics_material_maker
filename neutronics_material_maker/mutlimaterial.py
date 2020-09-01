@@ -3,7 +3,6 @@
 __author__ = "neutronics material maker development team"
 
 import json
-import re
 from json import JSONEncoder
 
 import openmc
