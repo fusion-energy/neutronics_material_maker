@@ -58,7 +58,7 @@ class test_object_properties(unittest.TestCase):
         )
 
         assert len(test_material.serpent_material) > 100
-        assert type(test_material.serpent_material) == str
+        assert isinstance(test_material.serpent_material, str)
 
     def test_mcnp_multimaterial_type(self):
 
@@ -71,7 +71,7 @@ class test_object_properties(unittest.TestCase):
         )
 
         assert len(test_material.mcnp_material) > 100
-        assert type(test_material.mcnp_material) == str
+        assert isinstance(test_material.mcnp_material, str)
 
     def test_fispact_multimaterial_type(self):
 
@@ -84,7 +84,7 @@ class test_object_properties(unittest.TestCase):
         )
 
         assert len(test_material.fispact_material) > 100
-        assert type(test_material.fispact_material) == str
+        assert isinstance(test_material.fispact_material, str)
 
     def test_make_multimaterial_from_material_objects(self):
         # tests that a multimaterial can be created by passing Material objects

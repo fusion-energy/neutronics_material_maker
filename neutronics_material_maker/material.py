@@ -159,7 +159,6 @@ class Material:
         id=None,
         volume_in_cm3=None,
     ):
- 
 
         self.material_name = material_name
         self.material_tag = material_tag
@@ -191,12 +190,11 @@ class Material:
         self.serpent_material = None
         self.mcnp_material = None
         self.fispact_material = None
-        
+
         self.list_of_fractions = None
         self.chemical_equation = None
         self.element_numbers = None
         self.element_symbols = None
-
 
         if self.material_name in material_dict.keys():
 
@@ -210,7 +208,8 @@ class Material:
                         "enrichment target and enrichment type are needed to enrich a material"
                     )
 
-            if "temperature_dependant" in material_dict[self.material_name].keys():
+            if "temperature_dependant" in material_dict[self.material_name].keys(
+            ):
                 if temperature_in_K is None and temperature_in_C is None:
                     if self.material_name == "He":
                         raise ValueError(
@@ -234,7 +233,8 @@ class Material:
                     if temperature_in_C is None:
                         self.temperature_in_C = temperature_in_K + 273.15
 
-            if "pressure_dependant" in material_dict[self.material_name].keys():
+            if "pressure_dependant" in material_dict[self.material_name].keys(
+            ):
                 if pressure_in_Pa is None:
                     raise ValueError(
                         "pressure_in_Pa is needed for",
@@ -263,7 +263,7 @@ class Material:
 
         :type: str
         """
-        
+
         self._serpent_material = make_serpent_material(self)
         return self._serpent_material
 
@@ -540,7 +540,7 @@ class Material:
         openmc_material = self._add_density(openmc_material)
 
         return openmc_material
-        
+
     def _populate_from_inbuilt_dictionary(self):
         """This runs on initilisation and if attributes of the Material object are not specified (left as None)
         then the internal material dictionary is checked to see if defaults are pressent for the particular material.
@@ -697,7 +697,7 @@ class Material:
                 enrichment_target=self.enrichment_target,
                 enrichment_type=self.enrichment_type,
             )
-        
+
         return openmc_material
 
     def _add_isotopes(self, openmc_material):
@@ -710,7 +710,7 @@ class Material:
             openmc_material.add_nuclide(
                 isotope_symbol, isotope_number, self.percent_type
             )
-        
+
         return openmc_material
 
     def _add_density(self, openmc_material):

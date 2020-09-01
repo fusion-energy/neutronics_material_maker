@@ -362,8 +362,8 @@ class test_object_properties(unittest.TestCase):
             if entry[0] == "Li7":
                 li7_atom_count = li7_atom_count + entry[1]
         print(nucs)
-        assert pb_atom_count == lead_fraction/10
-        assert li_atom_count == lithium_fraction/10
+        assert pb_atom_count == lead_fraction / 10
+        assert li_atom_count == lithium_fraction / 10
         # assert li6_atom_count*5. == li7_atom_count #todo use approximatly
         assert li6_atom_count == pytest.approx(
             enrichment * lithium_fraction / 1000, rel=0.01
@@ -378,34 +378,44 @@ class test_object_properties(unittest.TestCase):
         # however, this could be becuase the density values are rounded to 2 dp
 
         test_material = nmm.Material(material_name="Li4SiO4")
-        assert test_material.openmc_material.density == pytest.approx(2.32, rel=0.01)
+        assert test_material.openmc_material.density == pytest.approx(
+            2.32, rel=0.01)
 
         test_material = nmm.Material(material_name="Li2SiO3")
-        assert test_material.openmc_material.density == pytest.approx(2.44, rel=0.01)
+        assert test_material.openmc_material.density == pytest.approx(
+            2.44, rel=0.01)
 
         test_material = nmm.Material(material_name="Li2ZrO3")
-        assert test_material.openmc_material.density == pytest.approx(4.03, rel=0.01)
+        assert test_material.openmc_material.density == pytest.approx(
+            4.03, rel=0.01)
 
         test_material = nmm.Material(material_name="Li2TiO3")
-        assert test_material.openmc_material.density == pytest.approx(3.34, rel=0.01)
+        assert test_material.openmc_material.density == pytest.approx(
+            3.34, rel=0.01)
 
         test_material = nmm.Material(material_name="Li8PbO6")
-        assert test_material.openmc_material.density == pytest.approx(4.14, rel=0.01)
+        assert test_material.openmc_material.density == pytest.approx(
+            4.14, rel=0.01)
 
         test_material = nmm.Material(material_name="Be")
-        assert test_material.openmc_material.density == pytest.approx(1.88, rel=0.01)
+        assert test_material.openmc_material.density == pytest.approx(
+            1.88, rel=0.01)
 
         test_material = nmm.Material(material_name="Be12Ti")
-        assert test_material.openmc_material.density == pytest.approx(2.28, rel=0.01)
+        assert test_material.openmc_material.density == pytest.approx(
+            2.28, rel=0.01)
 
         test_material = nmm.Material(material_name="Ba5Pb3")
-        assert test_material.openmc_material.density == pytest.approx(5.84, rel=0.01)
+        assert test_material.openmc_material.density == pytest.approx(
+            5.84, rel=0.01)
 
         test_material = nmm.Material(material_name="Nd5Pb4")
-        assert test_material.openmc_material.density == pytest.approx(8.79, rel=0.01)
+        assert test_material.openmc_material.density == pytest.approx(
+            8.79, rel=0.01)
 
         test_material = nmm.Material(material_name="Zr5Pb3")
-        assert test_material.openmc_material.density == pytest.approx(8.23, rel=0.01)
+        assert test_material.openmc_material.density == pytest.approx(
+            8.23, rel=0.01)
 
         # test_material = nmm.Material(material_name="Zr5Pb4")
         # assert test_material.openmc_material.density ==

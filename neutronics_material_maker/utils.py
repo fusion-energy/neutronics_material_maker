@@ -1,5 +1,6 @@
 import openmc
 
+
 def make_fispact_material(mat):
     """
     Returns a Fispact material card for the material. This contains the required keywords
@@ -23,6 +24,7 @@ def make_fispact_material(mat):
         mat_card.append(isotope + " " + "{:.12E}".format(atoms))
 
     return "\n".join(mat_card)
+
 
 def make_serpent_material(mat):
     """Returns the material in a string compatable with Serpent II"""
@@ -55,6 +57,7 @@ def make_serpent_material(mat):
 
     return "\n".join(mat_card)
 
+
 def make_mcnp_material(mat):
     """Returns the material in a string compatable with MCNP6"""
 
@@ -73,8 +76,8 @@ def make_mcnp_material(mat):
     else:
         zaid_suffix = mat.zaid_suffix
 
-    mat_card = ['c     ' + name + ' density ' + \
-        str(mat.openmc_material.get_mass_density()) + ' g/cm3']
+    mat_card = ['c     ' + name + ' density ' +
+                str(mat.openmc_material.get_mass_density()) + ' g/cm3']
     for i, isotope in enumerate(mat.openmc_material.nuclides):
 
         if i == 0:
@@ -97,6 +100,7 @@ def make_mcnp_material(mat):
         mat_card.append(start + rest)
 
     return "\n".join(mat_card)
+
 
 def isotope_to_zaid(isotope):
     z, a, m = openmc.data.zam(isotope)

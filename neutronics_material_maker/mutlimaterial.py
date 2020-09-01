@@ -111,7 +111,6 @@ class MultiMaterial:
             raise ValueError("packing_fraction must be less than 1.")
         self._packing_fraction = value
 
-
     @property
     def openmc_material(self):
         """
@@ -133,7 +132,7 @@ class MultiMaterial:
 
         :type: str
         """
-        
+
         self._serpent_material = make_serpent_material(self)
         return self._serpent_material
 
@@ -168,7 +167,6 @@ class MultiMaterial:
     @fispact_material.setter
     def fispact_material(self, value):
         self._fispact_material = value
-
 
     def make_openmc_material(self):
 
