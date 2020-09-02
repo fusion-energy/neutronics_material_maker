@@ -10,8 +10,9 @@ from pathlib import Path
 import warnings
 try:
     import openmc
-except:
-    warnings.warn('OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable')
+except BaseException:
+    warnings.warn(
+        'OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable')
 
 from CoolProp.CoolProp import PropsSI
 

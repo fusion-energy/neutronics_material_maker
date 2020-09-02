@@ -1,9 +1,9 @@
 import warnings
 try:
     import openmc
-except:
-    warnings.warn('OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable')
-
+except BaseException:
+    warnings.warn(
+        'OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable')
 
 
 def make_fispact_material(mat):
