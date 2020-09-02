@@ -106,9 +106,12 @@ class test_object_properties(unittest.TestCase):
 
     def test_mcnp_material_lines_contain_underscore(self):
         test_material = nmm.Material(
-            elements="Nb3Sn", material_tag="test2", density=3.2, density_unit='g/cm3',
-            id=1, percent_type='wo'
-        )
+            elements="Nb3Sn",
+            material_tag="test2",
+            density=3.2,
+            density_unit='g/cm3',
+            id=1,
+            percent_type='wo')
         mcnp_material = test_material.mcnp_material
         line_by_line_material = mcnp_material.split("\n")
 
@@ -132,9 +135,12 @@ class test_object_properties(unittest.TestCase):
 
     def test_serpent_material_lines_contain_underscore(self):
         test_material = nmm.Material(
-            elements="Nb3Sn", material_tag="test2", density=3.2, density_unit='g/cm3',
-            id=1, percent_type='wo'
-        )
+            elements="Nb3Sn",
+            material_tag="test2",
+            density=3.2,
+            density_unit='g/cm3',
+            id=1,
+            percent_type='wo')
         serpent_material = test_material.serpent_material
         line_by_line_material = serpent_material.split("\n")
 
@@ -561,8 +567,6 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, incorrect_setting_for_id)
 
-
-
     def test_json_dump_works(self):
         test_material = nmm.Material(
             "H2O", temperature_in_C=100, pressure_in_Pa=1e6)
@@ -600,6 +604,7 @@ class test_object_properties(unittest.TestCase):
         assert test_material_in_json_form["pressure_in_Pa"] == 1e6
         assert test_material_in_json_form["temperature_in_C"] == 100
         assert test_material_in_json_form["material_name"] == "H2O"
+
 
 if __name__ == "__main__":
 
