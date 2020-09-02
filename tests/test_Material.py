@@ -71,7 +71,8 @@ class test_object_properties(unittest.TestCase):
             "Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".30c", material_id=27
         )
         mcnp_material2 = test_material2.mcnp_material
-        test_material3 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", material_id=27)
+        test_material3 = nmm.Material(
+            "Nb3Sn", material_tag="Nb3Sn", material_id=27)
         mcnp_material3 = test_material3.mcnp_material
 
         assert len(mcnp_material3) < len(mcnp_material2)
@@ -80,8 +81,11 @@ class test_object_properties(unittest.TestCase):
 
     def test_mcnp_material_lines(self):
         test_material = nmm.Material(
-            "Nb3Sn", material_tag="test", density=3, zaid_suffix=".30c", material_id=27
-        )
+            "Nb3Sn",
+            material_tag="test",
+            density=3,
+            zaid_suffix=".30c",
+            material_id=27)
         mcnp_material = test_material.mcnp_material
         line_by_line_material = mcnp_material.split("\n")
 

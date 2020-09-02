@@ -210,7 +210,7 @@ class Material:
         if chemical_equation is not None and elements is not None:
             raise ValueError(
                 "Material.chemical_equation and Material.elements can not both be set"
-            )            
+            )
 
         if self.material_name in material_dict.keys():
 
@@ -552,7 +552,8 @@ class Material:
         else:
             name = self.material_tag
         if self.material_id is not None:
-            openmc_material = openmc.Material(material_id=self.material_id, name=name)
+            openmc_material = openmc.Material(
+                material_id=self.material_id, name=name)
         else:
             openmc_material = openmc.Material(name=name)
 
@@ -563,11 +564,11 @@ class Material:
         elif self.elements is not None:
 
             openmc_material = self._add_elements_from_dict(openmc_material)
-        
+
         elif self.chemical_equation is not None:
 
             openmc_material = self._add_elements_from_equation(openmc_material)
-            
+
         openmc_material = self._add_density(openmc_material)
 
         return openmc_material
