@@ -116,13 +116,12 @@ class Material:
             These tend to be liquids and gases used for coolants and even
             liquids such as lithium-lead and FLiBe that are used as breeder
             materials.
-        pressure_in_Pa (float): The temperature of the material in degrees
-            C. Temperature impacts the density of some materials in the
+        pressure_in_Pa (float): The pressure of the material in Pascals
+            Pressure impacts the density of some materials in the
             collection. Materials in the collection that are impacted by
-            temperature have density equations that depend on temperature.
-            These tend to be liquids and gases used for coolants and even
-            liquids such as lithium-lead and FLiBe that are used as breeder
-            materials.
+            pressure have density equations that depend on pressure.
+            These tend to be liquids and gases used for coolants such as
+            H2O and CO2.
         zaid_suffix (str): The nuclear library to apply to the zaid, for
             example ".31c", this is used in MCNP and Serpent material cards.
         material_id (int): the id number or mat number used in the MCNP material card
@@ -202,17 +201,11 @@ class Material:
         self.volume_in_cm3 = volume_in_cm3
 
         # derived values
-        self.enrichment_element = None
-        self.density_packed = None
-
         self.openmc_material = None
         self.serpent_material = None
         self.mcnp_material = None
         self.fispact_material = None
-
         self.list_of_fractions = None
-        self.element_numbers = None
-        self.element_symbols = None
 
         if chemical_equation is not None and elements is not None:
             raise ValueError(
