@@ -61,73 +61,74 @@ class Material:
     as enrichment. Modifiers to the material density are applied
     according to arguments like temperature_in_C and pressure_in_Pa
     where appropiate (gases, liquids). The collection of materials
-    includes presure density, temperature relationships so can
-    adjust the density accordingly. The intended use is a tool to
-    facilitate the use common materials library from a collection,
-    however it is also possible to make complete Materials without
+    includes relationships between presure, temperature and density
+    relationships. This allows the code to adjust the density of the
+    material accordingly. The intended use is a tool to facilitate
+    the use of a common materials library (internal or your own).
+    However it is also possible to make complete Materials without
     using the reference collection but more inputs are needed from
-    the user. The Material object is json serializable
+    the user. The Material object is also json serializable
 
     Args:
-        material_name (str): this is the reference name used to look up
+        material_name (str): This is the reference name used to look up
             the material from the internal collection. Look up the available
             materials using AvailableMaterials()
-        material_tag (str): this is a string that is assigned to the
+        material_tag (str): This is a string that is assigned to the
             material as an identifier. This is used by neutronics
-            codes that the material labeling with a unique identifier
-        packing_fraction (float): this value is mutliplier by the density
+            codes to label the material with a unique identifier
+        packing_fraction (float): This value is mutliplied by the density
             which allows packing_fraction to be taken into account for materials
             involving an amount of void. Recall that packing_fraction is equal
             to 1/void fraction
-        enrichment (float): this is the percentage of isotope enrichment
+        enrichment (float): This is the percentage of isotope enrichment
             required for the material. This works for materials that have
             an enrichment_target specified. The internal material collection
             have Li6 specified as an enrichment_target for Lithium containing
             compounds. Enrichment of Li6 impacts the density of a material and
-            the internal package materials in the internal take this into account. It is also
+            the internal package materials take this into account. It is also
             possible to use this when making materials not included in the
             reference collection but an enrichment_target must also be provided.
-        enrichment_target (str): the isotope to enrich
-        temperature_in_C (float): the temperature of the material in degrees
+        enrichment_target (str): The isotope to enrich e.g. Li6
+        temperature_in_C (float): The temperature of the material in degrees
             Celsius. Temperature impacts the density of some materials in the
             collection. Materials in the collection that are impacted by
-            temperature have density equaltions that depend on temperature.
+            temperature have density equations that depend on temperature.
             These tend to be liquids and gases used for coolants and even
             liquids such as lithium-lead and FLiBe that are used as a breeder
             materials.
-        temperature_in_K (float): the temperature of the material in degrees
+        temperature_in_K (float): The temperature of the material in degrees
             Kelvin. Temperature impacts the density of some materials in the
             collection. Materials in the collection that are impacted by
-            temperature have density equaltions that depend on temperature.
+            temperature have density equations that depend on temperature.
             These tend to be liquids and gases used for coolants and even
-            liquids such as lithium-lead and FLiBe that are used as a breeder
+            liquids such as lithium-lead and FLiBe that are used as breeder
             materials.
-        pressure_in_Pa (float): the temperature of the material in degrees
+        pressure_in_Pa (float): The temperature of the material in degrees
             C. Temperature impacts the density of some materials in the collection.
             Materials in the collection that are impacted by temperature have
-            density equaltions that depend on temperature. These tend to be
+            density equations that depend on temperature. These tend to be
             liquids and gases used for coolants and even liquids such as
-            lithium-lead and FLiBe that are used as a breeder materials.
-        zaid_suffix (str): the nuclear library to apply to the zaid, for example
-            .31c this is used in MCNP and Serpent material cards.
+            lithium-lead and FLiBe that are used as breeder materials.
+        zaid_suffix (str): The nuclear library to apply to the zaid, for example
+            ".31c", this is used in MCNP and Serpent material cards.
         id (int): the id number or mat number used in the MCNP material card
-        volume_in_cm3 (float): the volume of the material in cm3, used when creating
+        volume_in_cm3 (float): The volume of the material in cm3, used when creating
             fispact material cards
         elements (list of tuples or a str): A list of tuples with the element symbol
             and the amount of that element or a chemical formula as a string
-        isotopes (list of tuples):A list of tuples with the isotope symbol
+        isotopes (list of tuples): A list of tuples with the isotope symbol
             and the amount of that isotope
-        percent_type (str): atom or weight fraction "ao", "wo"
+        percent_type (str): Atom "ao" or or weight fraction "wo"
         density (float): value to be used as the density
         density_unit (str): the units of density "g/cm3", "g/cc", "kg/m3",
             "atom/b-cm", "atom/cm3"
-        density_equation (str): an equation to be evaluated to find the density,
-            can contain temperature_in_C, temperature_in_K and preesure_in_Pa
-            varibles as part of the equation.
-        atoms_per_unit_cell (int): the number of atoms in a unit cell of the
+        density_equation (str): An equation to be evaluated to find the density,
+            can contain temperature_in_C, temperature_in_K and pressure_in_Pa
+            variables as part of the equation.
+        atoms_per_unit_cell (int): The number of atoms in a unit cell of the
             crystal structure
-        volume_of_unit_cell_cm3 (float): the volume of the unit cell in cm3
-        reference (str): a entry used to store information on the source of the
+        volume_of_unit_cell_cm3 (float): The volume of the unit cell in cm3
+        reference (str): An entry used to store information on the source of the
             material data
 
     Returns:

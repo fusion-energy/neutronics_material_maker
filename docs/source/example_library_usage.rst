@@ -15,8 +15,9 @@ Each of the materials available is stored in an internal dictionary that can be 
 Usage - importing your own library from a file
 ----------------------------------------------
 
-Assuming you have a JSON file saved as mat_lib.json containing materials defined in the same format as the `exisiting <https://github.com/ukaea/neutronics_material_maker/blob/openmc_version/neutronics_material_maker/data/>`_ materials. This example file only contains one material but it could contain several materials.
+A correctly formated JSON file that contains materials defined in the same format as the `exisiting materials <https://github.com/ukaea/neutronics_material_maker/blob/openmc_version/neutronics_material_maker/data/>`_ can be added to the material library.
 
+Assuming you have a JSON file saved as mat_lib.json with the following contents then this can be added to the material library in the the following manner. 
 
 ::
 
@@ -31,6 +32,7 @@ Assuming you have a JSON file saved as mat_lib.json containing materials defined
         }
     }
 
+This example file only contains one material but it could contain several materials.
 You can import this file into the package using AddMaterialFromFile().
 
 ::
@@ -39,4 +41,4 @@ You can import this file into the package using AddMaterialFromFile().
     nmm.AddMaterialFromFile('mat_lib.json')
     my_new_material = nmm.Material('polythylene')
 
-Another option is to use AddMaterialFromDir() to import a directory of json files
+Another option is to use AddMaterialFromDir() to import a directory of JSON files

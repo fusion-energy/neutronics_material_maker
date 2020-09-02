@@ -27,30 +27,30 @@ JSONEncoder.default = _default
 
 class MultiMaterial:
     """
-    Produces a mixed material from several indivdual materials.
+    Produces a mixed material from several individual materials.
     This class extends the existing openmc.Material.mix_materials
-    to perform this mixing of neutronics_materail_maker.Materials
+    to perform this mixing of neutronics_material_maker.Materials
     and openmc.Materials. The MultiMaterial object is json serializable.
 
     Args:
-        material_tag (str): this is a string that is assigned to the
+        material_tag (str): This is a string that is assigned to the
             material as an identifier. This is used by neutronics
-            codes that the material labeling with a unique identifier
+            codes to label the material with a unique identifier
         materials (list): a list of neutronics_material_maker.Materials
             or openmc.Materials that are to be mixed
-        fracs (list of floats): a list of fractions that represent the amount of
+        fracs (list of floats): A list of fractions that represent the amount of
             each material to mix
         percent_type (str): Type of frac percentage, must be one of
             atom percent 'ao', weight percent 'wo', or volume percent 'vo'.
             Defaults to 'vo'
-        packing_fraction (float): this value is mutliplier by the density
+        packing_fraction (float): This value is multiplied by the density
             which allows packing_fraction to be taken into account for materials
             involving an amount of void. Recall that packing_fraction is equal
             to 1/void fraction
-        zaid_suffix (str): the nuclear library to apply to the zaid, for example
-            .31c this is used in MCNP and Serpent material cards.
-        id (int): the id number or mat number used in the MCNP material card
-        volume_in_cm3 (float): the volume of the material in cm3, used when creating
+        zaid_suffix (str): The nuclear library to apply to the zaid, for example
+            ".31c", this is used in MCNP and Serpent material cards.
+        id (int): The id number or mat number used in the MCNP material card
+        volume_in_cm3 (float): The volume of the material in cm3, used when creating
             fispact material cards
 
     Returns:
