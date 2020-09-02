@@ -67,7 +67,7 @@ class test_object_properties(unittest.TestCase):
             materials=[nmm.Material("Li4SiO4"), nmm.Material("Be12Ti")],
             fracs=[0.50, 0.50],
             percent_type="vo",
-            id=2,
+            material_id=2,
         )
 
         assert len(test_material.mcnp_material) > 100

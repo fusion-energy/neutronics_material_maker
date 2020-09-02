@@ -1,6 +1,6 @@
 {
     "Nb3Sn": {
-        "elements": "Nb3Sn",
+        "chemical_equation": "Nb3Sn",
         "density": 8.69,
         "density_unit": "g/cm3",
         "percent_type": "ao"

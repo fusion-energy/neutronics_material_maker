@@ -1,6 +1,6 @@
 {
     "Pb842Li158": {
-        "elements": "Pb842Li158",
+        "chemical_equation": "Pb842Li158",
         "density_equation": "99.90*(0.1-16.8e-6*temperature_in_C)",
         "density_unit": "g/cm3",
         "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
@@ -20,7 +20,7 @@
         "enrichment_type":"ao"
     },
     "Li8PbO6": {
-        "elements": "Li8PbO6",
+        "chemical_equation": "Li8PbO6",
         "atoms_per_unit_cell": 1,
         "volume_of_unit_cell_cm3": 0.14400485967e-21,
         "density_unit":"g/cm3",
@@ -32,7 +32,7 @@
         "enrichment_type":"ao"
     },
     "FLiBe": {
-        "elements": "F2Li2BeF2",
+        "chemical_equation": "F2Li2BeF2",
         "density_equation": "2.214 - 4.2e-4 * temperature_in_C",
         "density_unit": "g/cm3",
         "reference": "source http://aries.ucsd.edu/LIB/MEETINGS/0103-TRANSMUT/gohar/Gohar-present.pdf",

@@ -60,7 +60,7 @@ class MultiMaterial:
             to 1/void fraction
         zaid_suffix (str): The nuclear library to apply to the zaid, for example
             ".31c", this is used in MCNP and Serpent material cards.
-        id (int): The id number or mat number used in the MCNP material card
+        material_id (int): The id number or mat number used in the MCNP material card
         volume_in_cm3 (float): The volume of the material in cm3, used when creating
             fispact material cards
 
@@ -77,7 +77,7 @@ class MultiMaterial:
         percent_type="vo",
         packing_fraction=1.0,
         zaid_suffix=None,
-        id=None,
+        material_id=None,
         volume_in_cm3=None,
     ):
         self.material_tag = material_tag
@@ -86,7 +86,7 @@ class MultiMaterial:
         self.percent_type = percent_type
         self.packing_fraction = packing_fraction
         self.zaid_suffix = zaid_suffix
-        self.id = id
+        self.material_id = material_id
         self.volume_in_cm3 = volume_in_cm3
 
         # derived values
@@ -221,6 +221,7 @@ class MultiMaterial:
                     "pressure_in_Pa": material.pressure_in_Pa,
                     "packing_fraction": material.packing_fraction,
                     "elements": material.elements,
+                    "chemical_equation": material.chemical_equation,
                     "isotopes": material.isotopes,
                     "density": material.density,
                     "density_equation": material.density_equation,
@@ -232,6 +233,9 @@ class MultiMaterial:
                     "enrichment_target": material.enrichment_target,
                     "enrichment_type": material.enrichment_type,
                     "reference": material.reference,
+                    "zaid_suffix": material.zaid_suffix,
+                    "material_id": material.material_id,
+                    "volume_in_cm3": material.volume_in_cm3,
                 })
 
         jsonified_object = {
@@ -240,6 +244,9 @@ class MultiMaterial:
             "fracs": self.fracs,
             "percent_type": self.percent_type,
             "packing_fraction": self.packing_fraction,
+            "zaid_suffix": self.zaid_suffix,
+            "material_id": self.material_id,
+            "volume_in_cm3": self.volume_in_cm3,
         }
 
         return jsonified_object

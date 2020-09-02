@@ -117,18 +117,21 @@ class Material:
             liquids such as lithium-lead and FLiBe that are used as breeder
             materials.
         pressure_in_Pa (float): The temperature of the material in degrees
-            C. Temperature impacts the density of some materials in the collection.
-            Materials in the collection that are impacted by temperature have
-            density equations that depend on temperature. These tend to be
-            liquids and gases used for coolants and even liquids such as
-            lithium-lead and FLiBe that are used as breeder materials.
-        zaid_suffix (str): The nuclear library to apply to the zaid, for example
-            ".31c", this is used in MCNP and Serpent material cards.
-        id (int): the id number or mat number used in the MCNP material card
-        volume_in_cm3 (float): The volume of the material in cm3, used when creating
-            fispact material cards
-        elements (list of tuples or a str): A list of tuples with the element symbol
+            C. Temperature impacts the density of some materials in the
+            collection. Materials in the collection that are impacted by
+            temperature have density equations that depend on temperature.
+            These tend to be liquids and gases used for coolants and even
+            liquids such as lithium-lead and FLiBe that are used as breeder
+            materials.
+        zaid_suffix (str): The nuclear library to apply to the zaid, for
+            example ".31c", this is used in MCNP and Serpent material cards.
+        material_id (int): the id number or mat number used in the MCNP material card
+        volume_in_cm3 (float): The volume of the material in cm3, used when
+            creating fispact material cards
+        elements (list of tuples): A list of tuples with the element symbol
             and the amount of that element or a chemical formula as a string
+        chemical_equation (str): A chemical equation that identifies elements
+            and numbers of elements to add to the material e.g. CO2
         isotopes (list of tuples): A list of tuples with the isotope symbol
             and the amount of that isotope
         percent_type (str): Atom "ao" or or weight fraction "wo"
@@ -160,6 +163,7 @@ class Material:
         temperature_in_K=None,
         pressure_in_Pa=None,
         elements=None,
+        chemical_equation=None,
         isotopes=None,
         percent_type=None,
         density=None,
@@ -170,7 +174,7 @@ class Material:
         enrichment_type=None,
         reference=None,
         zaid_suffix=None,
-        id=None,
+        material_id=None,
         volume_in_cm3=None,
     ):
 
@@ -181,6 +185,7 @@ class Material:
         self.pressure_in_Pa = pressure_in_Pa
         self.packing_fraction = packing_fraction
         self.elements = elements
+        self.chemical_equation = chemical_equation
         self.isotopes = isotopes
         self.density = density
         self.density_equation = density_equation
@@ -193,7 +198,7 @@ class Material:
         self.enrichment_type = enrichment_type
         self.reference = reference
         self.zaid_suffix = zaid_suffix
-        self.id = id
+        self.material_id = material_id
         self.volume_in_cm3 = volume_in_cm3
 
         # derived values
@@ -206,9 +211,13 @@ class Material:
         self.fispact_material = None
 
         self.list_of_fractions = None
-        self.chemical_equation = None
         self.element_numbers = None
         self.element_symbols = None
+
+        if chemical_equation is not None and elements is not None:
+            raise ValueError(
+                "Material.chemical_equation and Material.elements can not both be set"
+            )            
 
         if self.material_name in material_dict.keys():
 
@@ -286,7 +295,7 @@ class Material:
     @property
     def mcnp_material(self):
         """
-        Returns a MCNP version of the Material. Requires the Material.id to be set.
+        Returns a MCNP version of the Material. Requires the Material.material_id to be set.
 
         :type: str
         """
@@ -354,11 +363,24 @@ class Material:
 
     @elements.setter
     def elements(self, value):
-        if isinstance(value, dict) or isinstance(value, str) or value is None:
+        if isinstance(value, dict) or value is None:
             self._elements = value
         else:
             raise ValueError(
                 "Elements must be dictionaries e.g. {'Li':0.07, 'Si': 0.93}"
+            )
+
+    @property
+    def chemical_equation(self):
+        return self._chemical_equation
+
+    @chemical_equation.setter
+    def chemical_equation(self, value):
+        if isinstance(value, str) or value is None:
+            self._chemical_equation = value
+        else:
+            raise ValueError(
+                "Elements must be a string e.g. 'H2O'"
             )
 
     @property
@@ -536,8 +558,8 @@ class Material:
             name = self.material_name
         else:
             name = self.material_tag
-        if self.id is not None:
-            openmc_material = openmc.Material(material_id=self.id, name=name)
+        if self.material_id is not None:
+            openmc_material = openmc.Material(material_id=self.material_id, name=name)
         else:
             openmc_material = openmc.Material(name=name)
 
@@ -547,8 +569,12 @@ class Material:
 
         elif self.elements is not None:
 
-            self._add_elements(openmc_material)
+            openmc_material = self._add_elements_from_dict(openmc_material)
+        
+        elif self.chemical_equation is not None:
 
+            openmc_material = self._add_elements_from_equation(openmc_material)
+            
         openmc_material = self._add_density(openmc_material)
 
         return openmc_material
@@ -561,12 +587,16 @@ class Material:
         """
 
         if (
+            self.chemical_equation is None
+            and "chemical_equation" in material_dict[self.material_name].keys()
+        ):
+            self.chemical_equation = material_dict[self.material_name]["chemical_equation"]
+
+        if (
             self.temperature_in_C is None
             and "temperature_in_C" in material_dict[self.material_name].keys()
         ):
-            self.temperature_in_C = material_dict[self.material_name][
-                "temperature_in_C"
-            ]
+            self.temperature_in_C = material_dict[self.material_name]["temperature_in_C"]
 
         if (
             self.temperature_in_K is None
@@ -670,45 +700,45 @@ class Material:
         ):
             self.reference = material_dict[self.material_name]["reference"]
 
-    def _add_elements(self, openmc_material):
+    def _add_elements_from_equation(self, openmc_material):
+        """Adds elements from a dictionary or chemical equation to the Material"""
+
+        openmc_material.add_elements_from_formula(
+            self.chemical_equation,
+            percent_type=self.percent_type,
+            enrichment=self.enrichment,
+            enrichment_target=self.enrichment_target,
+            enrichment_type=self.enrichment_type,
+        )
+
+        return openmc_material
+
+    def _add_elements_from_dict(self, openmc_material):
         """Adds elements from a dictionary or chemical formula to the Material"""
 
-        if isinstance(self.elements, dict):
+        if self.enrichment_target is not None:
+            enrichment_element = re.split(
+                r"(\d+)", self.enrichment_target)[0]
+        else:
+            enrichment_element = None
 
-            if self.enrichment_target is not None:
-                enrichment_element = re.split(
-                    r"(\d+)", self.enrichment_target)[0]
+        for element_symbol, element_number in zip(
+            self.elements.keys(), self.elements.values()
+        ):
+
+            if element_symbol == enrichment_element:
+                openmc_material.add_element(
+                    element_symbol,
+                    element_number,
+                    percent_type=self.percent_type,
+                    enrichment=self.enrichment,
+                    enrichment_target=self.enrichment_target,
+                    enrichment_type=self.enrichment_type,
+                )
             else:
-                enrichment_element = None
-            for element_symbol, element_number in zip(
-                self.elements.keys(), self.elements.values()
-            ):
-
-                if element_symbol == enrichment_element:
-                    openmc_material.add_element(
-                        element_symbol,
-                        element_number,
-                        percent_type=self.percent_type,
-                        enrichment=self.enrichment,
-                        enrichment_target=self.enrichment_target,
-                        enrichment_type=self.enrichment_type,
-                    )
-                else:
-                    openmc_material.add_element(
-                        element_symbol, element_number, self.percent_type
-                    )
-
-        elif isinstance(self.elements, str):
-
-            self.chemical_equation = self.elements
-
-            openmc_material.add_elements_from_formula(
-                self.elements,
-                percent_type=self.percent_type,
-                enrichment=self.enrichment,
-                enrichment_target=self.enrichment_target,
-                enrichment_type=self.enrichment_type,
-            )
+                openmc_material.add_element(
+                    element_symbol, element_number, self.percent_type
+                )
 
         return openmc_material
 
@@ -803,6 +833,7 @@ class Material:
             "pressure_in_Pa": self.pressure_in_Pa,
             "packing_fraction": self.packing_fraction,
             "elements": self.elements,
+            "chemical_equation": self.chemical_equation,
             "isotopes": self.isotopes,
             "density": self.density,
             "density_equation": self.density_equation,
@@ -814,6 +845,9 @@ class Material:
             "enrichment_target": self.enrichment_target,
             "enrichment_type": self.enrichment_type,
             "reference": self.reference,
+            "zaid_suffix": self.zaid_suffix,
+            "material_id": self.material_id,
+            "volume_in_cm3": self.volume_in_cm3,
         }
 
         return jsonified_object

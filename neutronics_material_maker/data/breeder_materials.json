@@ -1,6 +1,6 @@
 {
     "Li": {
-        "elements": "Li",
+        "chemical_equation": "Li",
         "density_equation": "0.515 - 1.01e-4 * (temperature_in_C - 200)",
         "density_unit": "g/cm3",
         "reference": "http://aries.ucsd.edu/LIB/PROPS/PANOS/li.html",
@@ -10,7 +10,7 @@
         "enrichment_type":"ao"
     },
     "Li4SiO4": {
-        "elements": "Li4SiO4",
+        "chemical_equation": "Li4SiO4",
         "atoms_per_unit_cell": 2,
         "volume_of_unit_cell_cm3": 0.17162883501e-21,
         "density_unit":"g/cm3",
@@ -22,7 +22,7 @@
         "enrichment_type":"ao"
     },
     "Li2SiO3": {
-        "elements": "Li2SiO3",
+        "chemical_equation": "Li2SiO3",
         "atoms_per_unit_cell": 2,
         "volume_of_unit_cell_cm3": 0.12255616623e-21,
         "density_unit":"g/cm3",
@@ -34,7 +34,7 @@
         "enrichment_type":"ao"
     },
     "Li2ZrO3": {
-        "elements": "Li2ZrO3",
+        "chemical_equation": "Li2ZrO3",
         "atoms_per_unit_cell": 2,
         "volume_of_unit_cell_cm3": 0.12610426777e-21,
         "density_unit":"g/cm3",
@@ -46,7 +46,7 @@
         "enrichment_type":"ao"
     },
     "Li2TiO3": {
-        "elements": "Li2TiO3",
+        "chemical_equation": "Li2TiO3",
         "atoms_per_unit_cell": 4,
         "volume_of_unit_cell_cm3": 0.21849596020e-21,
         "density_unit":"g/cm3",

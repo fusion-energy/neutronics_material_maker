@@ -1,16 +1,18 @@
 {
-    "WC": {"elements": "WC",
+    "WC": {
+        "chemical_equation": "WC",
         "density": 18.0,
         "density_unit": "g/cm3",
         "percent_type": "ao"
     },
-    "WB": {"elements": "WB",
+    "WB": {
+        "chemical_equation": "WB",
         "density": 15.3,
         "density_unit": "g/cm3",
         "percent_type": "ao"
     },
     "SiC": {
-        "elements": "SiC",
+        "chemical_equation": "SiC",
         "density": 3,
         "density_unit": "g/cm3",
         "percent_type": "ao"
@@ -268,7 +270,7 @@
         "percent_type": "ao"
     },
     "B4C":{
-        "elements": "B4C",
+        "chemical_equation": "B4C",
         "density": 2.52,
         "density_unit": "g/cm3",
         "percent_type": "ao"

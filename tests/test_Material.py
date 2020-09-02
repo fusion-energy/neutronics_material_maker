@@ -64,14 +64,14 @@ class test_object_properties(unittest.TestCase):
 
     def test_mcnp_material_suffix(self):
         test_material1 = nmm.Material(
-            "Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".21c", id=27
+            "Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".21c", material_id=27
         )
         mcnp_material1 = test_material1.mcnp_material
         test_material2 = nmm.Material(
-            "Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".30c", id=27
+            "Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".30c", material_id=27
         )
         mcnp_material2 = test_material2.mcnp_material
-        test_material3 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", id=27)
+        test_material3 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", material_id=27)
         mcnp_material3 = test_material3.mcnp_material
 
         assert len(mcnp_material3) < len(mcnp_material2)
@@ -80,7 +80,7 @@ class test_object_properties(unittest.TestCase):
 
     def test_mcnp_material_lines(self):
         test_material = nmm.Material(
-            "Nb3Sn", material_tag="test", density=3, zaid_suffix=".30c", id=27
+            "Nb3Sn", material_tag="test", density=3, zaid_suffix=".30c", material_id=27
         )
         mcnp_material = test_material.mcnp_material
         line_by_line_material = mcnp_material.split("\n")
@@ -106,11 +106,11 @@ class test_object_properties(unittest.TestCase):
 
     def test_mcnp_material_lines_contain_underscore(self):
         test_material = nmm.Material(
-            elements="Nb3Sn",
+            chemical_equation="Nb3Sn",
             material_tag="test2",
             density=3.2,
             density_unit='g/cm3',
-            id=1,
+            material_id=1,
             percent_type='wo')
         mcnp_material = test_material.mcnp_material
         line_by_line_material = mcnp_material.split("\n")
@@ -135,11 +135,11 @@ class test_object_properties(unittest.TestCase):
 
     def test_serpent_material_lines_contain_underscore(self):
         test_material = nmm.Material(
-            elements="Nb3Sn",
+            chemical_equation="Nb3Sn",
             material_tag="test2",
             density=3.2,
             density_unit='g/cm3',
-            id=1,
+            material_id=1,
             percent_type='wo')
         serpent_material = test_material.serpent_material
         line_by_line_material = serpent_material.split("\n")
@@ -199,7 +199,7 @@ class test_object_properties(unittest.TestCase):
     def test_adding_one_material_AddMaterialFromFile(self):
         test_material_1 = {
             "WC2": {
-                "elements": "WC",
+                "chemical_equation": "WC",
                 "density": 18.0,
                 "density_unit": "g/cm3",
                 "percent_type": "ao",
@@ -219,13 +219,13 @@ class test_object_properties(unittest.TestCase):
     def test_adding_two_material_AddMaterialFromFile(self):
         test_material_1 = {
             "WC3": {
-                "elements": "WC",
+                "chemical_equation": "WC",
                 "density": 18.0,
                 "density_unit": "g/cm3",
                 "percent_type": "ao",
             },
             "WB2": {
-                "elements": "WB",
+                "chemical_equation": "WB",
                 "density": 15.3,
                 "density_unit": "g/cm3",
                 "percent_type": "ao",
@@ -246,7 +246,7 @@ class test_object_properties(unittest.TestCase):
     def test_replacing_material_using_AddMaterialFromFile(self):
         test_material_1 = {
             "Li4SiO4": {
-                "elements": "WC",
+                "chemical_equation": "WC",
                 "density": 18.0,
                 "density_unit": "g/cm3",
                 "percent_type": "ao",
@@ -268,7 +268,7 @@ class test_object_properties(unittest.TestCase):
 
         test_material_1 = {
             "Li4SiO42": {
-                "elements": "WC",
+                "chemical_equation": "WC",
                 "density": 18.0,
                 "density_unit": "g/cm3",
                 "percent_type": "ao",
@@ -282,7 +282,7 @@ class test_object_properties(unittest.TestCase):
 
         test_material_2 = {
             "Li4SiO43": {
-                "elements": "WC",
+                "chemical_equation": "WC",
                 "density": 18.0,
                 "density_unit": "g/cm3",
                 "percent_type": "ao",
@@ -301,28 +301,6 @@ class test_object_properties(unittest.TestCase):
         assert "Li4SiO42" in nmm.AvailableMaterials().keys()
         assert "Li4SiO43" in nmm.AvailableMaterials().keys()
 
-    def test_material_creation_from_chemical_formula(self):
-
-        lead_fraction = 3
-        lithium_fraction = 7
-
-        lithium_lead_elements = "Li" + \
-            str(lithium_fraction) + "Pb" + str(lead_fraction)
-        test_material = nmm.Material(
-            "lithium-lead",
-            elements=lithium_lead_elements,
-            temperature_in_C=450)
-        nucs = test_material.openmc_material.nuclides
-        pb_atom_count = 0
-        li_atom_count = 0
-        for entry in nucs:
-            if entry[0].startswith("Pb"):
-                pb_atom_count = pb_atom_count + entry[1]
-            if entry[0].startswith("Li"):
-                li_atom_count = li_atom_count + entry[1]
-        assert pb_atom_count == lead_fraction
-        assert li_atom_count == lithium_fraction
-
     def test_material_creation_from_chemical_formula_with_enrichment(self):
 
         lead_fraction = 3
@@ -336,7 +314,7 @@ class test_object_properties(unittest.TestCase):
             enrichment=enrichment,
             enrichment_target="Li6",
             enrichment_type="ao",
-            elements=lithium_lead_elements,
+            chemical_equation=lithium_lead_elements,
             temperature_in_C=450,
         )
         nucs = test_material.openmc_material.nuclides
@@ -384,7 +362,7 @@ class test_object_properties(unittest.TestCase):
             enrichment=enrichment,
             enrichment_target="Li6",
             enrichment_type="ao",
-            elements=lithium_lead_elements,
+            chemical_equation=lithium_lead_elements,
             temperature_in_C=450,
         )
         nucs = test_material.openmc_material.nuclides
@@ -497,7 +475,7 @@ class test_object_properties(unittest.TestCase):
             str(lithium_fraction) + "Pb" + str(lead_fraction)
         test_material = nmm.Material(
             "lithium-lead",
-            elements=lithium_lead_elements,
+            chemical_equation=lithium_lead_elements,
             temperature_in_C=450)
         nucs = test_material.openmc_material.nuclides
         pb_atom_count = 0
@@ -581,7 +559,7 @@ class test_object_properties(unittest.TestCase):
         assert "density" in test_material_in_json_form.keys()
         assert "density_equation" in test_material_in_json_form.keys()
         assert "density_unit" in test_material_in_json_form.keys()
-        assert "elements" in test_material_in_json_form.keys()
+        assert "chemical_equation" in test_material_in_json_form.keys()
         assert "enrichment" in test_material_in_json_form.keys()
         assert "enrichment_target" in test_material_in_json_form.keys()
         assert "enrichment_type" in test_material_in_json_form.keys()
