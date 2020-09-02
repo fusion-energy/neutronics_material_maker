@@ -1,4 +1,8 @@
-import openmc
+try:
+    import openmc
+except ImportError as err:
+    raise err('OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable')
+
 
 
 def make_fispact_material(mat):

@@ -7,7 +7,11 @@ import re
 from json import JSONEncoder
 from pathlib import Path
 
-import openmc
+try:
+    import openmc
+except ImportError as err:
+    raise err('OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable')
+
 from CoolProp.CoolProp import PropsSI
 
 from neutronics_material_maker import make_fispact_material, make_serpent_material, make_mcnp_material
