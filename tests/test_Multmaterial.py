@@ -27,6 +27,7 @@ ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
 import pytest
 import unittest
 import json
+import warnings
 
 import neutronics_material_maker as nmm
 
@@ -432,3 +433,49 @@ class test_object_properties(unittest.TestCase):
         assert test_material_in_json_form["fracs"] == [0.3, 0.7]
         assert test_material_in_json_form["percent_type"] == "vo"
         assert test_material_in_json_form["packing_fraction"] == 1.0
+
+    def test_incorrect_settings(self):
+
+        def too_large_fracs():
+            """checks a ValueError is raised when the fracs are above 1"""
+
+            nmm.MultiMaterial(
+                "test_material",
+                materials=[
+                    nmm.Material("tungsten", packing_fraction=0.6),
+                    nmm.Material("eurofer", packing_fraction=0.8),
+                ],
+                fracs=[0.3, 0.75],
+            )
+
+        with warnings.catch_warnings(record=True) as w:
+            # Cause all warnings to always be triggered.
+            warnings.simplefilter("always")
+            # Trigger a warning.
+            too_large_fracs()
+            # Verify some things
+            assert len(w) == 1
+            assert issubclass(w[-1].category, UserWarning)
+            assert "warning sum of MutliMaterials do not sum to 1." in str(w[-1].message)
+
+        def too_small_fracs():
+            """checks a ValueError is raised when the fracs are above 1"""
+
+            nmm.MultiMaterial(
+                "test_material",
+                materials=[
+                    nmm.Material("tungsten", packing_fraction=0.6),
+                    nmm.Material("eurofer", packing_fraction=0.8),
+                ],
+                fracs=[0.3, 0.65],
+            )
+
+        with warnings.catch_warnings(record=True) as w:
+            # Cause all warnings to always be triggered.
+            warnings.simplefilter("always")
+            # Trigger a warning.
+            too_small_fracs()
+            # Verify some things
+            assert len(w) == 1
+            assert issubclass(w[-1].category, UserWarning)
+            assert "warning sum of MutliMaterials do not sum to 1." in str(w[-1].message)

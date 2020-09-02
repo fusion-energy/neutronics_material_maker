@@ -4,7 +4,6 @@ __author__ = "neutronics material maker development team"
 
 import json
 from json import JSONEncoder
-
 import warnings
 
 try:
@@ -101,11 +100,10 @@ class MultiMaterial:
                 "There must be equal numbers of fracs and materials")
 
         if sum(self.fracs) != 1.0:
-            print(
-                "warning sum of MutliMaterials do not sum to 1.",
-                self.fracs,
-                " = ",
-                sum(self.fracs),
+            warnings.warn(
+                "warning sum of MutliMaterials do not sum to 1." +
+                str(self.fracs) + " = " +  str(sum(self.fracs)),
+                UserWarning
             )
 
     @property
