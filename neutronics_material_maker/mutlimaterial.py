@@ -102,7 +102,7 @@ class MultiMaterial:
         if sum(self.fracs) != 1.0:
             warnings.warn(
                 "warning sum of MutliMaterials do not sum to 1." +
-                str(self.fracs) + " = " +  str(sum(self.fracs)),
+                str(self.fracs) + " = " + str(sum(self.fracs)),
                 UserWarning
             )
 
