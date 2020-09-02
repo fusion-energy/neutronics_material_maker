@@ -61,7 +61,7 @@ class Material:
     as enrichment. Modifiers to the material density are applied
     according to arguments like temperature_in_C and pressure_in_Pa
     where appropiate (gases, liquids). The collection of materials
-    includes relationships between presure, temperature and density 
+    includes relationships between presure, temperature and density
     relationships. This allows the code to adjust the density of the
     material accordingly. The intended use is a tool to facilitate
     the use of a common materials library (internal or your own).
