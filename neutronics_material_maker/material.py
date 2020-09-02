@@ -110,7 +110,7 @@ class Material:
             liquids and gases used for coolants and even liquids such as
             lithium-lead and FLiBe that are used as breeder materials.
         zaid_suffix (str): The nuclear library to apply to the zaid, for example
-            .31c this is used in MCNP and Serpent material cards.
+            ".31c", this is used in MCNP and Serpent material cards.
         id (int): the id number or mat number used in the MCNP material card
         volume_in_cm3 (float): The volume of the material in cm3, used when creating
             fispact material cards

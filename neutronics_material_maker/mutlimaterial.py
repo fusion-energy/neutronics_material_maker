@@ -43,13 +43,13 @@ class MultiMaterial:
         percent_type (str): Type of frac percentage, must be one of
             atom percent 'ao', weight percent 'wo', or volume percent 'vo'.
             Defaults to 'vo'
-        packing_fraction (float): This value is mutliplier by the density
+        packing_fraction (float): This value is multiplied by the density
             which allows packing_fraction to be taken into account for materials
             involving an amount of void. Recall that packing_fraction is equal
             to 1/void fraction
         zaid_suffix (str): The nuclear library to apply to the zaid, for example
-            ".31c" this is used in MCNP and Serpent material cards.
-        id (int): the id number or mat number used in the MCNP material card
+            ".31c", this is used in MCNP and Serpent material cards.
+        id (int): The id number or mat number used in the MCNP material card
         volume_in_cm3 (float): The volume of the material in cm3, used when creating
             fispact material cards
 

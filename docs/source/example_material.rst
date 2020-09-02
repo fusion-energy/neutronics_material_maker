@@ -4,7 +4,7 @@ Example Material() usage
 Usage - basic Material()
 ------------------------
 
-Here is an example that access a material from the internal collection called eurofer which has about 60 isotopes of and a density of 7.78g/cm3.
+Here is an example that accesses a material from the internal collection called eurofer which has about 60 isotopes and a density of 7.78g/cm3.
 
 ::
 
@@ -12,21 +12,21 @@ Here is an example that access a material from the internal collection called eu
 
    my_mat = nmm.Material('eurofer')
 
-Once the object has been initiated the OpenMC or Serpent material card can be accessed
+Once the object has been initiated the OpenMC or Serpent material card can be accessed.
 
 ::
 
    my_mat_shape.openmc_material
    my_mat_shape.serpent_material
 
-To access MCNP material it is nessecary to also provide an id
+To access MCNP material it is necessary to also provide an id.
 
 ::
 
    my_mat = nmm.Material('eurofer', id=1)
    my_mat_shape.mcnp_material
 
-To access the Fispact material it is nessecary to also provide a volume.
+To access the Fispact material it is necessary to also provide a volume.
 
 ::
 
@@ -39,7 +39,7 @@ To access the Fispact material it is nessecary to also provide a volume.
 Usage - hot pressurised  Material()
 -----------------------------------
 
-For several materials within the collection the temperature and the pressure impacts the density of the material. The neutronics_material_maker adjusts the density to take temperature (in C or K) and the pressure into account when appropriate. Densities are caluclated either by an material specific formula (for example `FLiBe <https://github.com/ukaea/neutronics_material_maker/blob/openmc_version/neutronics_material_maker/data/multiplier_and_breeder_materials.json>`_) or using `CoolProps <https://pypi.org/project/CoolProp/>`_ (for example coolants)
+For several materials within the collection the temperature and the pressure impacts the density of the material. The neutronics_material_maker adjusts the density to take temperature (in C or K) and the pressure into account when appropriate. Densities are calculated either by a material specific formula (for example `FLiBe <https://github.com/ukaea/neutronics_material_maker/blob/openmc_version/neutronics_material_maker/data/multiplier_and_breeder_materials.json>`_) or using `CoolProps <https://pypi.org/project/CoolProp/>`_ (for example coolants such as H2O).
 
 ::
 
@@ -66,7 +66,7 @@ Usage - enriched Material()
 
 For several materials within the collection the density is adjusted when the material is enriched. For breeder blankets in fusion it is common to enrich the lithium 6 content.
 
-Lithium ceramics used in fusion breeder blankets often contain enriched lithium-6 content. This slightly change in density is accounted for by the neutronics_material_maker
+Lithium ceramics used in fusion breeder blankets often contain enriched lithium-6 content. This slight change in density is accounted for by the neutronics_material_maker.
 
 ::
 
@@ -91,7 +91,7 @@ The default enrichment target for 'Li4SiO4' is Li6 but this can be changed if re
 Usage - make a Material() from a dictionary
 -------------------------------------------
 
-There are options to extent the material library however it is also possible to make materials directy from a dictionary by making use of the python syntax **
+There are options to extent the material library however it is also possible to make materials directly from a dictionary by making use of the python syntax **
 
 ::
 
