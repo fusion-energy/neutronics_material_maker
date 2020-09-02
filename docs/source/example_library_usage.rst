@@ -41,4 +41,4 @@ You can import this file into the package using AddMaterialFromFile().
     nmm.AddMaterialFromFile('mat_lib.json')
     my_new_material = nmm.Material('polythylene')
 
-Another option is to use AddMaterialFromDir() to import a directory of json files
+Another option is to use AddMaterialFromDir() to import a directory of JSON files
