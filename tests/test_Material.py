@@ -104,7 +104,7 @@ class test_object_properties(unittest.TestCase):
         assert line_by_line_material[10] == "     050122.30c  0.011575"
         assert line_by_line_material[11] == "     050124.30c  0.014475"
 
-    def test_mcnp_material_lines(self):
+    def test_mcnp_material_lines_contain_underscore(self):
         test_material = nmm.Material(
             elements="Nb3Sn", material_tag="test2", density=3.2, density_unit='g/cm3',
             id=1, percent_type='wo'
@@ -117,6 +117,30 @@ class test_object_properties(unittest.TestCase):
         assert line_by_line_material[0].split()[2] == "density"
         assert float(line_by_line_material[0].split()[3]) == pytest.approx(3.2)
         assert line_by_line_material[0].split()[4] == "g/cm3"
+
+        assert '-' in line_by_line_material[1]
+        assert '-' in line_by_line_material[2]
+        assert '-' in line_by_line_material[3]
+        assert '-' in line_by_line_material[4]
+        assert '-' in line_by_line_material[5]
+        assert '-' in line_by_line_material[6]
+        assert '-' in line_by_line_material[7]
+        assert '-' in line_by_line_material[8]
+        assert '-' in line_by_line_material[9]
+        assert '-' in line_by_line_material[10]
+        assert '-' in line_by_line_material[11]
+
+    def test_serpent_material_lines_contain_underscore(self):
+        test_material = nmm.Material(
+            elements="Nb3Sn", material_tag="test2", density=3.2, density_unit='g/cm3',
+            id=1, percent_type='wo'
+        )
+        serpent_material = test_material.serpent_material
+        line_by_line_material = serpent_material.split("\n")
+
+        assert line_by_line_material[0].split()[0] == "mat"
+        assert line_by_line_material[0].split()[1] == "test2"
+        assert float(line_by_line_material[0].split()[2]) == pytest.approx(3.2)
 
         assert '-' in line_by_line_material[1]
         assert '-' in line_by_line_material[2]
