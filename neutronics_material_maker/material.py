@@ -7,10 +7,11 @@ import re
 from json import JSONEncoder
 from pathlib import Path
 
+import warnings
 try:
     import openmc
-except ImportError as err:
-    raise err('OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable')
+except:
+    warnings.warn('OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable')
 
 from CoolProp.CoolProp import PropsSI
 
@@ -243,8 +244,6 @@ class Material:
                     raise ValueError(
                         "pressure_in_Pa is needed for",
                         self.material_name)
-
-        # self.make_openmc_material()
 
     @property
     def openmc_material(self):

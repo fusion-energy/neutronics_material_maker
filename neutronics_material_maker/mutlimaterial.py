@@ -5,10 +5,11 @@ __author__ = "neutronics material maker development team"
 import json
 from json import JSONEncoder
 
+import warnings
 try:
     import openmc
-except ImportError as err:
-    raise err('OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable')
+except:
+    warnings.warn('OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable')
 
 from CoolProp.CoolProp import PropsSI
 import neutronics_material_maker as nmm
