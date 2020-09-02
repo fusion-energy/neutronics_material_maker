@@ -52,7 +52,8 @@ def make_serpent_material(mat):
     else:
         zaid_suffix = mat.zaid_suffix
 
-    mat_card = ["mat " + name + " " + str(mat.openmc_material.get_mass_density())]
+    mat_card = ["mat " + name + " " +
+                str(mat.openmc_material.get_mass_density())]
     # should check if percent type is 'ao' or 'wo'
 
     for isotope in mat.openmc_material.nuclides:
@@ -108,7 +109,8 @@ def make_mcnp_material(mat):
         elif isotope[2] == "wo":
             prefix = " -"
 
-        rest = isotope_to_zaid(isotope[0]) + zaid_suffix + prefix + str(isotope[1])
+        rest = isotope_to_zaid(isotope[0]) + \
+            zaid_suffix + prefix + str(isotope[1])
 
         mat_card.append(start + rest)
 

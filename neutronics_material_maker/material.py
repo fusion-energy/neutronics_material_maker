@@ -221,7 +221,8 @@ class Material:
                         "enrichment target and enrichment type are needed to enrich a material"
                     )
 
-            if "temperature_dependant" in material_dict[self.material_name].keys():
+            if "temperature_dependant" in material_dict[self.material_name].keys(
+            ):
                 if temperature_in_K is None and temperature_in_C is None:
                     if self.material_name == "He":
                         raise ValueError(
@@ -245,9 +246,12 @@ class Material:
                     if temperature_in_C is None:
                         self.temperature_in_C = temperature_in_K + 273.15
 
-            if "pressure_dependant" in material_dict[self.material_name].keys():
+            if "pressure_dependant" in material_dict[self.material_name].keys(
+            ):
                 if pressure_in_Pa is None:
-                    raise ValueError("pressure_in_Pa is needed for", self.material_name)
+                    raise ValueError(
+                        "pressure_in_Pa is needed for",
+                        self.material_name)
 
     @property
     def openmc_material(self):
@@ -402,7 +406,8 @@ class Material:
         if value in ["ao", "wo", None]:
             self._percent_type = value
         else:
-            raise ValueError("only 'ao' and 'wo' are supported for the percent_type")
+            raise ValueError(
+                "only 'ao' and 'wo' are supported for the percent_type")
 
     @property
     def enrichment_type(self):
@@ -436,7 +441,8 @@ class Material:
     def volume_of_unit_cell_cm3(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError("volume_of_unit_cell_cm3 must be greater than 0")
+                raise ValueError(
+                    "volume_of_unit_cell_cm3 must be greater than 0")
         self._volume_of_unit_cell_cm3 = value
 
     @property
@@ -458,7 +464,8 @@ class Material:
     def temperature_in_C(self, value):
         if value is not None:
             if value < -273.15:
-                raise ValueError("temperature_in_C must be greater than -273.15")
+                raise ValueError(
+                    "temperature_in_C must be greater than -273.15")
         self._temperature_in_C = value
 
     @property
@@ -668,7 +675,8 @@ class Material:
         if isinstance(self.elements, dict):
 
             if self.enrichment_target is not None:
-                enrichment_element = re.split(r"(\d+)", self.enrichment_target)[0]
+                enrichment_element = re.split(
+                    r"(\d+)", self.enrichment_target)[0]
             else:
                 enrichment_element = None
             for element_symbol, element_number in zip(
@@ -731,8 +739,9 @@ class Material:
                 density = eval(self.density_equation)
                 if density is None:
                     raise ValueError(
-                        "Density value of ", self.material_name, " can not be found"
-                    )
+                        "Density value of ",
+                        self.material_name,
+                        " can not be found")
                 else:
                     self.density = density
 
@@ -742,8 +751,8 @@ class Material:
             ):
 
                 molar_mass = (
-                    self._get_atoms_in_crystal() * openmc_material.average_molar_mass
-                )
+                    self._get_atoms_in_crystal() *
+                    openmc_material.average_molar_mass)
 
                 mass = self.atoms_per_unit_cell * molar_mass * atomic_mass_unit_in_g
 
@@ -751,10 +760,10 @@ class Material:
             else:
 
                 raise ValueError(
-                    "density can't be set for "
-                    + str(self.material_name)
-                    + " provide either a density value, equation as a string, or atoms_per_unit_cell and volume_of_unit_cell_cm3"
-                )
+                    "density can't be set for " +
+                    str(
+                        self.material_name) +
+                    " provide either a density value, equation as a string, or atoms_per_unit_cell and volume_of_unit_cell_cm3")
 
         openmc_material.set_density(
             self.density_unit, self.density * self.packing_fraction
@@ -765,7 +774,10 @@ class Material:
     def _get_atoms_in_crystal(self):
         """Finds the number of atoms in the crystal lactic"""
 
-        tokens = [a for a in re.split(r"([A-Z][a-z]*)", self.chemical_equation) if a]
+        tokens = [
+            a for a in re.split(
+                r"([A-Z][a-z]*)",
+                self.chemical_equation) if a]
 
         list_of_fractions = []
 
