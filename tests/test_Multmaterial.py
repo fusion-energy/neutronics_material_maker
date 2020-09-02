@@ -27,6 +27,7 @@ ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
 import pytest
 import unittest
 import json
+import warnings
 
 import neutronics_material_maker as nmm
 
@@ -47,7 +48,6 @@ if __name__ == "__main__":
 
 
 class test_object_properties(unittest.TestCase):
-
     def test_serpent_multimaterial_type(self):
 
         test_material = nmm.MultiMaterial(
@@ -67,7 +67,7 @@ class test_object_properties(unittest.TestCase):
             materials=[nmm.Material("Li4SiO4"), nmm.Material("Be12Ti")],
             fracs=[0.50, 0.50],
             percent_type="vo",
-            id=2
+            id=2,
         )
 
         assert len(test_material.mcnp_material) > 100
@@ -80,7 +80,7 @@ class test_object_properties(unittest.TestCase):
             materials=[nmm.Material("Li4SiO4"), nmm.Material("Be12Ti")],
             fracs=[0.50, 0.50],
             percent_type="vo",
-            volume_in_cm3=20
+            volume_in_cm3=20,
         )
 
         assert len(test_material.fispact_material) > 100
@@ -155,7 +155,8 @@ class test_object_properties(unittest.TestCase):
 
         test_material_2 = nmm.Material(material_name="Be12Ti")
         test_material_packed_2 = nmm.Material(
-            material_name="Be12Ti", packing_fraction=0.35)
+            material_name="Be12Ti", packing_fraction=0.35
+        )
         assert (
             test_material_2.openmc_material.density * 0.35
             == test_material_packed_2.openmc_material.density
@@ -169,8 +170,10 @@ class test_object_properties(unittest.TestCase):
         )
 
         assert mixed_packed_crystals.openmc_material.density == pytest.approx(
-            (test_material_1.openmc_material.density * 0.65 * 0.75) + (
-                test_material_2.openmc_material.density * 0.35 * 0.25), rel=0.01, )
+            (test_material_1.openmc_material.density * 0.65 * 0.75)
+            + (test_material_2.openmc_material.density * 0.35 * 0.25),
+            rel=0.01,
+        )
 
     def test_density_of_mixed_two_packed_and_non_packed_crystals(self):
 
@@ -194,9 +197,7 @@ class test_object_properties(unittest.TestCase):
     def test_density_of_mixed_materials_from_density_equation(self):
 
         test_material = nmm.Material(
-            "H2O",
-            temperature_in_C=25,
-            pressure_in_Pa=100000)
+            "H2O", temperature_in_C=25, pressure_in_Pa=100000)
         test_mixed_material = nmm.MultiMaterial(
             material_tag="test_mixed_material",
             materials=[test_material],
@@ -225,9 +226,12 @@ class test_object_properties(unittest.TestCase):
             percent_type="vo",
         )
 
-        assert mixed_packed_crystal_and_non_crystal.openmc_material.density == pytest.approx(
-            (test_material_1.openmc_material.density * 0.5)
-            + (test_material_2.openmc_material.density * 0.65 * 0.5)
+        assert (
+            mixed_packed_crystal_and_non_crystal.openmc_material.density
+            == pytest.approx(
+                (test_material_1.openmc_material.density * 0.5)
+                + (test_material_2.openmc_material.density * 0.65 * 0.5)
+            )
         )
 
     def test_packing_fraction_for_single_materials(self):
@@ -429,3 +433,51 @@ class test_object_properties(unittest.TestCase):
         assert test_material_in_json_form["fracs"] == [0.3, 0.7]
         assert test_material_in_json_form["percent_type"] == "vo"
         assert test_material_in_json_form["packing_fraction"] == 1.0
+
+    def test_incorrect_settings(self):
+
+        def too_large_fracs():
+            """checks a ValueError is raised when the fracs are above 1"""
+
+            nmm.MultiMaterial(
+                "test_material",
+                materials=[
+                    nmm.Material("tungsten", packing_fraction=0.6),
+                    nmm.Material("eurofer", packing_fraction=0.8),
+                ],
+                fracs=[0.3, 0.75],
+            )
+
+        with warnings.catch_warnings(record=True) as w:
+            # Cause all warnings to always be triggered.
+            warnings.simplefilter("always")
+            # Trigger a warning.
+            too_large_fracs()
+            # Verify some things
+            assert len(w) == 1
+            assert issubclass(w[-1].category, UserWarning)
+            assert "warning sum of MutliMaterials do not sum to 1." in str(
+                w[-1].message)
+
+        def too_small_fracs():
+            """checks a ValueError is raised when the fracs are above 1"""
+
+            nmm.MultiMaterial(
+                "test_material",
+                materials=[
+                    nmm.Material("tungsten", packing_fraction=0.6),
+                    nmm.Material("eurofer", packing_fraction=0.8),
+                ],
+                fracs=[0.3, 0.65],
+            )
+
+        with warnings.catch_warnings(record=True) as w:
+            # Cause all warnings to always be triggered.
+            warnings.simplefilter("always")
+            # Trigger a warning.
+            too_small_fracs()
+            # Verify some things
+            assert len(w) == 1
+            assert issubclass(w[-1].category, UserWarning)
+            assert "warning sum of MutliMaterials do not sum to 1." in str(
+                w[-1].message)

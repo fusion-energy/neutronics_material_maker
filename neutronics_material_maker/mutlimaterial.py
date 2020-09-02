@@ -4,12 +4,23 @@ __author__ = "neutronics material maker development team"
 
 import json
 from json import JSONEncoder
+import warnings
 
-import openmc
+try:
+    import openmc
+except BaseException:
+    warnings.warn(
+        "OpenMC python package not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material methods not avaiable"
+    )
+
 from CoolProp.CoolProp import PropsSI
 import neutronics_material_maker as nmm
 
-from neutronics_material_maker import make_fispact_material, make_serpent_material, make_mcnp_material
+from neutronics_material_maker import (
+    make_fispact_material,
+    make_serpent_material,
+    make_mcnp_material,
+)
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
@@ -89,11 +100,10 @@ class MultiMaterial:
                 "There must be equal numbers of fracs and materials")
 
         if sum(self.fracs) != 1.0:
-            print(
-                "warning sum of MutliMaterials do not sum to 1.",
-                self.fracs,
-                " = ",
-                sum(self.fracs),
+            warnings.warn(
+                "warning sum of MutliMaterials do not sum to 1." +
+                str(self.fracs) + " = " + str(sum(self.fracs)),
+                UserWarning
             )
 
     @property

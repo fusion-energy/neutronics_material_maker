@@ -7,10 +7,23 @@ import re
 from json import JSONEncoder
 from pathlib import Path
 
-import openmc
+import warnings
+
+try:
+    import openmc
+except BaseException:
+    warnings.warn(
+        "OpenMC python package not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material methods not avaiable"
+    )
+
 from CoolProp.CoolProp import PropsSI
 
-from neutronics_material_maker import make_fispact_material, make_serpent_material, make_mcnp_material
+from neutronics_material_maker import (
+    make_fispact_material,
+    make_serpent_material,
+    make_mcnp_material,
+)
+
 atomic_mass_unit_in_g = 1.660539040e-24
 
 
@@ -240,8 +253,6 @@ class Material:
                     raise ValueError(
                         "pressure_in_Pa is needed for",
                         self.material_name)
-
-        # self.make_openmc_material()
 
     @property
     def openmc_material(self):
@@ -741,9 +752,8 @@ class Material:
             ):
 
                 molar_mass = (
-                    self._get_atoms_in_crystal()
-                    * openmc_material.average_molar_mass
-                )
+                    self._get_atoms_in_crystal() *
+                    openmc_material.average_molar_mass)
 
                 mass = self.atoms_per_unit_cell * molar_mass * atomic_mass_unit_in_g
 

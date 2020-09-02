@@ -34,53 +34,42 @@ import neutronics_material_maker as nmm
 
 
 class test_object_properties(unittest.TestCase):
-
     def test_fispact_material(self):
-        a = nmm.Material('Li4SiO4', volume_in_cm3=1.)
+        a = nmm.Material("Li4SiO4", volume_in_cm3=1.0)
         assert a.fispact_material.split(
-            '\n')[-9] == 'DENSITY 2.3186896075603562'
-        assert a.fispact_material.split('\n')[-8] == 'FUEL 7'
-        assert a.fispact_material.split('\n')[-7] == 'Li6 3.537400925715E+21'
-        assert a.fispact_material.split('\n')[-6] == 'Li7 4.307481314353E+22'
-        assert a.fispact_material.split(
-            '\n')[-5] == 'Si28 1.074757396925E+22'
-        assert a.fispact_material.split(
-            '\n')[-4] == 'Si29 5.457311411014E+20'
-        assert a.fispact_material.split(
-            '\n')[-3] == 'Si30 3.597484069651E+20'
-        assert a.fispact_material.split('\n')[-2] == 'O16 4.659454804012E+22'
-        assert a.fispact_material.split('\n')[-1] == 'O17 1.766602913225E+19'
+            "\n")[-9] == "DENSITY 2.3186896075603562"
+        assert a.fispact_material.split("\n")[-8] == "FUEL 7"
+        assert a.fispact_material.split("\n")[-7] == "Li6 3.537400925715E+21"
+        assert a.fispact_material.split("\n")[-6] == "Li7 4.307481314353E+22"
+        assert a.fispact_material.split("\n")[-5] == "Si28 1.074757396925E+22"
+        assert a.fispact_material.split("\n")[-4] == "Si29 5.457311411014E+20"
+        assert a.fispact_material.split("\n")[-3] == "Si30 3.597484069651E+20"
+        assert a.fispact_material.split("\n")[-2] == "O16 4.659454804012E+22"
+        assert a.fispact_material.split("\n")[-1] == "O17 1.766602913225E+19"
         # assert a.fispact_material(volume=1).split('\n')[-1] == 'O18 4.532562645'
 
     def test_fispact_material_with_volume(self):
-        a = nmm.Material('Li4SiO4', volume_in_cm3=2.)
+        a = nmm.Material("Li4SiO4", volume_in_cm3=2.0)
         assert a.fispact_material.split(
-            '\n')[-9] == 'DENSITY 2.3186896075603562'
-        assert a.fispact_material.split('\n')[-8] == 'FUEL 7'
-        assert a.fispact_material.split('\n')[-7] == 'Li6 7.074801851431E+21'
-        assert a.fispact_material.split('\n')[-6] == 'Li7 8.614962628707E+22'
-        assert a.fispact_material.split(
-            '\n')[-5] == 'Si28 2.149514793849E+22'
-        assert a.fispact_material.split(
-            '\n')[-4] == 'Si29 1.091462282203E+21'
-        assert a.fispact_material.split(
-            '\n')[-3] == 'Si30 7.194968139301E+20'
-        assert a.fispact_material.split('\n')[-2] == 'O16 9.318909608023E+22'
-        assert a.fispact_material.split('\n')[-1] == 'O17 3.533205826449E+19'
+            "\n")[-9] == "DENSITY 2.3186896075603562"
+        assert a.fispact_material.split("\n")[-8] == "FUEL 7"
+        assert a.fispact_material.split("\n")[-7] == "Li6 7.074801851431E+21"
+        assert a.fispact_material.split("\n")[-6] == "Li7 8.614962628707E+22"
+        assert a.fispact_material.split("\n")[-5] == "Si28 2.149514793849E+22"
+        assert a.fispact_material.split("\n")[-4] == "Si29 1.091462282203E+21"
+        assert a.fispact_material.split("\n")[-3] == "Si30 7.194968139301E+20"
+        assert a.fispact_material.split("\n")[-2] == "O16 9.318909608023E+22"
+        assert a.fispact_material.split("\n")[-1] == "O17 3.533205826449E+19"
         # assert a.fispact_material(volume=1).split('\n')[-1] == 'O18 4.532562645'
 
     def test_mcnp_material_suffix(self):
         test_material1 = nmm.Material(
-            "Nb3Sn",
-            material_tag="Nb3Sn",
-            zaid_suffix=".21c",
-            id=27)
+            "Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".21c", id=27
+        )
         mcnp_material1 = test_material1.mcnp_material
         test_material2 = nmm.Material(
-            "Nb3Sn",
-            material_tag="Nb3Sn",
-            zaid_suffix=".30c",
-            id=27)
+            "Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".30c", id=27
+        )
         mcnp_material2 = test_material2.mcnp_material
         test_material3 = nmm.Material("Nb3Sn", material_tag="Nb3Sn", id=27)
         mcnp_material3 = test_material3.mcnp_material
@@ -91,19 +80,16 @@ class test_object_properties(unittest.TestCase):
 
     def test_mcnp_material_lines(self):
         test_material = nmm.Material(
-            "Nb3Sn",
-            material_tag="test",
-            density=3,
-            zaid_suffix=".30c",
-            id=27)
+            "Nb3Sn", material_tag="test", density=3, zaid_suffix=".30c", id=27
+        )
         mcnp_material = test_material.mcnp_material
         line_by_line_material = mcnp_material.split("\n")
 
-        assert line_by_line_material[0].split()[0] == 'c'
-        assert line_by_line_material[0].split()[1] == 'test'
-        assert line_by_line_material[0].split()[2] == 'density'
+        assert line_by_line_material[0].split()[0] == "c"
+        assert line_by_line_material[0].split()[1] == "test"
+        assert line_by_line_material[0].split()[2] == "density"
         assert float(line_by_line_material[0].split()[3]) == 3
-        assert line_by_line_material[0].split()[4] == 'g/cm3'
+        assert line_by_line_material[0].split()[4] == "g/cm3"
 
         assert line_by_line_material[1] == "M27 041093.30c  0.75"
 
@@ -117,6 +103,62 @@ class test_object_properties(unittest.TestCase):
         assert line_by_line_material[9] == "     050120.30c  0.08145"
         assert line_by_line_material[10] == "     050122.30c  0.011575"
         assert line_by_line_material[11] == "     050124.30c  0.014475"
+
+    def test_mcnp_material_lines_contain_underscore(self):
+        test_material = nmm.Material(
+            elements="Nb3Sn",
+            material_tag="test2",
+            density=3.2,
+            density_unit='g/cm3',
+            id=1,
+            percent_type='wo')
+        mcnp_material = test_material.mcnp_material
+        line_by_line_material = mcnp_material.split("\n")
+
+        assert line_by_line_material[0].split()[0] == "c"
+        assert line_by_line_material[0].split()[1] == "test2"
+        assert line_by_line_material[0].split()[2] == "density"
+        assert float(line_by_line_material[0].split()[3]) == pytest.approx(3.2)
+        assert line_by_line_material[0].split()[4] == "g/cm3"
+
+        assert '-' in line_by_line_material[1]
+        assert '-' in line_by_line_material[2]
+        assert '-' in line_by_line_material[3]
+        assert '-' in line_by_line_material[4]
+        assert '-' in line_by_line_material[5]
+        assert '-' in line_by_line_material[6]
+        assert '-' in line_by_line_material[7]
+        assert '-' in line_by_line_material[8]
+        assert '-' in line_by_line_material[9]
+        assert '-' in line_by_line_material[10]
+        assert '-' in line_by_line_material[11]
+
+    def test_serpent_material_lines_contain_underscore(self):
+        test_material = nmm.Material(
+            elements="Nb3Sn",
+            material_tag="test2",
+            density=3.2,
+            density_unit='g/cm3',
+            id=1,
+            percent_type='wo')
+        serpent_material = test_material.serpent_material
+        line_by_line_material = serpent_material.split("\n")
+
+        assert line_by_line_material[0].split()[0] == "mat"
+        assert line_by_line_material[0].split()[1] == "test2"
+        assert float(line_by_line_material[0].split()[2]) == pytest.approx(3.2)
+
+        assert '-' in line_by_line_material[1]
+        assert '-' in line_by_line_material[2]
+        assert '-' in line_by_line_material[3]
+        assert '-' in line_by_line_material[4]
+        assert '-' in line_by_line_material[5]
+        assert '-' in line_by_line_material[6]
+        assert '-' in line_by_line_material[7]
+        assert '-' in line_by_line_material[8]
+        assert '-' in line_by_line_material[9]
+        assert '-' in line_by_line_material[10]
+        assert '-' in line_by_line_material[11]
 
     def test_serpent_material_suffix(self):
         test_material1 = nmm.Material(
@@ -134,15 +176,13 @@ class test_object_properties(unittest.TestCase):
 
     def test_serpent_material_lines(self):
         test_material = nmm.Material(
-            "Nb3Sn",
-            material_tag="test",
-            density=3,
-            zaid_suffix=".30c")
+            "Nb3Sn", material_tag="test", density=3, zaid_suffix=".30c"
+        )
         serpent_material = test_material.serpent_material
         line_by_line_material = serpent_material.split("\n")
 
-        assert line_by_line_material[0].split()[0] == 'mat'
-        assert line_by_line_material[0].split()[1] == 'test'
+        assert line_by_line_material[0].split()[0] == "mat"
+        assert line_by_line_material[0].split()[1] == "test"
         assert float(line_by_line_material[0].split()[2]) == 3
         assert line_by_line_material[1] == "     041093.30c  0.75"
         assert line_by_line_material[2] == "     050112.30c  0.002425"
@@ -500,7 +540,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, incorrect_enrichment_target)
 
         def incorrect_reference_type():
-            """checks a ValueError is raised when the refernces is the wrong type"""
+            """checks a ValueError is raised when the reference is the wrong type"""
 
             nmm.Material(
                 material_name="Li4SiO4",
@@ -511,6 +551,21 @@ class test_object_properties(unittest.TestCase):
             )
 
         self.assertRaises(ValueError, incorrect_reference_type)
+
+        def incorrect_setting_for_id():
+            """checks a ValueError is raised when the id is not set and an mcnp material card is need"""
+
+            test_material = nmm.Material(
+                material_name="Li4SiO4",
+                enrichment=50.0,
+                enrichment_target="Li6",
+                enrichment_type="ao",
+                reference=1,
+            )
+
+            test_material.export_mcnp
+
+        self.assertRaises(ValueError, incorrect_setting_for_id)
 
     def test_json_dump_works(self):
         test_material = nmm.Material(
