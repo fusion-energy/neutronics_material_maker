@@ -75,9 +75,9 @@ def make_serpent_material(mat):
 def make_mcnp_material(mat):
     """Returns the material in a string compatable with MCNP6"""
 
-    if mat.id is None:
+    if mat.material_id is None:
         raise ValueError(
-            "Material.id needs setting before mcnp_material can be made"
+            "Material.material_id needs setting before mcnp_material can be made"
         )
 
     if mat.material_tag is None:
@@ -100,7 +100,7 @@ def make_mcnp_material(mat):
     for i, isotope in enumerate(mat.openmc_material.nuclides):
 
         if i == 0:
-            start = "M" + str(mat.id) + " "
+            start = "M" + str(mat.material_id) + " "
         else:
             start = "     "
 
