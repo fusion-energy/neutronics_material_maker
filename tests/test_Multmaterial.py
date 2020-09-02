@@ -456,7 +456,8 @@ class test_object_properties(unittest.TestCase):
             # Verify some things
             assert len(w) == 1
             assert issubclass(w[-1].category, UserWarning)
-            assert "warning sum of MutliMaterials do not sum to 1." in str(w[-1].message)
+            assert "warning sum of MutliMaterials do not sum to 1." in str(
+                w[-1].message)
 
         def too_small_fracs():
             """checks a ValueError is raised when the fracs are above 1"""
@@ -478,4 +479,5 @@ class test_object_properties(unittest.TestCase):
             # Verify some things
             assert len(w) == 1
             assert issubclass(w[-1].category, UserWarning)
-            assert "warning sum of MutliMaterials do not sum to 1." in str(w[-1].message)
+            assert "warning sum of MutliMaterials do not sum to 1." in str(
+                w[-1].message)
