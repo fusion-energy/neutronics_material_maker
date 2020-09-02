@@ -77,7 +77,7 @@ def make_mcnp_material(mat):
 
     if mat.id is None:
         raise ValueError(
-            "Material.id needs setting before serpent_material can be made"
+            "Material.id needs setting before mcnp_material can be made"
         )
 
     if mat.material_tag is None:

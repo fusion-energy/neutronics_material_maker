@@ -104,6 +104,32 @@ class test_object_properties(unittest.TestCase):
         assert line_by_line_material[10] == "     050122.30c  0.011575"
         assert line_by_line_material[11] == "     050124.30c  0.014475"
 
+    def test_mcnp_material_lines(self):
+        test_material = nmm.Material(
+            elements="Nb3Sn", material_tag="test2", density=3.2, density_unit='g/cm3',
+            id=1, percent_type='wo'
+        )
+        mcnp_material = test_material.mcnp_material
+        line_by_line_material = mcnp_material.split("\n")
+
+        assert line_by_line_material[0].split()[0] == "c"
+        assert line_by_line_material[0].split()[1] == "test2"
+        assert line_by_line_material[0].split()[2] == "density"
+        assert float(line_by_line_material[0].split()[3]) == pytest.approx(3.2)
+        assert line_by_line_material[0].split()[4] == "g/cm3"
+
+        assert '-' in line_by_line_material[1]
+        assert '-' in line_by_line_material[2]
+        assert '-' in line_by_line_material[3]
+        assert '-' in line_by_line_material[4]
+        assert '-' in line_by_line_material[5]
+        assert '-' in line_by_line_material[6]
+        assert '-' in line_by_line_material[7]
+        assert '-' in line_by_line_material[8]
+        assert '-' in line_by_line_material[9]
+        assert '-' in line_by_line_material[10]
+        assert '-' in line_by_line_material[11]
+
     def test_serpent_material_suffix(self):
         test_material1 = nmm.Material(
             "Nb3Sn", material_tag="Nb3Sn", zaid_suffix=".21c")
@@ -484,7 +510,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, incorrect_enrichment_target)
 
         def incorrect_reference_type():
-            """checks a ValueError is raised when the refernces is the wrong type"""
+            """checks a ValueError is raised when the reference is the wrong type"""
 
             nmm.Material(
                 material_name="Li4SiO4",
@@ -495,6 +521,23 @@ class test_object_properties(unittest.TestCase):
             )
 
         self.assertRaises(ValueError, incorrect_reference_type)
+
+        def incorrect_setting_for_id():
+            """checks a ValueError is raised when the id is not set and an mcnp material card is need"""
+
+            test_material = nmm.Material(
+                material_name="Li4SiO4",
+                enrichment=50.0,
+                enrichment_target="Li6",
+                enrichment_type="ao",
+                reference=1,
+            )
+
+            test_material.export_mcnp
+
+        self.assertRaises(ValueError, incorrect_setting_for_id)
+
+
 
     def test_json_dump_works(self):
         test_material = nmm.Material(
@@ -533,7 +576,6 @@ class test_object_properties(unittest.TestCase):
         assert test_material_in_json_form["pressure_in_Pa"] == 1e6
         assert test_material_in_json_form["temperature_in_C"] == 100
         assert test_material_in_json_form["material_name"] == "H2O"
-
 
 if __name__ == "__main__":
 
