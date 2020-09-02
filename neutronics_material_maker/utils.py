@@ -1,9 +1,15 @@
+#!/usr/bin/env python3
+
+__author__ = "neutronics material maker development team"
+
 import warnings
+
 try:
     import openmc
 except BaseException:
     warnings.warn(
-        'OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable')
+        "OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable"
+    )
 
 
 def make_fispact_material(mat):
@@ -23,8 +29,11 @@ def make_fispact_material(mat):
         "DENSITY " + str(mat.openmc_material.get_mass_density()),
         "FUEL " + str(len(mat.openmc_material.nuclides)),
     ]
-    for isotope, atoms_barn_cm in mat.openmc_material.get_nuclide_atom_densities().values():
-        atoms_cm3 = atoms_barn_cm * 1.e24
+    for (
+        isotope,
+        atoms_barn_cm,
+    ) in mat.openmc_material.get_nuclide_atom_densities().values():
+        atoms_cm3 = atoms_barn_cm * 1.0e24
         atoms = mat.volume_in_cm3 * atoms_cm3
         mat_card.append(isotope + " " + "{:.12E}".format(atoms))
 
@@ -43,8 +52,7 @@ def make_serpent_material(mat):
     else:
         zaid_suffix = mat.zaid_suffix
 
-    mat_card = ["mat " + name + " " +
-                str(mat.openmc_material.get_mass_density())]
+    mat_card = ["mat " + name + " " + str(mat.openmc_material.get_mass_density())]
     # should check if percent type is 'ao' or 'wo'
 
     for isotope in mat.openmc_material.nuclides:
@@ -81,8 +89,13 @@ def make_mcnp_material(mat):
     else:
         zaid_suffix = mat.zaid_suffix
 
-    mat_card = ['c     ' + name + ' density ' +
-                str(mat.openmc_material.get_mass_density()) + ' g/cm3']
+    mat_card = [
+        "c     "
+        + name
+        + " density "
+        + str(mat.openmc_material.get_mass_density())
+        + " g/cm3"
+    ]
     for i, isotope in enumerate(mat.openmc_material.nuclides):
 
         if i == 0:
@@ -95,12 +108,7 @@ def make_mcnp_material(mat):
         elif isotope[2] == "wo":
             prefix = " -"
 
-        rest = (
-            isotope_to_zaid(isotope[0])
-            + zaid_suffix
-            + prefix
-            + str(isotope[1])
-        )
+        rest = isotope_to_zaid(isotope[0]) + zaid_suffix + prefix + str(isotope[1])
 
         mat_card.append(start + rest)
 

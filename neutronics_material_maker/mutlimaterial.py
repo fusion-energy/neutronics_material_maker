@@ -6,16 +6,22 @@ import json
 from json import JSONEncoder
 
 import warnings
+
 try:
     import openmc
 except BaseException:
     warnings.warn(
-        'OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable')
+        "OpenMC python package not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material methods not avaiable"
+    )
 
 from CoolProp.CoolProp import PropsSI
 import neutronics_material_maker as nmm
 
-from neutronics_material_maker import make_fispact_material, make_serpent_material, make_mcnp_material
+from neutronics_material_maker import (
+    make_fispact_material,
+    make_serpent_material,
+    make_mcnp_material,
+)
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
@@ -91,8 +97,7 @@ class MultiMaterial:
         self.fispact_material = None
 
         if len(self.fracs) != len(self.materials):
-            raise ValueError(
-                "There must be equal numbers of fracs and materials")
+            raise ValueError("There must be equal numbers of fracs and materials")
 
         if sum(self.fracs) != 1.0:
             print(
@@ -228,7 +233,8 @@ class MultiMaterial:
                     "enrichment_target": material.enrichment_target,
                     "enrichment_type": material.enrichment_type,
                     "reference": material.reference,
-                })
+                }
+            )
 
         jsonified_object = {
             "material_tag": self.material_tag,
