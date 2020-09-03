@@ -122,6 +122,7 @@ def make_mcnp_material(mat):
 
 
 def isotope_to_zaid(isotope):
+    """converts an isotope into a zaoid e.g. Li6 -> 003006"""
     z, a, m = openmc.data.zam(isotope)
     zaid = str(z).zfill(3) + str(a).zfill(3)
     return zaid
@@ -146,7 +147,7 @@ def AddMaterialFromFile(filename=None):
 
 
 def AvailableMaterials():
-    """Returns a dictionary of avaialbe materials"""
+    """Returns a dictionary of available materials"""
     return material_dict
 
 

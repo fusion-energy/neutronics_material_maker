@@ -43,11 +43,6 @@ _default.default = JSONEncoder.default
 JSONEncoder.default = _default
 
 
-
-
-
-
-
 class Material:
     """
     Produces a material by looking up the material_name in a
