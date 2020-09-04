@@ -150,7 +150,7 @@ class Material:
         enrichment_type=None,
         reference=None,
         zaid_suffix=None,
-        material_id=None,
+        material_id=1,
         volume_in_cm3=None,
     ):
 
@@ -557,6 +557,8 @@ class Material:
     @volume_in_cm3.setter
     def volume_in_cm3(self, value):
         if value is not None:
+            if isinstance(value, int):
+                value = float(value)
             if not isinstance(value, float):
                 raise ValueError("volume_in_cm3 must be an float")
         self._volume_in_cm3 = value
