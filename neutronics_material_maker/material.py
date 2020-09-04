@@ -2,6 +2,7 @@
 
 __author__ = "neutronics material maker development team"
 
+import os
 import json
 import re
 from json import JSONEncoder
@@ -22,6 +23,10 @@ from neutronics_material_maker import (
     make_fispact_material,
     make_serpent_material,
     make_mcnp_material,
+    AddMaterialFromDir,
+    AddMaterialFromFile,
+    AvailableMaterials,
+    material_dict
 )
 
 atomic_mass_unit_in_g = 1.660539040e-24
@@ -36,34 +41,6 @@ def _default(self, obj):
 
 _default.default = JSONEncoder.default
 JSONEncoder.default = _default
-
-
-def AddMaterialFromDir(directory=None):
-    """Add materials to the internal library from a directory of json files"""
-    for filename in Path(directory).glob("*.json"):
-        with open(filename, "r") as f:
-            new_data = json.load(f)
-            material_dict.update(new_data)
-
-    print("Added materials to library", sorted(list(material_dict.keys())))
-
-
-def AddMaterialFromFile(filename=None):
-    """Add materials to the internal library from a json file"""
-    with open(filename, "r") as f:
-        new_data = json.load(f)
-        material_dict.update(new_data)
-    print("Added materials to library", sorted(list(material_dict.keys())))
-
-
-def AvailableMaterials():
-    """Returns a dictionary of avaialbe materials"""
-    return material_dict
-
-
-# loads the internal material library of materials
-material_dict = {}
-AddMaterialFromDir(Path(__file__).parent / "data")
 
 
 class Material:
@@ -263,7 +240,7 @@ class Material:
 
         :type: openmc.Material() object
         """
-        self._openmc_material = self.make_openmc_material()
+        self._openmc_material = self._make_openmc_material()
         return self._openmc_material
 
     @openmc_material.setter
@@ -321,7 +298,8 @@ class Material:
     def material_name(self, value):
         if value is not None:
             if not isinstance(value, str):
-                raise ValueError("material_name must be a string", value)
+                raise ValueError(
+                    "Material.material_name must be a string", value)
         self._material_name = value
 
     @property
@@ -332,7 +310,8 @@ class Material:
     def material_tag(self, value):
         if value is not None:
             if not isinstance(value, str):
-                raise ValueError("material_tag must be a string", value)
+                raise ValueError(
+                    "Material.material_tag must be a string", value)
         self._material_tag = value
 
     @property
@@ -343,7 +322,7 @@ class Material:
     def packing_fraction(self, value):
         value = float(value)
         if not isinstance(value, float):
-            raise ValueError("packing_fraction must be a float")
+            raise ValueError("Material.packing_fraction must be a float")
         if value < 0.0:
             raise ValueError("packing_fraction must be greater than 0")
         if value > 1.0:
@@ -360,7 +339,7 @@ class Material:
             self._elements = value
         else:
             raise ValueError(
-                "Elements must be dictionaries e.g. {'Li':0.07, 'Si': 0.93}"
+                "Material.elements must be dictionaries e.g. {'Li':0.07, 'Si': 0.93}"
             )
 
     @property
@@ -373,7 +352,7 @@ class Material:
             self._chemical_equation = value
         else:
             raise ValueError(
-                "Elements must be a string e.g. 'H2O'"
+                "MAterial.chemical_equation must be a string e.g. 'H2O'"
             )
 
     @property
@@ -410,7 +389,7 @@ class Material:
             self._density_unit = value
         else:
             raise ValueError(
-                "only 'g/cm3', 'g/cc', 'kg/m3', 'atom/b-cm', 'atom/cm3' are supported for the density_units"
+                "Material.density_units must be 'g/cm3', 'g/cc', 'kg/m3', 'atom/b-cm' or 'atom/cm3'"
             )
 
     @property
@@ -423,7 +402,8 @@ class Material:
             self._percent_type = value
         else:
             raise ValueError(
-                "only 'ao' and 'wo' are supported for the percent_type")
+                "Material.percent_type only accepts 'ao' or 'wo' types"
+            )
 
     @property
     def enrichment_type(self):
@@ -434,7 +414,7 @@ class Material:
         if value is not None:
             if value not in ["ao", "wo"]:
                 raise ValueError(
-                    "only 'ao' and 'wo' are supported for the enrichment_type"
+                    "Material.enrichment_type only accepts 'ao' or 'wo' types"
                 )
         self._enrichment_type = value
 
@@ -446,7 +426,8 @@ class Material:
     def atoms_per_unit_cell(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError("atoms_per_unit_cell must be greater than 0")
+                raise ValueError(
+                    "Material.atoms_per_unit_cell must be greater than 0")
         self._atoms_per_unit_cell = value
 
     @property
@@ -458,7 +439,7 @@ class Material:
         if value is not None:
             if value < 0.0:
                 raise ValueError(
-                    "volume_of_unit_cell_cm3 must be greater than 0")
+                    "Material.volume_of_unit_cell_cm3 must be greater than 0")
         self._volume_of_unit_cell_cm3 = value
 
     @property
@@ -469,7 +450,8 @@ class Material:
     def temperature_in_K(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError("temperature_in_K must be greater than 0")
+                raise ValueError(
+                    "Material.temperature_in_K must be greater than 0")
         self._temperature_in_K = value
 
     @property
@@ -481,7 +463,7 @@ class Material:
         if value is not None:
             if value < -273.15:
                 raise ValueError(
-                    "temperature_in_C must be greater than -273.15")
+                    "Material.temperature_in_C must be greater than -273.15")
         self._temperature_in_C = value
 
     @property
@@ -495,7 +477,7 @@ class Material:
         else:
             if value < 0:
                 raise ValueError(
-                    "Density have been incorrectly set, density should be above 0"
+                    "Material.density should be above 0"
                 )
             self._density = float(value)
 
@@ -546,7 +528,44 @@ class Material:
                 raise ValueError("reference must be a string")
         self._reference = value
 
-    def make_openmc_material(self):
+    @property
+    def zaid_suffix(self):
+        return self._zaid_suffix
+
+    @zaid_suffix.setter
+    def zaid_suffix(self, value):
+        if value is not None:
+            if not isinstance(value, str):
+                raise ValueError("zaid_suffix must be a string")
+        self._zaid_suffix = value
+
+    @property
+    def material_id(self):
+        return self._material_id
+
+    @material_id.setter
+    def material_id(self, value):
+        if value is not None:
+            if not isinstance(value, int):
+                raise ValueError("material_id must be an int")
+        self._material_id = value
+
+    @property
+    def volume_in_cm3(self):
+        return self._volume_in_cm3
+
+    @volume_in_cm3.setter
+    def volume_in_cm3(self, value):
+        if value is not None:
+            if not isinstance(value, float):
+                raise ValueError("volume_in_cm3 must be an float")
+        self._volume_in_cm3 = value
+
+    def _make_openmc_material(self):
+
+        original_cross_sections = os.environ.get('OPENMC_CROSS_SECTIONS')
+        del os.environ['OPENMC_CROSS_SECTIONS']
+
         if self.material_tag is None:
             name = self.material_name
         else:
@@ -570,6 +589,8 @@ class Material:
             openmc_material = self._add_elements_from_equation(openmc_material)
 
         openmc_material = self._add_density(openmc_material)
+
+        os.environ['OPENMC_CROSS_SECTIONS'] = original_cross_sections
 
         return openmc_material
 
@@ -719,6 +740,10 @@ class Material:
         for element_symbol, element_number in zip(
             self.elements.keys(), self.elements.values()
         ):
+
+            # natural_isotopes = openmc.data.isotopes(element_symbol)
+
+            # isotope_number = element_number
 
             if element_symbol == enrichment_element:
                 openmc_material.add_element(

@@ -2,7 +2,9 @@
 
 __author__ = "neutronics material maker development team"
 
+import json
 import warnings
+from pathlib import Path
 
 try:
     import openmc
@@ -118,6 +120,35 @@ def make_mcnp_material(mat):
 
 
 def isotope_to_zaid(isotope):
+    """converts an isotope into a zaoid e.g. Li6 -> 003006"""
     z, a, m = openmc.data.zam(isotope)
     zaid = str(z).zfill(3) + str(a).zfill(3)
     return zaid
+
+
+def AddMaterialFromDir(directory=None):
+    """Add materials to the internal library from a directory of json files"""
+    for filename in Path(directory).glob("*.json"):
+        with open(filename, "r") as f:
+            new_data = json.load(f)
+            material_dict.update(new_data)
+
+    print("Added materials to library", sorted(list(material_dict.keys())))
+
+
+def AddMaterialFromFile(filename=None):
+    """Add materials to the internal library from a json file"""
+    with open(filename, "r") as f:
+        new_data = json.load(f)
+        material_dict.update(new_data)
+    print("Added materials to library", sorted(list(material_dict.keys())))
+
+
+def AvailableMaterials():
+    """Returns a dictionary of available materials"""
+    return material_dict
+
+
+# loads the internal material library of materials
+material_dict = {}
+AddMaterialFromDir(Path(__file__).parent / "data")

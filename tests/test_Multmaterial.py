@@ -205,7 +205,7 @@ class test_object_properties(unittest.TestCase):
 
         assert (
             test_material.openmc_material.density
-            == test_mixed_material.openmc_material.density
+            == pytest.approx(test_mixed_material.openmc_material.density)
         )
 
     def test_density_of_mixed_one_packed_crystal_and_one_non_crystal(self):
