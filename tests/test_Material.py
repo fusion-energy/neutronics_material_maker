@@ -550,12 +550,83 @@ class test_object_properties(unittest.TestCase):
                 enrichment=50.0,
                 enrichment_target="Li6",
                 enrichment_type="ao",
-                reference=1,
+                material_id=1.0,
             )
 
-            test_material.export_mcnp
+            test_material.mcnp_material
 
         self.assertRaises(ValueError, incorrect_setting_for_id)
+
+        def incorrect_setting_for_id2():
+            """checks a ValueError is raised when the id is set as a str and an mcnp material card is need"""
+
+            test_material = nmm.Material(
+                material_name="Li4SiO4",
+                enrichment=50.0,
+                enrichment_target="Li6",
+                enrichment_type="ao",
+                material_id="1.0",
+            )
+
+            test_material.mcnp_material
+
+        self.assertRaises(ValueError, incorrect_setting_for_id)
+
+        def incorrect_setting_for_volume_in_cm3_1():
+            """checks a ValueError is raised when the volume_in_cm3 is set to a string"""
+
+            test_material = nmm.Material(
+                material_name="Li4SiO4",
+                enrichment=50.0,
+                enrichment_target="Li6",
+                enrichment_type="ao",
+                volume_in_cm3="1.0",
+            )
+
+            test_material.fispact_material
+
+        self.assertRaises(ValueError, incorrect_setting_for_id)
+
+        def incorrect_setting_for_volume_in_cm3_2():
+            """checks a ValueError is raised when the id is not set and an mcnp material card is need"""
+
+            test_material = nmm.Material(
+                material_name="Li4SiO4",
+                enrichment=50.0,
+                enrichment_target="Li6",
+                enrichment_type="ao",
+                volume_in_cm3="1",
+            )
+
+            test_material.fispact_material
+
+        self.assertRaises(ValueError, incorrect_setting_for_id)
+
+    def test_setting_for_volume_int(self):
+        """checks a ValueError is raised when the volume_in_cm3 is set to an int"""
+
+        test_material = nmm.Material(
+            material_name="Li4SiO4",
+            enrichment=50.0,
+            enrichment_target="Li6",
+            enrichment_type="ao",
+            volume_in_cm3=1,
+        )
+
+        test_material.fispact_material
+
+    def test_setting_for_volume_float(self):
+        """checks a ValueError is raised when the volume_in_cm3 is set to an float"""
+
+        test_material = nmm.Material(
+            material_name="Li4SiO4",
+            enrichment=50.0,
+            enrichment_target="Li6",
+            enrichment_type="ao",
+            volume_in_cm3=1.1,
+        )
+
+        test_material.fispact_material
 
     def test_json_dump_works(self):
         test_material = nmm.Material(
