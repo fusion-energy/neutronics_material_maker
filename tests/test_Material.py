@@ -39,7 +39,8 @@ class test_object_properties(unittest.TestCase):
         line_by_line_material = a.fispact_material.split("\n")
 
         assert len(line_by_line_material) == 10
-        assert a.fispact_material.split("\n")[0].startswith("DENSITY 2.318999932354645")
+        assert a.fispact_material.split(
+            "\n")[0].startswith("DENSITY 2.318999932354645")
         assert a.fispact_material.split("\n")[1] == "FUEL 8"
         assert "Li6 3.537400925715E+21" in line_by_line_material
         assert "Li7 4.307481314353E+22" in line_by_line_material
@@ -53,7 +54,7 @@ class test_object_properties(unittest.TestCase):
     def test_fispact_material_with_volume(self):
         a = nmm.Material("Li4SiO4", volume_in_cm3=2.0)
         line_by_line_material = a.fispact_material.split("\n")
-        
+
         assert len(line_by_line_material) == 10
         assert line_by_line_material[0].startswith("DENSITY 2.318999932354645")
         assert line_by_line_material[1] == "FUEL 8"
@@ -65,7 +66,6 @@ class test_object_properties(unittest.TestCase):
         assert "O16 9.300260993419E+22" in line_by_line_material
         assert "O17 3.533205826449E+19" in line_by_line_material
         assert "O18 1.864861460483E+20" in line_by_line_material
-
 
     def test_mcnp_material_suffix(self):
         test_material1 = nmm.Material(
@@ -344,8 +344,10 @@ class test_object_properties(unittest.TestCase):
             if entry[0] == "Li7":
                 li7_atom_count = li7_atom_count + entry[1]
         print(nucs)
-        assert pb_atom_count == pytest.approx(lead_fraction / (lead_fraction + lithium_fraction))
-        assert li_atom_count == pytest.approx(lithium_fraction / (lead_fraction + lithium_fraction))
+        assert pb_atom_count == pytest.approx(
+            lead_fraction / (lead_fraction + lithium_fraction))
+        assert li_atom_count == pytest.approx(
+            lithium_fraction / (lead_fraction + lithium_fraction))
         assert li6_atom_count * 4.0 == pytest.approx(li7_atom_count)
 
         assert li6_atom_count == pytest.approx(
@@ -495,8 +497,10 @@ class test_object_properties(unittest.TestCase):
                 pb_atom_count = pb_atom_count + entry[1]
             if entry[0].startswith("Li"):
                 li_atom_count = li_atom_count + entry[1]
-        assert pb_atom_count == pytest.approx(lead_fraction / (lead_fraction + lithium_fraction))
-        assert li_atom_count == pytest.approx(lithium_fraction / (lead_fraction + lithium_fraction))
+        assert pb_atom_count == pytest.approx(
+            lead_fraction / (lead_fraction + lithium_fraction))
+        assert li_atom_count == pytest.approx(
+            lithium_fraction / (lead_fraction + lithium_fraction))
 
     def test_incorrect_settings(self):
         def incorrect_temperature_in_K():

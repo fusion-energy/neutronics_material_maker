@@ -298,7 +298,8 @@ class Material:
     def material_name(self, value):
         if value is not None:
             if not isinstance(value, str):
-                raise ValueError("Material.material_name must be a string", value)
+                raise ValueError(
+                    "Material.material_name must be a string", value)
         self._material_name = value
 
     @property
@@ -309,7 +310,8 @@ class Material:
     def material_tag(self, value):
         if value is not None:
             if not isinstance(value, str):
-                raise ValueError("Material.material_tag must be a string", value)
+                raise ValueError(
+                    "Material.material_tag must be a string", value)
         self._material_tag = value
 
     @property
@@ -424,7 +426,8 @@ class Material:
     def atoms_per_unit_cell(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError("Material.atoms_per_unit_cell must be greater than 0")
+                raise ValueError(
+                    "Material.atoms_per_unit_cell must be greater than 0")
         self._atoms_per_unit_cell = value
 
     @property
@@ -447,7 +450,8 @@ class Material:
     def temperature_in_K(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError("Material.temperature_in_K must be greater than 0")
+                raise ValueError(
+                    "Material.temperature_in_K must be greater than 0")
         self._temperature_in_K = value
 
     @property
@@ -736,8 +740,6 @@ class Material:
         for element_symbol, element_number in zip(
             self.elements.keys(), self.elements.values()
         ):
-
-
 
             # natural_isotopes = openmc.data.isotopes(element_symbol)
 

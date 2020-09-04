@@ -14,8 +14,6 @@ except BaseException:
     )
 
 
-
-
 def make_fispact_material(mat):
     """
     Returns a Fispact material card for the material. This contains the required keywords
