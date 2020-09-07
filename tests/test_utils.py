@@ -19,6 +19,7 @@ class test_object_properties(unittest.TestCase):
 
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
-            test_mat = nmm.Material(mat, temperature_in_K=300, pressure_in_Pa=5e6)
-        
+            test_mat = nmm.Material(
+                mat, temperature_in_K=300, pressure_in_Pa=5e6)
+
             assert isinstance(test_mat.openmc_material, openmc.Material)

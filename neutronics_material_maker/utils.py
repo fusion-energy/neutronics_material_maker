@@ -133,7 +133,7 @@ def AddMaterialFromDir(directory=None):
         with open(filename, "r") as f:
             new_data = json.load(f)
             material_dict.update(new_data)
-        print(list(new_data.keys()),'\n')
+        print(list(new_data.keys()), '\n')
 
     # print("Added materials to library", sorted(list(material_dict.keys())))
 
