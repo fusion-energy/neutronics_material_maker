@@ -2006,8 +2006,8 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "He-3":1.0
+        "isotopes": {
+            "He3":1.0
         }
     },
     "Helium, Natural": {
@@ -2321,9 +2321,11 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "Li6":0.315789,
+            "B10":0.157895
+        },
         "elements": {
-            "Li-6":0.315789,
-            "B-10":0.157895,
             "O":0.473684,
             "Gd":0.052632
         }
@@ -2886,13 +2888,15 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "Br":0.75,
-            "Pu-238":0.000126,
-            "Pu-239":0.233817,
-            "Pu-240":0.014942,
-            "Pu-241":0.000992,
-            "Pu-242":0.000123,
-            "Am-241":0.0
+            "Br":0.75
+        },
+        "isotopes": {
+            "Pu238":0.000126,
+            "Pu239":0.233817,
+            "Pu240":0.014942,
+            "Pu241":0.000992,
+            "Pu242":0.000123,
+            "Am241":0.0
         }
     },
     "Plutonium Carbide": {
@@ -2901,13 +2905,15 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "C":0.5,
-            "Pu-238":0.000251,
-            "Pu-239":0.467635,
-            "Pu-240":0.029883,
-            "Pu-241":0.001984,
-            "Pu-242":0.000247,
-            "Am-241":0.0
+            "C":0.5
+        },
+        "isotopes": {
+            "Pu238":0.000251,
+            "Pu239":0.467635,
+            "Pu240":0.029883,
+            "Pu241":0.001984,
+            "Pu242":0.000247,
+            "Am241":0.0
         }
     },
     "Plutonium Chloride": {
@@ -2916,13 +2922,15 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "Cl":0.75,
-            "Pu-238":0.000126,
-            "Pu-239":0.233817,
-            "Pu-240":0.014942,
-            "Pu-241":0.000992,
-            "Pu-242":0.000123,
-            "Am-241":0.0
+            "Cl":0.75
+        },
+        "isotopes": {
+            "Pu238":0.000126,
+            "Pu239":0.233817,
+            "Pu240":0.014942,
+            "Pu241":0.000992,
+            "Pu242":0.000123,
+            "Am241":0.0
         }
     },
     "Plutonium Dioxide": {
@@ -2931,13 +2939,15 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "O":0.666667,
-            "Pu-238":0.000167,
-            "Pu-239":0.311756,
-            "Pu-240":0.019922,
-            "Pu-241":0.001323,
-            "Pu-242":0.000165,
-            "Am-241":0.0
+            "O":0.666667
+        },
+        "isotopes": {
+            "Pu238":0.000167,
+            "Pu239":0.311756,
+            "Pu240":0.019922,
+            "Pu241":0.001323,
+            "Pu242":0.000165,
+            "Am241":0.0
         }
     },
     "Plutonium Flouride (PuF3)": {
@@ -2946,13 +2956,15 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "F":0.75,
-            "Pu-238":0.000126,
-            "Pu-239":0.233817,
-            "Pu-240":0.014942,
-            "Pu-241":0.000992,
-            "Pu-242":0.000123,
-            "Am-241":0.0
+            "F":0.75
+        },
+        "isotopes": {
+            "Pu238":0.000126,
+            "Pu239":0.233817,
+            "Pu240":0.014942,
+            "Pu241":0.000992,
+            "Pu242":0.000123,
+            "Am241":0.0
         }
     },
     "Plutonium Flouride (PuF4)": {
@@ -2961,12 +2973,14 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "F":0.8,
-            "Pu-238":0.0001,
-            "Pu-239":0.187054,
-            "Pu-240":0.011953,
-            "Pu-241":0.000794,
-            "Pu-242":9.9e-05,
+            "F":0.8
+        },
+        "isotopes": {
+            "Pu238":0.0001,
+            "Pu239":0.187054,
+            "Pu240":0.011953,
+            "Pu241":0.000794,
+            "Pu242":9.9e05,
             "Am-241":0.0
         }
     },
@@ -2976,13 +2990,15 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "F":0.857143,
-            "Pu-238":7.2e-05,
-            "Pu-239":0.13361,
-            "Pu-240":0.008538,
-            "Pu-241":0.000567,
-            "Pu-242":7.1e-05,
-            "Am-241":0.0
+            "F":0.857143
+        },
+        "isotopes": {
+            "Pu238":7.2e-05,
+            "Pu239":0.13361,
+            "Pu240":0.008538,
+            "Pu241":0.000567,
+            "Pu242":7.1e-05,
+            "Am241":0.0
         }
     },
     "Plutonium Iodide": {
@@ -2991,13 +3007,15 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "I":0.75,
-            "Pu-238":0.000126,
-            "Pu-239":0.233817,
-            "Pu-240":0.014942,
-            "Pu-241":0.000992,
-            "Pu-242":0.000123,
-            "Am-241":0.0
+            "I":0.75
+        },
+        "isotopes": {
+            "Pu238":0.000126,
+            "Pu239":0.233817,
+            "Pu240":0.014942,
+            "Pu241":0.000992,
+            "Pu242":0.000123,
+            "Am241":0.0
         }
     },
     "Plutonium Nitrate": {
@@ -3007,13 +3025,15 @@
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "N":0.235294,
-            "O":0.705882,
-            "Pu-238":3e-05,
-            "Pu-239":0.055016,
-            "Pu-240":0.003516,
-            "Pu-241":0.000233,
-            "Pu-242":2.9e-05,
-            "Am-241":0.0
+            "O":0.705882
+        },
+        "isotopes": {
+            "Pu238":3e-05,
+            "Pu239":0.055016,
+            "Pu240":0.003516,
+            "Pu241":0.000233,
+            "Pu242":2.9e-05,
+            "Am241":0.0
         }
     },
     "Plutonium Nitride": {
@@ -3022,13 +3042,15 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "N":0.5,
-            "Pu-238":0.000251,
-            "Pu-239":0.467635,
-            "Pu-240":0.029883,
-            "Pu-241":0.001984,
-            "Pu-242":0.000247,
-            "Am-241":0.0
+            "N":0.5
+        },
+        "isotopes": {
+            "Pu238":0.000251,
+            "Pu239":0.467635,
+            "Pu240":0.029883,
+            "Pu241":0.001984,
+            "Pu242":0.000247,
+            "Am241":0.0
         }
     },
     "Plutonium Oxide (Pu2O3)": {
@@ -3037,13 +3059,15 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "O":0.6,
-            "Pu-238":0.000201,
-            "Pu-239":0.374108,
-            "Pu-240":0.023907,
-            "Pu-241":0.001587,
-            "Pu-242":0.000198,
-            "Am-241":0.0
+            "O":0.6
+        },
+        "isotopes": {
+            "Pu238":0.000201,
+            "Pu239":0.374108,
+            "Pu240":0.023907,
+            "Pu241":0.001587,
+            "Pu242":0.000198,
+            "Am241":0.0
         }
     },
     "Plutonium Oxide (PuO)": {
@@ -3052,13 +3076,15 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "O":0.5,
-            "Pu-238":0.000251,
-            "Pu-239":0.467635,
-            "Pu-240":0.029883,
-            "Pu-241":0.001984,
-            "Pu-242":0.000247,
-            "Am-241":0.0
+            "O":0.5
+        },
+        "isotopes": {
+            "Pu238":0.000251,
+            "Pu239":0.467635,
+            "Pu240":0.029883,
+            "Pu241":0.001984,
+            "Pu242":0.000247,
+            "Am241":0.0
         }
     },
     "Plutonium, Aged WGPu (A: 4-7% Pu-240)": {
@@ -3066,13 +3092,13 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "Pu-238":0.0001,
-            "Pu-239":0.936559,
-            "Pu-240":0.059677,
-            "Pu-241":0.001981,
-            "Pu-242":0.000296,
-            "Am-241":0.001387
+        "isotopes": {
+            "Pu238":0.0001,
+            "Pu239":0.936559,
+            "Pu240":0.059677,
+            "Pu241":0.001981,
+            "Pu242":0.000296,
+            "Am241":0.001387
         }
     },
     "Plutonium, Aged WGPu (B: 10-13% Pu-240)": {
@@ -3080,13 +3106,13 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "Pu-238":0.000897,
-            "Pu-239":0.86247,
-            "Pu-240":0.11667,
-            "Pu-241":0.009838,
-            "Pu-242":0.001666,
-            "Am-241":0.00846
+        "isotopes": {
+            "Pu238":0.000897,
+            "Pu239":0.86247,
+            "Pu240":0.11667,
+            "Pu241":0.009838,
+            "Pu242":0.001666,
+            "Am241":0.00846
         }
     },
     "Plutonium, Aged WGPu (C: 16-19% Pu-240)": {
@@ -3094,13 +3120,13 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "Pu-238":0.002347,
-            "Pu-239":0.785422,
-            "Pu-240":0.164652,
-            "Pu-241":0.013905,
-            "Pu-242":0.006635,
-            "Am-241":0.027038
+        "isotopes": {
+            "Pu238":0.002347,
+            "Pu239":0.785422,
+            "Pu240":0.164652,
+            "Pu241":0.013905,
+            "Pu242":0.006635,
+            "Am241":0.027038
         }
     },
     "Plutonium, DOE 3013 WGPu": {
@@ -3108,12 +3134,12 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "Pu-238":0.000502,
-            "Pu-239":0.935269,
-            "Pu-240":0.059767,
-            "Pu-241":0.003968,
-            "Pu-242":0.000494
+        "isotopes": {
+            "Pu238":0.000502,
+            "Pu239":0.935269,
+            "Pu240":0.059767,
+            "Pu241":0.003968,
+            "Pu242":0.000494
         }
     },
     "Plutonium, Fuel Grade": {
@@ -3121,12 +3147,12 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "Pu-238":0.001005,
-            "Pu-239":0.861564,
-            "Pu-240":0.119578,
-            "Pu-241":0.015877,
-            "Pu-242":0.001976
+        "isotopes": {
+            "Pu238":0.001005,
+            "Pu239":0.861564,
+            "Pu240":0.119578,
+            "Pu241":0.015877,
+            "Pu242":0.001976
         }
     },
     "Plutonium, Power Grade": {
@@ -3134,12 +3160,12 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "Pu-238":0.009965,
-            "Pu-239":0.625153,
-            "Pu-240":0.217396,
-            "Pu-241":0.118086,
-            "Pu-242":0.029399
+        "isotopes": {
+            "Pu238":0.009965,
+            "Pu239":0.625153,
+            "Pu240":0.217396,
+            "Pu241":0.118086,
+            "Pu242":0.029399
         }
     },
     "Plutonium, Shefelbine WGPu": {
@@ -3147,13 +3173,13 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "Pu-238":0.000301,
-            "Pu-239":0.939451,
-            "Pu-240":0.056777,
-            "Pu-241":0.002976,
-            "Pu-242":0.000296,
-            "Am-241":0.000198
+        "isotopes": {
+            "Pu238":0.000301,
+            "Pu239":0.939451,
+            "Pu240":0.056777,
+            "Pu241":0.002976,
+            "Pu242":0.000296,
+            "Am241":0.000198
         }
     },
     "Polycarbonate": {
@@ -4313,11 +4339,13 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "C":0.5,
-            "U-234":0.000136,
-            "U-235":0.015186,
-            "U-236":7e-05,
-            "U-238":0.484609
+            "C":0.5
+        },
+        "isotopes":{
+            "U234":0.000136,
+            "U235":0.015186,
+            "U236":7e-05,
+            "U238":0.484609
         }
     },
     "Uranium Dicarbide": {
@@ -4326,11 +4354,13 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "C":0.666667,
-            "U-234":9e-05,
-            "U-235":0.010124,
-            "U-236":4.6e-05,
-            "U-238":0.323072
+            "C":0.666667
+        },
+        "isotopes":{
+            "U234":9e-05,
+            "U235":0.010124,
+            "U236":4.6e-05,
+            "U238":0.323072
         }
     },
     "Uranium Dioxide": {
@@ -4339,11 +4369,13 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "O":0.666667,
-            "U-234":9e-05,
-            "U-235":0.010124,
-            "U-236":4.6e-05,
-            "U-238":0.323072
+            "O":0.666667
+        },
+        "isotopes":{
+            "U234":9e-05,
+            "U235":0.010124,
+            "U236":4.6e-05,
+            "U238":0.323072
         }
     },
     "Uranium Hexafluoride": {
@@ -4352,11 +4384,13 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "F":0.857143,
-            "U-234":3.9e-05,
-            "U-235":0.004339,
-            "U-236":2e-05,
-            "U-238":0.13846
+            "F":0.857143
+        },
+        "isotopes":{
+            "U234":3.9e-05,
+            "U235":0.004339,
+            "U236":2e-05,
+            "U238":0.13846
         }
     },
     "Uranium Hydride": {
@@ -4365,11 +4399,13 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "H":0.75,
-            "U-234":6.8e-05,
-            "U-235":0.007593,
-            "U-236":3.5e-05,
-            "U-238":0.242304
+            "H":0.75
+        },
+        "isotopes":{
+            "U234":6.8e-05,
+            "U235":0.007593,
+            "U236":3.5e-05,
+            "U238":0.242304
         }
     },
     "Uranium Nitride": {
@@ -4378,11 +4414,13 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "N":0.5,
-            "U-234":0.000136,
-            "U-235":0.015186,
-            "U-236":7e-05,
-            "U-238":0.484609
+            "N":0.5
+        },
+        "isotopes":{
+            "U234":0.000136,
+            "U235":0.015186,
+            "U236":7e-05,
+            "U238":0.484609
         }
     },
     "Uranium Oxide": {
@@ -4391,11 +4429,13 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "O":0.727273,
-            "U-234":7.4e-05,
-            "U-235":0.008283,
-            "U-236":3.8e-05,
-            "U-238":0.264332
+            "O":0.727273
+        },
+        "isotopes":{
+            "U234":7.4e-05,
+            "U235":0.008283,
+            "U236":3.8e-05,
+            "U238":0.264332
         }
     },
     "Uranium Tetrafluoride": {
@@ -4404,11 +4444,13 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "F":0.8,
-            "U-234":5.4e-05,
-            "U-235":0.006074,
-            "U-236":2.8e-05,
-            "U-238":0.193843
+            "F":0.8
+        },
+        "isotopes":{
+            "U234":5.4e-05,
+            "U235":0.006074,
+            "U236":2.8e-05,
+            "U238":0.193843
         }
     },
     "Uranium Trioxide": {
@@ -4417,11 +4459,13 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "O":0.75,
-            "U-234":6.8e-05,
-            "U-235":0.007593,
-            "U-236":3.5e-05,
-            "U-238":0.242304
+            "O":0.75
+        },
+        "isotopes":{
+            "U234":6.8e-05,
+            "U235":0.007593,
+            "U236":3.5e-05,
+            "U238":0.242304
         }
     },
     "Uranium, Depleted, Typical": {
@@ -4429,10 +4473,10 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "U-234":5e-06,
-            "U-235":0.002532,
-            "U-238":0.997463
+        "isotopes": {
+            "U234":5e-06,
+            "U235":0.002532,
+            "U238":0.997463
         }
     },
     "Uranium, Enriched, Typical Commercial": {
@@ -4440,10 +4484,10 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "U-234":0.00031,
-            "U-235":0.029967,
-            "U-238":0.969723
+        "isotopes": {
+            "U234":0.00031,
+            "U235":0.029967,
+            "U238":0.969723
         }
     },
     "Uranium, HEU, Health Physics Society": {
@@ -4451,11 +4495,11 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "U-234":0.010582,
-            "U-235":0.932362,
-            "U-236":0.002053,
-            "U-238":0.055003
+        "isotopes": {
+            "U234":0.010582,
+            "U235":0.932362,
+            "U236":0.002053,
+            "U238":0.055003
         }
     },
     "Uranium, HEU, Russian Average": {
@@ -4463,11 +4507,11 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "U-234":0.009722,
-            "U-235":0.898982,
-            "U-236":0.003798,
-            "U-238":0.087498
+        "isotopes": {
+            "U234":0.009722,
+            "U235":0.898982,
+            "U236":0.003798,
+            "U238":0.087498
         }
     },
     "Uranium, HEU, US Average": {
@@ -4475,11 +4519,11 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "U-234":0.009849,
-            "U-235":0.932166,
-            "U-236":0.004484,
-            "U-238":0.053501
+        "isotopes": {
+            "U234":0.009849,
+            "U235":0.932166,
+            "U236":0.004484,
+            "U238":0.053501
         }
     },
     "Uranium, Low Enriched (LEU)": {
@@ -4487,11 +4531,11 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "U-234":0.000271,
-            "U-235":0.030372,
-            "U-236":0.000139,
-            "U-238":0.969217
+        "isotopes": {
+            "U234":0.000271,
+            "U235":0.030372,
+            "U236":0.000139,
+            "U238":0.969217
         }
     },
     "Uranium, Natural (NU)": {
@@ -4499,10 +4543,10 @@
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
-        "elements": {
-            "U-234":5.8e-05,
-            "U-235":0.007295,
-            "U-238":0.992647
+        "isotopes": {
+            "U234":5.8e-05,
+            "U235":0.007295,
+            "U238":0.992647
         }
     },
     "Uranium-Plutonium, Mixed Oxide (MOX)": {
@@ -4511,16 +4555,18 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "O":0.666666,
-            "U-234":4e-06,
-            "U-235":0.000805,
-            "U-236":0.0,
-            "U-238":0.317052,
-            "Pu-238":0.00039,
-            "Pu-239":0.008487,
-            "Pu-240":0.004032,
-            "Pu-241":0.001462,
-            "Pu-242":0.001103
+            "O":0.666666
+        },
+        "isotopes":{
+            "U234":4e-06,
+            "U235":0.000805,
+            "U236":0.0,
+            "U238":0.317052,
+            "Pu238":0.00039,
+            "Pu239":0.008487,
+            "Pu240":0.004032,
+            "Pu241":0.001462,
+            "Pu242":0.001103
         }
     },
     "Uranyl Fluoride": {
@@ -4530,11 +4576,13 @@
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.4,
-            "F":0.4,
-            "U-234":5.4e-05,
-            "U-235":0.006074,
-            "U-236":2.8e-05,
-            "U-238":0.193843
+            "F":0.4
+        },
+        "isotopes":{
+            "U234":5.4e-05,
+            "U235":0.006074,
+            "U236":2.8e-05,
+            "U238":0.193843
         }
     },
     "Uranyl Nitrate": {
@@ -4544,11 +4592,13 @@
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "N":0.181818,
-            "O":0.727273,
-            "U-234":2.5e-05,
-            "U-235":0.002761,
-            "U-236":1.3e-05,
-            "U-238":0.088111
+            "O":0.727273
+        },
+        "isotopes":{
+            "U234":2.5e-05,
+            "U235":0.002761,
+            "U236":1.3e-05,
+            "U238":0.088111
         }
     },
     "Vermiculite, Exfoliated": {
@@ -4585,8 +4635,10 @@
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
-            "H-2":0.666667,
             "O":0.333333
+        },
+        "isotopes":{    
+            "H2":0.666667
         }
     },
     "Water, Liquid": {

@@ -478,7 +478,7 @@ class Material:
         else:
             if value < 0:
                 raise ValueError(
-                    "Material.density should be above 0"
+                    "Material.density should be above 0", value
                 )
             self._density = float(value)
 
@@ -583,11 +583,11 @@ class Material:
 
             openmc_material = self._add_isotopes(openmc_material)
 
-        elif self.elements is not None:
+        if self.elements is not None:
 
             openmc_material = self._add_elements_from_dict(openmc_material)
 
-        elif self.chemical_equation is not None:
+        if self.chemical_equation is not None:
 
             openmc_material = self._add_elements_from_equation(openmc_material)
 
