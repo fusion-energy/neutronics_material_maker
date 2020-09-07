@@ -11,6 +11,8 @@ The aim of this project is to facilitate the creation of materials for use in ne
 
 The hope is that by having this collection of materials it is easier to reuse materials across projects, use a common source with less room for user error.
 
+One nice aspect of this material maker is the ability to change the density of a material based on isotope enrichment (e.g. inbuild lithium ceramics), temperature and pressure.
+
 :point_right: [Documentation](https://neutronics-material-maker.readthedocs.io/en/latest/)
 
 ## Installation
@@ -112,3 +114,8 @@ my_mat.fispact_material(volume=100)
 ## Further examples
 
 Further examples can be found in the [UKAEA OpenMC workshop task 11](https://github.com/ukaea/openmc_workshop/tree/master/tasks/task_11) and in the [Documentation](https://neutronics-material-maker.readthedocs.io/en/latest/)
+
+
+# Acknowledgement
+
+Inspired by software projects [Pyne](https://pyne.io/) and making use of [OpenMC](https://docs.openmc.org/en/stable/) functionality and the [JSON](https://www.json.org/json-en.html) file format and [PNNL](https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf) for many definitions.

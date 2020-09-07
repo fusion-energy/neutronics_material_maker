@@ -128,12 +128,14 @@ def isotope_to_zaid(isotope):
 
 def AddMaterialFromDir(directory=None):
     """Add materials to the internal library from a directory of json files"""
-    for filename in Path(directory).glob("*.json"):
+    for filename in Path(directory).rglob("*.json"):
+        print('Added materials to library from', filename)
         with open(filename, "r") as f:
             new_data = json.load(f)
             material_dict.update(new_data)
+        print(list(new_data.keys()),'\n')
 
-    print("Added materials to library", sorted(list(material_dict.keys())))
+    # print("Added materials to library", sorted(list(material_dict.keys())))
 
 
 def AddMaterialFromFile(filename=None):
@@ -141,7 +143,8 @@ def AddMaterialFromFile(filename=None):
     with open(filename, "r") as f:
         new_data = json.load(f)
         material_dict.update(new_data)
-    print("Added materials to library", sorted(list(material_dict.keys())))
+    print('Added materials to library from', filename)
+    print(sorted(list(material_dict.keys())))
 
 
 def AvailableMaterials():
