@@ -2063,7 +2063,7 @@
         }
     },
     "Inconel-625": {
-        "density":2.32,
+        "density":8.44,
         "density_unit":"g/cm3",
         "percent_type": "ao",
         "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",

@@ -13,7 +13,7 @@
     },
     "SiC": {
         "chemical_equation": "SiC",
-        "density": 3,
+        "density": 3.0,
         "density_unit": "g/cm3",
         "percent_type": "ao"
     },
@@ -105,6 +105,14 @@
         "density": 19.0,
         "density_unit": "g/cm3",
         "reference": "neutronics handbook",
+        "percent_type": "ao"
+    },
+    "tungsten": {
+        "elements": {
+            "W": 1.0
+        },
+        "density": 19.2,
+        "density_unit": "g/cm3",
         "percent_type": "ao"
     },
     "P91": {
