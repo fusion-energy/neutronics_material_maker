@@ -15,7 +15,7 @@ setuptools.setup(
     url="https://github.com/ukaea/neutronics-material-maker",
     packages=setuptools.find_packages(),
     zip_safe=True,
-    package_dir={"neutronics_material_maker": "neutronics_material_maker"},
+    package_dir={"neutronics-material-maker": "neutronics-material-maker"},
     package_data={
         "neutronics_material_maker": [
             "requirements.txt",
