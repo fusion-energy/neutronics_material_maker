@@ -9,7 +9,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: openmcworkshop/openmc_workshop_dependencies:openmc_nndc
+      - image: openmcworkshop/openmc_workshop_dependencies:openmc
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
