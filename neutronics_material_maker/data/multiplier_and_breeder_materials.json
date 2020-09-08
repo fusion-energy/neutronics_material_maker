@@ -40,5 +40,15 @@
         "percent_type": "ao",
         "enrichment_target":"Li6",
         "enrichment_type":"ao"
+    },
+    "FLiNaBe": {
+        "chemical_equation": "FLiNaBe",
+        "density": 2.05,
+        "density_unit":"g/cm3",
+        "enrichable": true,
+        "reference": "Based on chemical formula",
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":"ao"
     }
 }

@@ -1,0 +1,4856 @@
+{
+    "A-150 Tissue-Equivalent Plastic (A150TEP)": {
+        "density":1.127,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.58364,
+            "C":0.374859,
+            "N":0.014531,
+            "O":0.018984,
+            "F":0.005324,
+            "Ca":0.002662
+        }
+    },
+    "Acetone": {
+        "density":0.7899,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.599985,
+            "C":0.300013,
+            "O":0.100002
+        }
+    },
+    "Acetylene": {
+        "density":0.001097,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.499983,
+            "C":0.500017
+        }
+    },
+    "Air (dry, near sea level)": {
+        "density":0.001205,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.00015,
+            "N":0.784431,
+            "O":0.210748,
+            "Ar":0.004671
+        }
+    },
+    "Alanine": {
+        "density":1.42,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.53845,
+            "C":0.230778,
+            "N":0.076924,
+            "O":0.153848
+        }
+    },
+    "Aluminum": {
+        "density":2.6989,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Al":1.0
+        }
+    },
+    "Aluminum Oxide": {
+        "density":3.97,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.6,
+            "Al":0.4
+        }
+    },
+    "Aluminum, alloy 2024-O": {
+        "density":2.78,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Mg":0.017158,
+            "Al":0.955163,
+            "Si":0.002801,
+            "Ti":0.000494,
+            "Cr":0.000305,
+            "Mn":0.003036,
+            "Fe":0.001409,
+            "Cu":0.019031,
+            "Zn":0.000604
+        }
+    },
+    "Aluminum, alloy 2090-T83": {
+        "density":2.59,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Li":0.083519,
+            "Mg":0.001728,
+            "Al":0.901423,
+            "Si":0.000596,
+            "Ti":0.000527,
+            "Cr":0.000164,
+            "Mn":0.000155,
+            "Fe":0.00036,
+            "Cu":0.010947,
+            "Zn":0.000256,
+            "Zr":0.000325
+        }
+    },
+    "Aluminum, alloy 3003": {
+        "density":2.73,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Al":0.987924,
+            "Si":0.00322,
+            "Mn":0.006198,
+            "Fe":0.001893,
+            "Cu":0.000536,
+            "Zn":0.000229
+        }
+    },
+    "Aluminum, alloy 4043-O": {
+        "density":2.69,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Be":1.5e-05,
+            "Mg":0.000313,
+            "Al":0.94497,
+            "Si":0.050757,
+            "Ti":0.000641,
+            "Mn":0.000138,
+            "Fe":0.002203,
+            "Cu":0.000726,
+            "Zn":0.000237
+        }
+    },
+    "Aluminum, alloy 5086-O": {
+        "density":2.66,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Mg":0.044473,
+            "Al":0.947944,
+            "Si":0.002059,
+            "Ti":0.000452,
+            "Cr":0.00078,
+            "Mn":0.002213,
+            "Fe":0.001297,
+            "Cu":0.00023,
+            "Zn":0.000554
+        }
+    },
+    "Aluminum, alloy 6061-O": {
+        "density":2.7,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Mg":0.011162,
+            "Al":0.977325,
+            "Si":0.005796,
+            "Ti":0.000499,
+            "Cr":0.001017,
+            "Mn":0.000435,
+            "Fe":0.001987,
+            "Cu":0.001174,
+            "Zn":0.000606
+        }
+    },
+    "Aluminum, alloy 7075-O": {
+        "density":2.81,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Mg":0.029014,
+            "Al":0.933062,
+            "Si":0.00235,
+            "Ti":0.000689,
+            "Cr":0.001248,
+            "Mn":0.000904,
+            "Fe":0.00148,
+            "Cu":0.007102,
+            "Zn":0.02415
+        }
+    },
+    "Ammonia (liquid at T= -79 C)": {
+        "density":0.771,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.749992,
+            "N":0.250008
+        }
+    },
+    "Anthracene": {
+        "density":1.25,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.416667,
+            "C":0.583333
+        }
+    },
+    "Argon": {
+        "density":0.001662,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Ar":1.0
+        }
+    },
+    "Asphalt": {
+        "density":1.3,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.586755,
+            "C":0.402588,
+            "N":0.002463,
+            "O":0.001443,
+            "S":0.006704,
+            "V":4.4e-05,
+            "Ni":3e-06
+        }
+    },
+    "Asphalt pavement": {
+        "density":2.5784,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.134043,
+            "C":0.110118,
+            "N":0.00045,
+            "O":0.49822,
+            "Na":0.008805,
+            "Mg":0.015543,
+            "Al":0.032824,
+            "Si":0.143098,
+            "S":0.001519,
+            "K":0.007575,
+            "Ca":0.036595,
+            "Ti":0.001235,
+            "V":8e-06,
+            "Mn":0.000115,
+            "Fe":0.009755,
+            "Ni":1e-06,
+            "Pb":9.9e-05
+        }
+    },
+    "Bakelite": {
+        "density":1.25,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.431814,
+            "C":0.488641,
+            "O":0.079544
+        }
+    },
+    "Barium Fluoride": {
+        "density":4.89,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "F":0.666662,
+            "Ba":0.333338
+        }
+    },
+    "Barium sulfate": {
+        "density":4.5,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.666682,
+            "S":0.166644,
+            "Ba":0.166674
+        }
+    },
+    "Benzene": {
+        "density":0.8765,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.499983,
+            "C":0.500017
+        }
+    },
+    "Beryllium": {
+        "density":1.848,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Be":1.0
+        }
+    },
+    "Beryllium Carbide": {
+        "density":1.9,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Be":0.666667,
+            "C":0.333333
+        }
+    },
+    "Beryllium Oxide": {
+        "density":3.01,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Be":0.5,
+            "O":0.5
+        }
+    },
+    "Bismuth": {
+        "density":9.747,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Bi":1.0
+        }
+    },
+    "Bismuth Germanate (BGO)": {
+        "density":7.13,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.631647,
+            "Ge":0.157804,
+            "Bi":0.210549
+        }
+    },
+    "Blood (ICRP)": {
+        "density":1.06,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.634604,
+            "C":0.052291,
+            "N":0.013288,
+            "O":0.298046,
+            "Na":0.000505,
+            "Mg":1e-05,
+            "Si":7e-06,
+            "P":7.1e-05,
+            "S":0.000362,
+            "Cl":0.000492,
+            "K":0.000262,
+            "Ca":9e-06,
+            "Fe":5.2e-05,
+            "Zn":1e-06
+        }
+    },
+    "Bone Equivalent Plastic, B-100": {
+        "density":1.45,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.513809,
+            "C":0.35363,
+            "N":0.012142,
+            "O":0.015863,
+            "F":0.069703,
+            "Ca":0.034853
+        }
+    },
+    "Bone Equivalent Plastic, B-110": {
+        "density":1.785,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.386404,
+            "C":0.335506,
+            "N":0.031096,
+            "O":0.031063,
+            "F":0.143964,
+            "Ca":0.071967
+        }
+    },
+    "Bone, Compact (ICRU)": {
+        "density":1.85,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.527886,
+            "C":0.192478,
+            "N":0.01603,
+            "O":0.213109,
+            "Mg":0.000684,
+            "P":0.018794,
+            "S":0.000519,
+            "Ca":0.030501
+        }
+    },
+    "Bone, Cortical (ICRP)": {
+        "density":1.85,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.475389,
+            "C":0.121904,
+            "N":0.030412,
+            "O":0.282848,
+            "Mg":0.000918,
+            "P":0.03438,
+            "S":0.000997,
+            "Ca":0.053137,
+            "Zn":1.6e-05
+        }
+    },
+    "Boral (65% Al-35% B4C)": {
+        "density":2.53,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.454507,
+            "C":0.113475,
+            "Al":0.432018
+        }
+    },
+    "Boral (Aluminum 10% boron alloy)": {
+        "density":2.6,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.217879,
+            "Na":0.005123,
+            "Al":0.767366,
+            "Si":0.002097,
+            "K":0.006025,
+            "Ti":0.000246,
+            "Fe":0.001265
+        }
+    },
+    "Boral (Aluminum 5% boron alloy)": {
+        "density":2.6,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.116547,
+            "Na":0.005481,
+            "Al":0.868116,
+            "Si":0.001794,
+            "K":0.006445,
+            "Ti":0.000263,
+            "Fe":0.001354
+        }
+    },
+    "Borax": {
+        "density":1.73,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.465116,
+            "B":0.093023,
+            "O":0.395349,
+            "Na":0.046512
+        }
+    },
+    "Boric Acid": {
+        "density":1.5,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.428571,
+            "B":0.142857,
+            "O":0.428571
+        }
+    },
+    "Boron": {
+        "density":2.37,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":1.0
+        }
+    },
+    "Boron Carbide (B4C)": {
+        "density":2.52,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.799981,
+            "C":0.200019
+        }
+    },
+    "Boron Fluoride (B2F4)": {
+        "density":0.004058,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.333333,
+            "F":0.666667
+        }
+    },
+    "Boron Fluoride (BF3)": {
+        "density":0.002831,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.25,
+            "F":0.75
+        }
+    },
+    "Boron Oxide": {
+        "density":1.812,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.399978,
+            "O":0.600022
+        }
+    },
+    "Brain (ICRP)": {
+        "density":1.03,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.654712,
+            "C":0.062268,
+            "N":0.005654,
+            "O":0.274952,
+            "Na":0.000477,
+            "Mg":3.7e-05,
+            "P":0.000682,
+            "S":0.000329,
+            "Cl":0.000397,
+            "K":0.000473,
+            "Ca":1.3e-05,
+            "Fe":5e-06,
+            "Zn":1e-06
+        }
+    },
+    "Brass (typical composition)": {
+        "density":8.07,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Fe":0.001002,
+            "Cu":0.674918,
+            "Zn":0.320956,
+            "Sn":0.001451,
+            "Pb":0.001673
+        }
+    },
+    "Brick, Common Silica": {
+        "density":1.8,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.663432,
+            "AL":0.003747,
+            "Si":0.323225,
+            "Ca":0.007063,
+            "Fe":0.002534
+        }
+    },
+    "Brick, Fire": {
+        "density":2.1,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.636337,
+            "Mg":0.005057,
+            "Al":0.160955,
+            "Si":0.183803,
+            "Ca":0.003578,
+            "Ti":0.005135,
+            "Fe":0.005135
+        }
+    },
+    "Brick, Kaolin (white)": {
+        "density":2.1,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.635745,
+            "Mg":0.001008,
+            "Al":0.181264,
+            "Si":0.175771,
+            "Ca":0.000362,
+            "Ti":0.004323,
+            "Fe":0.001526
+        }
+    },
+    "Bronze (typical composition)": {
+        "density":8.4,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Al":0.065613,
+            "Si":0.007378,
+            "Mn":0.004015,
+            "Fe":0.011344,
+            "Ni":0.007103,
+            "Cu":0.853667,
+            "Zn":0.03419,
+            "Sn":0.012809,
+            "Pb":0.003881
+        }
+    },
+    "C-552 Air-Equivalent Plastic": {
+        "density":1.76,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.268599,
+            "C":0.458133,
+            "O":0.003104,
+            "F":0.268612,
+            "Si":0.001552
+        }
+    },
+    "Cadmium": {
+        "density":8.65,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Cd":1.0
+        }
+    },
+    "Cadmium Nitrate Tetrahydrate": {
+        "density":2.45,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.380952,
+            "N":0.095238,
+            "O":0.47619,
+            "Cd":0.047619
+        }
+    },
+    "Cadmium Telluride": {
+        "density":6.2,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Cd":0.499997,
+            "Te":0.500003
+        }
+    },
+    "Cadmium Tungstate (CWO)": {
+        "density":7.9,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.666662,
+            "Cd":0.166664,
+            "W":0.166674
+        }
+    },
+    "Calcium Carbonate": {
+        "density":2.8,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.200002,
+            "O":0.599991,
+            "Ca":0.200007
+        }
+    },
+    "Calcium Fluoride": {
+        "density":3.18,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "F":0.666655,
+            "Ca":0.333345
+        }
+    },
+    "Calcium Oxide": {
+        "density":3.3,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.499987,
+            "Ca":0.500013
+        }
+    },
+    "Calcium Sulfate": {
+        "density":2.96,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.666678,
+            "S":0.166644,
+            "Ca":0.166678
+        }
+    },
+    "Carbon Dioxide": {
+        "density":0.001842,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.333333,
+            "O":0.666667
+        }
+    },
+    "Carbon Tetrachloride": {
+        "density":1.594,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.200003,
+            "Cl":0.799997
+        }
+    },
+    "Carbon, Activated": {
+        "density":0.32,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":1e-06,
+            "C":0.999999
+        }
+    },
+    "Carbon, Amorphous": {
+        "density":2.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":1e-06,
+            "C":0.999999
+        }
+    },
+    "Carbon, Graphite (reactor grade)": {
+        "density":1.7,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":1e-06,
+            "C":0.999999
+        }
+    },
+    "Cat litter (clumping)": {
+        "density":1.1,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.437442,
+            "O":0.437316,
+            "Na":0.003988,
+            "Al":0.039761,
+            "Si":0.079505,
+            "Ca":0.001988
+        }
+    },
+    "Cat litter (non-clumping)": {
+        "density":1.1,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.213314,
+            "O":0.528366,
+            "Na":0.029469,
+            "Mg":0.03251,
+            "Al":0.030252,
+            "Si":0.163444,
+            "K":0.001508,
+            "Ca":0.000524,
+            "Fe":0.000613
+        }
+    },
+    "Cellulose Acetate": {
+        "density":1.42,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.476179,
+            "C":0.285724,
+            "O":0.238097
+        }
+    },
+    "Celotex": {
+        "density":0.24,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.47619,
+            "C":0.285714,
+            "O":0.238095
+        }
+    },
+    "Ceric Sulfate Dosimeter Solution": {
+        "density":1.03,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.659087,
+            "N":0.000353,
+            "O":0.337656,
+            "S":0.002816,
+            "Ce":8.8e-05
+        }
+    },
+    "Cerium Fluoride": {
+        "density":6.16,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "F":0.75,
+            "Ce":0.25
+        }
+    },
+    "Cesium Iodide": {
+        "density":4.51,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "I":0.5,
+            "Cs":0.5
+        }
+    },
+    "Chromium": {
+        "density":7.18,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Cr":1.0
+        }
+    },
+    "Clay": {
+        "density":2.2,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.6333,
+            "Na":0.006923,
+            "Mg":0.009202,
+            "Al":0.094689,
+            "Si":0.219134,
+            "P":7.6e-05,
+            "K":0.01093,
+            "Ca":0.009895,
+            "Ti":0.00204,
+            "Mn":2.4e-05,
+            "Fe":0.013787
+        }
+    },
+    "Coal, Anthracite": {
+        "density":0.84,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.228612,
+            "C":0.74902,
+            "N":0.006169,
+            "O":0.014402,
+            "S":0.001797
+        }
+    },
+    "Coal, Bituminous": {
+        "density":0.75,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.421425,
+            "C":0.533649,
+            "N":0.008665,
+            "O":0.033186,
+            "S":0.003075
+        }
+    },
+    "Coal, Lignite": {
+        "density":0.75,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.357505,
+            "C":0.519319,
+            "N":0.00735,
+            "O":0.11422,
+            "S":0.001605
+        }
+    },
+    "Concrete, Barite (Type BA)": {
+        "density":3.35,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.109602,
+            "O":0.600189,
+            "Mg":0.001515,
+            "Al":0.004777,
+            "Si":0.011473,
+            "S":0.103654,
+            "Ca":0.038593,
+            "Fe":0.026213,
+            "Ba":0.103983
+        }
+    },
+    "Concrete, Barytes-Limonite": {
+        "density":3.36,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.235416,
+            "O":0.548162,
+            "Na":0.000911,
+            "Mg":0.002201,
+            "Al":0.004311,
+            "Si":0.011182,
+            "S":0.054993,
+            "Ca":0.03117,
+            "Mn":0.000593,
+            "Fe":0.056903,
+            "Ba":0.054157
+        }
+    },
+    "Concrete, Boron Frits-baryte": {
+        "density":3.1,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.147522,
+            "B":0.025543,
+            "O":0.560939,
+            "F":0.003215,
+            "Na":0.013975,
+            "Mg":0.002513,
+            "Al":0.006298,
+            "Si":0.031293,
+            "S":0.075769,
+            "K":0.000679,
+            "Ca":0.041474,
+            "Mn":9.7e-05,
+            "Fe":0.010413,
+            "Zn":0.002679,
+            "Ba":0.077592
+        }
+    },
+    "Concrete, Colemanite-baryte": {
+        "density":3.2,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.208729,
+            "B":0.022437,
+            "O":0.539754,
+            "Na":0.001184,
+            "Mg":0.00224,
+            "Al":0.005596,
+            "Si":0.015511,
+            "S":0.074335,
+            "Ca":0.052247,
+            "Mn":4.5e-05,
+            "Fe":0.004565,
+            "Ba":0.073356
+        }
+    },
+    "Concrete, Ferro-phosphorus": {
+        "density":4.8,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.158643,
+            "O":0.207881,
+            "Mg":0.002632,
+            "Al":0.004741,
+            "Si":0.038715,
+            "P":0.203403,
+            "Ca":0.033514,
+            "Fe":0.350471
+        }
+    },
+    "Concrete, Hanford Dry": {
+        "density":2.18,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.07844,
+            "O":0.595591,
+            "Na":0.001864,
+            "Mg":0.011462,
+            "Al":0.050831,
+            "Si":0.19533,
+            "K":0.006577,
+            "Ca":0.039567,
+            "Fe":0.020338
+        }
+    },
+    "Concrete, Hanford Wet": {
+        "density":2.35,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.20517,
+            "O":0.539084,
+            "Na":0.001463,
+            "Mg":0.008993,
+            "Al":0.03988,
+            "Si":0.15325,
+            "K":0.00516,
+            "Ca":0.031043,
+            "Fe":0.015956
+        }
+    },
+    "Concrete, Iron-limonite": {
+        "density":4.4,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.018192,
+            "O":0.412591,
+            "Mg":0.003018,
+            "Al":0.006796,
+            "Si":0.018281,
+            "S":0.001144,
+            "Ca":0.055818,
+            "Mn":0.010681,
+            "Fe":0.47348
+        }
+    },
+    "Concrete, Iron-Portland": {
+        "density":5.9,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.135585,
+            "O":0.150644,
+            "Mg":0.002215,
+            "Al":0.005065,
+            "Si":0.013418,
+            "S":0.000646,
+            "Ca":0.040919,
+            "Mn":0.002638,
+            "Fe":0.648869
+        }
+    },
+    "Concrete, Limonite and steel": {
+        "density":4.54,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.20964,
+            "O":0.301631,
+            "Mg":0.001963,
+            "Al":0.007326,
+            "Si":0.016261,
+            "K":0.000697,
+            "Ca":0.04439,
+            "V":0.000535,
+            "Fe":0.417557
+        }
+    },
+    "Concrete, Los Alamos (MCNP)": {
+        "density":2.25,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.084739,
+            "O":0.604079,
+            "Na":0.012523,
+            "Al":0.024842,
+            "Si":0.241921,
+            "Ca":0.027244,
+            "Fe":0.004652
+        }
+    },
+    "Concrete, Luminite-colemanite-baryte": {
+        "density":3.1,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.247678,
+            "B":0.018643,
+            "O":0.528939,
+            "Na":0.001096,
+            "Mg":0.001319,
+            "Al":0.01494,
+            "Si":0.007829,
+            "S":0.064713,
+            "Ca":0.031316,
+            "Ti":0.006077,
+            "Mn":0.0005,
+            "Fe":0.012591,
+            "Ba":0.06436
+        }
+    },
+    "Concrete, Luminite-Portland-colemanite-baryte": {
+        "density":3.1,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.24827,
+            "B":0.021464,
+            "O":0.525811,
+            "Na":0.001088,
+            "Mg":0.001872,
+            "Al":0.011129,
+            "Si":0.012069,
+            "S":0.06364,
+            "Ca":0.043537,
+            "Ti":0.000337,
+            "Mn":0.000166,
+            "Fe":0.007618,
+            "Ba":0.062999
+        }
+    },
+    "Concrete, M-1": {
+        "density":4.5,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.244686,
+            "B":0.025664,
+            "O":0.206174,
+            "Mg":0.054542,
+            "Cl":0.018261,
+            "Mn":0.001683,
+            "Ca":0.008461,
+            "Fe":0.440528
+        }
+    },
+    "Concrete, Magnetite": {
+        "density":3.53,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.082371,
+            "O":0.551004,
+            "Mg":0.010248,
+            "Al":0.023218,
+            "Si":0.024455,
+            "S":0.001177,
+            "Ca":0.04727,
+            "Ti":0.030275,
+            "V":0.00163,
+            "Cr":0.000871,
+            "Mn":0.000962,
+            "Fe":0.226519
+        }
+    },
+    "Concrete, Magnetite and steel": {
+        "density":4.64,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.086069,
+            "O":0.314488,
+            "Mg":0.005516,
+            "Al":0.01403,
+            "Si":0.020499,
+            "Ca":0.050769,
+            "Ti":0.012192,
+            "V":0.000464,
+            "Fe":0.495972
+        }
+    },
+    "Concrete, Magnuson": {
+        "density":2.147,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.059733,
+            "C":0.159071,
+            "O":0.566258,
+            "Na":0.001113,
+            "Mg":0.070307,
+            "Al":0.005284,
+            "Si":0.027193,
+            "S":0.001405,
+            "Cl":0.000268,
+            "K":0.004382,
+            "Ca":0.102437,
+            "Ti":0.000564,
+            "Mn":0.000169,
+            "Fe":0.001817
+        }
+    },
+    "Concrete, MO": {
+        "density":5.5,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.187558,
+            "O":0.141791,
+            "Mg":0.057558,
+            "Mn":0.002753,
+            "Cl":0.013864,
+            "Fe":0.596476
+        }
+    },
+    "Concrete, Oak Ridge (ORNL)": {
+        "density":2.3,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.106691,
+            "C":0.25354,
+            "O":0.445629,
+            "Na":0.000205,
+            "Mg":0.023349,
+            "Al":0.006977,
+            "Si":0.021339,
+            "K":0.000506,
+            "Ca":0.139343,
+            "Fe":0.002423
+        }
+    },
+    "Concrete, Ordinary (NBS 03)": {
+        "density":2.35,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.149867,
+            "C":0.074204,
+            "O":0.526832,
+            "Mg":0.017713,
+            "Al":0.023794,
+            "Si":0.091972,
+            "S":0.001649,
+            "K":0.000773,
+            "Ca":0.10968,
+            "Fe":0.003516
+        }
+    },
+    "Concrete, Ordinary (NBS 04)": {
+        "density":2.35,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.103586,
+            "O":0.58481,
+            "Na":0.013974,
+            "Mg":0.001983,
+            "Al":0.03185,
+            "Si":0.210755,
+            "S":0.000751,
+            "K":0.009244,
+            "Ca":0.038877,
+            "Fe":0.004171
+        }
+    },
+    "Concrete, Ordinary (NIST)": {
+        "density":2.3,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.30533,
+            "C":0.00288,
+            "O":0.500407,
+            "Na":0.009212,
+            "Mg":0.000725,
+            "Al":0.010298,
+            "Si":0.151042,
+            "K":0.003578,
+            "Ca":0.014924,
+            "Fe":0.001605
+        }
+    },
+    "Concrete, Portland": {
+        "density":2.3,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.168759,
+            "C":0.001416,
+            "O":0.562524,
+            "Na":0.011838,
+            "Mg":0.0014,
+            "Al":0.021354,
+            "Si":0.204115,
+            "K":0.005656,
+            "Ca":0.018674,
+            "Fe":0.004264
+        }
+    },
+    "Concrete, Regular": {
+        "density":2.3,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.168038,
+            "O":0.563183,
+            "Na":0.021365,
+            "Al":0.021343,
+            "Si":0.203231,
+            "Ca":0.018595,
+            "Fe":0.004246
+        }
+    },
+    "Concrete, Rocky Flats": {
+        "density":2.32,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.133302,
+            "C":0.082334,
+            "N":0.000256,
+            "O":0.542947,
+            "Na":0.004909,
+            "Mg":0.009213,
+            "Al":0.014408,
+            "Si":0.098869,
+            "S":0.001062,
+            "K":0.006277,
+            "Ca":0.102809,
+            "Ti":0.000374,
+            "Fe":0.00324
+        }
+    },
+    "Concrete, Serpentine": {
+        "density":2.1,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.246195,
+            "C":0.001181,
+            "O":0.498977,
+            "Na":0.002776,
+            "Mg":0.086638,
+            "Al":0.011036,
+            "Si":0.116124,
+            "K":0.001632,
+            "Ca":0.026536,
+            "Cr":0.000273,
+            "Fe":0.008633
+        }
+    },
+    "Copper": {
+        "density":8.96,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Cu":1.0
+        }
+    },
+    "Diatomaceous Earth": {
+        "density":0.22,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.151312,
+            "O":0.581761,
+            "Na":0.00733,
+            "Mg":0.001943,
+            "Al":0.009834,
+            "Si":0.239358,
+            "K":0.004823,
+            "Ca":0.001676,
+            "Fe":0.001962
+        }
+    },
+    "Earth, Typical Western U.S.": {
+        "density":1.52,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.316855,
+            "O":0.501581,
+            "Al":0.039951,
+            "Si":0.141613
+        }
+    },
+    "Earth, U.S. Average": {
+        "density":1.52,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.670604,
+            "Na":0.005578,
+            "Mg":0.011432,
+            "Al":0.053073,
+            "Si":0.201665,
+            "K":0.007653,
+            "Ca":0.026664,
+            "Ti":0.002009,
+            "Mn":0.000272,
+            "Fe":0.02105
+        }
+    },
+    "Ethane": {
+        "density":0.001253,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.75,
+            "C":0.25
+        }
+    },
+    "Ethyl Acetate": {
+        "density":0.901,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.571429,
+            "C":0.285714,
+            "O":0.142857
+        }
+    },
+    "Ethyl Alcohol": {
+        "density":0.7893,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.666654,
+            "C":0.222232,
+            "O":0.111113
+        }
+    },
+    "Ethylene": {
+        "density":0.001175,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.666653,
+            "C":0.333347
+        }
+    },
+    "Ethylene Glycol": {
+        "density":1.114,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.6,
+            "C":0.2,
+            "O":0.2
+        }
+    },
+    "Explosive compound, AN": {
+        "density":1.72,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.444444,
+            "N":0.222222,
+            "O":0.333333
+        }
+    },
+    "Explosive compound, EGDN": {
+        "density":1.49,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.285714,
+            "C":0.142857,
+            "N":0.142857,
+            "O":0.428571
+        }
+    },
+    "Explosive compound, HMX": {
+        "density":1.89,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.285714,
+            "C":0.142857,
+            "N":0.285714,
+            "O":0.285714
+        }
+    },
+    "Explosive compound, NC": {
+        "density":1.49,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.300771,
+            "C":0.234383,
+            "N":0.089844,
+            "O":0.375002
+        }
+    },
+    "Explosive compound, NG": {
+        "density":1.6,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.25,
+            "C":0.15,
+            "N":0.15,
+            "O":0.45
+        }
+    },
+    "Explosive compound, PETN": {
+        "density":1.77,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.275862,
+            "C":0.172414,
+            "N":0.137931,
+            "O":0.413793
+        }
+    },
+    "Explosive compound, RDX": {
+        "density":1.82,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.285714,
+            "C":0.142857,
+            "N":0.285714,
+            "O":0.285714
+        }
+    },
+    "Explosive compound, TNT": {
+        "density":1.65,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.238095,
+            "C":0.333333,
+            "N":0.142857,
+            "O":0.285714
+        }
+    },
+    "Eye Lens (ICRP)": {
+        "density":1.1,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.618329,
+            "C":0.101257,
+            "N":0.023877,
+            "O":0.256537
+        }
+    },
+    "Felt": {
+        "density":0.185,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.384052,
+            "C":0.316901,
+            "N":0.11036,
+            "O":0.188686
+        }
+    },
+    "Ferric Oxide": {
+        "density":5.2,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.599991,
+            "Fe":0.400009
+        }
+    },
+    "Ferrous Sulfate Dosimeter Solution": {
+        "density":1.024,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.660018,
+            "N":1.2e-05,
+            "O":0.337467,
+            "Na":6e-06,
+            "S":0.002485,
+            "Cl":6e-06,
+            "Fe":6e-06
+        }
+    },
+    "Fertilizer (Muriate of Potash)": {
+        "density":1.27,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.001849,
+            "O":0.001658,
+            "Na":0.013643,
+            "Mg":0.000313,
+            "S":0.000183,
+            "Cl":0.498162,
+            "K":0.483786,
+            "Ca":0.000254,
+            "Br":0.000153
+        }
+    },
+    "Fiberglass, Type C": {
+        "density":2.49,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.035039,
+            "O":0.609968,
+            "Na":0.052479,
+            "Mg":0.015131,
+            "Al":0.01595,
+            "Si":0.219918,
+            "S":0.000254,
+            "Ca":0.050751,
+            "Fe":0.000509
+        }
+    },
+    "Fiberglass, Type E": {
+        "density":2.565,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.043757,
+            "O":0.611965,
+            "F":0.005345,
+            "Na":0.006554,
+            "Mg":0.012597,
+            "Al":0.055772,
+            "Si":0.182528,
+            "K":0.004312,
+            "Ca":0.074244,
+            "Ti":0.001907,
+            "Fe":0.001017
+        }
+    },
+    "Fiberglass, Type R": {
+        "density":2.55,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.628478,
+            "Mg":0.030755,
+            "Al":0.101309,
+            "Si":0.206302,
+            "Ca":0.033156
+        }
+    },
+    "Freon-12": {
+        "density":1.12,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.200004,
+            "F":0.399998,
+            "Cl":0.399998
+        }
+    },
+    "Freon-12B2": {
+        "density":1.8,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.200003,
+            "F":0.399999,
+            "Br":0.399999
+        }
+    },
+    "Freon-13": {
+        "density":0.95,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.200004,
+            "F":0.599997,
+            "Cl":0.199999
+        }
+    },
+    "Freon-13B1": {
+        "density":1.5,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.200003,
+            "F":0.599998,
+            "Br":0.199999
+        }
+    },
+    "Freon-13I1": {
+        "density":1.8,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.200005,
+            "F":0.599996,
+            "I":0.199999
+        }
+    },
+    "Gadolinium": {
+        "density":7.9004,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Gd":1.0
+        }
+    },
+    "Gadolinium Oxysulfide": {
+        "density":7.44,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.400012,
+            "S":0.199976,
+            "Gd":0.400012
+        }
+    },
+    "Gadolinium Silicate (GSO)": {
+        "density":6.71,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.625,
+            "Si":0.125,
+            "Gd":0.25
+        }
+    },
+    "Gafchromic Sensor (GS)": {
+        "density":1.3,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.558087,
+            "C":0.316304,
+            "N":0.050234,
+            "O":0.075374
+        }
+    },
+    "Gallium Arsenide": {
+        "density":5.31,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Ga":0.5,
+            "As":0.5
+        }
+    },
+    "Gasoline": {
+        "density":0.721,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.689368,
+            "C":0.310632
+        }
+    },
+    "Germanium, High Purity": {
+        "density":5.323,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Ge":1.0
+        }
+    },
+    "Glass Scintillator, Li Doped  (GS1, GS2, GS3)": {
+        "density":2.66,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Li":0.078133,
+            "O":0.581195,
+            "Mg":0.115854,
+            "Al":0.04198,
+            "Si":0.178096,
+            "Ce":0.004742
+        }
+    },
+    "Glass Scintillator, Li Doped  (GS10, GS20, GS30)": {
+        "density":2.5,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Li":0.209694,
+            "O":0.545112,
+            "Mg":0.017274,
+            "Al":0.061454,
+            "Si":0.162223,
+            "Ce":0.004242
+        }
+    },
+    "Glass Scintillator, Li Doped  (GSF1)": {
+        "density":2.42,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Li":0.124299,
+            "O":0.585945,
+            "Na":0.014383,
+            "Al":0.06557,
+            "Si":0.207087,
+            "Ce":0.002716
+        }
+    },
+    "Glass Scintillator, Li Doped  (KG1, KG2, KG3)": {
+        "density":2.42,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Li":0.239068,
+            "O":0.546269,
+            "Si":0.209481,
+            "Ce":0.005182
+        }
+    },
+    "Glass, Borosilicate (Pyrex Glass)": {
+        "density":2.23,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.070449,
+            "O":0.641095,
+            "Na":0.023311,
+            "Al":0.008204,
+            "Si":0.255327,
+            "K":0.001615
+        }
+    },
+    "Glass, Foam": {
+        "density":0.128,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.018718,
+            "B":0.026176,
+            "O":0.629684,
+            "Na":0.132122,
+            "Si":0.187416,
+            "S":0.005884
+        }
+    },
+    "Glass, Lead": {
+        "density":6.22,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.592955,
+            "Si":0.174592,
+            "Ti":0.010251,
+            "As":0.002146,
+            "Pb":0.220056
+        }
+    },
+    "Glass, Plate": {
+        "density":2.4,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.603858,
+            "Na":0.088145,
+            "Si":0.251791,
+            "Ca":0.056205
+        }
+    },
+    "Glycerol": {
+        "density":1.2613,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.571417,
+            "C":0.214294,
+            "O":0.214289
+        }
+    },
+    "Gold": {
+        "density":19.32,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Au":1.0
+        }
+    },
+    "Gypsum (Plaster of Paris)": {
+        "density":2.32,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.333321,
+            "O":0.500014,
+            "S":0.083324,
+            "Ca":0.083341
+        }
+    },
+    "He-3 proportional gas": {
+        "density":0.000125,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "He3":1.0
+        }
+    },
+    "Helium, Natural": {
+        "density":0.000166,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "He":1.0
+        }
+    },
+    "Hydrogen": {
+        "density":8.4e-05,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":1.0
+        }
+    },
+    "Incoloy-800": {
+        "density":7.94,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.002984,
+            "Al":0.007663,
+            "Si":0.01276,
+            "S":0.000172,
+            "Ti":0.004319,
+            "Cr":0.222681,
+            "Mn":0.009785,
+            "Fe":0.430099,
+            "Ni":0.305302,
+            "Cu":0.004234
+        }
+    },
+    "Inconel-600": {
+        "density":8.47,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.004642,
+            "Si":0.006583,
+            "S":0.000177,
+            "Cr":0.169591,
+            "Mn":0.006731,
+            "Fe":0.081498,
+            "Ni":0.727867,
+            "Cu":0.00291
+        }
+    },
+    "Inconel-625": {
+        "density":8.44,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.133302,
+            "C":0.082334,
+            "N":0.000256,
+            "O":0.542947,
+            "Na":0.004909,
+            "Mg":0.009213,
+            "Al":0.014408,
+            "Si":0.098869,
+            "S":0.001062,
+            "K":0.006277,
+            "Ca":0.102809,
+            "Ti":0.000374,
+            "Fe":0.00324
+        }
+    },
+    "Inconel-718": {
+        "density":8.19,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.000267,
+            "C":0.003507,
+            "Al":0.010694,
+            "Si":0.006534,
+            "P":0.000261,
+            "S":0.000252,
+            "Ti":0.01085,
+            "Cr":0.210871,
+            "Mn":0.00334,
+            "Fe":0.175671,
+            "Ni":0.516184,
+            "Co":0.008911,
+            "Cu":0.002479,
+            "Nb":0.031833,
+            "Mo":0.018346
+        }
+    },
+    "Indium": {
+        "density":7.31,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "In":1.0
+        }
+    },
+    "Iron": {
+        "density":7.874,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Fe":1.0
+        }
+    },
+    "Iron Boride (Fe2B)": {
+        "density":7.3,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.333333,
+            "Fe":0.666667
+        }
+    },
+    "Iron Boride (FeB)": {
+        "density":7.15,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.499969,
+            "Fe":0.500031
+        }
+    },
+    "Iron, Armco Ingot": {
+        "density":7.866,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.000556,
+            "O":0.003826,
+            "P":9e-05,
+            "S":0.000434,
+            "Mn":0.000172,
+            "Fe":0.994921
+        }
+    },
+    "Iron, Cast (gray)": {
+        "density":7.15,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.137104,
+            "Si":0.044836,
+            "P":0.004691,
+            "S":0.00151,
+            "Mn":0.00573,
+            "Fe":0.806128
+        }
+    },
+    "Iron, Wrought (Byers No.1)": {
+        "density":7.7,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.003746,
+            "Si":0.003164,
+            "P":0.001126,
+            "S":0.000175,
+            "Mn":0.000154,
+            "Fe":0.991636
+        }
+    },
+    "Kaowool": {
+        "density":0.096,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.000468,
+            "O":0.636102,
+            "Al":0.179644,
+            "Si":0.176542,
+            "Ca":0.000363,
+            "Ti":0.004332,
+            "Fe":0.002549
+        }
+    },
+    "Kapton Polyimide Film": {
+        "density":1.42,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.256399,
+            "C":0.564114,
+            "N":0.051282,
+            "O":0.128205
+        }
+    },
+    "Kennertium": {
+        "density":16.8,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Ni":0.191007,
+            "Cu":0.294036,
+            "W":0.514957
+        }
+    },
+    "Kernite": {
+        "density":1.95,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.32,
+            "B":0.16,
+            "O":0.44,
+            "Na":0.08
+        }
+    },
+    "Kerosene": {
+        "density":0.819,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.694164,
+            "C":0.305836
+        }
+    },
+    "Krypton": {
+        "density":0.003478,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Kr":1.0
+        }
+    },
+    "Kynar": {
+        "density":1.79,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.333333,
+            "C":0.333333,
+            "F":0.333333
+        }
+    },
+    "Lead": {
+        "density":11.35,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Pb":1.0
+        }
+    },
+    "Lead Tungstate (PWO)": {
+        "density":8.24,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.666667,
+            "W":0.166667,
+            "Pb":0.166667
+        }
+    },
+    "Lithium": {
+        "density":0.534,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Li":1.0
+        }
+    },
+    "Lithium Amide": {
+        "density":1.178,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.499991,
+            "Li":0.250004,
+            "N":0.250005
+        }
+    },
+    "Lithium Fluoride": {
+        "density":2.635,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Li":0.5,
+            "F":0.5
+        }
+    },
+    "Lithium Gadrium Borate (LGB)": {
+        "density":3.5,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "Li6":0.315789,
+            "B10":0.157895
+        },
+        "elements": {
+            "O":0.473684,
+            "Gd":0.052632
+        }
+    },
+    "Lithium Hydride": {
+        "density":0.82,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.499989,
+            "Li":0.500011
+        }
+    },
+    "Lithium Iodide (high density)": {
+        "density":4.08,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Li":0.499998,
+            "I":0.500002
+        }
+    },
+    "Lithium Iodide (low density)": {
+        "density":3.494,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Li":0.499998,
+            "I":0.500002
+        }
+    },
+    "Lithium Oxide": {
+        "density":2.013,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Li":0.666667,
+            "O":0.333333
+        }
+    },
+    "Lithium Tetraborate": {
+        "density":2.44,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Li":0.153851,
+            "B":0.307673,
+            "O":0.538476
+        }
+    },
+    "Lucite": {
+        "density":1.19,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.53332,
+            "C":0.333345,
+            "O":0.133335
+        }
+    },
+    "Lutetium Aluminum Garnet (LuAG)": {
+        "density":6.73,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.6,
+            "Al":0.25,
+            "Lu":0.15
+        }
+    },
+    "Lutetium Orthoaluminate (LuAP)": {
+        "density":8.4,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.6,
+            "Al":0.2,
+            "Lu":0.2
+        }
+    },
+    "Lutetium Oxyorthosilicate (LSO)": {
+        "density":7.4,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.625,
+            "Si":0.125,
+            "Lu":0.25
+        }
+    },
+    "Lutetium Yttrium OxyorthoSilicate (LYSO)": {
+        "density":7.3,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.5,
+            "Si":0.1,
+            "Y":0.2,
+            "Lu":0.2
+        }
+    },
+    "Magnesium": {
+        "density":1.74,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Mg":1.0
+        }
+    },
+    "Magnesium Oxide": {
+        "density":3.58,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.5,
+            "Mg":0.5
+        }
+    },
+    "Magnesium Tetraborate": {
+        "density":2.53,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.333313,
+            "O":0.583351,
+            "Mg":0.083336
+        }
+    },
+    "Masonite": {
+        "density":1.3,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.47619,
+            "C":0.285714,
+            "O":0.238095
+        }
+    },
+    "Melamine": {
+        "density":1.35,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.388889,
+            "C":0.277778,
+            "N":0.333333
+        }
+    },
+    "Mercury": {
+        "density":13.546,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Hg":1.0
+        }
+    },
+    "Mercury Iodide": {
+        "density":6.36,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "I":0.666667,
+            "Hg":0.333333
+        }
+    },
+    "Methane": {
+        "density":0.000667,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.8,
+            "C":0.2
+        }
+    },
+    "Methanol": {
+        "density":0.7914,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.666654,
+            "C":0.166675,
+            "O":0.166671
+        }
+    },
+    "Methylene Chloride": {
+        "density":1.3266,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.4,
+            "C":0.2,
+            "Cl":0.4
+        }
+    },
+    "Molybdenum": {
+        "density":10.22,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Mo":1.0
+        }
+    },
+    "Monosodium Titanate, MST": {
+        "density":1.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.111111,
+            "O":0.555556,
+            "Na":0.111111,
+            "Ti":0.222222
+        }
+    },
+    "Muscle Equivalent-Liquid, with sucrose": {
+        "density":1.11,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.619265,
+            "C":0.082642,
+            "N":0.016082,
+            "O":0.282011
+        }
+    },
+    "Muscle Equivalent-Liquid, without sucrose": {
+        "density":1.07,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.631883,
+            "C":0.062435,
+            "N":0.015809,
+            "O":0.289874
+        }
+    },
+    "Muscle, Skeletal": {
+        "density":1.04,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.630932,
+            "C":0.056732,
+            "N":0.012488,
+            "O":0.298107,
+            "Na":0.000206,
+            "Mg":4.9e-05,
+            "P":0.000367,
+            "S":0.000475,
+            "Cl":0.000141,
+            "K":0.000488,
+            "Ca":5e-06,
+            "Fe":5e-06,
+            "Zn":5e-06
+        }
+    },
+    "Muscle, Striated": {
+        "density":1.04,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.633101,
+            "C":0.06407,
+            "N":0.015633,
+            "O":0.285066,
+            "Na":0.000218,
+            "Mg":5.1e-05,
+            "P":0.000404,
+            "S":0.000976,
+            "K":0.00048
+        }
+    },
+    "Neon": {
+        "density":0.000839,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Ne":1.0
+        }
+    },
+    "Nickel": {
+        "density":8.902,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Ni":1.0
+        }
+    },
+    "Niobium": {
+        "density":8.57,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Nb":1.0
+        }
+    },
+    "Nitrogen": {
+        "density":0.001165,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "N":1.0
+        }
+    },
+    "Nylon, Dupont ELVAmide 8062": {
+        "density":1.08,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.593363,
+            "C":0.311934,
+            "N":0.04106,
+            "O":0.053643
+        }
+    },
+    "Nylon, Type 11 (Rilsan)": {
+        "density":1.425,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.617633,
+            "C":0.323542,
+            "N":0.029412,
+            "O":0.029412
+        }
+    },
+    "Nylon, Type 6 and Type 6/6": {
+        "density":1.14,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.578932,
+            "C":0.315803,
+            "N":0.052632,
+            "O":0.052633
+        }
+    },
+    "Nylon, Type 6/10": {
+        "density":1.14,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.599986,
+            "C":0.320013,
+            "N":0.040001,
+            "O":0.040001
+        }
+    },
+    "Oil, Crude (Heavy, Cold Lake, Canada)": {
+        "density":0.97,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.588884,
+            "C":0.39773,
+            "N":0.00163,
+            "O":0.003924,
+            "S":0.007832
+        }
+    },
+    "Oil, Crude (Heavy, Mexican)": {
+        "density":0.975,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.587752,
+            "C":0.404749,
+            "S":0.007499
+        }
+    },
+    "Oil, Crude (Heavy, Qayarah, Iraq)": {
+        "density":0.97,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.590046,
+            "C":0.391765,
+            "N":0.002914,
+            "S":0.015275
+        }
+    },
+    "Oil, Crude (Light, Texas)": {
+        "density":0.875,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.629388,
+            "C":0.36522,
+            "N":0.002578,
+            "S":0.002815
+        }
+    },
+    "Oil, Fuel (Calif.)": {
+        "density":0.955,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.633782,
+            "C":0.364349,
+            "S":0.00187
+        }
+    },
+    "Oil, Hydraulic": {
+        "density":0.871,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.392857,
+            "C":0.47619,
+            "O":0.047619,
+            "P":0.011905,
+            "Cl":0.071429
+        }
+    },
+    "Oil, Lard": {
+        "density":0.915,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.62069,
+            "C":0.344828,
+            "O":0.034483
+        }
+    },
+    "Oxygen": {
+        "density":0.001332,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":1.0
+        }
+    },
+    "P-10 gas": {
+        "density":0.001561,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.285714,
+            "C":0.071429,
+            "Ar":0.642857
+        }
+    },
+    "P-5 gas": {
+        "density":0.001611,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.166667,
+            "C":0.041667,
+            "Ar":0.791667
+        }
+    },
+    "Palladium": {
+        "density":12.02,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Pd":1.0
+        }
+    },
+    "Photographic Emulsion, Gel in": {
+        "density":1.2914,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.546952,
+            "C":0.235246,
+            "N":0.053934,
+            "O":0.161564,
+            "S":0.002304
+        }
+    },
+    "Photographic Emulsion, Kodak Type AA": {
+        "density":2.2,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.440293,
+            "C":0.255254,
+            "N":0.074899,
+            "O":0.14842,
+            "Br":0.040572,
+            "Ag":0.040562
+        }
+    },
+    "Photographic Emulsion, Standard Nuclear": {
+        "density":3.815,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.407082,
+            "C":0.175079,
+            "N":0.040139,
+            "O":0.120227,
+            "S":0.001715,
+            "Br":0.12714,
+            "Ag":0.127902,
+            "I":0.000715
+        }
+    },
+    "Platinum": {
+        "density":21.45,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Pt":1.0
+        }
+    },
+    "Plutonium Bromide": {
+        "density":6.75,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Br":0.75
+        },
+        "isotopes": {
+            "Pu238":0.000126,
+            "Pu239":0.233817,
+            "Pu240":0.014942,
+            "Pu241":0.000992,
+            "Pu242":0.000123,
+            "Am241":0.0
+        }
+    },
+    "Plutonium Carbide": {
+        "density":13.6,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.5
+        },
+        "isotopes": {
+            "Pu238":0.000251,
+            "Pu239":0.467635,
+            "Pu240":0.029883,
+            "Pu241":0.001984,
+            "Pu242":0.000247,
+            "Am241":0.0
+        }
+    },
+    "Plutonium Chloride": {
+        "density":5.71,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Cl":0.75
+        },
+        "isotopes": {
+            "Pu238":0.000126,
+            "Pu239":0.233817,
+            "Pu240":0.014942,
+            "Pu241":0.000992,
+            "Pu242":0.000123,
+            "Am241":0.0
+        }
+    },
+    "Plutonium Dioxide": {
+        "density":11.46,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.666667
+        },
+        "isotopes": {
+            "Pu238":0.000167,
+            "Pu239":0.311756,
+            "Pu240":0.019922,
+            "Pu241":0.001323,
+            "Pu242":0.000165,
+            "Am241":0.0
+        }
+    },
+    "Plutonium Flouride (PuF3)": {
+        "density":9.33,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "F":0.75
+        },
+        "isotopes": {
+            "Pu238":0.000126,
+            "Pu239":0.233817,
+            "Pu240":0.014942,
+            "Pu241":0.000992,
+            "Pu242":0.000123,
+            "Am241":0.0
+        }
+    },
+    "Plutonium Flouride (PuF4)": {
+        "density":7.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "F":0.8
+        },
+        "isotopes": {
+            "Pu238":0.0001,
+            "Pu239":0.187054,
+            "Pu240":0.011953,
+            "Pu241":0.000794,
+            "Pu242":9.9e05,
+            "Am-241":0.0
+        }
+    },
+    "Plutonium Flouride (PuF6)": {
+        "density":5.08,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "F":0.857143
+        },
+        "isotopes": {
+            "Pu238":7.2e-05,
+            "Pu239":0.13361,
+            "Pu240":0.008538,
+            "Pu241":0.000567,
+            "Pu242":7.1e-05,
+            "Am241":0.0
+        }
+    },
+    "Plutonium Iodide": {
+        "density":6.92,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "I":0.75
+        },
+        "isotopes": {
+            "Pu238":0.000126,
+            "Pu239":0.233817,
+            "Pu240":0.014942,
+            "Pu241":0.000992,
+            "Pu242":0.000123,
+            "Am241":0.0
+        }
+    },
+    "Plutonium Nitrate": {
+        "density":2.447,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "N":0.235294,
+            "O":0.705882
+        },
+        "isotopes": {
+            "Pu238":3e-05,
+            "Pu239":0.055016,
+            "Pu240":0.003516,
+            "Pu241":0.000233,
+            "Pu242":2.9e-05,
+            "Am241":0.0
+        }
+    },
+    "Plutonium Nitride": {
+        "density":14.25,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "N":0.5
+        },
+        "isotopes": {
+            "Pu238":0.000251,
+            "Pu239":0.467635,
+            "Pu240":0.029883,
+            "Pu241":0.001984,
+            "Pu242":0.000247,
+            "Am241":0.0
+        }
+    },
+    "Plutonium Oxide (Pu2O3)": {
+        "density":10.5,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.6
+        },
+        "isotopes": {
+            "Pu238":0.000201,
+            "Pu239":0.374108,
+            "Pu240":0.023907,
+            "Pu241":0.001587,
+            "Pu242":0.000198,
+            "Am241":0.0
+        }
+    },
+    "Plutonium Oxide (PuO)": {
+        "density":14.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.5
+        },
+        "isotopes": {
+            "Pu238":0.000251,
+            "Pu239":0.467635,
+            "Pu240":0.029883,
+            "Pu241":0.001984,
+            "Pu242":0.000247,
+            "Am241":0.0
+        }
+    },
+    "Plutonium, Aged WGPu (A: 4-7% Pu-240)": {
+        "density":19.84,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "Pu238":0.0001,
+            "Pu239":0.936559,
+            "Pu240":0.059677,
+            "Pu241":0.001981,
+            "Pu242":0.000296,
+            "Am241":0.001387
+        }
+    },
+    "Plutonium, Aged WGPu (B: 10-13% Pu-240)": {
+        "density":19.84,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "Pu238":0.000897,
+            "Pu239":0.86247,
+            "Pu240":0.11667,
+            "Pu241":0.009838,
+            "Pu242":0.001666,
+            "Am241":0.00846
+        }
+    },
+    "Plutonium, Aged WGPu (C: 16-19% Pu-240)": {
+        "density":19.84,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "Pu238":0.002347,
+            "Pu239":0.785422,
+            "Pu240":0.164652,
+            "Pu241":0.013905,
+            "Pu242":0.006635,
+            "Am241":0.027038
+        }
+    },
+    "Plutonium, DOE 3013 WGPu": {
+        "density":19.84,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "Pu238":0.000502,
+            "Pu239":0.935269,
+            "Pu240":0.059767,
+            "Pu241":0.003968,
+            "Pu242":0.000494
+        }
+    },
+    "Plutonium, Fuel Grade": {
+        "density":19.84,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "Pu238":0.001005,
+            "Pu239":0.861564,
+            "Pu240":0.119578,
+            "Pu241":0.015877,
+            "Pu242":0.001976
+        }
+    },
+    "Plutonium, Power Grade": {
+        "density":19.84,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "Pu238":0.009965,
+            "Pu239":0.625153,
+            "Pu240":0.217396,
+            "Pu241":0.118086,
+            "Pu242":0.029399
+        }
+    },
+    "Plutonium, Shefelbine WGPu": {
+        "density":19.84,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "Pu238":0.000301,
+            "Pu239":0.939451,
+            "Pu240":0.056777,
+            "Pu241":0.002976,
+            "Pu242":0.000296,
+            "Am241":0.000198
+        }
+    },
+    "Polycarbonate": {
+        "density":1.2,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.424226,
+            "C":0.484864,
+            "O":0.09091
+        }
+    },
+    "Polyethylene Terephthalate (PET)": {
+        "density":1.38,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.363632,
+            "C":0.454552,
+            "O":0.181816
+        }
+    },
+    "Polyethylene, Borated": {
+        "density":1.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.627759,
+            "B":0.04669,
+            "C":0.325552
+        }
+    },
+    "Polyethylene, Non-borated": {
+        "density":0.93,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.666662,
+            "C":0.333338
+        }
+    },
+    "Polyisocyanurate (PIR)": {
+        "density":0.0482,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.344828,
+            "C":0.517241,
+            "N":0.068966,
+            "O":0.068966
+        }
+    },
+    "Polypropylene (PP)": {
+        "density":0.9,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.666653,
+            "C":0.333347
+        }
+    },
+    "Polystyrene (PS)": {
+        "density":1.06,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.499994,
+            "C":0.500006
+        }
+    },
+    "Polytetrafluoroethylene (PTFE)": {
+        "density":2.25,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.333339,
+            "F":0.666661
+        }
+    },
+    "Polyurethane Foam (PUR)": {
+        "density":0.021,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.360023,
+            "C":0.400878,
+            "N":0.076459,
+            "O":0.162639
+        }
+    },
+    "Polyvinyl Acetate (PVA)": {
+        "density":1.19,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.499986,
+            "C":0.333345,
+            "O":0.166668
+        }
+    },
+    "Polyvinyl Chloride (PVC)": {
+        "density":1.406,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.499995,
+            "C":0.33334,
+            "Cl":0.166665
+        }
+    },
+    "Polyvinyl Toluene (PVT)": {
+        "density":1.032,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.525382,
+            "C":0.474618
+        }
+    },
+    "Polyvinylidene Chloride (PVDC)": {
+        "density":1.7,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.333317,
+            "C":0.333346,
+            "Cl":0.333337
+        }
+    },
+    "Potassium Aluminum Silicate": {
+        "density":1.1,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.615385,
+            "Al":0.076923,
+            "Si":0.230769,
+            "K":0.076923
+        }
+    },
+    "Potassium Iodide": {
+        "density":3.13,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "K":0.5,
+            "I":0.5
+        }
+    },
+    "Potassium Oxide": {
+        "density":2.32,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.333333,
+            "K":0.666667
+        }
+    },
+    "Propane (gas)": {
+        "density":0.001879,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.72726,
+            "C":0.27274
+        }
+    },
+    "Propane (liquid)": {
+        "density":0.43,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.72726,
+            "C":0.27274
+        }
+    },
+    "P-terphenyl": {
+        "density":1.23,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.416667,
+            "C":0.583333
+        }
+    },
+    "Radiochromic Dye Film, Nylon Base  (RDF: NB)": {
+        "density":1.08,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.589073,
+            "C":0.317171,
+            "N":0.04111,
+            "O":0.052646
+        }
+    },
+    "Rock (Average of 5 types)": {
+        "density":2.662,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.032837,
+            "C":0.044735,
+            "O":0.609276,
+            "Na":0.010774,
+            "Mg":0.019017,
+            "Al":0.040162,
+            "Si":0.175088,
+            "S":0.000359,
+            "K":0.009268,
+            "Ca":0.044775,
+            "Ti":0.001511,
+            "Mn":0.00014,
+            "Fe":0.011935,
+            "Pb":0.000121
+        }
+    },
+    "Rock, Basalt": {
+        "density":3.01,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.607469,
+            "Na":0.020797,
+            "Mg":0.037964,
+            "Al":0.068541,
+            "Si":0.18264,
+            "K":0.005027,
+            "Ca":0.037918,
+            "Ti":0.005133,
+            "Mn":0.000618,
+            "Fe":0.033592,
+            "Pb":0.000302
+        }
+    },
+    "Rock, Granite": {
+        "density":2.69,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.629769,
+            "Na":0.024738,
+            "Mg":0.00366,
+            "Al":0.058764,
+            "Si":0.249093,
+            "K":0.018174,
+            "Ca":0.006743,
+            "Ti":0.00078,
+            "Mn":0.000146,
+            "Fe":0.008033,
+            "Pb":0.000101
+        }
+    },
+    "Rock, Limestone": {
+        "density":2.61,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.017089,
+            "C":0.181445,
+            "O":0.59593,
+            "Na":0.00031,
+            "Mg":0.037715,
+            "Al":0.003019,
+            "Si":0.016653,
+            "S":0.00012,
+            "K":0.000163,
+            "Ca":0.146173,
+            "Ti":0.000145,
+            "Fe":0.001205,
+            "Pb":3.1e-05
+        }
+    },
+    "Rock, Sandstone": {
+        "density":2.32,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.034647,
+            "C":0.022161,
+            "O":0.63316,
+            "Na":0.002518,
+            "Mg":0.005807,
+            "Al":0.018365,
+            "Si":0.25419,
+            "S":0.000171,
+            "K":0.005798,
+            "Ca":0.019131,
+            "Ti":0.000488,
+            "Fe":0.003502,
+            "Pb":6.3e-05
+        }
+    },
+    "Rock, Shale": {
+        "density":2.68,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.1039,
+            "C":0.011058,
+            "O":0.5825,
+            "Na":0.007852,
+            "Mg":0.011146,
+            "Al":0.056542,
+            "Si":0.180997,
+            "S":0.001403,
+            "K":0.017089,
+            "Ca":0.010347,
+            "Ti":0.001406,
+            "Fe":0.01563,
+            "Pb":0.000129
+        }
+    },
+    "Rubber, Butyl": {
+        "density":0.92,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.666653,
+            "C":0.333347
+        }
+    },
+    "Rubber, Natural": {
+        "density":0.92,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.61537,
+            "C":0.38463
+        }
+    },
+    "Rubber, Neoprene": {
+        "density":1.23,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.499985,
+            "C":0.400014,
+            "Cl":0.100001
+        }
+    },
+    "Rubber, Silicon": {
+        "density":1.0185,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.597039,
+            "C":0.199359,
+            "O":0.104169,
+            "Si":0.099434
+        }
+    },
+    "Salt Water (T=0 C)": {
+        "density":1.209865,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.621161,
+            "O":0.310581,
+            "Na":0.034129,
+            "Cl":0.034129
+        }
+    },
+    "Salt Water (T=20 C)": {
+        "density":1.022394,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.661906,
+            "O":0.330953,
+            "Na":0.003571,
+            "Cl":0.003571
+        }
+    },
+    "Sand": {
+        "density":1.7,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.135405,
+            "C":0.004874,
+            "O":0.58389,
+            "Na":0.012932,
+            "Al":0.022215,
+            "Si":0.226483,
+            "K":0.005179,
+            "Ca":0.004874,
+            "Fe":0.004146
+        }
+    },
+    "Sea Water, Simple Artificial": {
+        "density":1.023343,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.66159,
+            "O":0.331493,
+            "Na":0.002897,
+            "Mg":0.000326,
+            "S":0.000174,
+            "Cl":0.003392,
+            "K":6.3e-05,
+            "Ca":6.4e-05
+        }
+    },
+    "Sea Water, Standard": {
+        "density":1.023343,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.661599,
+            "B":3e-06,
+            "O":0.331497,
+            "F":0.0,
+            "Na":0.002897,
+            "Mg":0.000326,
+            "S":0.000174,
+            "Cl":0.003371,
+            "K":6.3e-05,
+            "Ca":6.4e-05,
+            "Br":5e-06,
+            "Sr":1e-06
+        }
+    },
+    "Sepiolite": {
+        "density":2.14,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.297872,
+            "O":0.489362,
+            "Mg":0.085106,
+            "Si":0.12766
+        }
+    },
+    "Silicon": {
+        "density":2.33,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Si":1.0
+        }
+    },
+    "Silicon Carbide (hexagonal)": {
+        "density":3.21,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.5,
+            "Si":0.5
+        }
+    },
+    "Silicon Dioxide (Alpha-quartz)": {
+        "density":2.648,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.666667,
+            "Si":0.333333
+        }
+    },
+    "Silicon Dioxide (Silica)": {
+        "density":2.32,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.666667,
+            "Si":0.333333
+        }
+    },
+    "Silver": {
+        "density":10.5,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Ag":1.0
+        }
+    },
+    "Skin (ICRP)": {
+        "density":1.1,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.619966,
+            "C":0.118059,
+            "N":0.020589,
+            "O":0.24035,
+            "Na":1.9e-05,
+            "Mg":1.5e-05,
+            "P":6.6e-05,
+            "S":0.000308,
+            "Cl":0.000468,
+            "K":0.000135,
+            "Ca":2.3e-05,
+            "Fe":1e-06,
+            "Zn":1e-06
+        }
+    },
+    "Sodium": {
+        "density":0.971,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Na":1.0
+        }
+    },
+    "Sodium Bismuth Tungstate (NBWO)": {
+        "density":7.57,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.666667,
+            "Na":0.083333,
+            "W":0.166667,
+            "Bi":0.083333
+        }
+    },
+    "Sodium Chloride": {
+        "density":2.17,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Na":0.5,
+            "Cl":0.5
+        }
+    },
+    "Sodium Iodide": {
+        "density":3.667,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Na":0.499999,
+            "I":0.500001
+        }
+    },
+    "Sodium Nitrate": {
+        "density":2.261,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "N":0.2,
+            "O":0.6,
+            "Na":0.2
+        }
+    },
+    "Sodium Oxide": {
+        "density":2.27,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.333333,
+            "Na":0.666667
+        }
+    },
+    "Steel, Boron Stainless": {
+        "density":7.87,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "B":0.048827,
+            "C":0.00174,
+            "Si":0.009304,
+            "P":0.000388,
+            "S":0.000244,
+            "Cr":0.19096,
+            "Mn":0.009512,
+            "Fe":0.656666,
+            "Ni":0.082359
+        }
+    },
+    "Steel, Carbon": {
+        "density":7.82,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.022831,
+            "Fe":0.977169
+        }
+    },
+    "Steel, HT9 Stainless": {
+        "density":7.874,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.009183,
+            "Si":0.007854,
+            "P":0.000534,
+            "S":0.000344,
+            "V":0.003248,
+            "Cr":0.121971,
+            "Mn":0.006023,
+            "Fe":0.838897,
+            "Ni":0.004698,
+            "Mo":0.005748,
+            "W":0.0015
+        }
+    },
+    "Steel, Stainless 202": {
+        "density":7.86,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.003405,
+            "N":0.004866,
+            "Si":0.009708,
+            "P":0.000528,
+            "S":0.000255,
+            "Cr":0.188773,
+            "Mn":0.086851,
+            "Fe":0.65916,
+            "Ni":0.046454
+        }
+    },
+    "Steel, Stainless 302": {
+        "density":7.86,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.006356,
+            "Si":0.018057,
+            "P":0.000739,
+            "S":0.000476,
+            "Cr":0.188773,
+            "Mn":0.018462,
+            "Fe":0.68352,
+            "Ni":0.083616
+        }
+    },
+    "Steel, Stainless 304": {
+        "density":8.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.00183,
+            "Si":0.009781,
+            "P":0.000408,
+            "S":0.000257,
+            "Cr":0.200762,
+            "Mn":0.010001,
+            "Fe":0.690375,
+            "Ni":0.086587
+        }
+    },
+    "Steel, Stainless 304L": {
+        "density":8.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.000687,
+            "Si":0.009793,
+            "P":0.000408,
+            "S":0.000257,
+            "Cr":0.201015,
+            "Mn":0.010013,
+            "Fe":0.684101,
+            "Ni":0.093725
+        }
+    },
+    "Steel, Stainless 316": {
+        "density":8.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.0019,
+            "Si":0.010048,
+            "P":0.000413,
+            "S":0.00026,
+            "Cr":0.181986,
+            "Mn":0.010274,
+            "Fe":0.666811,
+            "Ni":0.113803,
+            "Mo":0.014504
+        }
+    },
+    "Steel, Stainless 316L": {
+        "density":8.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.001384,
+            "Si":0.019722,
+            "P":0.000805,
+            "S":0.000518,
+            "Cr":0.181098,
+            "Mn":0.020165,
+            "Fe":0.648628,
+            "Ni":0.113247,
+            "Mo":0.014434
+        }
+    },
+    "Steel, Stainless 321": {
+        "density":8.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.00364,
+            "Si":0.019457,
+            "P":0.000794,
+            "S":0.000511,
+            "Ti":0.001712,
+            "Cr":0.189171,
+            "Mn":0.019893,
+            "Fe":0.662408,
+            "Ni":0.102413
+        }
+    },
+    "Steel, Stainless 347": {
+        "density":8.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.003659,
+            "Si":0.019559,
+            "P":0.000798,
+            "S":0.000514,
+            "Cr":0.179602,
+            "Mn":0.019998,
+            "Fe":0.669338,
+            "Ni":0.102952,
+            "Nb":0.002365,
+            "Ta":0.001214
+        }
+    },
+    "Steel, Stainless 409": {
+        "density":7.8,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.003591,
+            "Si":0.019108,
+            "P":0.000776,
+            "S":0.000749,
+            "Ti":0.008406,
+            "Cr":0.116862,
+            "Mn":0.009769,
+            "Fe":0.84074
+        }
+    },
+    "Steel, Stainless 440": {
+        "density":7.8,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.030406,
+            "Si":0.012521,
+            "P":0.000454,
+            "S":0.000337,
+            "Cr":0.176887,
+            "Mn":0.006401,
+            "Fe":0.770242,
+            "Mo":0.002752
+        }
+    },
+    "Sterotex": {
+        "density":0.862,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.635838,
+            "C":0.32948,
+            "O":0.034682
+        }
+    },
+    "Stilbene (trans-stilbene isomer)": {
+        "density":1.22,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.416667,
+            "C":0.583333
+        }
+    },
+    "Sulphur": {
+        "density":2.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "S":1.0
+        }
+    },
+    "Tantalum": {
+        "density":16.654,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Ta":1.0
+        }
+    },
+    "Thorium": {
+        "density":11.72,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Th":1.0
+        }
+    },
+    "Thorium Dioxide": {
+        "density":10.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.666667,
+            "Th":0.333333
+        }
+    },
+    "Tin": {
+        "density":7.31,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Sn":1.0
+        }
+    },
+    "Tissue Equivalent, MS20": {
+        "density":1.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.546359,
+            "C":0.32948,
+            "N":0.008619,
+            "O":0.079013,
+            "Mg":0.036358,
+            "Cl":0.000172
+        }
+    },
+    "Tissue Equivalent-Gas, methane based  (TEG: MB)": {
+        "density":0.001064,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.605249,
+            "C":0.227454,
+            "N":0.015038,
+            "O":0.152259
+        }
+    },
+    "Tissue Equivalent-Gas, propane based  (TEG: PB)": {
+        "density":0.001826,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.598952,
+            "C":0.278531,
+            "N":0.014702,
+            "O":0.107815
+        }
+    },
+    "Tissue, Adipose (ICRP)": {
+        "density":0.92,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.634643,
+            "C":0.284063,
+            "N":0.003047,
+            "O":0.077748,
+            "Na":0.000116,
+            "Mg":4e-06,
+            "P":2.8e-05,
+            "S":0.000122,
+            "Cl":0.00018,
+            "K":4.4e-05,
+            "Ca":3e-06,
+            "Fe":2e-06,
+            "Zn":2e-06
+        }
+    },
+    "Tissue, Breast": {
+        "density":1.02,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.625781,
+            "C":0.164483,
+            "N":0.012745,
+            "O":0.196001,
+            "Na":0.000259,
+            "P":0.000192,
+            "S":0.000371,
+            "Cl":0.000168
+        }
+    },
+    "Tissue, Lung (ICRP)": {
+        "density":1.05,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.633136,
+            "C":0.053674,
+            "N":0.012889,
+            "O":0.29816,
+            "Na":0.000504,
+            "Mg":0.000189,
+            "P":0.000163,
+            "S":0.000442,
+            "Cl":0.000473,
+            "K":0.000313,
+            "Ca":1.4e-05,
+            "Fe":4.2e-05,
+            "Zn":1e-06
+        }
+    },
+    "Tissue, Ovary": {
+        "density":1.05,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.64323,
+            "C":0.047811,
+            "N":0.01058,
+            "O":0.296394,
+            "Na":0.000537,
+            "P":0.000399,
+            "S":0.000385,
+            "Cl":0.000348,
+            "K":0.000316
+        }
+    },
+    "Tissue, Soft (ICRP)": {
+        "density":1.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.630454,
+            "C":0.117588,
+            "N":0.010804,
+            "O":0.239601,
+            "Na":0.000299,
+            "Mg":3.3e-05,
+            "P":0.000261,
+            "S":0.000377,
+            "Cl":0.00023,
+            "K":0.00031,
+            "Ca":3.5e-05,
+            "Fe":5e-06,
+            "Zn":3e-06
+        }
+    },
+    "Tissue, Soft (ICRU four component)": {
+        "density":1.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.630936,
+            "C":0.058092,
+            "N":0.011668,
+            "O":0.299304
+        }
+    },
+    "Tissue, Testes (ICRP)": {
+        "density":1.04,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.64136,
+            "C":0.047676,
+            "N":0.008835,
+            "O":0.300181,
+            "Na":0.00061,
+            "Mg":2.8e-05,
+            "P":0.00025,
+            "S":0.000283,
+            "Cl":0.000427,
+            "K":0.00033,
+            "Ca":1.5e-05,
+            "Fe":2e-06,
+            "Zn":2e-06
+        }
+    },
+    "Tissue, Testis (ICRU)": {
+        "density":1.04,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.645178,
+            "C":0.050568,
+            "N":0.00876,
+            "O":0.29372,
+            "Na":0.000534,
+            "P":0.000198,
+            "S":0.000383,
+            "Cl":0.000346,
+            "K":0.000314
+        }
+    },
+    "Titanium": {
+        "density":4.54,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Ti":1.0
+        }
+    },
+    "Titanium alloy, grade 5": {
+        "density":4.43,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.004953,
+            "C":0.002154,
+            "N":0.00068,
+            "O":0.004,
+            "Al":0.103023,
+            "Ti":0.847256,
+            "V":0.035635,
+            "Fe":0.0023
+        }
+    },
+    "Titanium Dioxide": {
+        "density":4.26,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.666606,
+            "Ti":0.333394
+        }
+    },
+    "Titanium Hydride (TiH2)": {
+        "density":3.75,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.666667,
+            "Ti":0.333333
+        }
+    },
+    "Toluene": {
+        "density":0.8669,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.533317,
+            "C":0.466683
+        }
+    },
+    "Tributyl Borate": {
+        "density":0.864,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.627907,
+            "B":0.023256,
+            "C":0.27907,
+            "O":0.069767
+        }
+    },
+    "Tributyl Phosphate (TBP)": {
+        "density":0.9724,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.613636,
+            "C":0.272727,
+            "O":0.090909,
+            "P":0.022727
+        }
+    },
+    "Tungsten": {
+        "density":19.3,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "W":1.0
+        }
+    },
+    "Uranium Carbide": {
+        "density":13.63,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.5
+        },
+        "isotopes":{
+            "U234":0.000136,
+            "U235":0.015186,
+            "U236":7e-05,
+            "U238":0.484609
+        }
+    },
+    "Uranium Dicarbide": {
+        "density":11.28,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "C":0.666667
+        },
+        "isotopes":{
+            "U234":9e-05,
+            "U235":0.010124,
+            "U236":4.6e-05,
+            "U238":0.323072
+        }
+    },
+    "Uranium Dioxide": {
+        "density":10.96,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.666667
+        },
+        "isotopes":{
+            "U234":9e-05,
+            "U235":0.010124,
+            "U236":4.6e-05,
+            "U238":0.323072
+        }
+    },
+    "Uranium Hexafluoride": {
+        "density":4.68,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "F":0.857143
+        },
+        "isotopes":{
+            "U234":3.9e-05,
+            "U235":0.004339,
+            "U236":2e-05,
+            "U238":0.13846
+        }
+    },
+    "Uranium Hydride": {
+        "density":11.1,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.75
+        },
+        "isotopes":{
+            "U234":6.8e-05,
+            "U235":0.007593,
+            "U236":3.5e-05,
+            "U238":0.242304
+        }
+    },
+    "Uranium Nitride": {
+        "density":14.31,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "N":0.5
+        },
+        "isotopes":{
+            "U234":0.000136,
+            "U235":0.015186,
+            "U236":7e-05,
+            "U238":0.484609
+        }
+    },
+    "Uranium Oxide": {
+        "density":8.3,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.727273
+        },
+        "isotopes":{
+            "U234":7.4e-05,
+            "U235":0.008283,
+            "U236":3.8e-05,
+            "U238":0.264332
+        }
+    },
+    "Uranium Tetrafluoride": {
+        "density":6.7,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "F":0.8
+        },
+        "isotopes":{
+            "U234":5.4e-05,
+            "U235":0.006074,
+            "U236":2.8e-05,
+            "U238":0.193843
+        }
+    },
+    "Uranium Trioxide": {
+        "density":7.29,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.75
+        },
+        "isotopes":{
+            "U234":6.8e-05,
+            "U235":0.007593,
+            "U236":3.5e-05,
+            "U238":0.242304
+        }
+    },
+    "Uranium, Depleted, Typical": {
+        "density":18.951157,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "U234":5e-06,
+            "U235":0.002532,
+            "U238":0.997463
+        }
+    },
+    "Uranium, Enriched, Typical Commercial": {
+        "density":18.944492,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "U234":0.00031,
+            "U235":0.029967,
+            "U238":0.969723
+        }
+    },
+    "Uranium, HEU, Health Physics Society": {
+        "density":18.724868,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "U234":0.010582,
+            "U235":0.932362,
+            "U236":0.002053,
+            "U238":0.055003
+        }
+    },
+    "Uranium, HEU, Russian Average": {
+        "density":18.732854,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "U234":0.009722,
+            "U235":0.898982,
+            "U236":0.003798,
+            "U238":0.087498
+        }
+    },
+    "Uranium, HEU, US Average": {
+        "density":18.72476,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "U234":0.009849,
+            "U235":0.932166,
+            "U236":0.004484,
+            "U238":0.053501
+        }
+    },
+    "Uranium, Low Enriched (LEU)": {
+        "density":18.944386,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "U234":0.000271,
+            "U235":0.030372,
+            "U236":0.000139,
+            "U238":0.969217
+        }
+    },
+    "Uranium, Natural (NU)": {
+        "density":18.95,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "isotopes": {
+            "U234":5.8e-05,
+            "U235":0.007295,
+            "U238":0.992647
+        }
+    },
+    "Uranium-Plutonium, Mixed Oxide (MOX)": {
+        "density":11.0,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.666666
+        },
+        "isotopes":{
+            "U234":4e-06,
+            "U235":0.000805,
+            "U236":0.0,
+            "U238":0.317052,
+            "Pu238":0.00039,
+            "Pu239":0.008487,
+            "Pu240":0.004032,
+            "Pu241":0.001462,
+            "Pu242":0.001103
+        }
+    },
+    "Uranyl Fluoride": {
+        "density":6.37,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.4,
+            "F":0.4
+        },
+        "isotopes":{
+            "U234":5.4e-05,
+            "U235":0.006074,
+            "U236":2.8e-05,
+            "U238":0.193843
+        }
+    },
+    "Uranyl Nitrate": {
+        "density":2.203,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "N":0.181818,
+            "O":0.727273
+        },
+        "isotopes":{
+            "U234":2.5e-05,
+            "U235":0.002761,
+            "U236":1.3e-05,
+            "U238":0.088111
+        }
+    },
+    "Vermiculite, Exfoliated": {
+        "density":0.085,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.197175,
+            "O":0.520978,
+            "Mg":0.092159,
+            "Al":0.039305,
+            "Si":0.113407,
+            "K":0.009307,
+            "Ca":0.006852,
+            "Ti":0.003457,
+            "Fe":0.017361
+        }
+    },
+    "Viton Fluoroelastomer": {
+        "density":1.8,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.133327,
+            "C":0.333341,
+            "F":0.533332
+        }
+    },
+    "Water, Heavy": {
+        "density":1.10534,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.333333
+        },
+        "isotopes":{    
+            "H2":0.666667
+        }
+    },
+    "Water, Liquid": {
+        "density":0.998207,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.666657,
+            "O":0.333343
+        }
+    },
+    "Water, Vapor": {
+        "density":0.000756,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.666657,
+            "O":0.333343
+        }
+    },
+    "Wax, M3": {
+        "density":1.05,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.632204,
+            "C":0.304366,
+            "O":0.032116,
+            "Mg":0.030913,
+            "Ca":0.000401
+        }
+    },
+    "Wax, Mix D": {
+        "density":0.99,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.65888,
+            "C":0.320919,
+            "O":0.010845,
+            "Mg":0.007867,
+            "Ti":0.001489
+        }
+    },
+    "Wax, Paraffin": {
+        "density":0.93,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.675311,
+            "C":0.324689
+        }
+    },
+    "Wood (Southern Pine)": {
+        "density":0.64,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.462423,
+            "C":0.323389,
+            "N":0.002773,
+            "O":0.208779,
+            "Mg":0.000639,
+            "S":0.001211,
+            "K":0.000397,
+            "Ca":0.000388
+        }
+    },
+    "Xenon": {
+        "density":0.005485,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Xe":1.0
+        }
+    },
+    "Yttrium Aluminum Garnet (YAG)": {
+        "density":4.56,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.6,
+            "Al":0.25,
+            "Y":0.15
+        }
+    },
+    "Yttrium Aluminum Perovskite (YAP)": {
+        "density":5.37,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.6,
+            "Al":0.2,
+            "Y":0.2
+        }
+    },
+    "Yttrium OxyorthoSilicate (YSO)": {
+        "density":4.45,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.625,
+            "Si":0.125,
+            "Y":0.25
+        }
+    },
+    "Zeolite (Natrolite)": {
+        "density":2.25,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.173913,
+            "O":0.521739,
+            "Na":0.086957,
+            "Al":0.086957,
+            "Si":0.130435
+        }
+    },
+    "Zinc": {
+        "density":7.133,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Zn":1.0
+        }
+    },
+    "Zinc Selenide": {
+        "density":5.42,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Zn":0.5,
+            "Se":0.5
+        }
+    },
+    "Zinc Sulfide": {
+        "density":4.09,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "S":0.5,
+            "Zn":0.5
+        }
+    },
+    "Zircaloy-2": {
+        "density":6.56,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.006796,
+            "Cr":0.001743,
+            "Fe":0.001623,
+            "Ni":0.000772,
+            "Zr":0.978381,
+            "Sn":0.010686
+        }
+    },
+    "Zircaloy-4": {
+        "density":6.56,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "O":0.00679,
+            "Cr":0.001741,
+            "Fe":0.003242,
+            "Zr":0.977549,
+            "Sn":0.010677
+        }
+    },
+    "Zirconium": {
+        "density":6.506,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "Zr":1.0
+        }
+    },
+    "Zirconium Hydride (Zr5H8)": {
+        "density":5.61,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.615385,
+            "Zr":0.384615
+        }
+    },
+    "Zirconium Hydride (ZrH2)": {
+        "density":5.61,
+        "density_unit":"g/cm3",
+        "percent_type": "ao",
+        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "elements": {
+            "H":0.666667,
+            "Zr":0.333333
+        }
+    }
+}
