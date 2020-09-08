@@ -19,7 +19,7 @@ class test_object_properties(unittest.TestCase):
 
         assert len(line_by_line_material) == 10
         assert a.fispact_material.split(
-            "\n")[0].startswith("DENSITY 2.318999932354645")
+            "\n")[0].startswith("DENSITY 2.31899993235464")
         assert a.fispact_material.split("\n")[1] == "FUEL 8"
         assert "Li6 3.537400925715E+21" in line_by_line_material
         assert "Li7 4.307481314353E+22" in line_by_line_material
@@ -35,7 +35,7 @@ class test_object_properties(unittest.TestCase):
         line_by_line_material = a.fispact_material.split("\n")
 
         assert len(line_by_line_material) == 10
-        assert line_by_line_material[0].startswith("DENSITY 2.318999932354645")
+        assert line_by_line_material[0].startswith("DENSITY 2.31899993235464")
         assert line_by_line_material[1] == "FUEL 8"
         assert "Li6 7.074801851431E+21" in line_by_line_material
         assert "Li7 8.614962628707E+22" in line_by_line_material
@@ -186,111 +186,6 @@ class test_object_properties(unittest.TestCase):
         assert "     050120.30c  0.08145" in line_by_line_material
         assert "     050122.30c  0.011575" in line_by_line_material
         assert "     050124.30c  0.014475" in line_by_line_material
-
-    def test_adding_one_material_AddMaterialFromFile(self):
-        test_material_1 = {
-            "WC2": {
-                "chemical_equation": "WC",
-                "density": 18.0,
-                "density_unit": "g/cm3",
-                "percent_type": "ao",
-            }
-        }
-
-        with open("extra_material_1.json", "w") as outfile:
-            json.dump(test_material_1, outfile)
-
-        number_of_materials = len(nmm.AvailableMaterials())
-        nmm.AddMaterialFromFile("extra_material_1.json")
-
-        assert number_of_materials + 1 == len(nmm.AvailableMaterials())
-        assert "WC2" in nmm.AvailableMaterials().keys()
-        os.system("rm extra_material_1.json")
-
-    def test_adding_two_material_AddMaterialFromFile(self):
-        test_material_1 = {
-            "WC3": {
-                "chemical_equation": "WC",
-                "density": 18.0,
-                "density_unit": "g/cm3",
-                "percent_type": "ao",
-            },
-            "WB2": {
-                "chemical_equation": "WB",
-                "density": 15.3,
-                "density_unit": "g/cm3",
-                "percent_type": "ao",
-            },
-        }
-
-        with open("extra_material_1.json", "w") as outfile:
-            json.dump(test_material_1, outfile)
-
-        number_of_materials = len(nmm.AvailableMaterials())
-        nmm.AddMaterialFromFile("extra_material_1.json")
-
-        assert number_of_materials + 2 == len(nmm.AvailableMaterials())
-        assert "WC3" in nmm.AvailableMaterials().keys()
-        assert "WB2" in nmm.AvailableMaterials().keys()
-        os.system("rm extra_material_1.json")
-
-    def test_replacing_material_using_AddMaterialFromFile(self):
-        test_material_1 = {
-            "Li4SiO4": {
-                "chemical_equation": "WC",
-                "density": 18.0,
-                "density_unit": "g/cm3",
-                "percent_type": "ao",
-            }
-        }
-
-        with open("extra_material_1.json", "w") as outfile:
-            json.dump(test_material_1, outfile)
-
-        number_of_materials = len(nmm.AvailableMaterials())
-        nmm.AddMaterialFromFile("extra_material_1.json")
-
-        assert number_of_materials == len(nmm.AvailableMaterials())
-        assert "Li4SiO4" in nmm.AvailableMaterials().keys()
-        os.system("rm extra_material_1.json")
-
-    def test_AddMaterialFromDir(self):
-        os.system("mkdir new_materials")
-
-        test_material_1 = {
-            "Li4SiO42": {
-                "chemical_equation": "WC",
-                "density": 18.0,
-                "density_unit": "g/cm3",
-                "percent_type": "ao",
-            }
-        }
-
-        with open(
-            os.path.join("new_materials", "extra_material_1.json"), "w"
-        ) as outfile:
-            json.dump(test_material_1, outfile)
-
-        test_material_2 = {
-            "Li4SiO43": {
-                "chemical_equation": "WC",
-                "density": 18.0,
-                "density_unit": "g/cm3",
-                "percent_type": "ao",
-            }
-        }
-
-        with open(
-            os.path.join("new_materials", "extra_material_2.json"), "w"
-        ) as outfile:
-            json.dump(test_material_2, outfile)
-
-        number_of_materials = len(nmm.AvailableMaterials())
-        nmm.AddMaterialFromDir("new_materials")
-
-        assert number_of_materials + 2 == len(nmm.AvailableMaterials())
-        assert "Li4SiO42" in nmm.AvailableMaterials().keys()
-        assert "Li4SiO43" in nmm.AvailableMaterials().keys()
 
     def test_material_creation_from_chemical_formula_with_enrichment(self):
 

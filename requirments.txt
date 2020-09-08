@@ -1,2 +1,2 @@
-thermo
+CoolProp
 openmc

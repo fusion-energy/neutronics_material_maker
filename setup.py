@@ -7,13 +7,14 @@ setuptools.setup(
     name="neutronics_material_maker",
     version="0.1.0",
     summary="Package for making material cards for OpenMC",
-    author="neutronics-material-maker development team",
+    author="neutronics_material_maker development team",
     author_email="jonathan.shimwell@ukaea.uk",
     description="A tool for making neutronics material cards for use in OpenMC",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/ukaea/neutronics_material_maker",
     packages=setuptools.find_packages(),
+    zip_safe=True,
     package_dir={"neutronics_material_maker": "neutronics_material_maker"},
     package_data={
         "neutronics_material_maker": [
