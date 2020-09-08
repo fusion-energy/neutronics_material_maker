@@ -155,7 +155,6 @@ man_pages = [
 ]
 
 
-
 # -- Options for Texinfo output ----------------------------------------------
 
 # Grouping the document tree into Texinfo files. List of tuples
