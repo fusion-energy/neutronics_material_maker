@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="neutronics_material_maker",
-    version="0.1.0",
+    version="0.1.2",
     summary="Package for making material cards for OpenMC",
     author="neutronics_material_maker development team",
     author_email="jonathan.shimwell@ukaea.uk",
@@ -24,10 +24,9 @@ setuptools.setup(
             "data/*.json",
         ]
     },
-    setup_requires=["pytest-runner"],
-    tests_require=["pytest-cov"],
+    tests_require=["pytest-cov", "pytest-runner"],
     install_requires=[
-        "coolprop",
+        "CoolProp",
         # 'openmc' when pip install is available
     ],
 )
