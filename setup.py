@@ -24,10 +24,9 @@ setuptools.setup(
             "data/*.json",
         ]
     },
-    setup_requires=["pytest-runner"],
-    tests_require=["pytest-cov"],
+    tests_require=["pytest-cov", "pytest-runner"],
     install_requires=[
-        "coolprop",
+        "CoolProp",
         # 'openmc' when pip install is available
     ],
 )
