@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="neutronics_material_maker",
+    name="neutronics-material-maker",
     version="0.1239.2",
     summary="Package for making material cards for OpenMC",
     author="neutronics-material-maker development team",
@@ -12,7 +12,7 @@ setuptools.setup(
     description="A tool for making neutronics material cards for use in OpenMC",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ukaea/neutronics_material_maker",
+    url="https://github.com/ukaea/neutronics-material-maker",
     packages=setuptools.find_packages(),
     package_dir={"neutronics_material_maker": "neutronics_material_maker"},
     package_data={
