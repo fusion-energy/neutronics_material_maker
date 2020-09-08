@@ -1,0 +1,12 @@
+{
+    "isotropic graphite HPG-59": {
+        "elements": {
+            "C": 1.0
+        },
+        "density": 1.91,
+        "density_unit": "g/cm3",
+        "reference": "Toyo Tanso isotropic graphite HPG-59 https://www.toyotanso.com/Products/Special_graphite/data.html",
+        "percent_type": "ao"
+    }
+}
+    

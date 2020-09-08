@@ -1,10 +1,7 @@
-Material
-========
+Material()
+==========
 
 
-RotateStraightShape()
-^^^^^^^^^^^^^^^^^^^^^
-
-.. automodule:: neutronics_material_maker.material
+.. automodule:: neutronics_material_maker.material.Material
    :members:
    :show-inheritance:

@@ -1,7 +1,13 @@
 {
     "DT_plasma": {
         "isotopes": {"H2": 0.5, "H3": 0.5},
-        "density": 0.000001,
+        "density": 0.00000005,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
+    },
+    "DD_plasma": {
+        "isotopes": {"H2": 1.0},
+        "density": 0.00000004,
         "density_unit": "g/cm3",
         "percent_type": "ao"
     }

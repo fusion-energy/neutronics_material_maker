@@ -1,0 +1,50 @@
+{
+    "Li4SiO4": {
+        "chemical_equation": "Li4SiO4",
+        "atoms_per_unit_cell": 2,
+        "volume_of_unit_cell_cm3": 0.17162883501e-21,
+        "density_unit":"g/cm3",
+        "enrichable": true,
+        "packable": true,
+        "reference": "DOI 10.17188/1188336 https://materialsproject.org/materials/mp-11737/",
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":"ao"
+    },
+    "Li2SiO3": {
+        "chemical_equation": "Li2SiO3",
+        "atoms_per_unit_cell": 2,
+        "volume_of_unit_cell_cm3": 0.12255616623e-21,
+        "density_unit":"g/cm3",
+        "enrichable": true,
+        "packable": true,
+        "reference": "DOI 10.17188/1208560 https://materialsproject.org/materials/mp-5012/",
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":"ao"
+    },
+    "Li2ZrO3": {
+        "chemical_equation": "Li2ZrO3",
+        "atoms_per_unit_cell": 2,
+        "volume_of_unit_cell_cm3": 0.12610426777e-21,
+        "density_unit":"g/cm3",
+        "enrichable": true,
+        "packable": true,
+        "reference": "DOI 10.17188/1207897 https://materialsproject.org/materials/mp-4156/",
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":"ao"
+    },
+    "Li2TiO3": {
+        "chemical_equation": "Li2TiO3",
+        "atoms_per_unit_cell": 4,
+        "volume_of_unit_cell_cm3": 0.21849596020e-21,
+        "density_unit":"g/cm3",
+        "enrichable": true,
+        "packable": true,
+        "reference": "DOI 10.17188/1203676 https://materialsproject.org/materials/mp-2931/",
+        "percent_type": "ao",
+        "enrichment_target":"Li6",
+        "enrichment_type":"ao"
+    }
+}

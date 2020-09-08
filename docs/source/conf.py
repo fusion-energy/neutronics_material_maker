@@ -20,8 +20,8 @@ sys.path.insert(0, os.path.abspath("../.."))
 # -- Project information -----------------------------------------------------
 
 project = "NeutronicsMaterialMaker"
-copyright = "2020, John Billingsley"
-author = "John Billingsley"
+copyright = "2020, UKAEA"
+author = "neutronics-material-maker development team"
 
 # The short X.Y version
 version = ""
@@ -130,11 +130,13 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc,
-     "NeutronicsMaterialMaker.tex",
-     "NeutronicsMaterialMaker Documentation",
-     "John Billingsley",
-     "manual"),
+    (
+        master_doc,
+        "NeutronicsMaterialMaker.tex",
+        "NeutronicsMaterialMaker Documentation",
+        "John Billingsley",
+        "manual",
+    )
 ]
 
 
@@ -143,11 +145,15 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc,
-     "NeutronicsMaterialMaker",
-     "NeutronicsMaterialMaker Documentation",
-     [author],
-     1)]
+    (
+        master_doc,
+        "NeutronicsMaterialMaker",
+        "NeutronicsMaterialMaker Documentation",
+        [author],
+        1,
+    )
+]
+
 
 
 # -- Options for Texinfo output ----------------------------------------------
@@ -164,7 +170,7 @@ texinfo_documents = [
         "NeutronicsMaterialMaker",
         "One line description of project.",
         "Miscellaneous",
-    ),
+    )
 ]
 
 
