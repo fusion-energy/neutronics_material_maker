@@ -1,7 +1,7 @@
 
 [![N|Python](https://www.python.org/static/community_logos/python-powered-w-100x40.png)](https://www.python.org)
-[![CircleCI](https://circleci.com/gh/ukaea/neutronics_material_maker/tree/openmc_version.svg?style=svg)](https://circleci.com/gh/ukaea/neutronics_material_maker/tree/openmc_version)
-[![codecov](https://codecov.io/gh/ukaea/neutronics_material_maker/branch/openmc_version/graph/badge.svg)](https://codecov.io/gh/ukaea/neutronics_material_maker)
+[![CircleCI](https://circleci.com/gh/ukaea/neutronics_material_maker/tree/main.svg?style=svg)](https://circleci.com/gh/ukaea/neutronics_material_maker/tree/main)
+[![codecov](https://codecov.io/gh/ukaea/neutronics_material_maker/branch/main/graph/badge.svg)](https://codecov.io/gh/ukaea/neutronics_material_maker)
 [![PyPI version](https://badge.fury.io/py/neutronics-material-maker.svg)](https://badge.fury.io/py/neutronics-material-maker)
 [![Documentation Status](https://readthedocs.org/projects/neutronics-material-maker/badge/?version=latest)](https://neutronics-material-maker.readthedocs.io/en/latest/?badge=latest)
 
@@ -53,7 +53,7 @@ my_mat.openmc_material
 
 ## Usage - hot pressurised Material
 
-For several materials within the collection the temperature and the pressure impacts the density of the material. The neutronics_material_maker adjusts the density to take temperature and the pressure into account when appropriate. Densities are caluclated either by an material specific formula (for example [FLiBe](https://github.com/ukaea/neutronics_material_maker/blob/openmc_version/neutronics_material_maker/data/multiplier_and_breeder_materials.json)) or using [CoolProps](https://pypi.org/project/CoolProp/) (for example [coolants](https://github.com/ukaea/neutronics_material_maker/blob/openmc_version/neutronics_material_maker/data/coolant_materials.json))
+For several materials within the collection the temperature and the pressure impacts the density of the material. The neutronics_material_maker adjusts the density to take temperature and the pressure into account when appropriate. Densities are caluclated either by an material specific formula (for example [FLiBe](https://github.com/ukaea/neutronics_material_maker/blob/main/neutronics_material_maker/data/multiplier_and_breeder_materials.json)) or using [CoolProps](https://pypi.org/project/CoolProp/) (for example [coolants](https://github.com/ukaea/neutronics_material_maker/blob/main/neutronics_material_maker/data/coolant_materials.json))
 
 ```python
 import neutronics_material_maker as nmm
@@ -90,7 +90,7 @@ my_mat3.openmc_material
 
 ## Usage - importing your own material library
 
-Assuming you have a JSON file saved as ```mat_lib.json``` containing materials defined in the same format as the [exisiting materials](https://github.com/ukaea/neutronics_material_maker/tree/openmc_version/neutronics_material_maker/data) then you can import this file into the package using ```AddMaterialFromFile()```. Another option is to use ```AddMaterialFromDir()``` to import a directory of json files
+Assuming you have a JSON file saved as ```mat_lib.json``` containing materials defined in the same format as the [exisiting materials](https://github.com/ukaea/neutronics_material_maker/tree/main/neutronics_material_maker/data) then you can import this file into the package using ```AddMaterialFromFile()```. Another option is to use ```AddMaterialFromDir()``` to import a directory of json files
 
 ```python
 import neutronics_material_maker as nmm
