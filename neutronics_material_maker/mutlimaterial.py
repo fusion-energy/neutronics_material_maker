@@ -2,7 +2,6 @@
 
 __author__ = "neutronics material maker development team"
 
-import json
 from json import JSONEncoder
 import warnings
 

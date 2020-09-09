@@ -10,11 +10,6 @@ jobs:
   build:
     docker:
       - image: openmcworkshop/openmc_workshop_dependencies:openmc_nndc
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
 
     working_directory: ~/repo
 
@@ -24,9 +19,6 @@ jobs:
           name: install
           command:
             python setup.py install
-      # - run: docker build -t shimwell/paramak:latest . 
-      # - run: xhost local:root
-      # - run: docker run -it --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v $PWD:/home -e DISPLAY=unix$DISPLAY --privileged shimwell/paramak
  
       # run tests!
       - run:
@@ -38,11 +30,8 @@ jobs:
 
       - store_artifacts:
           path: test-reports
-          # destination: test-reports
       - run:
           name: install curl
           command:
             apt-get update && apt-get -y install curl
       - run: curl -s https://codecov.io/bash | bash
-      # - codecov/upload:
-          # file: {{ coverage_report_filepath }}
