@@ -4,6 +4,9 @@
 [![codecov](https://codecov.io/gh/ukaea/neutronics_material_maker/branch/main/graph/badge.svg)](https://codecov.io/gh/ukaea/neutronics_material_maker)
 [![PyPI version](https://badge.fury.io/py/neutronics-material-maker.svg)](https://badge.fury.io/py/neutronics-material-maker)
 [![Documentation Status](https://readthedocs.org/projects/neutronics-material-maker/badge/?version=latest)](https://neutronics-material-maker.readthedocs.io/en/latest/?badge=latest)
+[![Code Quality Score](https://www.code-inspector.com/project/13383/score/svg)](https://frontend.code-inspector.com/public/project/13383/neutronics_material_maker/dashboard)
+[![Code Grade](https://www.code-inspector.com/project/13383/status/svg)](https://frontend.code-inspector.com/public/project/13383/neutronics_material_maker/dashboard)
+
 
 # **Neutronics material maker**
 

@@ -76,7 +76,7 @@ class test_object_properties(unittest.TestCase):
             percent_type="vo",
         )
 
-        assert isinstance(test_material, openmc.Material) == False
+        assert isinstance(test_material, openmc.Material) is False
         assert isinstance(test_material.openmc_material, openmc.Material)
 
     def test_make_multimaterial_from_openmc_materials(self):
@@ -93,7 +93,7 @@ class test_object_properties(unittest.TestCase):
             percent_type="vo",
         )
 
-        assert isinstance(test_material, openmc.Material) == False
+        assert isinstance(test_material, openmc.Material) is False
         assert isinstance(test_material.openmc_material, openmc.Material)
 
     def test_multimaterial_attributes_from_material_objects_and_openmc_materials(

@@ -8,7 +8,6 @@ import os
 import unittest
 
 import openmc
-import pytest
 
 import neutronics_material_maker as nmm
 

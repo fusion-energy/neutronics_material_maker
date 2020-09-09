@@ -444,7 +444,7 @@ class test_object_properties(unittest.TestCase):
 
             test_material.mcnp_material
 
-        self.assertRaises(ValueError, incorrect_setting_for_id)
+        self.assertRaises(ValueError, incorrect_setting_for_id2)
 
         def incorrect_setting_for_volume_in_cm3_1():
             """checks a ValueError is raised when the volume_in_cm3 is set to a string"""
@@ -459,7 +459,7 @@ class test_object_properties(unittest.TestCase):
 
             test_material.fispact_material
 
-        self.assertRaises(ValueError, incorrect_setting_for_id)
+        self.assertRaises(ValueError, incorrect_setting_for_volume_in_cm3_1)
 
         def incorrect_setting_for_volume_in_cm3_2():
             """checks a ValueError is raised when the id is not set and an mcnp material card is need"""
@@ -469,17 +469,17 @@ class test_object_properties(unittest.TestCase):
                 enrichment=50.0,
                 enrichment_target="Li6",
                 enrichment_type="ao",
-                volume_in_cm3="1",
+                material_id=None,
             )
 
             test_material.fispact_material
 
-        self.assertRaises(ValueError, incorrect_setting_for_id)
+        self.assertRaises(ValueError, incorrect_setting_for_volume_in_cm3_2)
 
     def test_setting_for_volume_int(self):
-        """checks a ValueError is raised when the volume_in_cm3 is set to an int"""
+        """checks the volume_in_cm3 is set to an int"""
 
-        test_material = nmm.Material(
+        nmm.Material(
             material_name="Li4SiO4",
             enrichment=50.0,
             enrichment_target="Li6",
@@ -487,20 +487,16 @@ class test_object_properties(unittest.TestCase):
             volume_in_cm3=1,
         )
 
-        test_material.fispact_material
-
     def test_setting_for_volume_float(self):
-        """checks a ValueError is raised when the volume_in_cm3 is set to an float"""
+        """checks the volume_in_cm3 is set to an float"""
 
-        test_material = nmm.Material(
+        nmm.Material(
             material_name="Li4SiO4",
             enrichment=50.0,
             enrichment_target="Li6",
             enrichment_type="ao",
             volume_in_cm3=1.1,
         )
-
-        test_material.fispact_material
 
     def test_json_dump_works(self):
         test_material = nmm.Material(
