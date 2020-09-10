@@ -565,7 +565,8 @@ class Material:
     def _make_openmc_material(self):
 
         original_cross_sections = os.environ.get('OPENMC_CROSS_SECTIONS')
-        del os.environ['OPENMC_CROSS_SECTIONS']
+        if original_cross_sections is not None:
+            del os.environ['OPENMC_CROSS_SECTIONS']
 
         if self.material_tag is None:
             name = self.material_name
@@ -591,7 +592,8 @@ class Material:
 
         openmc_material = self._add_density(openmc_material)
 
-        os.environ['OPENMC_CROSS_SECTIONS'] = original_cross_sections
+        if original_cross_sections is not None:
+            os.environ['OPENMC_CROSS_SECTIONS'] = original_cross_sections
 
         return openmc_material
 
