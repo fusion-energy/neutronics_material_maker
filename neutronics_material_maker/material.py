@@ -565,7 +565,11 @@ class Material:
     def _make_openmc_material(self):
 
         original_cross_sections = os.environ.get('OPENMC_CROSS_SECTIONS')
-        del os.environ['OPENMC_CROSS_SECTIONS']
+        try:
+            del os.environ['OPENMC_CROSS_SECTIONS']
+        except:
+            # OPENMC_CROSS_SECTIONS enviromental varible is not set
+            pass
 
         if self.material_tag is None:
             name = self.material_name
