@@ -149,7 +149,7 @@ class Material:
         enrichment_type=None,
         reference=None,
         zaid_suffix=None,
-        material_id=1,
+        material_id=None,
         volume_in_cm3=None,
     ):
 
