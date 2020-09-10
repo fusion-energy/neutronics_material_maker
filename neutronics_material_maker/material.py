@@ -565,6 +565,7 @@ class Material:
     def _make_openmc_material(self):
 
         original_cross_sections = os.environ.get('OPENMC_CROSS_SECTIONS')
+        print('original_cross_sections', original_cross_sections)
         try:
             del os.environ['OPENMC_CROSS_SECTIONS']
         except:
