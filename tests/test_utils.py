@@ -16,7 +16,12 @@ if __name__ == "__main__":
 
 
 class test_object_properties(unittest.TestCase):
-    def test_serpent_multimaterial_type(self):
+
+    def test_number_of_materials_in_dict(self):
+        import neutronics_material_maker as nmm_again
+        assert len(nmm_again.AvailableMaterials().keys()) >= 418
+
+    def test_dictionary_of_materials_makes_openmc_materials(self):
 
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
@@ -24,6 +29,15 @@ class test_object_properties(unittest.TestCase):
                 mat, temperature_in_K=300, pressure_in_Pa=5e6)
 
             assert isinstance(test_mat.openmc_material, openmc.Material)
+
+    def test_dictionary_of_materials_makes_mcnp_materials(self):
+
+        for mat in nmm.AvailableMaterials().keys():
+            print(mat)
+            test_mat = nmm.Material(
+                mat, temperature_in_K=300, pressure_in_Pa=5e6, material_id=1)
+
+            assert isinstance(test_mat.mcnp_material, str)
 
     def test_adding_one_material_AddMaterialFromFile(self):
         test_material_1 = {
