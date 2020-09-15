@@ -16,7 +16,35 @@ if __name__ == "__main__":
 
 
 class test_object_properties(unittest.TestCase):
-    def test_serpent_multimaterial_type(self):
+
+    def test_entries_from_each_json_file_get_into_the_internal_dict(self):
+        all_mats = nmm.AvailableMaterials().keys()
+
+        assert 'A-150 Tissue-Equivalent Plastic (A150TEP)' in all_mats
+        assert 'Zirconium Hydride (ZrH2)' in all_mats
+        assert 'Pb842Li158' in all_mats
+        assert 'FLiNaBe' in all_mats
+        assert 'WC' in all_mats
+        assert 'CuCrZr' in all_mats
+        assert 'DD_plasma' in all_mats
+        assert 'DT_plasma' in all_mats
+        assert 'Pb' in all_mats
+        assert 'Zr5Pb4' in all_mats
+        assert 'isotropic graphite HPG-59' in all_mats
+        assert 'Nb3Sn' in all_mats
+        assert 'ReBCO' in all_mats
+        assert 'He' in all_mats
+        assert 'xenon' in all_mats
+        assert 'Li4SiO4' in all_mats
+        assert 'Li2TiO3' in all_mats
+        assert 'Li' in all_mats
+        assert 'FLiNaK' in all_mats
+
+    def test_number_of_materials_in_dict(self):
+        import neutronics_material_maker as nmm_again
+        assert len(nmm_again.AvailableMaterials().keys()) >= 418
+
+    def test_dictionary_of_materials_makes_openmc_materials(self):
 
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
@@ -24,6 +52,36 @@ class test_object_properties(unittest.TestCase):
                 mat, temperature_in_K=300, pressure_in_Pa=5e6)
 
             assert isinstance(test_mat.openmc_material, openmc.Material)
+
+    def test_dictionary_of_materials_makes_mcnp_materials(self):
+
+        for mat in nmm.AvailableMaterials().keys():
+            print(mat)
+            test_mat = nmm.Material(
+                mat, temperature_in_K=300, pressure_in_Pa=5e6, material_id=1)
+
+            assert isinstance(test_mat.mcnp_material, str)
+
+    def test_dictionary_of_materials_makes_fispact_materials(self):
+
+        for mat in nmm.AvailableMaterials().keys():
+            print(mat)
+            test_mat = nmm.Material(
+                mat,
+                temperature_in_K=300,
+                pressure_in_Pa=5e6,
+                volume_in_cm3=1.5)
+
+            assert isinstance(test_mat.fispact_material, str)
+
+    def test_dictionary_of_materials_makes_serpent_materials(self):
+
+        for mat in nmm.AvailableMaterials().keys():
+            print(mat)
+            test_mat = nmm.Material(
+                mat, temperature_in_K=300, pressure_in_Pa=5e6)
+
+            assert isinstance(test_mat.serpent_material, str)
 
     def test_adding_one_material_AddMaterialFromFile(self):
         test_material_1 = {
