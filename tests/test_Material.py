@@ -13,6 +13,17 @@ import neutronics_material_maker as nmm
 
 
 class test_object_properties(unittest.TestCase):
+
+    def test_iron_density(self):
+        a = nmm.Material("Iron")
+        assert a.openmc_material.density == 7.874
+        a = nmm.Material("Iron")
+        assert float(a.serpent_material.split('\n')[0].split()[2]) == pytest.approx(7.874)
+        a = nmm.Material("Iron", material_id=45)
+        assert float(a.mcnp_material.split('\n')[0].split()[3]) == pytest.approx(7.874)
+        a = nmm.Material("Iron", volume_in_cm3=100)
+        assert float(a.fispact_material.split('\n')[0].split()[1]) == pytest.approx(7.874)  
+
     def test_fispact_material(self):
         a = nmm.Material("Li4SiO4", volume_in_cm3=1.0)
         line_by_line_material = a.fispact_material.split("\n")
