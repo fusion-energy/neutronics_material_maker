@@ -20,13 +20,13 @@ setuptools.setup(
         "neutronics_material_maker": [
             "requirements.txt",
             "README.md",
-            "LICENSE",
+            "LICENSE.txt",
             "data/*.json",
         ]
     },
     tests_require=["pytest-cov", "pytest-runner"],
     install_requires=[
-        "CoolProp",
+        "coolprop",
         # 'openmc' when pip install is available
     ],
 )
