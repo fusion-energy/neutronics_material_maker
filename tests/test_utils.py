@@ -92,7 +92,10 @@ class test_object_properties(unittest.TestCase):
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
             test_mat = nmm.Material(
-                mat, temperature_in_K=300, pressure_in_Pa=5e6, volume_in_cm3=1.5)
+                mat,
+                temperature_in_K=300,
+                pressure_in_Pa=5e6,
+                volume_in_cm3=1.5)
 
             assert isinstance(test_mat.fispact_material, str)
 
@@ -104,7 +107,6 @@ class test_object_properties(unittest.TestCase):
                 mat, temperature_in_K=300, pressure_in_Pa=5e6)
 
             assert isinstance(test_mat.serpent_material, str)
-
 
     def test_adding_one_material_AddMaterialFromFile(self):
         test_material_1 = {
