@@ -29,7 +29,7 @@ class test_object_properties(unittest.TestCase):
         assert nmm.utils.zaid_to_isotope('26056') == 'Fe56'
         assert nmm.utils.zaid_to_isotope('026056') == 'Fe56'
         assert nmm.utils.zaid_to_isotope('026056') == 'Fe56'
-        
+
         assert nmm.utils.zaid_to_isotope('092235') == 'U235'
         assert nmm.utils.zaid_to_isotope('92235') == 'U235'
 

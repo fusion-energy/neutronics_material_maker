@@ -111,7 +111,7 @@ class Material:
             and numbers of elements to add to the material e.g. 'CO2' or 'H2O'
         isotopes (dict): A dictionary of keys and values with the isotope symbol
             (str) as the key and the amount of that isotope (float) as the value
-            e.g. {'Li6': 0.9, 'Li7': 0.1} alternatively zaid representation 
+            e.g. {'Li6': 0.9, 'Li7': 0.1} alternatively zaid representation
             can also be used instead of the symbol e.g. {'3006': 0.9, '4007': 0.1}
         percent_type (str): Atom "ao" or or weight fraction "wo"
         density (float): value to be used as the density
@@ -774,7 +774,7 @@ class Material:
         for isotope_symbol, isotope_number in zip(
             self.isotopes.keys(), self.isotopes.values()
         ):
-            #check for zaid entry
+            # check for zaid entry
             if isinstance(isotope_symbol, int) or isotope_symbol.isdigit():
                 isotope_symbol = zaid_to_isotope(isotope_symbol)
             openmc_material.add_nuclide(
