@@ -88,10 +88,52 @@ The default enrichment target for 'Li4SiO4' is Li6 but this can be changed if re
 
 
 
-Usage - make a Material() from a dictionary
--------------------------------------------
+Usage - make a your own materials
+---------------------------------
 
-There are options to extent the material library however it is also possible to make materials directly from a dictionary by making use of the python syntax **
+Example making materials from elements
+
+::
+
+    my_mat = nmm.Material(material_name="li_with_si",
+                          density= 3.0,
+                          density_unit= "g/cm3",
+                          percent_type= "ao",
+                          elements={
+                                "Li":4,
+                                "Si":2
+                            }
+    )
+
+Example making materials from isotopes
+
+::
+
+    my_mat = nmm.Material(material_name="enriched_li",
+                          density= 3.0,
+                          density_unit= "g/cm3",
+                          percent_type= "ao",
+                          isotopes={
+                                "Li6":0.9,
+                                "Li7":0.1
+                            }
+    )
+
+Example making materials from isotopes defined by zaid
+
+::
+
+    my_mat = nmm.Material(material_name="enriched_li",
+                          density= 3.0,
+                          density_unit= "g/cm3",
+                          percent_type= "ao",
+                          isotopes={
+                                "3006":0.9,
+                                "3007":0.1
+                            }
+    )
+
+It is also possible to make your own materials directly from a dictionary by making use of the python syntax **
 
 ::
 
@@ -106,4 +148,4 @@ There are options to extent the material library however it is also possible to 
                 "percent_type": "ao",
                 }
 
-    nmm.Material(**my_dict)
+    my_mat = nmm.Material(**my_dict)
