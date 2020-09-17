@@ -120,10 +120,17 @@ def make_mcnp_material(mat):
 
 
 def isotope_to_zaid(isotope):
-    """converts an isotope into a zaoid e.g. Li6 -> 003006"""
+    """converts an isotope into a zaid e.g. Li6 -> 003006"""
     z, a, m = openmc.data.zam(isotope)
     zaid = str(z).zfill(3) + str(a).zfill(3)
     return zaid
+
+def zaid_to_isotope(zaid):
+    """converts an isotope into a zaid e.g. 003006 -> Li6"""
+    a = str(zaid)[-3:]
+    z = str(zaid)[:-3]
+    symbol = openmc.data.ATOMIC_SYMBOL[int(z)]
+    return symbol + str(int(a))
 
 
 def AddMaterialFromDir(directory=None):

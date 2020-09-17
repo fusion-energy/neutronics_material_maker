@@ -14,6 +14,38 @@ import neutronics_material_maker as nmm
 
 class test_object_properties(unittest.TestCase):
 
+    def test_material_from_elements(self):
+        test_mat = nmm.Material(material_name='test',
+                                elements={'Li': 0.4, 'Zr': 0.6},
+                                percent_type='ao',
+                                density=1,
+                                density_unit='g/cm3')
+        test_mat.openmc_material
+
+    def test_material_from_isotopes(self):
+        test_mat = nmm.Material(material_name='test',
+                                isotopes={'Li6': 0.4, 'Li7': 0.6},
+                                percent_type='ao',
+                                density=1,
+                                density_unit='g/cm3')
+        test_mat.openmc_material
+    
+    def test_material_from_zaid_int_isotopes(self):
+        test_mat = nmm.Material(material_name='test',
+                                isotopes={3006: 0.4, 3007: 0.6},
+                                percent_type='ao',
+                                density=1,
+                                density_unit='g/cm3')
+        test_mat.openmc_material
+
+    def test_material_from_zaid_str_isotopes(self):
+        test_mat = nmm.Material(material_name='test',
+                                isotopes={'3006': 0.4, '3007': 0.6},
+                                percent_type='ao',
+                                density=1,
+                                density_unit='g/cm3')
+        test_mat.openmc_material
+
     def test_iron_density(self):
         a = nmm.Material("Iron")
         assert a.openmc_material.density == 7.874
