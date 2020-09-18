@@ -125,6 +125,7 @@ def isotope_to_zaid(isotope):
     zaid = str(z).zfill(3) + str(a).zfill(3)
     return zaid
 
+
 def zaid_to_isotope(zaid):
     """converts an isotope into a zaid e.g. 003006 -> Li6"""
     a = str(zaid)[-3:]

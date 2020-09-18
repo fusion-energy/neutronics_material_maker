@@ -29,7 +29,7 @@ class test_object_properties(unittest.TestCase):
                                 density=1,
                                 density_unit='g/cm3')
         test_mat.openmc_material
-    
+
     def test_material_from_zaid_int_isotopes(self):
         test_mat = nmm.Material(material_name='test',
                                 isotopes={3006: 0.4, 3007: 0.6},
