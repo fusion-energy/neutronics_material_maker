@@ -94,6 +94,7 @@ Usage - make a your own materials
 Example making materials from elements
 
 ::
+    import neutronics_material_maker as nmm
 
     my_mat = nmm.Material(material_name="li_with_si",
                           density= 3.0,
@@ -108,6 +109,7 @@ Example making materials from elements
 Example making materials from isotopes
 
 ::
+    import neutronics_material_maker as nmm
 
     my_mat = nmm.Material(material_name="enriched_li",
                           density= 3.0,
@@ -122,6 +124,7 @@ Example making materials from isotopes
 Example making materials from isotopes defined by zaid
 
 ::
+    import neutronics_material_maker as nmm
 
     my_mat = nmm.Material(material_name="enriched_li",
                           density= 3.0,
@@ -136,8 +139,8 @@ Example making materials from isotopes defined by zaid
 It is also possible to make your own materials directly from a dictionary by making use of the python syntax **
 
 ::
-
     import neutronics_material_maker as nmm
+    
     my_dict = { "material_name": "li_with_si",
                 "elements": {
                                 "Li":4,
