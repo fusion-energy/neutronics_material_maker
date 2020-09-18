@@ -17,6 +17,31 @@ if __name__ == "__main__":
 
 class test_object_properties(unittest.TestCase):
 
+    def test_zaid_to_isotope(self):
+        assert nmm.utils.zaid_to_isotope('3006') == 'Li6'
+        assert nmm.utils.zaid_to_isotope('03006') == 'Li6'
+        assert nmm.utils.zaid_to_isotope('003006') == 'Li6'
+
+        assert nmm.utils.zaid_to_isotope('8018') == 'O18'
+        assert nmm.utils.zaid_to_isotope('08018') == 'O18'
+        assert nmm.utils.zaid_to_isotope('008018') == 'O18'
+
+        assert nmm.utils.zaid_to_isotope('26056') == 'Fe56'
+        assert nmm.utils.zaid_to_isotope('026056') == 'Fe56'
+        assert nmm.utils.zaid_to_isotope('026056') == 'Fe56'
+
+        assert nmm.utils.zaid_to_isotope('092235') == 'U235'
+        assert nmm.utils.zaid_to_isotope('92235') == 'U235'
+
+    def test_isotope_to_zaid(self):
+        assert nmm.utils.isotope_to_zaid('Li6') == '003006'
+
+        assert nmm.utils.isotope_to_zaid('O18') == '008018'
+
+        assert nmm.utils.isotope_to_zaid('Fe56') == '026056'
+
+        assert nmm.utils.isotope_to_zaid('U235') == '092235'
+
     def test_entries_from_each_json_file_get_into_the_internal_dict(self):
         all_mats = nmm.AvailableMaterials().keys()
 

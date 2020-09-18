@@ -25,7 +25,8 @@ from neutronics_material_maker import (
     AddMaterialFromDir,
     AddMaterialFromFile,
     AvailableMaterials,
-    material_dict
+    material_dict,
+    zaid_to_isotope
 )
 
 atomic_mass_unit_in_g = 1.660539040e-24
@@ -103,12 +104,15 @@ class Material:
         material_id (int): the id number or mat number used in the MCNP material card
         volume_in_cm3 (float): The volume of the material in cm3, used when
             creating fispact material cards
-        elements (list of tuples): A list of tuples with the element symbol
-            and the amount of that element or a chemical formula as a string
+        elements (dict): A dictionary of keys and values with the element symbol
+            (str) as the key and the amount of that element as the value (float)
+            e.g. {'C': 0.3333, 'O': 0.666}
         chemical_equation (str): A chemical equation that identifies elements
-            and numbers of elements to add to the material e.g. CO2
-        isotopes (list of tuples): A list of tuples with the isotope symbol
-            and the amount of that isotope
+            and numbers of elements to add to the material e.g. 'CO2' or 'H2O'
+        isotopes (dict): A dictionary of keys and values with the isotope symbol
+            (str) as the key and the amount of that isotope (float) as the value
+            e.g. {'Li6': 0.9, 'Li7': 0.1} alternatively zaid representation
+            can also be used instead of the symbol e.g. {'3006': 0.9, '4007': 0.1}
         percent_type (str): Atom "ao" or or weight fraction "wo"
         density (float): value to be used as the density
         density_unit (str): the units of density "g/cm3", "g/cc", "kg/m3",
@@ -770,7 +774,9 @@ class Material:
         for isotope_symbol, isotope_number in zip(
             self.isotopes.keys(), self.isotopes.values()
         ):
-
+            # check for zaid entry
+            if isinstance(isotope_symbol, int) or isotope_symbol.isdigit():
+                isotope_symbol = zaid_to_isotope(isotope_symbol)
             openmc_material.add_nuclide(
                 isotope_symbol, isotope_number, self.percent_type
             )
