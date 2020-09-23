@@ -44,6 +44,11 @@ def make_fispact_material(mat):
 
 def make_serpent_material(mat):
     """Returns the material in a string compatable with Serpent II"""
+    
+    # decimal places to print
+    dp = 6
+    
+    
     if mat.material_tag is None:
         name = mat.material_name
     else:
@@ -64,11 +69,11 @@ def make_serpent_material(mat):
         elif isotope[2] == "wo":
             prefix = " -"
         mat_card.append(
-            "     "
+            "      "
             + isotope_to_zaid(isotope[0])
             + zaid_suffix
             + prefix
-            + str(isotope[1])
+            + f'{isotope[1]:{dp}e}'
         )
 
     return "\n".join(mat_card)
@@ -76,6 +81,9 @@ def make_serpent_material(mat):
 
 def make_mcnp_material(mat):
     """Returns the material in a string compatable with MCNP6"""
+    
+    # Number of decimal places to print
+    dp = 8
 
     if mat.material_id is None:
         raise ValueError(
@@ -96,15 +104,15 @@ def make_mcnp_material(mat):
         "c     "
         + name
         + " density "
-        + str(mat.openmc_material.get_mass_density())
+        + f'{mat.openmc_material.get_mass_density():{dp}e}'
         + " g/cm3"
     ]
     for i, isotope in enumerate(mat.openmc_material.nuclides):
 
         if i == 0:
-            start = "M" + str(mat.material_id) + " "
+            start = f'M{mat.material_id: <5}'
         else:
-            start = "     "
+            start = "      "
 
         if isotope[2] == "ao":
             prefix = "  "
@@ -112,7 +120,7 @@ def make_mcnp_material(mat):
             prefix = " -"
 
         rest = isotope_to_zaid(isotope[0]) + \
-            zaid_suffix + prefix + str(isotope[1])
+            zaid_suffix + prefix + f'{isotope[1]:{dp}e}'
 
         mat_card.append(start + rest)
 
