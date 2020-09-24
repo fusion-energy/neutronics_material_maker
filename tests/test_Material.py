@@ -126,18 +126,18 @@ class test_object_properties(unittest.TestCase):
         assert float(line_by_line_material[0].split()[3]) == pytest.approx(3)
         assert line_by_line_material[0].split()[4] == "g/cm3"
 
-        assert line_by_line_material[1] == "M27 041093.30c  0.75"
+        assert line_by_line_material[1] == "M27   041093.30c  7.500000e-01"
 
-        assert "     050112.30c  0.002425" in line_by_line_material
-        assert "     050114.30c  0.00165" in line_by_line_material
-        assert "     050115.30c  0.00085" in line_by_line_material
-        assert "     050116.30c  0.03635" in line_by_line_material
-        assert "     050117.30c  0.0192" in line_by_line_material
-        assert "     050118.30c  0.06055" in line_by_line_material
-        assert "     050119.30c  0.021475" in line_by_line_material
-        assert "     050120.30c  0.08145" in line_by_line_material
-        assert "     050122.30c  0.011575" in line_by_line_material
-        assert "     050124.30c  0.014475" in line_by_line_material
+        assert "      050120.30c  8.145000e-02" in line_by_line_material
+        assert "      050119.30c  2.147500e-02" in line_by_line_material
+        assert "      050115.30c  8.500000e-04" in line_by_line_material
+        assert "      050112.30c  2.425000e-03" in line_by_line_material
+        assert "      050118.30c  6.055000e-02" in line_by_line_material
+        assert "      050122.30c  1.157500e-02" in line_by_line_material
+        assert "      050124.30c  1.447500e-02" in line_by_line_material
+        assert "      050114.30c  1.650000e-03" in line_by_line_material
+        assert "      050117.30c  1.920000e-02" in line_by_line_material
+        assert "      050116.30c  3.635000e-02" in line_by_line_material
 
     def test_mcnp_material_lines_contain_underscore(self):
         test_material = nmm.Material(
@@ -221,17 +221,17 @@ class test_object_properties(unittest.TestCase):
         assert line_by_line_material[0].split()[0] == "mat"
         assert line_by_line_material[0].split()[1] == "test"
         assert float(line_by_line_material[0].split()[2]) == pytest.approx(3)
-        assert "     041093.30c  0.75" in line_by_line_material
-        assert "     050112.30c  0.002425" in line_by_line_material
-        assert "     050114.30c  0.00165" in line_by_line_material
-        assert "     050115.30c  0.00085" in line_by_line_material
-        assert "     050116.30c  0.03635" in line_by_line_material
-        assert "     050117.30c  0.0192" in line_by_line_material
-        assert "     050118.30c  0.06055" in line_by_line_material
-        assert "     050119.30c  0.021475" in line_by_line_material
-        assert "     050120.30c  0.08145" in line_by_line_material
-        assert "     050122.30c  0.011575" in line_by_line_material
-        assert "     050124.30c  0.014475" in line_by_line_material
+        assert "      041093.30c  7.500000e-01" in line_by_line_material
+        assert "      050120.30c  8.145000e-02" in line_by_line_material
+        assert "      050119.30c  2.147500e-02" in line_by_line_material
+        assert "      050115.30c  8.500000e-04" in line_by_line_material
+        assert "      050112.30c  2.425000e-03" in line_by_line_material
+        assert "      050118.30c  6.055000e-02" in line_by_line_material
+        assert "      050122.30c  1.157500e-02" in line_by_line_material
+        assert "      050124.30c  1.447500e-02" in line_by_line_material
+        assert "      050114.30c  1.650000e-03" in line_by_line_material
+        assert "      050117.30c  1.920000e-02" in line_by_line_material
+        assert "      050116.30c  3.635000e-02" in line_by_line_material
 
     def test_material_creation_from_chemical_formula_with_enrichment(self):
 
