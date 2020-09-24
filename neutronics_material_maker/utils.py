@@ -44,11 +44,10 @@ def make_fispact_material(mat):
 
 def make_serpent_material(mat):
     """Returns the material in a string compatable with Serpent II"""
-    
+
     # decimal places to print
     dp = 6
-    
-    
+
     if mat.material_tag is None:
         name = mat.material_name
     else:
@@ -81,7 +80,7 @@ def make_serpent_material(mat):
 
 def make_mcnp_material(mat):
     """Returns the material in a string compatable with MCNP6"""
-    
+
     # Number of decimal places to print
     dp = 8
 
