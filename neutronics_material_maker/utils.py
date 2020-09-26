@@ -45,9 +45,6 @@ def make_fispact_material(mat):
 def make_serpent_material(mat):
     """Returns the material in a string compatable with Serpent II"""
 
-    # decimal places to print
-    decimal_places = 6
-
     if mat.material_tag is None:
         name = mat.material_name
     else:
@@ -72,7 +69,7 @@ def make_serpent_material(mat):
             + isotope_to_zaid(isotope[0])
             + zaid_suffix
             + prefix
-            + f'{isotope[1]:{decimal_places}e}'
+            + f'{isotope[1]:.{mat.decimal_places}e}'
         )
 
     return "\n".join(mat_card)
@@ -80,9 +77,6 @@ def make_serpent_material(mat):
 
 def make_mcnp_material(mat):
     """Returns the material in a string compatable with MCNP6"""
-
-    # Number of decimal places to print
-    decimal_places = 8
 
     if mat.material_id is None:
         raise ValueError(
@@ -103,7 +97,7 @@ def make_mcnp_material(mat):
         "c     "
         + name
         + " density "
-        + f'{mat.openmc_material.get_mass_density():{decimal_places}e}'
+        + f'{mat.openmc_material.get_mass_density():.{mat.decimal_places}e}'
         + " g/cm3"
     ]
     for i, isotope in enumerate(mat.openmc_material.nuclides):
@@ -119,7 +113,7 @@ def make_mcnp_material(mat):
             prefix = " -"
 
         rest = isotope_to_zaid(isotope[0]) + \
-            zaid_suffix + prefix + f'{isotope[1]:{decimal_places}e}'
+            zaid_suffix + prefix + f'{isotope[1]:.{mat.decimal_places}e}'
 
         mat_card.append(start + rest)
 

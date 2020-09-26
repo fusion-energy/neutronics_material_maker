@@ -102,6 +102,8 @@ class Material:
         zaid_suffix (str): The nuclear library to apply to the zaid, for
             example ".31c", this is used in MCNP and Serpent material cards.
         material_id (int): the id number or mat number used in the MCNP material card
+        decimal_places (int): The number of decimal places to use in MCNP and
+            Seprent material cards when they are printed out (default of 8).
         volume_in_cm3 (float): The volume of the material in cm3, used when
             creating fispact material cards
         elements (dict): A dictionary of keys and values with the element symbol
@@ -154,6 +156,7 @@ class Material:
         reference=None,
         zaid_suffix=None,
         material_id=None,
+        decimal_places=8,
         volume_in_cm3=None,
     ):
 
@@ -178,6 +181,7 @@ class Material:
         self.reference = reference
         self.zaid_suffix = zaid_suffix
         self.material_id = material_id
+        self.decimal_places = decimal_places
         self.volume_in_cm3 = volume_in_cm3
 
         # derived values
@@ -875,6 +879,7 @@ class Material:
             "reference": self.reference,
             "zaid_suffix": self.zaid_suffix,
             "material_id": self.material_id,
+            "decimal_places": self.decimal_places,
             "volume_in_cm3": self.volume_in_cm3,
         }
 
