@@ -140,7 +140,6 @@ class test_object_properties(unittest.TestCase):
         assert "      050117.30c  1.920000e-02" in line_by_line_material
         assert "      050116.30c  3.635000e-02" in line_by_line_material
 
-
     def test_mcnp_material_lines_with_decimal_places(self):
         test_material = nmm.Material(
             "Nb3Sn",
@@ -278,7 +277,8 @@ class test_object_properties(unittest.TestCase):
         assert len(line_by_line_material) == 12
         assert line_by_line_material[0].split()[0] == "mat"
         assert line_by_line_material[0].split()[1] == "test"
-        assert float(line_by_line_material[0].split()[2]) == pytest.approx(3.3333)
+        assert float(line_by_line_material[0].split()[
+                     2]) == pytest.approx(3.3333)
         assert "      041093.30c  7.5000e-01" in line_by_line_material
         assert "      050120.30c  8.1450e-02" in line_by_line_material
         assert "      050119.30c  2.1475e-02" in line_by_line_material
