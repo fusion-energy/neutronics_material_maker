@@ -96,8 +96,7 @@ class test_object_properties(unittest.TestCase):
         assert isinstance(test_material, openmc.Material) is False
         assert isinstance(test_material.openmc_material, openmc.Material)
 
-    def test_multimaterial_attributes_from_material_objects_and_openmc_materials(
-            self):
+    def test_multimaterial_attributes_from_material_objects_and_openmc_materials(self):
         # tests that multimaterials made from material objects and neutronics
         # materials have the same properties
 
@@ -175,16 +174,13 @@ class test_object_properties(unittest.TestCase):
 
     def test_density_of_mixed_materials_from_density_equation(self):
 
-        test_material = nmm.Material(
-            "H2O", temperature_in_C=25, pressure_in_Pa=100000)
+        test_material = nmm.Material("H2O", temperature_in_C=25, pressure_in_Pa=100000)
         test_mixed_material = nmm.MultiMaterial(
-            material_tag="test_mixed_material",
-            materials=[test_material],
-            fracs=[1])
+            material_tag="test_mixed_material", materials=[test_material], fracs=[1]
+        )
 
-        assert (
-            test_material.openmc_material.density
-            == pytest.approx(test_mixed_material.openmc_material.density)
+        assert test_material.openmc_material.density == pytest.approx(
+            test_mixed_material.openmc_material.density
         )
 
     def test_density_of_mixed_one_packed_crystal_and_one_non_crystal(self):
@@ -217,22 +213,17 @@ class test_object_properties(unittest.TestCase):
 
         test_material_1 = nmm.Material("Li4SiO4").openmc_material
 
-        test_material_2 = nmm.Material(
-            "Li4SiO4", packing_fraction=1).openmc_material
+        test_material_2 = nmm.Material("Li4SiO4", packing_fraction=1).openmc_material
 
         assert test_material_1.density == test_material_2.density
 
-        test_material_3 = nmm.Material(
-            "Li4SiO4", packing_fraction=0.5).openmc_material
+        test_material_3 = nmm.Material("Li4SiO4", packing_fraction=0.5).openmc_material
 
-        assert test_material_3.density == pytest.approx(
-            test_material_1.density * 0.5)
+        assert test_material_3.density == pytest.approx(test_material_1.density * 0.5)
 
-        test_material_4 = nmm.Material(
-            "Li4SiO4", packing_fraction=0.75).openmc_material
+        test_material_4 = nmm.Material("Li4SiO4", packing_fraction=0.75).openmc_material
 
-        assert test_material_4.density == pytest.approx(
-            test_material_1.density * 0.75)
+        assert test_material_4.density == pytest.approx(test_material_1.density * 0.75)
 
     def test_packing_fraction_for_multimaterial_function(self):
 
@@ -262,8 +253,7 @@ class test_object_properties(unittest.TestCase):
             fracs=[0.5, 0.5],
         ).openmc_material
 
-        assert test_material_7.density == pytest.approx(
-            test_material_5.density * 0.5)
+        assert test_material_7.density == pytest.approx(test_material_5.density * 0.5)
 
     def test_packing_fraction_of_a_multimaterial(self):
 
@@ -324,8 +314,7 @@ class test_object_properties(unittest.TestCase):
             percent_type="vo",
         )
 
-        assert test_material_10.density == pytest.approx(
-            test_material_8.density * 0.5)
+        assert test_material_10.density == pytest.approx(test_material_8.density * 0.5)
 
     def test_multimaterial_vs_mix_materials(self):
 
@@ -414,7 +403,6 @@ class test_object_properties(unittest.TestCase):
         assert test_material_in_json_form["packing_fraction"] == 1.0
 
     def test_incorrect_settings(self):
-
         def too_large_fracs():
             """checks a ValueError is raised when the fracs are above 1"""
 
@@ -436,7 +424,8 @@ class test_object_properties(unittest.TestCase):
             assert len(w) == 1
             assert issubclass(w[-1].category, UserWarning)
             assert "warning sum of MutliMaterials do not sum to 1." in str(
-                w[-1].message)
+                w[-1].message
+            )
 
         def too_small_fracs():
             """checks a ValueError is raised when the fracs are above 1"""
@@ -459,4 +448,5 @@ class test_object_properties(unittest.TestCase):
             assert len(w) == 1
             assert issubclass(w[-1].category, UserWarning)
             assert "warning sum of MutliMaterials do not sum to 1." in str(
-                w[-1].message)
+                w[-1].message
+            )
