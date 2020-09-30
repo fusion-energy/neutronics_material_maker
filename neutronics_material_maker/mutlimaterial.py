@@ -60,6 +60,8 @@ class MultiMaterial:
         zaid_suffix (str): The nuclear library to apply to the zaid, for example
             ".31c", this is used in MCNP and Serpent material cards.
         material_id (int): The id number or mat number used in the MCNP material card
+        decimal_places (int): The number of decimal places to use in MCNP and
+            Seprent material cards when they are printed out (default of 8).
         volume_in_cm3 (float): The volume of the material in cm3, used when creating
             fispact material cards
 
@@ -77,6 +79,7 @@ class MultiMaterial:
         packing_fraction=1.0,
         zaid_suffix=None,
         material_id=None,
+        decimal_places=8,
         volume_in_cm3=None,
     ):
         self.material_tag = material_tag
@@ -86,6 +89,7 @@ class MultiMaterial:
         self.packing_fraction = packing_fraction
         self.zaid_suffix = zaid_suffix
         self.material_id = material_id
+        self.decimal_places = decimal_places
         self.volume_in_cm3 = volume_in_cm3
 
         # derived values
@@ -234,6 +238,7 @@ class MultiMaterial:
                     "reference": material.reference,
                     "zaid_suffix": material.zaid_suffix,
                     "material_id": material.material_id,
+                    "decimal_places": material.decimal_places,
                     "volume_in_cm3": material.volume_in_cm3,
                 })
 
@@ -245,6 +250,7 @@ class MultiMaterial:
             "packing_fraction": self.packing_fraction,
             "zaid_suffix": self.zaid_suffix,
             "material_id": self.material_id,
+            "decimal_places": self.decimal_places,
             "volume_in_cm3": self.volume_in_cm3,
         }
 
