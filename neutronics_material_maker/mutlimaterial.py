@@ -10,8 +10,7 @@ try:
 except BaseException:
     warnings.warn(
         "OpenMC python package not found, .openmc_material, .serpent_material, \
-            .mcnp_material, .fispact_material methods not avaiable"
-    )
+            .mcnp_material, .fispact_material methods not avaiable")
 
 from CoolProp.CoolProp import PropsSI
 import neutronics_material_maker as nmm
@@ -101,7 +100,8 @@ class MultiMaterial:
         self.fispact_material = None
 
         if len(self.fracs) != len(self.materials):
-            raise ValueError("There must be equal numbers of fracs and materials")
+            raise ValueError(
+                "There must be equal numbers of fracs and materials")
 
         if sum(self.fracs) != 1.0:
             warnings.warn(
@@ -243,8 +243,7 @@ class MultiMaterial:
                     "material_id": material.material_id,
                     "decimal_places": material.decimal_places,
                     "volume_in_cm3": material.volume_in_cm3,
-                }
-            )
+                })
 
         jsonified_object = {
             "material_tag": self.material_tag,

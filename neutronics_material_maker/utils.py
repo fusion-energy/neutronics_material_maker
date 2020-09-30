@@ -11,8 +11,7 @@ try:
 except BaseException:
     warnings.warn(
         "OpenMC not found, .openmc_material, .serpent_material, .mcnp_material,\
-            .fispact_material not avaiable"
-    )
+            .fispact_material not avaiable")
 
 
 def make_fispact_material(mat):
@@ -57,7 +56,8 @@ def make_serpent_material(mat):
     else:
         zaid_suffix = mat.zaid_suffix
 
-    mat_card = ["mat " + name + " " + str(mat.openmc_material.get_mass_density())]
+    mat_card = ["mat " + name + " " +
+                str(mat.openmc_material.get_mass_density())]
     # should check if percent type is 'ao' or 'wo'
 
     for isotope in mat.openmc_material.nuclides:

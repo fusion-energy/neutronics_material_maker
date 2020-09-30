@@ -14,8 +14,7 @@ try:
 except BaseException:
     warnings.warn(
         "OpenMC python package not found, .openmc_material, .serpent_material, \
-            .mcnp_material, .fispact_material methods not avaiable"
-    )
+            .mcnp_material, .fispact_material methods not avaiable")
 
 from CoolProp.CoolProp import PropsSI
 
@@ -211,7 +210,8 @@ class Material:
                         enrich a material"
                     )
 
-            if "temperature_dependant" in material_dict[self.material_name].keys():
+            if "temperature_dependant" in material_dict[self.material_name].keys(
+            ):
                 if temperature_in_K is None and temperature_in_C is None:
                     if self.material_name == "He":
                         raise ValueError(
@@ -235,9 +235,12 @@ class Material:
                     if temperature_in_C is None:
                         self.temperature_in_C = temperature_in_K + 273.15
 
-            if "pressure_dependant" in material_dict[self.material_name].keys():
+            if "pressure_dependant" in material_dict[self.material_name].keys(
+            ):
                 if pressure_in_Pa is None:
-                    raise ValueError("pressure_in_Pa is needed for", self.material_name)
+                    raise ValueError(
+                        "pressure_in_Pa is needed for",
+                        self.material_name)
 
         self._make_openmc_material()
 
@@ -273,7 +276,7 @@ class Material:
     @property
     def mcnp_material(self):
         """
-        Returns a MCNP version of the Material. Requires the 
+        Returns a MCNP version of the Material. Requires the
         Material.material_id to be set. Decimal places can be controlled with
         the Material.decimal_places attribute.
 
@@ -309,7 +312,8 @@ class Material:
     def material_name(self, value):
         if value is not None:
             if not isinstance(value, str):
-                raise ValueError("Material.material_name must be a string", value)
+                raise ValueError(
+                    "Material.material_name must be a string", value)
         self._material_name = value
 
     @property
@@ -320,7 +324,8 @@ class Material:
     def material_tag(self, value):
         if value is not None:
             if not isinstance(value, str):
-                raise ValueError("Material.material_tag must be a string", value)
+                raise ValueError(
+                    "Material.material_tag must be a string", value)
         self._material_tag = value
 
     @property
@@ -360,7 +365,8 @@ class Material:
         if isinstance(value, str) or value is None:
             self._chemical_equation = value
         else:
-            raise ValueError("MAterial.chemical_equation must be a string e.g. 'H2O'")
+            raise ValueError(
+                "MAterial.chemical_equation must be a string e.g. 'H2O'")
 
     @property
     def isotopes(self):
@@ -409,7 +415,8 @@ class Material:
         if value in ["ao", "wo", None]:
             self._percent_type = value
         else:
-            raise ValueError("Material.percent_type only accepts 'ao' or 'wo' types")
+            raise ValueError(
+                "Material.percent_type only accepts 'ao' or 'wo' types")
 
     @property
     def enrichment_type(self):
@@ -432,7 +439,8 @@ class Material:
     def atoms_per_unit_cell(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError("Material.atoms_per_unit_cell must be greater than 0")
+                raise ValueError(
+                    "Material.atoms_per_unit_cell must be greater than 0")
         self._atoms_per_unit_cell = value
 
     @property
@@ -456,7 +464,8 @@ class Material:
     def temperature_in_K(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError("Material.temperature_in_K must be greater than 0")
+                raise ValueError(
+                    "Material.temperature_in_K must be greater than 0")
         self._temperature_in_K = value
 
     @property
@@ -578,7 +587,8 @@ class Material:
         else:
             name = self.material_tag
         if self.material_id is not None:
-            openmc_material = openmc.Material(material_id=self.material_id, name=name)
+            openmc_material = openmc.Material(
+                material_id=self.material_id, name=name)
         else:
             openmc_material = openmc.Material(name=name)
 
@@ -803,8 +813,9 @@ class Material:
                 density = eval(self.density_equation)
                 if density is None:
                     raise ValueError(
-                        "Density value of ", self.material_name, " can not be found"
-                    )
+                        "Density value of ",
+                        self.material_name,
+                        " can not be found")
                 else:
                     self.density = density
 
@@ -814,8 +825,8 @@ class Material:
             ):
 
                 molar_mass = (
-                    self._get_atoms_in_crystal() * openmc_material.average_molar_mass
-                )
+                    self._get_atoms_in_crystal() *
+                    openmc_material.average_molar_mass)
 
                 mass = self.atoms_per_unit_cell * molar_mass * atomic_mass_unit_in_g
 
@@ -838,7 +849,10 @@ class Material:
     def _get_atoms_in_crystal(self):
         """Finds the number of atoms in the crystal lactic"""
 
-        tokens = [a for a in re.split(r"([A-Z][a-z]*)", self.chemical_equation) if a]
+        tokens = [
+            a for a in re.split(
+                r"([A-Z][a-z]*)",
+                self.chemical_equation) if a]
 
         list_of_fractions = []
 
