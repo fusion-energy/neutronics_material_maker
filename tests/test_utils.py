@@ -16,57 +16,57 @@ if __name__ == "__main__":
 
 
 class test_object_properties(unittest.TestCase):
-
     def test_zaid_to_isotope(self):
-        assert nmm.utils.zaid_to_isotope('3006') == 'Li6'
-        assert nmm.utils.zaid_to_isotope('03006') == 'Li6'
-        assert nmm.utils.zaid_to_isotope('003006') == 'Li6'
+        assert nmm.utils.zaid_to_isotope("3006") == "Li6"
+        assert nmm.utils.zaid_to_isotope("03006") == "Li6"
+        assert nmm.utils.zaid_to_isotope("003006") == "Li6"
 
-        assert nmm.utils.zaid_to_isotope('8018') == 'O18'
-        assert nmm.utils.zaid_to_isotope('08018') == 'O18'
-        assert nmm.utils.zaid_to_isotope('008018') == 'O18'
+        assert nmm.utils.zaid_to_isotope("8018") == "O18"
+        assert nmm.utils.zaid_to_isotope("08018") == "O18"
+        assert nmm.utils.zaid_to_isotope("008018") == "O18"
 
-        assert nmm.utils.zaid_to_isotope('26056') == 'Fe56'
-        assert nmm.utils.zaid_to_isotope('026056') == 'Fe56'
-        assert nmm.utils.zaid_to_isotope('026056') == 'Fe56'
+        assert nmm.utils.zaid_to_isotope("26056") == "Fe56"
+        assert nmm.utils.zaid_to_isotope("026056") == "Fe56"
+        assert nmm.utils.zaid_to_isotope("026056") == "Fe56"
 
-        assert nmm.utils.zaid_to_isotope('092235') == 'U235'
-        assert nmm.utils.zaid_to_isotope('92235') == 'U235'
+        assert nmm.utils.zaid_to_isotope("092235") == "U235"
+        assert nmm.utils.zaid_to_isotope("92235") == "U235"
 
     def test_isotope_to_zaid(self):
-        assert nmm.utils.isotope_to_zaid('Li6') == '003006'
+        assert nmm.utils.isotope_to_zaid("Li6") == "003006"
 
-        assert nmm.utils.isotope_to_zaid('O18') == '008018'
+        assert nmm.utils.isotope_to_zaid("O18") == "008018"
 
-        assert nmm.utils.isotope_to_zaid('Fe56') == '026056'
+        assert nmm.utils.isotope_to_zaid("Fe56") == "026056"
 
-        assert nmm.utils.isotope_to_zaid('U235') == '092235'
+        assert nmm.utils.isotope_to_zaid("U235") == "092235"
 
     def test_entries_from_each_json_file_get_into_the_internal_dict(self):
         all_mats = nmm.AvailableMaterials().keys()
 
-        assert 'A-150 Tissue-Equivalent Plastic (A150TEP)' in all_mats
-        assert 'Zirconium Hydride (ZrH2)' in all_mats
-        assert 'Pb842Li158' in all_mats
-        assert 'FLiNaBe' in all_mats
-        assert 'WC' in all_mats
-        assert 'CuCrZr' in all_mats
-        assert 'DD_plasma' in all_mats
-        assert 'DT_plasma' in all_mats
-        assert 'Pb' in all_mats
-        assert 'Zr5Pb4' in all_mats
-        assert 'isotropic graphite HPG-59' in all_mats
-        assert 'Nb3Sn' in all_mats
-        assert 'ReBCO' in all_mats
-        assert 'He' in all_mats
-        assert 'xenon' in all_mats
-        assert 'Li4SiO4' in all_mats
-        assert 'Li2TiO3' in all_mats
-        assert 'Li' in all_mats
-        assert 'FLiNaK' in all_mats
+        assert "A-150 Tissue-Equivalent Plastic (A150TEP)" in all_mats
+        assert "Zirconium Hydride (ZrH2)" in all_mats
+        assert "Pb842Li158" in all_mats
+        assert "FLiNaBe" in all_mats
+        assert "WC" in all_mats
+        assert "CuCrZr" in all_mats
+        assert "DD_plasma" in all_mats
+        assert "DT_plasma" in all_mats
+        assert "Pb" in all_mats
+        assert "Zr5Pb4" in all_mats
+        assert "isotropic graphite HPG-59" in all_mats
+        assert "Nb3Sn" in all_mats
+        assert "ReBCO" in all_mats
+        assert "He" in all_mats
+        assert "xenon" in all_mats
+        assert "Li4SiO4" in all_mats
+        assert "Li2TiO3" in all_mats
+        assert "Li" in all_mats
+        assert "FLiNaK" in all_mats
 
     def test_number_of_materials_in_dict(self):
         import neutronics_material_maker as nmm_again
+
         assert len(nmm_again.AvailableMaterials().keys()) >= 418
 
     def test_dictionary_of_materials_makes_openmc_materials(self):
@@ -83,7 +83,8 @@ class test_object_properties(unittest.TestCase):
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
             test_mat = nmm.Material(
-                mat, temperature_in_K=300, pressure_in_Pa=5e6, material_id=1)
+                mat, temperature_in_K=300, pressure_in_Pa=5e6, material_id=1
+            )
 
             assert isinstance(test_mat.mcnp_material, str)
 

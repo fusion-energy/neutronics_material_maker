@@ -9,8 +9,8 @@ try:
     import openmc
 except BaseException:
     warnings.warn(
-        "OpenMC python package not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material methods not avaiable"
-    )
+        "OpenMC python package not found, .openmc_material, .serpent_material, \
+            .mcnp_material, .fispact_material methods not avaiable")
 
 from CoolProp.CoolProp import PropsSI
 import neutronics_material_maker as nmm
@@ -59,11 +59,12 @@ class MultiMaterial:
             to 1/void fraction
         zaid_suffix (str): The nuclear library to apply to the zaid, for example
             ".31c", this is used in MCNP and Serpent material cards.
-        material_id (int): The id number or mat number used in the MCNP material card
+        material_id (int): The id number or mat number used in the MCNP material
+            card
         decimal_places (int): The number of decimal places to use in MCNP and
             Seprent material cards when they are printed out (default of 8).
-        volume_in_cm3 (float): The volume of the material in cm3, used when creating
-            fispact material cards
+        volume_in_cm3 (float): The volume of the material in cm3, used when
+            creating fispact material cards
 
     Returns:
         Material: a neutronics_material_maker.Material instance
@@ -104,9 +105,11 @@ class MultiMaterial:
 
         if sum(self.fracs) != 1.0:
             warnings.warn(
-                "warning sum of MutliMaterials do not sum to 1." +
-                str(self.fracs) + " = " + str(sum(self.fracs)),
-                UserWarning
+                "warning sum of MutliMaterials do not sum to 1."
+                + str(self.fracs)
+                + " = "
+                + str(sum(self.fracs)),
+                UserWarning,
             )
 
     @property

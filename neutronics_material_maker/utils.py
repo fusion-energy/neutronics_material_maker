@@ -10,16 +10,17 @@ try:
     import openmc
 except BaseException:
     warnings.warn(
-        "OpenMC not found, .openmc_material, .serpent_material, .mcnp_material, .fispact_material not avaiable"
-    )
+        "OpenMC not found, .openmc_material, .serpent_material, .mcnp_material,\
+            .fispact_material not avaiable")
 
 
 def make_fispact_material(mat):
     """
-    Returns a Fispact material card for the material. This contains the required keywords
-    (DENSITY and FUEL) and the number of atoms of each isotope in the material for the given volume.
-    The Material.volume_in_cm3 must be set to use this method. See the Fispact FUEL keyword
-    documentation for more information https://fispact.ukaea.uk/wiki/Keyword:FUEL
+    Returns a Fispact material card for the material. This contains the required
+    keywords (DENSITY and FUEL) and the number of atoms of each isotope in the
+    material for the given volume. The Material.volume_in_cm3 must be set to
+    use this method. See the Fispact FUEL keyword documentation for more
+    information https://fispact.ukaea.uk/wiki/Keyword:FUEL
     """
 
     if mat.volume_in_cm3 is None:
@@ -69,7 +70,7 @@ def make_serpent_material(mat):
             + isotope_to_zaid(isotope[0])
             + zaid_suffix
             + prefix
-            + f'{isotope[1]:.{mat.decimal_places}e}'
+            + f"{isotope[1]:.{mat.decimal_places}e}"
         )
 
     return "\n".join(mat_card)
@@ -97,13 +98,13 @@ def make_mcnp_material(mat):
         "c     "
         + name
         + " density "
-        + f'{mat.openmc_material.get_mass_density():.{mat.decimal_places}e}'
+        + f"{mat.openmc_material.get_mass_density():.{mat.decimal_places}e}"
         + " g/cm3"
     ]
     for i, isotope in enumerate(mat.openmc_material.nuclides):
 
         if i == 0:
-            start = f'M{mat.material_id: <5}'
+            start = f"M{mat.material_id: <5}"
         else:
             start = "      "
 
@@ -112,8 +113,12 @@ def make_mcnp_material(mat):
         elif isotope[2] == "wo":
             prefix = " -"
 
-        rest = isotope_to_zaid(isotope[0]) + \
-            zaid_suffix + prefix + f'{isotope[1]:.{mat.decimal_places}e}'
+        rest = (
+            isotope_to_zaid(isotope[0])
+            + zaid_suffix
+            + prefix
+            + f"{isotope[1]:.{mat.decimal_places}e}"
+        )
 
         mat_card.append(start + rest)
 
@@ -138,13 +143,11 @@ def zaid_to_isotope(zaid):
 def AddMaterialFromDir(directory=None):
     """Add materials to the internal library from a directory of json files"""
     for filename in Path(directory).rglob("*.json"):
-        print('Added materials to library from', filename)
+        print("Added materials to library from", filename)
         with open(filename, "r") as f:
             new_data = json.load(f)
             material_dict.update(new_data)
-        print(list(new_data.keys()), '\n')
-
-    # print("Added materials to library", sorted(list(material_dict.keys())))
+        print(list(new_data.keys()), "\n")
 
 
 def AddMaterialFromFile(filename=None):
@@ -152,7 +155,7 @@ def AddMaterialFromFile(filename=None):
     with open(filename, "r") as f:
         new_data = json.load(f)
         material_dict.update(new_data)
-    print('Added materials to library from', filename)
+    print("Added materials to library from", filename)
     print(sorted(list(material_dict.keys())))
 
 
