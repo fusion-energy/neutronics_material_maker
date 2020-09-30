@@ -14,6 +14,18 @@ import neutronics_material_maker as nmm
 
 class test_object_properties(unittest.TestCase):
 
+    def test_density_of_material_is_set_from_equation(self):
+        test_mat = nmm.Material('FLiBe', temperature_in_K=80, pressure_in_Pa=1)
+        assert test_mat.density is not None
+
+    def test_density_of_material_is_set_from_crystal(self):
+        test_mat = nmm.Material('Li4SiO4')
+        assert test_mat.density is not None
+
+    def test_density_of_material_is_set(self):
+        test_mat = nmm.Material('eurofer')
+        assert test_mat.density is not None
+
     def test_material_from_elements(self):
         test_mat = nmm.Material(material_name='test',
                                 elements={'Li': 0.4, 'Zr': 0.6},
@@ -21,6 +33,8 @@ class test_object_properties(unittest.TestCase):
                                 density=1,
                                 density_unit='g/cm3')
         test_mat.openmc_material
+        assert 'Li6' in test_mat.openmc_material.get_nuclides()
+        assert 'Li7' in test_mat.openmc_material.get_nuclides()
 
     def test_material_from_isotopes(self):
         test_mat = nmm.Material(material_name='test',
@@ -28,7 +42,8 @@ class test_object_properties(unittest.TestCase):
                                 percent_type='ao',
                                 density=1,
                                 density_unit='g/cm3')
-        test_mat.openmc_material
+        assert 'Li6' in test_mat.openmc_material.get_nuclides()
+        assert 'Li7' in test_mat.openmc_material.get_nuclides()
 
     def test_material_from_zaid_int_isotopes(self):
         test_mat = nmm.Material(material_name='test',
@@ -37,6 +52,8 @@ class test_object_properties(unittest.TestCase):
                                 density=1,
                                 density_unit='g/cm3')
         test_mat.openmc_material
+        assert 'Li6' in test_mat.openmc_material.get_nuclides()
+        assert 'Li7' in test_mat.openmc_material.get_nuclides()
 
     def test_material_from_zaid_str_isotopes(self):
         test_mat = nmm.Material(material_name='test',
@@ -45,6 +62,8 @@ class test_object_properties(unittest.TestCase):
                                 density=1,
                                 density_unit='g/cm3')
         test_mat.openmc_material
+        assert 'Li6' in test_mat.openmc_material.get_nuclides()
+        assert 'Li7' in test_mat.openmc_material.get_nuclides()
 
     def test_iron_density(self):
         a = nmm.Material("Iron")

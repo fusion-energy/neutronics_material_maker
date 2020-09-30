@@ -240,6 +240,8 @@ class Material:
                         "pressure_in_Pa is needed for",
                         self.material_name)
 
+        self._make_openmc_material()
+
     @property
     def openmc_material(self):
         """
