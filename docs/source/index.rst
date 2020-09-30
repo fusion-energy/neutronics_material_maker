@@ -34,13 +34,19 @@ To use the neutronics-material-maker tool you will need Python 3 and OpenMC inst
 Installation
 ------------
 
-The quickest way to install the neutronics-material-maker is to use pip. In the terminal type...
+The recommended method is to install from [Conda Forge](https://conda-forge.org) which also installs all the dependancies including OpenMC.
 
-::
+```
+conda install neutronics_material_maker -c conda-forge
+```
 
-   pip install neutronics-material-maker
+Alternativly the code can be easily installed using pip (which doesn't currently include OpenMC)
 
-Alternatively you can clone the repository, and install using the setup.py 
+```
+pip install neutronics_material_maker
+```
+
+You can clone the repository, and install using the setup.py if you would like the development version.
 
 ::
 
