@@ -182,9 +182,8 @@ class test_object_properties(unittest.TestCase):
             materials=[test_material],
             fracs=[1])
 
-        assert (
-            test_material.openmc_material.density
-            == pytest.approx(test_mixed_material.openmc_material.density)
+        assert test_material.openmc_material.density == pytest.approx(
+            test_mixed_material.openmc_material.density
         )
 
     def test_density_of_mixed_one_packed_crystal_and_one_non_crystal(self):
@@ -414,7 +413,6 @@ class test_object_properties(unittest.TestCase):
         assert test_material_in_json_form["packing_fraction"] == 1.0
 
     def test_incorrect_settings(self):
-
         def too_large_fracs():
             """checks a ValueError is raised when the fracs are above 1"""
 
@@ -436,7 +434,8 @@ class test_object_properties(unittest.TestCase):
             assert len(w) == 1
             assert issubclass(w[-1].category, UserWarning)
             assert "warning sum of MutliMaterials do not sum to 1." in str(
-                w[-1].message)
+                w[-1].message
+            )
 
         def too_small_fracs():
             """checks a ValueError is raised when the fracs are above 1"""
@@ -459,4 +458,5 @@ class test_object_properties(unittest.TestCase):
             assert len(w) == 1
             assert issubclass(w[-1].category, UserWarning)
             assert "warning sum of MutliMaterials do not sum to 1." in str(
-                w[-1].message)
+                w[-1].message
+            )
