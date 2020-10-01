@@ -546,6 +546,19 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, incorrect_temperature_in_C)
 
+        def incorrect_elements_chemical_equation_usage():
+            """checks a ValueError is raised when the both chemical_equation and elements are used"""
+
+            nmm.Material(
+                material_name='my_mat',
+                enrichment=50.0,
+                chemical_equation="Li4SiO4",
+                elements={'C': 0.3333, 'O': 0.666},
+                enrichment_type="ao",
+            )
+
+        self.assertRaises(ValueError, incorrect_elements_chemical_equation_usage)
+
         def incorrect_enrichment_target():
             """checks a ValueError is raised when the enrichment target is not a natural isotope"""
 
@@ -557,6 +570,20 @@ class test_object_properties(unittest.TestCase):
             )
 
         self.assertRaises(ValueError, incorrect_enrichment_target)
+
+        #TODO
+        # def no_enrichment_target():
+        #     """checks a ValueError is raised when the enrichment target is set to none"""
+
+        #     nmm.Material(
+        #         material_name="my_mat",
+        #         chemical_equation="Li4SiO",
+        #         enrichment=50.0,
+        #         enrichment_target=None,
+        #         enrichment_type=None,
+        #     )
+
+        self.assertRaises(ValueError, no_enrichment_target)
 
         def incorrect_reference_type():
             """checks a ValueError is raised when the reference is an int"""
