@@ -374,7 +374,7 @@ class Material:
             self._chemical_equation = value
         else:
             raise ValueError(
-                "MAterial.chemical_equation must be a string e.g. 'H2O'")
+                "Material.chemical_equation must be a string e.g. 'H2O'")
 
     @property
     def isotopes(self):

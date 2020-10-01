@@ -510,6 +510,28 @@ class test_object_properties(unittest.TestCase):
             li_fraction / (pb_fraction + li_fraction))
 
     def test_incorrect_settings(self):
+
+        def enrichment_too_high():
+            """checks a ValueError is raised when enrichment is over 100"""
+
+            nmm.Material("Li4SiO4", enrichment=200)
+
+        self.assertRaises(ValueError, enrichment_too_high)
+
+        def enrichment_too_low():
+            """checks a ValueError is raised when enrichment is under 0"""
+
+            nmm.Material("Li4SiO4", enrichment=-10)
+
+        self.assertRaises(ValueError, enrichment_too_low)
+
+        def incorrect_pressure_in_Pa():
+            """checks a ValueError is raised when pressure_in_Pa is below 0"""
+
+            nmm.Material("H2O", temperature_in_C=10, pressure_in_Pa=-1e6)
+
+        self.assertRaises(ValueError, incorrect_pressure_in_Pa)
+
         def incorrect_temperature_in_K():
             """checks a ValueError is raised when temperature_in_K is below 0"""
 
