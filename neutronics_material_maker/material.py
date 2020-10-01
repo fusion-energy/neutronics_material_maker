@@ -242,7 +242,14 @@ class Material:
                         "pressure_in_Pa is needed for",
                         self.material_name)
 
-        self._make_openmc_material()
+        # this populates the density of materials when density is provided by
+        # equations and crystal latic information by making the openmc material
+        # however it should also be possible to ininitialize nmm.Material
+        # without openmc installed, hence the try except
+        try:
+            self._make_openmc_material()
+        except BaseException:
+            pass
 
     @property
     def openmc_material(self):
@@ -366,7 +373,7 @@ class Material:
             self._chemical_equation = value
         else:
             raise ValueError(
-                "MAterial.chemical_equation must be a string e.g. 'H2O'")
+                "Material.chemical_equation must be a string e.g. 'H2O'")
 
     @property
     def isotopes(self):
@@ -762,10 +769,6 @@ class Material:
         for element_symbol, element_number in zip(
             self.elements.keys(), self.elements.values()
         ):
-
-            # natural_isotopes = openmc.data.isotopes(element_symbol)
-
-            # isotope_number = element_number
 
             if element_symbol == enrichment_element:
                 openmc_material.add_element(
