@@ -573,7 +573,7 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, incorrect_enrichment_target)
 
-        #TODO get this working
+        # TODO get this working
         # def no_enrichment_target():
         #     """checks a ValueError is raised when the enrichment target is set to none"""
 
