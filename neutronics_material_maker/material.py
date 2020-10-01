@@ -101,7 +101,8 @@ class Material:
             H2O and CO2.
         zaid_suffix (str): The nuclear library to apply to the zaid, for
             example ".31c", this is used in MCNP and Serpent material cards.
-        material_id (int): the id number or mat number used in the MCNP material card
+        material_id (int): the id number or mat number used in the MCNP material
+            card
         decimal_places (int): The number of decimal places to use in MCNP and
             Seprent material cards when they are printed out (default of 8).
         volume_in_cm3 (float): The volume of the material in cm3, used when
@@ -239,8 +240,16 @@ class Material:
                     raise ValueError(
                         "pressure_in_Pa is needed for",
                         self.material_name)
+        
+        # this populates the density of materials when density is provided by
+        # equations and crystal latic information by making the openmc material
+        # however it should also be possible to ininitialize nmm.Material
+        # without openmc installed, hence the try except
+        try:
+            self._make_openmc_material()
+        except:
+            pass
 
-        self._make_openmc_material()
 
     @property
     def openmc_material(self):
@@ -274,7 +283,8 @@ class Material:
     @property
     def mcnp_material(self):
         """
-        Returns a MCNP version of the Material. Requires the Material.material_id to be set.
+        Creates a MCNP version of the Material. Requires the 
+        Material.material_id to be set.
 
         :type: str
         """
@@ -288,7 +298,8 @@ class Material:
     @property
     def fispact_material(self):
         """
-        Returns a fispact version of the Material. Requires the Material.volume_in_cm3 to be set.
+        Creates a fispact version of the Material. Requires the
+        Material.volume_in_cm3 to be set.
 
         :type: str
         """
@@ -608,10 +619,12 @@ class Material:
         return openmc_material
 
     def _populate_from_inbuilt_dictionary(self):
-        """This runs on initilisation and if attributes of the Material object are not specified (left as None)
-        then the internal material dictionary is checked to see if defaults are pressent for the particular material.
-        If the attributed has defaults that are present in the internal dictionary then these are used to populated
-        the attributes of the Material object when present.
+        """This runs on initilisation and if attributes of the Material object
+        are not specified (left as None) then the internal material dictionary
+        is checked to see if defaults are pressent for the particular material.
+        If the attributed has defaults that are present in the internal
+        dictionary then these are used to populated the attributes of the
+        Material object when present.
         """
 
         if (
@@ -753,10 +766,6 @@ class Material:
         for element_symbol, element_number in zip(
             self.elements.keys(), self.elements.values()
         ):
-
-            # natural_isotopes = openmc.data.isotopes(element_symbol)
-
-            # isotope_number = element_number
 
             if element_symbol == enrichment_element:
                 openmc_material.add_element(
