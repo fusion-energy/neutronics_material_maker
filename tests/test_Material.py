@@ -557,7 +557,9 @@ class test_object_properties(unittest.TestCase):
                 enrichment_type="ao",
             )
 
-        self.assertRaises(ValueError, incorrect_elements_chemical_equation_usage)
+        self.assertRaises(
+            ValueError,
+            incorrect_elements_chemical_equation_usage)
 
         def incorrect_enrichment_target():
             """checks a ValueError is raised when the enrichment target is not a natural isotope"""
