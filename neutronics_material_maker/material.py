@@ -241,16 +241,15 @@ class Material:
                     raise ValueError(
                         "pressure_in_Pa is needed for",
                         self.material_name)
-        
+
         # this populates the density of materials when density is provided by
         # equations and crystal latic information by making the openmc material
         # however it should also be possible to ininitialize nmm.Material
         # without openmc installed, hence the try except
         try:
             self._make_openmc_material()
-        except:
+        except BaseException:
             pass
-
 
     @property
     def openmc_material(self):
