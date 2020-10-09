@@ -1,2 +1,3 @@
+asteval==0.9.19
 CoolProp
 openmc
