@@ -140,23 +140,25 @@ def zaid_to_isotope(zaid):
     return symbol + str(int(a))
 
 
-def AddMaterialFromDir(directory=None):
+def AddMaterialFromDir(directory, verbose=True):
     """Add materials to the internal library from a directory of json files"""
     for filename in Path(directory).rglob("*.json"):
-        print("Added materials to library from", filename)
         with open(filename, "r") as f:
             new_data = json.load(f)
             material_dict.update(new_data)
-        print(list(new_data.keys()), "\n")
+        if verbose:
+            print("Added materials to library from", filename)
+            print(sorted(list(new_data.keys()), "\n"))
 
 
-def AddMaterialFromFile(filename=None):
+def AddMaterialFromFile(filename, verbose=True):
     """Add materials to the internal library from a json file"""
     with open(filename, "r") as f:
         new_data = json.load(f)
         material_dict.update(new_data)
-    print("Added materials to library from", filename)
-    print(sorted(list(material_dict.keys())))
+    if verbose:
+        print("Added materials to library from", filename)
+        print(sorted(list(material_dict.keys())))
 
 
 def AvailableMaterials():
@@ -166,4 +168,4 @@ def AvailableMaterials():
 
 # loads the internal material library of materials
 material_dict = {}
-AddMaterialFromDir(Path(__file__).parent / "data")
+AddMaterialFromDir(Path(__file__).parent / "data", verbose=False)
