@@ -629,7 +629,7 @@ class Material:
         dictionary then these are used to populated the attributes of the
         Material object when present.
         """
-        print('this has run**************************************************')
+
         if (
             self.chemical_equation is None
             and "chemical_equation" in material_dict[self.material_name].keys()
