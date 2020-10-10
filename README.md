@@ -22,7 +22,7 @@ One nice aspect of this material maker is the ability to change the density of a
 
 To use the code you will need to have OpenMC installed [OpenMC](https://docs.openmc.org/en/latest/quickinstall.html) 
 
-The recommended method is to install from [Conda Forge](https://conda-forge.org) which also installs all the dependancies including OpenMC.
+The recommended method is to install from [Conda Forge](https://conda-forge.org) which also installs all the dependencies including OpenMC.
 
 ```
 conda install neutronics_material_maker -c conda-forge
