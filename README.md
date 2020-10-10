@@ -28,7 +28,7 @@ The recommended method is to install from [Conda Forge](https://conda-forge.org)
 conda install neutronics_material_maker -c conda-forge
 ```
 
-Alternativly the code can be easily installed using pip (which doesn't currently include OpenMC)
+Alternatively the code can be easily installed using pip (which doesn't currently include OpenMC)
 
 ```
 pip install neutronics_material_maker
@@ -38,7 +38,7 @@ pip install neutronics_material_maker
 
 Materials for using in neutronics codes have two main aspects; a list of isotopes along with their abundance and the material density.
 
-This code contains an internal collection of materials with their isotopes abundances and densities (sometimes temperature, pressure and enrichment dependant), but you may also import your own materials collection.
+This code contains an internal collection of materials with their isotope abundances and densities (sometimes temperature, pressure and enrichment dependant), but you may also import your own materials collection.
 
 ## Usage - finding available materials
 
