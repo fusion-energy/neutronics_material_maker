@@ -345,7 +345,8 @@ class Material:
         if not isinstance(value, float):
             raise ValueError("Material.packing_fraction must be a float")
         if value < 0.0:
-            raise ValueError("Material.packing_fraction must be greater than 0")
+            raise ValueError(
+                "Material.packing_fraction must be greater than 0")
         if value > 1.0:
             raise ValueError("Material.packing_fraction must be less than 1.")
         self._packing_fraction = value
@@ -396,7 +397,8 @@ class Material:
     def density_equation(self, value):
         if value is not None:
             if not isinstance(value, str):
-                raise ValueError("Material.density_equation should be a string")
+                raise ValueError(
+                    "Material.density_equation should be a string")
         self._density_equation = value
 
     @property
