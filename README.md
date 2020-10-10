@@ -8,7 +8,7 @@
 [![Code Grade](https://www.code-inspector.com/project/13383/status/svg)](https://frontend.code-inspector.com/public/project/13383/neutronics_material_maker/dashboard)
 
 
-# **Neutronics material maker**
+# **Neutronics Material Maker**
 
 The aim of this project is to facilitate the creation of materials for use in
 neutronics codes such as OpenMC, Serpent, MCNP and Fispact.
@@ -25,7 +25,7 @@ temperature and pressure.
 ## Installation
 
 To use the code you will need to have OpenMC installed
-[OpenMC](https://docs.openmc.org/en/latest/quickinstall.html) 
+[OpenMC](https://docs.openmc.org/en/latest/quickinstall.html).
 
 The recommended method is to install from
 [Conda Forge](https://conda-forge.org) which also installs all the dependencies
@@ -52,7 +52,7 @@ abundances and densities (sometimes temperature, pressure and enrichment
 dependant), but you may also import your own materials collection.
 
 
-## Usage - finding available materials
+## Usage - Finding Available Materials
 
 Each of the materials available is stored in an internal dictionary that can be
 accessed using the ```AvailableMaterials()``` command.
@@ -64,7 +64,7 @@ print(all_materials.keys())
 ```
 
 
-## Usage - basic Material
+## Usage - Basic Material
 
 Here is an example that accesses a material from the internal collection called
 eurofer which has about 60 isotopes of a density of 7.78g/cm3.
@@ -76,7 +76,7 @@ my_mat.openmc_material
 ```
 
 
-## Usage - hot pressurised Material
+## Usage - Hot Pressurised Material
 
 For several materials within the collection the temperature and the pressure impacts the density of the material. The neutronics_material_maker adjusts the density to take temperature and the pressure into account when appropriate. Densities are calculated either by a material specific formula (for example [FLiBe](https://github.com/ukaea/neutronics_material_maker/blob/main/neutronics_material_maker/data/multiplier_and_breeder_materials.json)) or using [CoolProps](https://pypi.org/project/CoolProp/) (for example [coolants](https://github.com/ukaea/neutronics_material_maker/blob/main/neutronics_material_maker/data/coolant_materials.json))
 
@@ -91,7 +91,7 @@ material is enriched. For breeder blankets in fusion it is common to enrich the
 lithium 6 content.
 
 
-## Usage - enriched Material
+## Usage - Enriched Material
 
 Lithium ceramics used in fusion breeder blankets often contain enriched
 lithium-6 content. This slight change in density is accounted for by the
@@ -104,7 +104,7 @@ my_mat2.openmc_material
 ```
 
 
-## Usage - MultiMaterial (mixed Materials))
+## Usage - MultiMaterial (Mixed Materials))
 
 Materials can also be mixed together using the MultiMaterial class. This
 accepts a list of ```neutronics_material_maker.Materials``` or 
@@ -121,7 +121,7 @@ my_mat3.openmc_material
 ```
 
 
-## Usage - importing your own material library
+## Usage - Importing Your Own Material Library
 
 Assuming you have a JSON file saved as ```mat_lib.json``` containing materials
 defined in the same format as the
@@ -136,7 +136,7 @@ nmm.AddMaterialFromFile('mat_lib.json')
 nmm.AvailableMaterials() # this will print the new larger list of materials
 ```
 
-## Usage - exporting to different neutronics codes
+## Usage - Exporting To Different Neutronics Codes
 
 You can export to OpenMC, Serpent, MCNP and Fispact with the appropiate
 arguments.
@@ -150,7 +150,7 @@ my_mat.serpent_material(zaid_suffix='.31c))
 my_mat.fispact_material(volume=100)
 ```
 
-## Further examples
+## Further Examples
 
 Further examples can be found in the
 [UKAEA OpenMC workshop task 11](https://github.com/ukaea/openmc_workshop/tree/master/tasks/task_11)
