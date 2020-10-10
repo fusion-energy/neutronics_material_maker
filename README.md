@@ -52,7 +52,7 @@ print(all_materials.keys())
 
 ## Usage - basic Material
 
-Here is an example that access a material from the internal collection called eurofer which has about 60 isotopes of and a density of 7.78g/cm3.
+Here is an example that accesses a material from the internal collection called eurofer which has about 60 isotopes of and a density of 7.78g/cm3.
 
 ```python
 import neutronics_material_maker as nmm
