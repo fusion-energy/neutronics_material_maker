@@ -5,31 +5,33 @@ __author__ = "neutronics material maker development team"
 
 import os
 import re
+import warnings
 from json import JSONEncoder
 
-import warnings
-
-try:
-    import openmc
-except BaseException:
-    warnings.warn(
-        "OpenMC python package not found, .openmc_material, .serpent_material, \
-            .mcnp_material, .fispact_material methods not avaiable")
-
+import asteval
 from CoolProp.CoolProp import PropsSI
 
 from neutronics_material_maker import (
     make_fispact_material,
     make_serpent_material,
     make_mcnp_material,
-    AddMaterialFromDir,
-    AddMaterialFromFile,
-    AvailableMaterials,
     material_dict,
     zaid_to_isotope,
 )
 
+OPENMC_AVAILABLE = True
+try:
+    import openmc
+except ImportError:
+    OPENMC_AVAILABLE = False
+    warnings.warn(
+        "OpenMC python package not found, .openmc_material, .serpent_material, \
+            .mcnp_material, .fispact_material methods not avaiable")
+
 atomic_mass_unit_in_g = 1.660539040e-24
+
+# Set any custom symbols for use in asteval
+asteval_user_symbols = {"PropsSI": PropsSI}
 
 
 def _default(self, obj):
@@ -245,11 +247,9 @@ class Material:
         # this populates the density of materials when density is provided by
         # equations and crystal latic information by making the openmc material
         # however it should also be possible to ininitialize nmm.Material
-        # without openmc installed, hence the try except
-        try:
+        # without openmc installed, hence the if
+        if OPENMC_AVAILABLE:
             self._make_openmc_material()
-        except BaseException:
-            pass
 
     @property
     def openmc_material(self):
@@ -808,12 +808,18 @@ class Material:
 
             if self.density is None and self.density_equation is not None:
 
-                # Potentially used in the eval part
-                temperature_in_K = self.temperature_in_K
-                temperature_in_C = self.temperature_in_C
-                pressure_in_Pa = self.pressure_in_Pa
+                aeval = asteval.Interpreter(usersyms=asteval_user_symbols)
 
-                density = eval(self.density_equation)
+                # Potentially used in the eval part
+                aeval.symtable["temperature_in_K"] = self.temperature_in_K
+                aeval.symtable["temperature_in_C"] = self.temperature_in_C
+                aeval.symtable["pressure_in_Pa"] = self.pressure_in_Pa
+
+                density = aeval.eval(self.density_equation)
+
+                if len(aeval.error) > 0:
+                    raise aeval.error[0].exc(aeval.error[0].msg)
+
                 if density is None:
                     raise ValueError(
                         "Density value of ",

@@ -27,6 +27,7 @@ setuptools.setup(
     tests_require=["pytest-cov", "pytest-runner"],
     install_requires=[
         "coolprop",
+        "asteval",
         # 'openmc' when pip install is available
     ],
 )
