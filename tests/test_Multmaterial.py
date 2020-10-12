@@ -89,14 +89,13 @@ class test_object_properties(unittest.TestCase):
                 nmm.Material('SiC')
             ],
             fracs=[0.5, 0.5])
-        
-        assert test_material.material_tag == None
+
+        assert test_material.material_tag is None
         test_material.material_tag = 'tag_set_after_creation'
         assert test_material.material_tag == 'tag_set_after_creation'
 
         test_material.openmc_material
         assert test_material.openmc_material.name == 'tag_set_after_creation'
-
 
         test_material = nmm.MultiMaterial(
             materials=[
@@ -105,12 +104,11 @@ class test_object_properties(unittest.TestCase):
             ],
             fracs=[0.5, 0.5],
             material_tag='tag_set_on_creation')
-        
+
         assert test_material.material_tag == 'tag_set_on_creation'
 
         test_material.openmc_material
         assert test_material.openmc_material.name == 'tag_set_on_creation'
-
 
     def test_multimaterial_attributes_from_material_objects_and_openmc_materials(
             self):
@@ -449,8 +447,10 @@ class test_object_properties(unittest.TestCase):
             # Verify some things
             assert len(w) >= 1
             assert issubclass(w[-1].category, UserWarning)
-            # the second entry is needed as OpenMC material mixer also raises and error
-            assert "warning sum of MutliMaterials.fracs do not sum to 1." in str(w[-2].message)
+            # the second entry is needed as OpenMC material mixer also raises
+            # and error
+            assert "warning sum of MutliMaterials.fracs do not sum to 1." in str(
+                w[-2].message)
 
         def too_small_fracs():
             """checks a ValueError is raised when the fracs are above 1"""
@@ -472,8 +472,11 @@ class test_object_properties(unittest.TestCase):
             # Verify some things
             assert len(w) >= 1
             assert issubclass(w[-1].category, UserWarning)
-            # the second entry is needed as OpenMC material mixer also raises and error
-            assert "warning sum of MutliMaterials.fracs do not sum to 1." in str(w[-2].message)
+            # the second entry is needed as OpenMC material mixer also raises
+            # and error
+            assert "warning sum of MutliMaterials.fracs do not sum to 1." in str(
+                w[-2].message)
+
 
 if __name__ == "__main__":
     unittest.main()
