@@ -341,15 +341,16 @@ class Material:
 
     @packing_fraction.setter
     def packing_fraction(self, value):
-        value = float(value)
-        if not isinstance(value, float):
-            raise ValueError("Material.packing_fraction must be a float")
+        if not isinstance(value, (float, int)):
+            raise ValueError(
+                "Material.packing_fraction must be a float or int")
         if value < 0.0:
             raise ValueError(
                 "Material.packing_fraction must be greater than 0")
         if value > 1.0:
-            raise ValueError("Material.packing_fraction must be less than 1.")
-        self._packing_fraction = value
+            raise ValueError(
+                "Material.packing_fraction must be less than 1.")
+        self._packing_fraction = float(value)
 
     @property
     def elements(self):

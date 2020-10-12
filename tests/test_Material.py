@@ -688,6 +688,109 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, test_incorrect_zaid_suffix_type)
 
+
+        def test_incorrect_packing_fraction():
+            """checks a ValueError is raised when the packing_fraction is the
+            wrong type"""
+
+            nmm.Material(
+                "eurofer",
+                packing_fraction="1"
+            )
+
+        self.assertRaises(ValueError, test_incorrect_packing_fraction)
+
+        def test_too_large_packing_fraction():
+            """checks a ValueError is raised when the packing_fraction is the
+            too large"""
+
+            nmm.Material(
+                "eurofer",
+                packing_fraction=1.1
+            )
+
+        self.assertRaises(ValueError, test_too_large_packing_fraction)
+
+        def test_too_small_packing_fraction():
+            """checks a ValueError is raised when the packing_fraction is the
+            too large"""
+
+            nmm.Material(
+                "eurofer",
+                packing_fraction=-0.1
+            )
+
+        self.assertRaises(ValueError, test_too_small_packing_fraction)
+
+        def test_chemical_equation_wrong_type():
+            """checks a ValueError is raised when the chemical_equation is the
+            not a str"""
+
+            nmm.Material(
+                "eurofer",
+                chemical_equation=-0.1
+            )
+
+        self.assertRaises(ValueError, test_chemical_equation_wrong_type)
+
+        def test_enrichment_too_high():
+            """checks a ValueError is raised when the enrichment is the
+            too large"""
+
+            nmm.Material(
+                "Li4SiO4",
+                enrichment=101,
+                enrichment_target='Li6'
+            )
+
+        self.assertRaises(ValueError, test_enrichment_too_high)
+
+        def test_enrichment_too_low():
+            """checks a ValueError is raised when the enrichment is the
+            too small"""
+
+            nmm.Material(
+                "Li4SiO4",
+                enrichment=-1,
+                enrichment_target='Li6'
+            )
+
+        self.assertRaises(ValueError, test_enrichment_too_low)
+
+        def test_pressure_in_Pa_too_low():
+            """checks a ValueError is raised when the pressure_in_Pa is the
+            too small"""
+
+            nmm.Material(
+                "Li4SiO4",
+                pressure_in_Pa=-1
+            )
+
+        self.assertRaises(ValueError, test_pressure_in_Pa_too_low)
+
+        def test_reference_wrong_type():
+            """checks a ValueError is raised when the reference is the
+            not a string"""
+
+            nmm.Material(
+                "Li4SiO4",
+                reference=-1
+            )
+
+        self.assertRaises(ValueError, test_reference_wrong_type)
+
+        def test_material_id_wrong_type():
+            """checks a ValueError is raised when the material_id is the
+            not an int"""
+
+            nmm.Material(
+                "Li4SiO4",
+                material_id='one'
+            )
+
+        self.assertRaises(ValueError, test_material_id_wrong_type)
+
+
         # TODO get this working
         # def no_enrichment_target():
         #     """checks a ValueError is raised when the enrichment target is set to none"""
