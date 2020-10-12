@@ -573,6 +573,121 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, incorrect_enrichment_target)
 
+        def test_missing_temperature_He():
+            """checks a ValueError is raised when the temperatue is not set"""
+
+            nmm.Material(
+                material_name="He",
+                pressure_in_Pa=1e6,
+            )
+
+        self.assertRaises(ValueError, test_missing_temperature_He)
+
+        def test_missing_temperature_H2O():
+            """checks a ValueError is raised when the temperatue is not set"""
+
+            nmm.Material(
+                material_name="H2O",
+                pressure_in_Pa=1e6,
+            )
+
+        self.assertRaises(ValueError, test_missing_temperature_H2O)
+
+        def test_missing_temperature_CO2():
+            """checks a ValueError is raised when the temperatue is not set"""
+
+            nmm.Material(
+                material_name="CO2",
+                pressure_in_Pa=1e6,
+            )
+
+        self.assertRaises(ValueError, test_missing_temperature_CO2)
+
+        def test_incorrect_material_name_type():
+            """checks a ValueError is raised when the temperatue is not set"""
+
+            test_material = nmm.Material("H2O",
+                temperature_in_C=10,
+                pressure_in_Pa=-1e6)
+            test_material.material_name = 1
+
+        self.assertRaises(ValueError, test_incorrect_material_name_type)
+
+        def test_incorrect_density_unit_type():
+            """checks a ValueError is raised when the temperatue is not set"""
+
+            nmm.Material(
+                "eurofer",
+                density=1.,
+                density_unit='grams per cm3')
+
+        self.assertRaises(ValueError, test_incorrect_density_unit_type)
+
+        def test_incorrect_percent_type_type():
+            """checks a ValueError is raised when the temperatue is not set"""
+
+            nmm.Material(
+                "eurofer",
+                density=1.,
+                percent_type='weight percent')
+
+        self.assertRaises(ValueError, test_incorrect_percent_type_type)
+
+        def test_incorrect_enrichment_type_type():
+            """checks a ValueError is raised when the temperatue is not set"""
+
+            nmm.Material(
+                "eurofer",
+                density=1.,
+                enrichment_type='weight percent')
+
+        self.assertRaises(ValueError, test_incorrect_enrichment_type_type)
+
+        def test_incorrect_atoms_per_unit_cell():
+            """checks a ValueError is raised when the temperatue is not set"""
+
+            nmm.Material(
+                "eurofer",
+                atoms_per_unit_cell=-1.)
+
+        self.assertRaises(ValueError, test_incorrect_atoms_per_unit_cell)
+
+        def test_incorrect_volume_of_unit_cell_cm3():
+            """checks a ValueError is raised when the temperatue is not set"""
+
+            nmm.Material(
+                "eurofer",
+                volume_of_unit_cell_cm3=-1.)
+
+        self.assertRaises(ValueError, test_incorrect_volume_of_unit_cell_cm3)
+
+        def test_incorrect_temperature_in_c():
+            """checks a ValueError is raised when the temperatue is not set"""
+
+            nmm.Material(
+                "eurofer",
+                temperature_in_C=-1000.)
+
+        self.assertRaises(ValueError, test_incorrect_temperature_in_c)
+
+        def test_incorrect_temperature_in_k():
+            """checks a ValueError is raised when the temperatue is not set"""
+
+            nmm.Material(
+                "eurofer",
+                temperature_in_K=-1.)
+
+        self.assertRaises(ValueError, test_incorrect_temperature_in_k)
+
+        def test_incorrect_zaid_suffix_type():
+            """checks a ValueError is raised when the temperatue is not set"""
+
+            nmm.Material(
+                "eurofer",
+                zaid_suffix=0.80)
+
+        self.assertRaises(ValueError, test_incorrect_zaid_suffix_type)
+
         # TODO get this working
         # def no_enrichment_target():
         #     """checks a ValueError is raised when the enrichment target is set to none"""
