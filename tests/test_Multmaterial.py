@@ -525,5 +525,6 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, test_too_small_packing_fraction)
 
+
 if __name__ == "__main__":
     unittest.main()
