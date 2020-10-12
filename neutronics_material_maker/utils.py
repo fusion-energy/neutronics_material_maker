@@ -148,7 +148,7 @@ def AddMaterialFromDir(directory, verbose=True):
             material_dict.update(new_data)
         if verbose:
             print("Added materials to library from", filename)
-            print(sorted(list(new_data.keys()), "\n"))
+            print(sorted(list(new_data.keys())), "\n")
 
 
 def AddMaterialFromFile(filename, verbose=True):

@@ -5,9 +5,11 @@ __author__ = "neutronics material maker development team"
 from json import JSONEncoder
 import warnings
 
+OPENMC_AVAILABLE = True
 try:
     import openmc
-except BaseException:
+except ImportError:
+    OPENMC_AVAILABLE = False
     warnings.warn(
         "OpenMC python package not found, .openmc_material, .serpent_material, \
             .mcnp_material, .fispact_material methods not avaiable")
@@ -105,12 +107,15 @@ class MultiMaterial:
 
         if sum(self.fracs) != 1.0:
             warnings.warn(
-                "warning sum of MutliMaterials do not sum to 1."
+                "warning sum of MutliMaterials.fracs do not sum to 1."
                 + str(self.fracs)
                 + " = "
                 + str(sum(self.fracs)),
                 UserWarning,
             )
+
+        if OPENMC_AVAILABLE:
+            self._make_openmc_material()
 
     @property
     def packing_fraction(self):
@@ -134,7 +139,7 @@ class MultiMaterial:
 
         :type: openmc.Material() object
         """
-        self._openmc_material = self.make_openmc_material()
+        self._openmc_material = self._make_openmc_material()
         return self._openmc_material
 
     @openmc_material.setter
@@ -184,7 +189,7 @@ class MultiMaterial:
     def fispact_material(self, value):
         self._fispact_material = value
 
-    def make_openmc_material(self):
+    def _make_openmc_material(self):
 
         openmc_material_objects = []
         for material in self.materials:
@@ -194,11 +199,12 @@ class MultiMaterial:
                 openmc_material_objects.append(material.openmc_material)
             else:
                 raise ValueError(
-                    "only openmc.Material or neutronics_material_maker.Materials are accepted. Not",
-                    type(material),
+                    "only openmc.Material or neutronics_material_maker. \
+                    Materials are accepted. Not", type(material),
                 )
 
-        openmc_material = openmc.Material.mix_materials(  # name = self.material_tag,
+        openmc_material = openmc.Material.mix_materials(
+            name=self.material_tag,
             materials=openmc_material_objects,
             fracs=self.fracs,
             percent_type=self.percent_type,
