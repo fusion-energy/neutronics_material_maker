@@ -208,8 +208,8 @@ class Material:
             if self.enrichment is not None:
                 if self.enrichment_target is None or self.enrichment_type is None:
                     raise ValueError(
-                        "enrichment target and enrichment type are needed to \
-                        enrich a material"
+                        "Material.enrichment_target and enrichment type are \
+                        needed to enrich a material"
                     )
 
             if "temperature_dependant" in material_dict[self.material_name].keys(
@@ -341,14 +341,16 @@ class Material:
 
     @packing_fraction.setter
     def packing_fraction(self, value):
-        value = float(value)
-        if not isinstance(value, float):
-            raise ValueError("Material.packing_fraction must be a float")
+        if not isinstance(value, (float, int)):
+            raise ValueError(
+                "Material.packing_fraction must be a float or int")
         if value < 0.0:
-            raise ValueError("packing_fraction must be greater than 0")
+            raise ValueError(
+                "Material.packing_fraction must be greater than 0")
         if value > 1.0:
-            raise ValueError("packing_fraction must be less than 1.")
-        self._packing_fraction = value
+            raise ValueError(
+                "Material.packing_fraction must be less than 1.")
+        self._packing_fraction = float(value)
 
     @property
     def elements(self):
@@ -385,7 +387,7 @@ class Material:
             self._isotopes = value
         else:
             raise ValueError(
-                "Isotopes must be dictionaries e.g. {'Li6':0.07, 'Li7': 0.93}"
+                "Material.isotopes must be dictionaries e.g. {'Li6':0.07, 'Li7': 0.93}"
             )
 
     @property
@@ -396,7 +398,8 @@ class Material:
     def density_equation(self, value):
         if value is not None:
             if not isinstance(value, str):
-                raise ValueError("density_equation should be a string")
+                raise ValueError(
+                    "Material.density_equation should be a string")
         self._density_equation = value
 
     @property
@@ -409,7 +412,7 @@ class Material:
             self._density_unit = value
         else:
             raise ValueError(
-                "Material.density_units must be 'g/cm3', 'g/cc', 'kg/m3', \
+                "Material.density_unit must be 'g/cm3', 'g/cc', 'kg/m3', \
                     'atom/b-cm' or 'atom/cm3'"
             )
 
@@ -509,7 +512,8 @@ class Material:
     def enrichment(self, value):
         if value is not None:
             if value < 0 or value > 100:
-                raise ValueError("Enrichment must be between 0 and 100")
+                raise ValueError(
+                    "Material.enrichment must be between 0 and 100")
         self._enrichment = value
 
     @property
@@ -521,7 +525,8 @@ class Material:
         if value is not None:
             if value not in openmc.data.NATURAL_ABUNDANCE.keys():
                 raise ValueError(
-                    "enrichment_target must be a naturally occuring isotope from this list",
+                    "Material.enrichment_target must be a naturally occuring \
+                    isotope from this list",
                     openmc.data.NATURAL_ABUNDANCE.keys(),
                 )
         self._enrichment_target = value
@@ -534,7 +539,8 @@ class Material:
     def pressure_in_Pa(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError("pressure_in_Pa must be greater than 0")
+                raise ValueError(
+                    "Material.pressure_in_Pa must be greater than 0")
         self._pressure_in_Pa = value
 
     @property
@@ -545,7 +551,7 @@ class Material:
     def reference(self, value):
         if value is not None:
             if not isinstance(value, str):
-                raise ValueError("reference must be a string")
+                raise ValueError("Material.reference must be a string")
         self._reference = value
 
     @property
@@ -556,7 +562,7 @@ class Material:
     def zaid_suffix(self, value):
         if value is not None:
             if not isinstance(value, str):
-                raise ValueError("zaid_suffix must be a string")
+                raise ValueError("Material.zaid_suffix must be a string")
         self._zaid_suffix = value
 
     @property
@@ -567,7 +573,7 @@ class Material:
     def material_id(self, value):
         if value is not None:
             if not isinstance(value, int):
-                raise ValueError("material_id must be an int")
+                raise ValueError("Material.material_id must be an int")
         self._material_id = value
 
     @property
@@ -580,7 +586,7 @@ class Material:
             if isinstance(value, int):
                 value = float(value)
             if not isinstance(value, float):
-                raise ValueError("volume_in_cm3 must be an float")
+                raise ValueError("Material.volume_in_cm3 must be an float")
         self._volume_in_cm3 = value
 
     def _make_openmc_material(self):
@@ -845,8 +851,9 @@ class Material:
                 raise ValueError(
                     "density can't be set for "
                     + str(self.material_name)
-                    + " provide either a density value, equation as a string, \
-                        or atoms_per_unit_cell and volume_of_unit_cell_cm3"
+                    + " provide either a density_value, density_equation as a \
+                        string, or atoms_per_unit_cell and \
+                        volume_of_unit_cell_cm3"
                 )
 
         openmc_material.set_density(
