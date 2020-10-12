@@ -607,8 +607,8 @@ class test_object_properties(unittest.TestCase):
             """checks a ValueError is raised when the temperatue is not set"""
 
             test_material = nmm.Material("H2O",
-                temperature_in_C=10,
-                pressure_in_Pa=-1e6)
+                                         temperature_in_C=10,
+                                         pressure_in_Pa=-1e6)
             test_material.material_name = 1
 
         self.assertRaises(ValueError, test_incorrect_material_name_type)
