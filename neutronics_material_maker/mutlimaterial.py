@@ -8,7 +8,6 @@ from neutronics_material_maker import (
     make_mcnp_material,
 )
 import neutronics_material_maker as nmm
-from CoolProp.CoolProp import PropsSI
 from json import JSONEncoder
 import warnings
 
