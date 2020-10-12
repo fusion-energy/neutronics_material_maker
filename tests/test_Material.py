@@ -688,7 +688,6 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, test_incorrect_zaid_suffix_type)
 
-
         def test_incorrect_packing_fraction():
             """checks a ValueError is raised when the packing_fraction is the
             wrong type"""
@@ -789,7 +788,6 @@ class test_object_properties(unittest.TestCase):
             )
 
         self.assertRaises(ValueError, test_material_id_wrong_type)
-
 
         # TODO get this working
         # def no_enrichment_target():
