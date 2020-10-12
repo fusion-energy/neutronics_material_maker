@@ -477,6 +477,53 @@ class test_object_properties(unittest.TestCase):
             assert "warning sum of MutliMaterials.fracs do not sum to 1." in str(
                 w[-2].message)
 
+        def test_incorrect_packing_fraction():
+            """checks a ValueError is raised when the packing_fraction is the
+            wrong type"""
+
+            nmm.MultiMaterial(
+                "test_material",
+                materials=[
+                    nmm.Material("tungsten", packing_fraction=0.6),
+                    nmm.Material("eurofer", packing_fraction=0.8),
+                ],
+                fracs=[0.3, 0.7],
+                packing_fraction="1"
+            )
+
+        self.assertRaises(ValueError, test_incorrect_packing_fraction)
+
+        def test_too_large_packing_fraction():
+            """checks a ValueError is raised when the packing_fraction is the
+            too large"""
+
+            nmm.MultiMaterial(
+                "test_material",
+                materials=[
+                    nmm.Material("tungsten", packing_fraction=0.6),
+                    nmm.Material("eurofer", packing_fraction=0.8),
+                ],
+                fracs=[0.3, 0.7],
+                packing_fraction=1.1
+            )
+
+        self.assertRaises(ValueError, test_too_large_packing_fraction)
+
+        def test_too_small_packing_fraction():
+            """checks a ValueError is raised when the packing_fraction is the
+            too large"""
+
+            nmm.MultiMaterial(
+                "test_material",
+                materials=[
+                    nmm.Material("tungsten", packing_fraction=0.6),
+                    nmm.Material("eurofer", packing_fraction=0.8),
+                ],
+                fracs=[0.3, 0.7],
+                packing_fraction=-0.1
+            )
+
+        self.assertRaises(ValueError, test_too_small_packing_fraction)
 
 if __name__ == "__main__":
     unittest.main()

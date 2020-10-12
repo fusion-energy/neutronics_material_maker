@@ -122,14 +122,13 @@ class MultiMaterial:
 
     @packing_fraction.setter
     def packing_fraction(self, value):
-        value = float(value)
-        if not isinstance(value, float):
-            raise ValueError("packing_fraction must be a float")
+        if not isinstance(value, (float, int)):
+            raise ValueError("MultiMaterial.packing_fraction must be a float or int")
         if value < 0.0:
-            raise ValueError("packing_fraction must be greater than 0")
+            raise ValueError("MultiMaterial.packing_fraction must be greater than 0")
         if value > 1.0:
-            raise ValueError("packing_fraction must be less than 1.")
-        self._packing_fraction = value
+            raise ValueError("MultiMaterial.packing_fraction must be less than 1.")
+        self._packing_fraction = float(value)
 
     @property
     def openmc_material(self):
