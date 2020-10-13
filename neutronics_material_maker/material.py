@@ -87,14 +87,16 @@ class Material:
             temperature have density equations that depend on temperature.
             These tend to be liquids and gases used for coolants and even
             liquids such as lithium-lead and FLiBe that are used as a breeder
-            materials.
+            materials. Convered to K and added to the openmc material object 
+            and the serpent material card.
         temperature_in_K (float): The temperature of the material in degrees
             Kelvin. Temperature impacts the density of some materials in the
             collection. Materials in the collection that are impacted by
             temperature have density equations that depend on temperature.
             These tend to be liquids and gases used for coolants and even
             liquids such as lithium-lead and FLiBe that are used as breeder
-            materials.
+            materials. Added to the openmc material object and the serpent
+            material card.
         pressure_in_Pa (float): The pressure of the material in Pascals
             Pressure impacts the density of some materials in the
             collection. Materials in the collection that are impacted by
@@ -235,7 +237,7 @@ class Material:
                     if temperature_in_K is None:
                         self.temperature_in_K = temperature_in_C + 273.15
                     if temperature_in_C is None:
-                        self.temperature_in_C = temperature_in_K + 273.15
+                        self.temperature_in_C = temperature_in_K - 273.15
 
             if "pressure_dependant" in material_dict[self.material_name].keys(
             ):

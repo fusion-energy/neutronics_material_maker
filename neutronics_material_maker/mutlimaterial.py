@@ -65,6 +65,12 @@ class MultiMaterial:
             Seprent material cards when they are printed out (default of 8).
         volume_in_cm3 (float): The volume of the material in cm3, used when
             creating fispact material cards
+        temperature_in_C (float): The temperature of the material in degrees
+            Celsius. Convered to K and added to the openmc material object and 
+            the serpent material card
+        temperature_in_K (float): The temperature of the material in degrees
+            Kelvin. Added to the openmc material object and the serpent
+            material card
 
     Returns:
         Material: a neutronics_material_maker.Material instance
@@ -82,6 +88,8 @@ class MultiMaterial:
         material_id=None,
         decimal_places=8,
         volume_in_cm3=None,
+        temperature_in_C=None,
+        temperature_in_K=None
     ):
         self.material_tag = material_tag
         self.materials = materials
@@ -92,6 +100,8 @@ class MultiMaterial:
         self.material_id = material_id
         self.decimal_places = decimal_places
         self.volume_in_cm3 = volume_in_cm3
+        self.temperature_in_C = temperature_in_C
+        self.temperature_in_K = temperature_in_K
 
         # derived values
         self.openmc_material = None
@@ -112,8 +122,39 @@ class MultiMaterial:
                 UserWarning,
             )
 
+        if temperature_in_K is not None or temperature_in_C is not None:
+            if temperature_in_K is None:
+                self.temperature_in_K = temperature_in_C + 273.15
+            if temperature_in_C is None:
+                self.temperature_in_C = temperature_in_K - 273.15
+
         if OPENMC_AVAILABLE:
             self._make_openmc_material()
+
+    @property
+    def temperature_in_K(self):
+        return self._temperature_in_K
+
+    @temperature_in_K.setter
+    def temperature_in_K(self, value):
+        if value is not None:
+            if value < 0.0:
+                raise ValueError(
+                    "Material.temperature_in_K must be greater than 0")
+        self._temperature_in_K = value
+
+    @property
+    def temperature_in_C(self):
+        return self._temperature_in_C
+
+    @temperature_in_C.setter
+    def temperature_in_C(self, value):
+        if value is not None:
+            if value < -273.15:
+                raise ValueError(
+                    "Material.temperature_in_C must be greater than -273.15"
+                )
+        self._temperature_in_C = value
 
     @property
     def packing_fraction(self):
@@ -209,6 +250,9 @@ class MultiMaterial:
             fracs=self.fracs,
             percent_type=self.percent_type,
         )
+
+        if self.temperature_in_K is not None:
+            openmc_material.temperature = self.temperature_in_K
 
         # this modifies the density by the packing fraction of the material
         if self.packing_fraction != 1.0:

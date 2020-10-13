@@ -574,7 +574,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, incorrect_enrichment_target)
 
         def test_missing_temperature_He():
-            """checks a ValueError is raised when the temperatue is not set"""
+            """checks a ValueError is raised when the temperature is not set"""
 
             nmm.Material(
                 material_name="He",
@@ -584,7 +584,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, test_missing_temperature_He)
 
         def test_missing_temperature_H2O():
-            """checks a ValueError is raised when the temperatue is not set"""
+            """checks a ValueError is raised when the temperature is not set"""
 
             nmm.Material(
                 material_name="H2O",
@@ -594,7 +594,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, test_missing_temperature_H2O)
 
         def test_missing_temperature_CO2():
-            """checks a ValueError is raised when the temperatue is not set"""
+            """checks a ValueError is raised when the temperature is not set"""
 
             nmm.Material(
                 material_name="CO2",
@@ -604,7 +604,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, test_missing_temperature_CO2)
 
         def test_incorrect_material_name_type():
-            """checks a ValueError is raised when the temperatue is not set"""
+            """checks a ValueError is raised when the temperature is not set"""
 
             test_material = nmm.Material("H2O",
                                          temperature_in_C=10,
@@ -614,7 +614,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, test_incorrect_material_name_type)
 
         def test_incorrect_density_unit_type():
-            """checks a ValueError is raised when the temperatue is not set"""
+            """checks a ValueError is raised when the temperature is not set"""
 
             nmm.Material(
                 "eurofer",
@@ -624,7 +624,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, test_incorrect_density_unit_type)
 
         def test_incorrect_percent_type_type():
-            """checks a ValueError is raised when the temperatue is not set"""
+            """checks a ValueError is raised when the temperature is not set"""
 
             nmm.Material(
                 "eurofer",
@@ -634,7 +634,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, test_incorrect_percent_type_type)
 
         def test_incorrect_enrichment_type_type():
-            """checks a ValueError is raised when the temperatue is not set"""
+            """checks a ValueError is raised when the temperature is not set"""
 
             nmm.Material(
                 "eurofer",
@@ -644,7 +644,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, test_incorrect_enrichment_type_type)
 
         def test_incorrect_atoms_per_unit_cell():
-            """checks a ValueError is raised when the temperatue is not set"""
+            """checks a ValueError is raised when the temperature is not set"""
 
             nmm.Material(
                 "eurofer",
@@ -653,7 +653,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, test_incorrect_atoms_per_unit_cell)
 
         def test_incorrect_volume_of_unit_cell_cm3():
-            """checks a ValueError is raised when the temperatue is not set"""
+            """checks a ValueError is raised when the temperature is not set"""
 
             nmm.Material(
                 "eurofer",
@@ -662,7 +662,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, test_incorrect_volume_of_unit_cell_cm3)
 
         def test_incorrect_temperature_in_c():
-            """checks a ValueError is raised when the temperatue is not set"""
+            """checks a ValueError is raised when the temperature is not set"""
 
             nmm.Material(
                 "eurofer",
@@ -671,7 +671,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, test_incorrect_temperature_in_c)
 
         def test_incorrect_temperature_in_k():
-            """checks a ValueError is raised when the temperatue is not set"""
+            """checks a ValueError is raised when the temperature is not set"""
 
             nmm.Material(
                 "eurofer",
@@ -680,7 +680,7 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(ValueError, test_incorrect_temperature_in_k)
 
         def test_incorrect_zaid_suffix_type():
-            """checks a ValueError is raised when the temperatue is not set"""
+            """checks a ValueError is raised when the temperature is not set"""
 
             nmm.Material(
                 "eurofer",
@@ -947,8 +947,11 @@ class test_object_properties(unittest.TestCase):
             temperature_in_C=10,
             pressure_in_Pa=15.5e6
         )
-        assert test_material.openmc_material.temperatue == 283.15
-        
+
+        assert test_material.temperature_in_K == 283.15
+        assert test_material.temperature_in_C == 10
+        assert test_material.openmc_material.temperature == 283.15
+    
         line_by_line_material = test_material.serpent_material.split("\n")
 
         assert line_by_line_material[0].split()[-1] == "283.15"
@@ -963,7 +966,10 @@ class test_object_properties(unittest.TestCase):
             temperature_in_K=300,
             pressure_in_Pa=15.5e6
         )
-        assert test_material.openmc_material.temperatue == 300
+
+        assert test_material.temperature_in_K == 300
+        assert test_material.temperature_in_C == pytest.approx(26.85)
+        assert test_material.openmc_material.temperature == 300
         
         line_by_line_material = test_material.serpent_material.split("\n")
 
@@ -974,12 +980,8 @@ class test_object_properties(unittest.TestCase):
         """checks that the temperature set in K ends up in the temperature
         attribute of the openmc materials"""
 
-        test_material = nmm.Material(
-            'H2O',
-            temperature_in_K=300,
-            pressure_in_Pa=15.5e6
-        )
-        assert test_material.openmc_material.temperatue == None
+        test_material = nmm.Material('WC')
+        assert test_material.openmc_material.temperature == None
         
         line_by_line_material = test_material.serpent_material.split("\n")
 
