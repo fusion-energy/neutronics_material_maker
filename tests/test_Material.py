@@ -951,7 +951,7 @@ class test_object_properties(unittest.TestCase):
         assert test_material.temperature_in_K == 283.15
         assert test_material.temperature_in_C == 10
         assert test_material.openmc_material.temperature == 283.15
-    
+
         line_by_line_material = test_material.serpent_material.split("\n")
 
         assert line_by_line_material[0].split()[-1] == "283.15"
@@ -970,7 +970,7 @@ class test_object_properties(unittest.TestCase):
         assert test_material.temperature_in_K == 300
         assert test_material.temperature_in_C == pytest.approx(26.85)
         assert test_material.openmc_material.temperature == 300
-        
+
         line_by_line_material = test_material.serpent_material.split("\n")
 
         assert line_by_line_material[0].split()[-1] == "300"
@@ -981,8 +981,8 @@ class test_object_properties(unittest.TestCase):
         attribute of the openmc materials"""
 
         test_material = nmm.Material('WC')
-        assert test_material.openmc_material.temperature == None
-        
+        assert test_material.openmc_material.temperature is None
+
         line_by_line_material = test_material.serpent_material.split("\n")
 
         assert line_by_line_material[0].split()[-1] is not "300"

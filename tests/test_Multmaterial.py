@@ -542,7 +542,7 @@ class test_object_properties(unittest.TestCase):
         assert test_material.temperature_in_K == 283.15
         assert test_material.temperature_in_C == 10
         assert test_material.openmc_material.temperature == 283.15
-    
+
         line_by_line_material = test_material.serpent_material.split("\n")
 
         assert line_by_line_material[0].split()[-1] == "283.15"
@@ -565,11 +565,12 @@ class test_object_properties(unittest.TestCase):
         assert test_material.temperature_in_K == 300
         assert test_material.temperature_in_C == pytest.approx(26.85)
         assert test_material.openmc_material.temperature == 300
-        
+
         line_by_line_material = test_material.serpent_material.split("\n")
 
         assert line_by_line_material[0].split()[-1] == "300"
         assert line_by_line_material[0].split()[-2] == "tmp"
+
 
 if __name__ == "__main__":
     unittest.main()

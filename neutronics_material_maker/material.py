@@ -87,7 +87,7 @@ class Material:
             temperature have density equations that depend on temperature.
             These tend to be liquids and gases used for coolants and even
             liquids such as lithium-lead and FLiBe that are used as a breeder
-            materials. Convered to K and added to the openmc material object 
+            materials. Convered to K and added to the openmc material object
             and the serpent material card.
         temperature_in_K (float): The temperature of the material in degrees
             Kelvin. Temperature impacts the density of some materials in the

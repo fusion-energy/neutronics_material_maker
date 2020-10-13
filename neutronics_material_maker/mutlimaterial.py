@@ -66,7 +66,7 @@ class MultiMaterial:
         volume_in_cm3 (float): The volume of the material in cm3, used when
             creating fispact material cards
         temperature_in_C (float): The temperature of the material in degrees
-            Celsius. Convered to K and added to the openmc material object and 
+            Celsius. Convered to K and added to the openmc material object and
             the serpent material card
         temperature_in_K (float): The temperature of the material in degrees
             Kelvin. Added to the openmc material object and the serpent
