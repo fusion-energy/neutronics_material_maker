@@ -981,12 +981,12 @@ class test_object_properties(unittest.TestCase):
         attribute of the openmc materials"""
 
         test_material = nmm.Material('WC')
-        assert test_material.openmc_material.temperature == None
+        assert test_material.openmc_material.temperature is None
         
         line_by_line_material = test_material.serpent_material.split("\n")
 
-        assert line_by_line_material[0].split()[-1] is not "300"
-        assert line_by_line_material[0].split()[-2] is not "tmp"
+        assert line_by_line_material[0].split()[-1] != "300"
+        assert line_by_line_material[0].split()[-2] != "tmp"
 
     @staticmethod
     def test_restricted_eval():
