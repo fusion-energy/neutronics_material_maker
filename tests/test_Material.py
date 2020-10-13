@@ -938,6 +938,28 @@ class test_object_properties(unittest.TestCase):
         assert test_material_in_json_form["temperature_in_C"] == 100
         assert test_material_in_json_form["material_name"] == "H2O"
 
+    def test_temperature_from_C_in_openmc_material(self):
+        """checks that the temperature set in C ends up in the temperature
+        attribute of the openmc materials"""
+
+        test_material = nmm.Material(
+            'H2O',
+            temperature_in_C=10,
+            pressure_in_Pa=15.5e6
+        )
+        assert test_material.openmc_material.temperatue == 283.15
+
+    def test_temperature_from_K_in_openmc_material(self):
+        """checks that the temperature set in K ends up in the temperature
+        attribute of the openmc materials"""
+
+        test_material = nmm.Material(
+            'H2O',
+            temperature_in_K=300,
+            pressure_in_Pa=15.5e6
+        )
+        assert test_material.openmc_material.temperatue == 300
+
     @staticmethod
     def test_restricted_eval():
         """Test that arbitrary commands cannot be injected."""
