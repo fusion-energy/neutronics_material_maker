@@ -369,7 +369,8 @@ class test_object_properties(unittest.TestCase):
             rel=0.01,
         )
         assert li7_atom_count == pytest.approx(
-            ((100.0 - enrichment) / 100) * (li_fraction / (pb_fraction + li_fraction)),
+            ((100.0 - enrichment) / 100) *
+             (li_fraction / (pb_fraction + li_fraction)),
             rel=0.01,
         )
 
