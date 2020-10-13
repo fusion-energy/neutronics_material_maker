@@ -938,7 +938,7 @@ class test_object_properties(unittest.TestCase):
         assert test_material_in_json_form["temperature_in_C"] == 100
         assert test_material_in_json_form["material_name"] == "H2O"
 
-    def test_temperature_from_C_in_openmc_material(self):
+    def test_temperature_from_C_in_materials(self):
         """checks that the temperature set in C ends up in the temperature
         attribute of the openmc materials"""
 
@@ -948,8 +948,13 @@ class test_object_properties(unittest.TestCase):
             pressure_in_Pa=15.5e6
         )
         assert test_material.openmc_material.temperatue == 283.15
+        
+        line_by_line_material = test_material.serpent_material.split("\n")
 
-    def test_temperature_from_K_in_openmc_material(self):
+        assert line_by_line_material[0].split()[-1] == "283.15"
+        assert line_by_line_material[0].split()[-2] == "tmp"
+
+    def test_temperature_from_K_in_materials(self):
         """checks that the temperature set in K ends up in the temperature
         attribute of the openmc materials"""
 
@@ -959,6 +964,27 @@ class test_object_properties(unittest.TestCase):
             pressure_in_Pa=15.5e6
         )
         assert test_material.openmc_material.temperatue == 300
+        
+        line_by_line_material = test_material.serpent_material.split("\n")
+
+        assert line_by_line_material[0].split()[-1] == "300"
+        assert line_by_line_material[0].split()[-2] == "tmp"
+
+    def test_temperature_not_in_materials(self):
+        """checks that the temperature set in K ends up in the temperature
+        attribute of the openmc materials"""
+
+        test_material = nmm.Material(
+            'H2O',
+            temperature_in_K=300,
+            pressure_in_Pa=15.5e6
+        )
+        assert test_material.openmc_material.temperatue == None
+        
+        line_by_line_material = test_material.serpent_material.split("\n")
+
+        assert line_by_line_material[0].split()[-1] is not "300"
+        assert line_by_line_material[0].split()[-2] is not "tmp"
 
     @staticmethod
     def test_restricted_eval():
