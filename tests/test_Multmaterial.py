@@ -2,28 +2,13 @@
 
 __author__ = "neutronics material maker development team"
 
-
-import pytest
-import unittest
 import json
+import unittest
 import warnings
 
 import neutronics_material_maker as nmm
-
 import openmc
-
-# test command
-# pytest tests -v --cov=paramak --cov-report term --cov-report html:htmlcov --cov-report xml --junitxml=test-reports/junit.xml
-# from head paramak directory
-
-
-class test_mixed_material(unittest.TestCase):
-    def density_from_mixed_material(self):
-        pass
-
-
-if __name__ == "__main__":
-    unittest.main()
+import pytest
 
 
 class test_object_properties(unittest.TestCase):
@@ -95,6 +80,35 @@ class test_object_properties(unittest.TestCase):
 
         assert isinstance(test_material, openmc.Material) is False
         assert isinstance(test_material.openmc_material, openmc.Material)
+
+    def test_mutlimaterial_material_tag_setting(self):
+
+        test_material = nmm.MultiMaterial(
+            materials=[
+                nmm.Material('Pb842Li158', temperature_in_K=500),
+                nmm.Material('SiC')
+            ],
+            fracs=[0.5, 0.5])
+
+        assert test_material.material_tag is None
+        test_material.material_tag = 'tag_set_after_creation'
+        assert test_material.material_tag == 'tag_set_after_creation'
+
+        test_material.openmc_material
+        assert test_material.openmc_material.name == 'tag_set_after_creation'
+
+        test_material = nmm.MultiMaterial(
+            materials=[
+                nmm.Material('Pb842Li158', temperature_in_K=500),
+                nmm.Material('SiC')
+            ],
+            fracs=[0.5, 0.5],
+            material_tag='tag_set_on_creation')
+
+        assert test_material.material_tag == 'tag_set_on_creation'
+
+        test_material.openmc_material
+        assert test_material.openmc_material.name == 'tag_set_on_creation'
 
     def test_multimaterial_attributes_from_material_objects_and_openmc_materials(
             self):
@@ -431,11 +445,12 @@ class test_object_properties(unittest.TestCase):
             # Trigger a warning.
             too_large_fracs()
             # Verify some things
-            assert len(w) == 1
+            assert len(w) >= 1
             assert issubclass(w[-1].category, UserWarning)
-            assert "warning sum of MutliMaterials do not sum to 1." in str(
-                w[-1].message
-            )
+            # the second entry is needed as OpenMC material mixer also raises
+            # and error
+            assert "warning sum of MutliMaterials.fracs do not sum to 1." in str(
+                w[-2].message)
 
         def too_small_fracs():
             """checks a ValueError is raised when the fracs are above 1"""
@@ -455,8 +470,61 @@ class test_object_properties(unittest.TestCase):
             # Trigger a warning.
             too_small_fracs()
             # Verify some things
-            assert len(w) == 1
+            assert len(w) >= 1
             assert issubclass(w[-1].category, UserWarning)
-            assert "warning sum of MutliMaterials do not sum to 1." in str(
-                w[-1].message
+            # the second entry is needed as OpenMC material mixer also raises
+            # and error
+            assert "warning sum of MutliMaterials.fracs do not sum to 1." in str(
+                w[-2].message)
+
+        def test_incorrect_packing_fraction():
+            """checks a ValueError is raised when the packing_fraction is the
+            wrong type"""
+
+            nmm.MultiMaterial(
+                "test_material",
+                materials=[
+                    nmm.Material("tungsten", packing_fraction=0.6),
+                    nmm.Material("eurofer", packing_fraction=0.8),
+                ],
+                fracs=[0.3, 0.7],
+                packing_fraction="1"
             )
+
+        self.assertRaises(ValueError, test_incorrect_packing_fraction)
+
+        def test_too_large_packing_fraction():
+            """checks a ValueError is raised when the packing_fraction is the
+            too large"""
+
+            nmm.MultiMaterial(
+                "test_material",
+                materials=[
+                    nmm.Material("tungsten", packing_fraction=0.6),
+                    nmm.Material("eurofer", packing_fraction=0.8),
+                ],
+                fracs=[0.3, 0.7],
+                packing_fraction=1.1
+            )
+
+        self.assertRaises(ValueError, test_too_large_packing_fraction)
+
+        def test_too_small_packing_fraction():
+            """checks a ValueError is raised when the packing_fraction is the
+            too large"""
+
+            nmm.MultiMaterial(
+                "test_material",
+                materials=[
+                    nmm.Material("tungsten", packing_fraction=0.6),
+                    nmm.Material("eurofer", packing_fraction=0.8),
+                ],
+                fracs=[0.3, 0.7],
+                packing_fraction=-0.1
+            )
+
+        self.assertRaises(ValueError, test_too_small_packing_fraction)
+
+
+if __name__ == "__main__":
+    unittest.main()

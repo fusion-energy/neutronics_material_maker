@@ -2,24 +2,24 @@
 
 __author__ = "neutronics material maker development team"
 
-from json import JSONEncoder
-import warnings
-
-try:
-    import openmc
-except BaseException:
-    warnings.warn(
-        "OpenMC python package not found, .openmc_material, .serpent_material, \
-            .mcnp_material, .fispact_material methods not avaiable")
-
-from CoolProp.CoolProp import PropsSI
-import neutronics_material_maker as nmm
-
 from neutronics_material_maker import (
     make_fispact_material,
     make_serpent_material,
     make_mcnp_material,
 )
+import neutronics_material_maker as nmm
+from json import JSONEncoder
+import warnings
+
+OPENMC_AVAILABLE = True
+try:
+    import openmc
+except ImportError:
+    OPENMC_AVAILABLE = False
+    warnings.warn(
+        "OpenMC python package not found, .openmc_material, .serpent_material, \
+            .mcnp_material, .fispact_material methods not avaiable")
+
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
@@ -105,12 +105,15 @@ class MultiMaterial:
 
         if sum(self.fracs) != 1.0:
             warnings.warn(
-                "warning sum of MutliMaterials do not sum to 1."
+                "warning sum of MutliMaterials.fracs do not sum to 1."
                 + str(self.fracs)
                 + " = "
                 + str(sum(self.fracs)),
                 UserWarning,
             )
+
+        if OPENMC_AVAILABLE:
+            self._make_openmc_material()
 
     @property
     def packing_fraction(self):
@@ -118,14 +121,16 @@ class MultiMaterial:
 
     @packing_fraction.setter
     def packing_fraction(self, value):
-        value = float(value)
-        if not isinstance(value, float):
-            raise ValueError("packing_fraction must be a float")
+        if not isinstance(value, (float, int)):
+            raise ValueError(
+                "MultiMaterial.packing_fraction must be a float or int")
         if value < 0.0:
-            raise ValueError("packing_fraction must be greater than 0")
+            raise ValueError(
+                "MultiMaterial.packing_fraction must be greater than 0")
         if value > 1.0:
-            raise ValueError("packing_fraction must be less than 1.")
-        self._packing_fraction = value
+            raise ValueError(
+                "MultiMaterial.packing_fraction must be less than 1.")
+        self._packing_fraction = float(value)
 
     @property
     def openmc_material(self):
@@ -134,7 +139,7 @@ class MultiMaterial:
 
         :type: openmc.Material() object
         """
-        self._openmc_material = self.make_openmc_material()
+        self._openmc_material = self._make_openmc_material()
         return self._openmc_material
 
     @openmc_material.setter
@@ -184,7 +189,7 @@ class MultiMaterial:
     def fispact_material(self, value):
         self._fispact_material = value
 
-    def make_openmc_material(self):
+    def _make_openmc_material(self):
 
         openmc_material_objects = []
         for material in self.materials:
@@ -194,11 +199,12 @@ class MultiMaterial:
                 openmc_material_objects.append(material.openmc_material)
             else:
                 raise ValueError(
-                    "only openmc.Material or neutronics_material_maker.Materials are accepted. Not",
-                    type(material),
+                    "only openmc.Material or neutronics_material_maker. \
+                    Materials are accepted. Not", type(material),
                 )
 
-        openmc_material = openmc.Material.mix_materials(  # name = self.material_tag,
+        openmc_material = openmc.Material.mix_materials(
+            name=self.material_tag,
             materials=openmc_material_objects,
             fracs=self.fracs,
             percent_type=self.percent_type,
