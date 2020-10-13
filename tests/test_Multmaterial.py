@@ -525,6 +525,52 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, test_too_small_packing_fraction)
 
+    def test_temperature_from_C_in_multimaterials(self):
+        """checks that the temperature set in C ends up in the temperature
+        attribute of the openmc multimaterials"""
+
+        test_material = nmm.MultiMaterial(
+            "test_material",
+            materials=[
+                nmm.Material("tungsten"),
+                nmm.Material("eurofer"),
+            ],
+            fracs=[0.3, 0.7],
+            temperature_in_C=10
+        )
+
+        assert test_material.temperature_in_K == 283.15
+        assert test_material.temperature_in_C == 10
+        assert test_material.openmc_material.temperature == 283.15
+
+        line_by_line_material = test_material.serpent_material.split("\n")
+
+        assert line_by_line_material[0].split()[-1] == "283.15"
+        assert line_by_line_material[0].split()[-2] == "tmp"
+
+    def test_temperature_from_K_in_multimaterials(self):
+        """checks that the temperature set in K ends up in the temperature
+        attribute of the openmc multimaterials"""
+
+        test_material = nmm.MultiMaterial(
+            "test_material",
+            materials=[
+                nmm.Material("tungsten"),
+                nmm.Material("eurofer"),
+            ],
+            fracs=[0.3, 0.7],
+            temperature_in_K=300
+        )
+
+        assert test_material.temperature_in_K == 300
+        assert test_material.temperature_in_C == pytest.approx(26.85)
+        assert test_material.openmc_material.temperature == 300
+
+        line_by_line_material = test_material.serpent_material.split("\n")
+
+        assert line_by_line_material[0].split()[-1] == "300"
+        assert line_by_line_material[0].split()[-2] == "tmp"
+
 
 if __name__ == "__main__":
     unittest.main()
