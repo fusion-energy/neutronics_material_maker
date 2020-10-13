@@ -601,9 +601,13 @@ class Material:
             name = self.material_tag
         if self.material_id is not None:
             openmc_material = openmc.Material(
-                material_id=self.material_id, name=name)
+                material_id=self.material_id,
+                name=name,
+                temperature=self.temperature_in_K)
         else:
-            openmc_material = openmc.Material(name=name)
+            openmc_material = openmc.Material(
+                name=name,
+                temperature=self.temperature_in_K)
 
         if self.isotopes is not None:
 
