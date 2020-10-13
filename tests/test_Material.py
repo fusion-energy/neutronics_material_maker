@@ -369,7 +369,8 @@ class test_object_properties(unittest.TestCase):
             rel=0.01,
         )
         assert li7_atom_count == pytest.approx(
-            ((100.0 - enrichment) / 100) * (li_fraction / (pb_fraction + li_fraction)),
+            ((100.0 - enrichment) / 100) *
+             (li_fraction / (pb_fraction + li_fraction)),
             rel=0.01,
         )
 
@@ -982,11 +983,13 @@ class test_object_properties(unittest.TestCase):
 
         test_material = nmm.Material('WC')
         assert test_material.openmc_material.temperature is None
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> 437a424559206c118b095d7283d21d3307d75acb
+
+<< << << < HEAD
+
+== == == =
+
+>>>>>> > 437a424559206c118b095d7283d21d3307d75acb
         line_by_line_material = test_material.serpent_material.split("\n")
 
         assert line_by_line_material[0].split()[-1] != "300"
