@@ -2,14 +2,14 @@
 
 __author__ = "neutronics material maker development team"
 
-from neutronics_material_maker import (
-    make_fispact_material,
-    make_serpent_material,
-    make_mcnp_material,
-)
-import neutronics_material_maker as nmm
-from json import JSONEncoder
 import warnings
+from json import JSONEncoder
+from typing import List, Optional
+
+import neutronics_material_maker as nmm
+from neutronics_material_maker import (make_fispact_material,
+                                       make_mcnp_material,
+                                       make_serpent_material)
 
 OPENMC_AVAILABLE = True
 try:
@@ -79,17 +79,17 @@ class MultiMaterial:
 
     def __init__(
         self,
-        material_tag=None,
-        materials=[],
-        fracs=[],
-        percent_type="vo",
-        packing_fraction=1.0,
-        zaid_suffix=None,
-        material_id=None,
-        decimal_places=8,
-        volume_in_cm3=None,
-        temperature_in_C=None,
-        temperature_in_K=None
+        material_tag: Optional[str] = None,
+        materials: list = [],
+        fracs: List[float] = [],
+        percent_type: str = "vo",
+        packing_fraction: float = 1.0,
+        zaid_suffix: str = None,
+        material_id: int = None,
+        decimal_places: int = 8,
+        volume_in_cm3: float = None,
+        temperature_in_C: float = None,
+        temperature_in_K: float = None
     ):
         self.material_tag = material_tag
         self.materials = materials
