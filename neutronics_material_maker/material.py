@@ -7,7 +7,7 @@ import os
 import re
 import warnings
 from json import JSONEncoder
-
+from typing import Optional, Dict
 import asteval
 from CoolProp.CoolProp import PropsSI
 
@@ -140,29 +140,29 @@ class Material:
 
     def __init__(
         self,
-        material_name=None,
-        packing_fraction=1.0,
-        material_tag=None,
-        enrichment=None,
-        enrichment_target=None,
-        temperature_in_C=None,
-        temperature_in_K=None,
-        pressure_in_Pa=None,
-        elements=None,
-        chemical_equation=None,
-        isotopes=None,
-        percent_type=None,
-        density=None,
-        density_unit=None,
-        density_equation=None,
-        atoms_per_unit_cell=None,
-        volume_of_unit_cell_cm3=None,
-        enrichment_type=None,
-        reference=None,
-        zaid_suffix=None,
-        material_id=None,
-        decimal_places=8,
-        volume_in_cm3=None,
+        material_name: Optional[str] = None,
+        packing_fraction: Optional[float] = 1.0,
+        material_tag: Optional[str] = None,
+        enrichment: Optional[float] = None,
+        enrichment_target: Optional[str] = None,
+        temperature_in_C: Optional[float] = None,
+        temperature_in_K: Optional[float] = None,
+        pressure_in_Pa: Optional[float] = None,
+        elements: Optional[Dict[str, float]] = None,
+        chemical_equation: Optional[str] = None,
+        isotopes: Optional[Dict[str, float]] = None,
+        percent_type: Optional[str] = None,
+        density: Optional[float] = None,
+        density_unit: Optional[str] = None,
+        density_equation: Optional[str] = None,
+        atoms_per_unit_cell: Optional[int] = None,
+        volume_of_unit_cell_cm3: Optional[float] = None,
+        enrichment_type: Optional[str] = None,
+        reference: Optional[str] = None,
+        zaid_suffix: Optional[str] = None,
+        material_id: Optional[int] = None,
+        decimal_places: Optional[int] = 8,
+        volume_in_cm3: Optional[float] = None,
     ):
 
         self.material_name = material_name
