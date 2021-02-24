@@ -26,4 +26,4 @@ python:
 
 # specify conda environment needed for build
 conda:
-  environment: environment.yml
+  environment: docs/environment.yml

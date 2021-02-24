@@ -48,7 +48,8 @@ material maker and brought on OpenMC as a major dependancy.
 Prerequisites
 -------------
 
-To use the neutronics-material-maker tool you will need Python 3 and OpenMC installed.
+To use the neutronics-material-maker tool you will need Python 3 and OpenMC
+installed.
 
 * `Python 3 <https://www.python.org/downloads/>`_
 * `OpenMC <https://docs.openmc.org/en/stable/usersguide/install.html>`_
@@ -58,19 +59,20 @@ To use the neutronics-material-maker tool you will need Python 3 and OpenMC inst
 Installation
 ------------
 
-The recommended method is to install from [Conda Forge](https://conda-forge.org) which also installs all the dependancies including OpenMC.
+The recommended method is to install from [Conda Forge](https://conda-forge.org)
+which also installs all the dependancies including OpenMC.
 
 ```
 conda install neutronics_material_maker -c conda-forge
 ```
 
-Alternativly the code can be easily installed using pip (which doesn't currently include OpenMC)
+Alternativly the code can be easily installed using pip (which doesn't
+currently include OpenMC)
 
-```
-pip install neutronics_material_maker
-```
+`pip install neutronics_material_maker`
 
-You can clone the repository, and install using the setup.py if you would like the development version.
+You can clone the repository, and install using the setup.py if you would like
+the development version.
 
 ::
 
@@ -81,7 +83,11 @@ You can clone the repository, and install using the setup.py if you would like t
 Features
 --------
 
-There are two main user classes `Material() <https://neutronics-material-maker.readthedocs.io/en/latest/material.html>`_ and `MutliMaterial() <https://neutronics-material-maker.readthedocs.io/en/latest/multimaterial.html>`_ which are both fully documented.
+There are two main user classes 
+`Material() <https://neutronics-material-maker.readthedocs.io/en/latest/material.html>`_ 
+and 
+`MutliMaterial() <https://neutronics-material-maker.readthedocs.io/en/latest/multimaterial.html>`_ 
+which are both fully documented.
 
 
 Example Scripts
