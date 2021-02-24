@@ -29,9 +29,9 @@ version = ""
 release = "1.0"
 
 python:
-   # cool props doesn't support python 3.9 currently 
-   # https://github.com/CoolProp/CoolProp/issues/1981
-   version: 3.8
+    # cool props doesn't support python 3.9 currently
+    # https://github.com/CoolProp/CoolProp/issues/1981
+    version: 3.8
 
 
 # -- General configuration ---------------------------------------------------
