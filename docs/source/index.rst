@@ -62,14 +62,17 @@ Installation
 The recommended method is to install from [Conda Forge](https://conda-forge.org)
 which also installs all the dependancies including OpenMC.
 
-```
-conda install neutronics_material_maker -c conda-forge
-```
+.. code-block:: bash
+
+   conda install neutronics_material_maker -c conda-forge
+
 
 Alternativly the code can be easily installed using pip (which doesn't
 currently include OpenMC)
 
-`pip install neutronics_material_maker`
+.. code-block:: bash
+
+   pip install neutronics_material_maker
 
 You can clone the repository, and install using the setup.py if you would like
 the development version.
