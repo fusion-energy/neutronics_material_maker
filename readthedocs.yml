@@ -13,11 +13,11 @@ sphinx:
 #   - pdf
 
 # this is not needed if using conda environment
-python:
-  version: 3.8
-  install:
-    - requirements: requirements.txt
+# python:
+#   version: 3.8
+#   install:
+#     - requirements: requirements.txt
 
 # specify conda environment needed for build
 conda:
-  file: environment.yml
+  environment: environment.yml
