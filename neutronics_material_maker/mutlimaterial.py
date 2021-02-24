@@ -4,7 +4,7 @@ __author__ = "neutronics material maker development team"
 
 import warnings
 from json import JSONEncoder
-from typing import List, Optional
+from typing import List, Optional, Union
 
 import neutronics_material_maker as nmm
 from neutronics_material_maker import (make_fispact_material,
@@ -80,16 +80,16 @@ class MultiMaterial:
     def __init__(
         self,
         material_tag: Optional[str] = None,
-        materials: list = [],
+        materials: List[Union[nmm.Material, openmc.Material]] = [],
         fracs: List[float] = [],
-        percent_type: str = "vo",
+        percent_type: Optional[str] = "vo",
         packing_fraction: float = 1.0,
-        zaid_suffix: str = None,
-        material_id: int = None,
-        decimal_places: int = 8,
-        volume_in_cm3: float = None,
-        temperature_in_C: float = None,
-        temperature_in_K: float = None
+        zaid_suffix: Optional[str] = None,
+        material_id: Optional[int] = None,
+        decimal_places: Optional[int] = 8,
+        volume_in_cm3: Optional[float] = None,
+        temperature_in_C: Optional[float] = None,
+        temperature_in_K: Optional[float] = None
     ):
         self.material_tag = material_tag
         self.materials = materials

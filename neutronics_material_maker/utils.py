@@ -14,7 +14,7 @@ except BaseException:
             .fispact_material not avaiable")
 
 
-def make_fispact_material(mat):
+def make_fispact_material(mat) -> str:
     """
     Returns a Fispact material card for the material. This contains the required
     keywords (DENSITY and FUEL) and the number of atoms of each isotope in the
@@ -43,7 +43,7 @@ def make_fispact_material(mat):
     return "\n".join(mat_card)
 
 
-def make_serpent_material(mat):
+def make_serpent_material(mat) -> str:
     """Returns the material in a string compatable with Serpent II"""
 
     if mat.material_tag is None:
@@ -78,7 +78,7 @@ def make_serpent_material(mat):
     return "\n".join(mat_card)
 
 
-def make_mcnp_material(mat):
+def make_mcnp_material(mat) -> str:
     """Returns the material in a string compatable with MCNP6"""
 
     if mat.material_id is None:
@@ -127,14 +127,14 @@ def make_mcnp_material(mat):
     return "\n".join(mat_card)
 
 
-def isotope_to_zaid(isotope):
+def isotope_to_zaid(isotope: str) -> str:
     """converts an isotope into a zaid e.g. Li6 -> 003006"""
     z, a, m = openmc.data.zam(isotope)
     zaid = str(z).zfill(3) + str(a).zfill(3)
     return zaid
 
 
-def zaid_to_isotope(zaid):
+def zaid_to_isotope(zaid: str) -> str:
     """converts an isotope into a zaid e.g. 003006 -> Li6"""
     a = str(zaid)[-3:]
     z = str(zaid)[:-3]
@@ -142,7 +142,7 @@ def zaid_to_isotope(zaid):
     return symbol + str(int(a))
 
 
-def AddMaterialFromDir(directory, verbose=True):
+def AddMaterialFromDir(directory: str, verbose: bool = True):
     """Add materials to the internal library from a directory of json files"""
     for filename in Path(directory).rglob("*.json"):
         with open(filename, "r") as f:
@@ -153,7 +153,7 @@ def AddMaterialFromDir(directory, verbose=True):
             print(sorted(list(new_data.keys())), "\n")
 
 
-def AddMaterialFromFile(filename, verbose=True):
+def AddMaterialFromFile(filename, verbose=True) -> None:
     """Add materials to the internal library from a json file"""
     with open(filename, "r") as f:
         new_data = json.load(f)
@@ -163,7 +163,7 @@ def AddMaterialFromFile(filename, verbose=True):
         print(sorted(list(material_dict.keys())))
 
 
-def AvailableMaterials():
+def AvailableMaterials() -> dict:
     """Returns a dictionary of available materials"""
     return material_dict
 
