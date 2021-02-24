@@ -8,7 +8,7 @@ Here is an example that accesses a material from the internal collection called 
 
 ::
 
-   import neutronics-material-maker as nmm
+   import neutronics_material_maker as nmm
 
    my_mat = nmm.Material('eurofer')
 
@@ -76,6 +76,7 @@ Lithium ceramics used in fusion breeder blankets often contain enriched lithium-
 
     my_mat2.openmc_material
 
+
 The default enrichment target for 'Li4SiO4' is Li6 but this can be changed if required.
 
 ::
@@ -94,61 +95,70 @@ Usage - make a your own materials
 Example making materials from elements
 
 ::
+
     import neutronics_material_maker as nmm
 
-    my_mat = nmm.Material(material_name="li_with_si",
-                          density= 3.0,
-                          density_unit= "g/cm3",
-                          percent_type= "ao",
-                          elements={
-                                "Li":4,
-                                "Si":2
-                            }
-    )
+    my_mat = nmm.Material(
+        material_name="li_with_si",
+        density= 3.0,
+        density_unit= "g/cm3",
+        percent_type= "ao",
+        elements={
+                "Li":4,
+                "Si":2
+                }
+        )
+
 
 Example making materials from isotopes
 
 ::
+
     import neutronics_material_maker as nmm
 
-    my_mat = nmm.Material(material_name="enriched_li",
-                          density= 3.0,
-                          density_unit= "g/cm3",
-                          percent_type= "ao",
-                          isotopes={
-                                "Li6":0.9,
-                                "Li7":0.1
-                            }
+    my_mat = nmm.Material(
+        material_name="enriched_li",
+        density= 3.0,
+        density_unit= "g/cm3",
+        percent_type= "ao",
+        isotopes={
+            "Li6":0.9,
+            "Li7":0.1
+        }
     )
 
 Example making materials from isotopes defined by zaid
 
 ::
+
     import neutronics_material_maker as nmm
 
-    my_mat = nmm.Material(material_name="enriched_li",
-                          density= 3.0,
-                          density_unit= "g/cm3",
-                          percent_type= "ao",
-                          isotopes={
-                                "3006":0.9,
-                                "3007":0.1
-                            }
+    my_mat = nmm.Material(
+        material_name="enriched_li",
+        density= 3.0,
+        density_unit= "g/cm3",
+        percent_type= "ao",
+        isotopes={
+            "3006":0.9,
+            "3007":0.1
+        }
     )
 
 It is also possible to make your own materials directly from a dictionary by making use of the python syntax **
 
 ::
+
     import neutronics_material_maker as nmm
     
-    my_dict = { "material_name": "li_with_si",
-                "elements": {
-                                "Li":4,
-                                "Si":2
-                            },
-                "density": 3.0,
-                "density_unit": "g/cm3",
-                "percent_type": "ao",
-                }
+    my_dict = {
+        "material_name": "li_with_si",
+        "elements": {
+                        "Li":4,
+                        "Si":2
+                    },
+        "density": 3.0,
+        "density_unit": "g/cm3",
+        "percent_type": "ao",
+    }
 
     my_mat = nmm.Material(**my_dict)
