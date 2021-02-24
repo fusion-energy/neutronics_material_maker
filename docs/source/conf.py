@@ -28,13 +28,6 @@ version = ""
 # The full version, including alpha/beta/rc tags
 release = "1.0"
 
-# cool props doesn't support python 3.9 currently
-# https://github.com/CoolProp/CoolProp/issues/1981
-python:
-   version: 3.7
-   install:
-   - requirements: requirements.txt
-
 # -- General configuration ---------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
