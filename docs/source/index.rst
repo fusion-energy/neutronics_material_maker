@@ -1,13 +1,22 @@
 Neutronics Material Maker
 =========================
 
-The aim of this project is to facilitate the creation of materials for use in neutronics codes such as OpenMC, Serpent, MCNP and Fispact.
+The aim of this project is to facilitate the creation of materials for use in
+neutronics codes such as OpenMC, Serpent, MCNP and Fispact.
 
-The hope is that by having this collection of materials it is easier to reuse materials across projects and use a common source with less room for user error.
+The hope is that by having this collection of materials it is easier to reuse
+materials across projects and use a common source with less room for user
+error.
 
-The package allows for materials to be made from either an internal library of materials or from your own material library.
+The package allows for materials to be made from either an internal library of
+materials or from your own material library.
 
-Material densities can be made to account for temperature, pressure and isotopic enrichment.
+Material densities can be made to account for temperature, pressure and
+isotopic enrichment.
+
+.. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/V-VHLwRar9s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 .. toctree::
@@ -19,6 +28,21 @@ Material densities can be made to account for temperature, pressure and isotopic
    example_material
    example_multimaterial
    example_library_usage
+
+
+History
+-------
+
+The package was originally created by Jonathan Shimwell as a method of
+reducing the effort required to the same materials accross different neutronics
+codes. The current version can be considered a materials library and translator
+between material types. The original version contained methods of mixing
+materials and building materials from chemical equations. These aspects of the
+code were moved to OpenMC in code contributions (e.g
+`1 <https://github.com/openmc-dev/openmc/pull/1530>`_ and
+`2 <https://github.com/openmc-dev/openmc/pull/1534>`_ )
+which reduced the complexity and maintainance burden for the neutronics
+material maker and brought on OpenMC as a major dependancy.
 
 
 Prerequisites
