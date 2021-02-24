@@ -28,11 +28,12 @@ version = ""
 # The full version, including alpha/beta/rc tags
 release = "1.0"
 
+# cool props doesn't support python 3.9 currently 
+# https://github.com/CoolProp/CoolProp/issues/1981
 python:
-   # cool props doesn't support python 3.9 currently 
-   # https://github.com/CoolProp/CoolProp/issues/1981
    version: 3.8
-
+   install:
+   - requirements: requirements.txt
 
 # -- General configuration ---------------------------------------------------
 
