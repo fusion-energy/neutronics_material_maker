@@ -31,9 +31,9 @@ release = "1.0"
 # cool props doesn't support python 3.9 currently
 # https://github.com/CoolProp/CoolProp/issues/1981
 python:
-   version: 3.7
-   install:
-   - requirements: requirements.txt
+    version: 3.7
+    install:
+    - requirements: requirements.txt
 
 # -- General configuration ---------------------------------------------------
 
