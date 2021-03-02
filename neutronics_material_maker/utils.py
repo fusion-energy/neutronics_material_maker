@@ -150,14 +150,14 @@ def make_shift_material(mat) -> str:
         + "tmp %s" %mat.temperature_in_K
     ]
     zaid = 'zaid'
-    nd = 'nd'
+    nd_ = 'nd'
 
     # shift units in atoms / barn-cm
     for nuclide, atom_dens in mat.openmc_material.get_nuclide_atom_densities().items():
         zaid += ' ' + isotope_to_zaid(nuclide)
-        nd += ' ' + f"{atom_dens[1]:.{mat.decimal_places}e}"
+        nd_ += ' ' + f"{atom_dens[1]:.{mat.decimal_places}e}"
 
-    mat_card.extend([zaid, nd])
+    mat_card.extend([zaid, nd_])
     return "\n".join(mat_card)
 
 

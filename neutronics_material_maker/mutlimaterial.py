@@ -231,7 +231,6 @@ class MultiMaterial:
     @shift_material.setter
     def shift_material(self, value):
         self._shift_material = value
-    
 
     @property
     def fispact_material(self):
