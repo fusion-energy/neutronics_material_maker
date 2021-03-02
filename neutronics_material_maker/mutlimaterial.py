@@ -9,6 +9,7 @@ from typing import List, Optional, Union
 import neutronics_material_maker as nmm
 from neutronics_material_maker import (make_fispact_material,
                                        make_mcnp_material,
+                                       make_shift_material,
                                        make_serpent_material)
 
 OPENMC_AVAILABLE = True
@@ -107,6 +108,7 @@ class MultiMaterial:
         self.openmc_material = None
         self.serpent_material = None
         self.mcnp_material = None
+        self.shift_material = None
         self.fispact_material = None
 
         if len(self.fracs) != len(self.materials):
@@ -215,6 +217,20 @@ class MultiMaterial:
     @mcnp_material.setter
     def mcnp_material(self, value):
         self._mcnp_material = value
+
+    @property
+    def shift_material(self):
+        """
+        Returns a Shift version of hte Material.
+
+        :type: str
+        """
+        self._shift_material = make_shift_material(self)
+        return self._shift_material
+
+    @shift_material.setter
+    def shift_material(self, value):
+        self._shift_material = value
 
     @property
     def fispact_material(self):
