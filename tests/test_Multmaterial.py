@@ -37,6 +37,20 @@ class test_object_properties(unittest.TestCase):
         assert len(test_material.mcnp_material) > 100
         assert isinstance(test_material.mcnp_material, str)
 
+    def test_shift_multimaterial_type(self):
+
+        test_material = nmm.MultiMaterial(
+            "test_material",
+            materials=[nmm.Material("Li4SiO4"), nmm.Material("Be12Ti")],
+            fracs=[0.50, 0.50],
+            percent_type="vo",
+            temperature_in_K=300,
+            material_id=2,
+        )
+
+        assert len(test_material.shift_material) > 100
+        assert isinstance(test_material.shift_material, str)
+
     def test_fispact_multimaterial_type(self):
 
         test_material = nmm.MultiMaterial(

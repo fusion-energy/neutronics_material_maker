@@ -134,30 +134,28 @@ def make_shift_material(mat) -> str:
         raise ValueError(
             "Material.material_id needs setting before shift_material can be made"
         )
+    if mat.temperature_in_K is None:
+        raise ValueError(
+            "Material.temperature_in_K needs setting before shift_material can be made"
+        )
 
     if mat.material_tag is None:
         name = mat.material_name
     else:
         name = mat.material_tag
 
-    if mat.temperature_in_K is None:
-        temp = 273
-    else:
-        temp = mat.temperature_in_K
-
     mat_card = [
         "name %s\n" %name
         + "matid %s\n" %mat.material_id
-        + "tmp %s\n" %mat.temperature_in_K
+        + "tmp %s" %mat.temperature_in_K
     ]
     zaid = 'zaid'
     nd = 'nd'
 
-    # shift units in atoms / barn-cm    
-    for nuclide, atom_dens in enumerate(mat.openmc_material.get_nuclide_atom_densities()):
-        zaid += ' ' + str(nuclide)
-        nd += ' ' + f"{atom_dens:.{mat.mat.decimal_places}e}"
-
+    # shift units in atoms / barn-cm
+    for nuclide, atom_dens in mat.openmc_material.get_nuclide_atom_densities().items():
+        zaid += ' ' + isotope_to_zaid(nuclide)
+        nd += ' ' + f"{atom_dens[1]:.{mat.decimal_places}e}"
 
     mat_card.extend([zaid, nd])
     return "\n".join(mat_card)
