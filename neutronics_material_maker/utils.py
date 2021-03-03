@@ -127,6 +127,40 @@ def make_mcnp_material(mat) -> str:
     return "\n".join(mat_card)
 
 
+def make_shift_material(mat) -> str:
+    """Returns the material in a string compatable with Shift"""
+
+    if mat.material_id is None:
+        raise ValueError(
+            "Material.material_id needs setting before shift_material can be made"
+        )
+    if mat.temperature_in_K is None:
+        raise ValueError(
+            "Material.temperature_in_K needs setting before shift_material can be made"
+        )
+
+    if mat.material_tag is None:
+        name = mat.material_name
+    else:
+        name = mat.material_tag
+
+    mat_card = [
+        "name %s\n" % name
+        + "matid %s\n" % mat.material_id
+        + "tmp %s" % mat.temperature_in_K
+    ]
+    zaid = 'zaid'
+    nd_ = 'nd'
+
+    # shift units in atoms / barn-cm
+    for nuclide, atom_dens in mat.openmc_material.get_nuclide_atom_densities().items():
+        zaid += ' ' + isotope_to_zaid(nuclide)
+        nd_ += ' ' + f"{atom_dens[1]:.{mat.decimal_places}e}"
+
+    mat_card.extend([zaid, nd_])
+    return "\n".join(mat_card)
+
+
 def isotope_to_zaid(isotope: str) -> str:
     """converts an isotope into a zaid e.g. Li6 -> 003006"""
     z, a, m = openmc.data.zam(isotope)
