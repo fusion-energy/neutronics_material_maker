@@ -16,22 +16,30 @@ Once the object has been initiated the OpenMC or Serpent material card can be ac
 
 ::
 
-   my_mat_shape.openmc_material
-   my_mat_shape.serpent_material
+   my_mat.openmc_material
+   my_mat.serpent_material
 
 To access MCNP material it is necessary to also provide an id.
 
 ::
 
-   my_mat = nmm.Material('eurofer', id=1)
-   my_mat_shape.mcnp_material
+   my_mat = nmm.Material('eurofer', material_id=1)
+   my_mat.mcnp_material
 
 To access the Fispact material it is necessary to also provide a volume.
 
 ::
 
    my_mat = nmm.Material('eurofer', volume_in_cm3=10)
-   my_mat_shape.fispact_material
+   my_mat.fispact_material
+
+To access the Shift material it is necessary to also provide a temperature and
+a material id
+
+::
+
+   my_mat = nmm.Material('eurofer', temperature_in_K=293, material_id=1)
+   my_mat.shift_material
 
 
 

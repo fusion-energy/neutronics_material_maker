@@ -2,7 +2,7 @@ Neutronics Material Maker
 =========================
 
 The aim of this project is to facilitate the creation of materials for use in
-neutronics codes such as OpenMC, Serpent, MCNP and Fispact.
+neutronics codes such as OpenMC, Serpent, MCNP, Shift and Fispact.
 
 The hope is that by having this collection of materials it is easier to reuse
 materials across projects and use a common source with less room for user
@@ -98,4 +98,4 @@ Example Scripts
 
 There are several examples in the relevant example webpages; `example Material usage <https://neutronics-material-maker.readthedocs.io/en/latest/example_material.html>`_ and `example MutliMaterial usage <https://neutronics-material-maker.readthedocs.io/en/latest/example_multimaterial.html>`_ .
 
-Additionally there are more examples in the `OpenMC workshop <https://github.com/ukaea/openmc_workshop/tree/master/tasks/task_11>`_ .
+Additionally there are more examples in the `OpenMC workshop <https://github.com/ukaea/openmc_workshop/tree/main/tasks/task_02_making_materials>`_ .

@@ -22,6 +22,8 @@ temperature and pressure.
 
 :point_right: [Documentation](https://neutronics-material-maker.readthedocs.io/en/latest/)
 
+:point_right: [Video presentation](https://www.youtube.com/watch?v=V-VHLwRar9s)
+
 ## Installation
 
 To use the code you will need to have OpenMC installed
