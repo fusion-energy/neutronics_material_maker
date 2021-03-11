@@ -8,3 +8,4 @@ dependencies:
   - openmc
   - pip:
     - coolprop
+    - asteval
