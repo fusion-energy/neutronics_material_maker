@@ -145,9 +145,10 @@ def make_shift_material(mat) -> str:
         name = mat.material_tag
 
     mat_card = [
-        "name %s\n" % name
-        + "matid %s\n" % mat.material_id
-        + "tmp %s" % mat.temperature_in_K
+        "[COMP][MATERIAL]\n"
+        + "name %s\n" %name
+        + "matid %s\n" %mat.material_id
+        + "tmp %s" %mat.temperature_in_K
     ]
     zaid = 'zaid'
     nd_ = 'nd'
