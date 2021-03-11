@@ -6,5 +6,5 @@ channels:
 dependencies:
   - openmc
   - pip:
-    - coolprop
-    - asteval
+      - coolprop
+      - asteval
