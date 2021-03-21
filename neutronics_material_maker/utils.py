@@ -13,6 +13,17 @@ except BaseException:
         "OpenMC not found, .openmc_material, .serpent_material, .mcnp_material,\
             .fispact_material not avaiable")
 
+def add_additional_end_lines(code: str, mat) -> list:
+    """
+    Accertains if additional lines were requested by the user for the code used
+    and if so returns the additional lines request as a list to be added to the
+    end of the existing material card list.
+    """
+    print(mat.additional_end_lines)
+    if mat.additional_end_lines is not None:
+        if code in list(mat.additional_end_lines.keys()):
+            return mat.additional_end_lines[code]
+    return []
 
 def make_fispact_material(mat) -> str:
     """
@@ -39,6 +50,8 @@ def make_fispact_material(mat) -> str:
         atoms_cm3 = atoms_barn_cm * 1.0e24
         atoms = mat.volume_in_cm3 * atoms_cm3
         mat_card.append(isotope + " " + "{:.12E}".format(atoms))
+
+    mat_card = mat_card + add_additional_end_lines('fispact', mat)
 
     return "\n".join(mat_card)
 
@@ -74,6 +87,8 @@ def make_serpent_material(mat) -> str:
             + prefix
             + f"{isotope[1]:.{mat.decimal_places}e}"
         )
+
+    mat_card = mat_card + add_additional_end_lines('serpent', mat)
 
     return "\n".join(mat_card)
 
@@ -124,6 +139,8 @@ def make_mcnp_material(mat) -> str:
 
         mat_card.append(start + rest)
 
+    mat_card = mat_card + add_additional_end_lines('mcnp', mat)
+
     return "\n".join(mat_card)
 
 
@@ -157,8 +174,11 @@ def make_shift_material(mat) -> str:
     for nuclide, atom_dens in mat.openmc_material.get_nuclide_atom_densities().items():
         zaid += ' ' + isotope_to_zaid(nuclide)
         nd_ += ' ' + f"{atom_dens[1]:.{mat.decimal_places}e}"
-
+    
     mat_card.extend([zaid, nd_])
+
+    mat_card = mat_card + add_additional_end_lines('shift', mat)
+
     return "\n".join(mat_card)
 
 
