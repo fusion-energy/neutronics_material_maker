@@ -184,11 +184,11 @@ text at the end of the material card string.
     import neutronics_material_maker as nmm
 
     my_mat2 = nmm.Material(
-    'H2O',
-    material_id=10,
-    temperature_in_K=573.15,
-    pressure_in_Pa=15e6,
-    additional_end_lines={'mcnp': ['      mt24 lwtr.01']}
+        'H2O',
+        material_id=1,
+        temperature_in_K=573.15,
+        pressure_in_Pa=15e6,
+        additional_end_lines={'mcnp': ['      mt24 lwtr.01']}
     )
 
     my_mat2.mcnp_material
@@ -199,10 +199,10 @@ user.
 
 .. code-block:: bash
 
-c     H2O density 7.25553605e-01 g/cm3
-M10   001001  6.66562840e-01
-      001002  1.03826667e-04
-      008016  3.32540200e-01
-      008017  1.26333333e-04
-      008018  6.66800000e-04
-      mt24 lwtr.01
+    c     H2O density 7.25553605e-01 g/cm3
+    M10   001001  6.66562840e-01
+        001002  1.03826667e-04
+        008016  3.32540200e-01
+        008017  1.26333333e-04
+        008018  6.66800000e-04
+        mt24 lwtr.01
