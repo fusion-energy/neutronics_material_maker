@@ -20,12 +20,12 @@ class test_object_properties(unittest.TestCase):
     def test_additional_lines_multimaterial_mcnp(self):
 
         test_mat1 = nmm.Material(
-                        'Li4SiO4',
-                        additional_end_lines={'mcnp': ['mat1_additional']}
+            'Li4SiO4',
+            additional_end_lines={'mcnp': ['mat1_additional']}
         )
         test_mat2 = nmm.Material(
-                        'Be12Ti',
-                        additional_end_lines={'mcnp': ['mat2_additional']}
+            'Be12Ti',
+            additional_end_lines={'mcnp': ['mat2_additional']}
         )
 
         test_mat3 = nmm.MultiMaterial(
@@ -42,42 +42,42 @@ class test_object_properties(unittest.TestCase):
     def test_additional_lines_mcnp(self):
 
         test_mat = nmm.Material(
-                        'H2O',
-                        pressure_in_Pa=1e6,
-                        temperature_in_C=20,
-                        material_id=1,
-                        additional_end_lines={'mcnp': ['        mt24 lwtr.01']}
+            'H2O',
+            pressure_in_Pa=1e6,
+            temperature_in_C=20,
+            material_id=1,
+            additional_end_lines={'mcnp': ['        mt24 lwtr.01']}
         )
         assert test_mat.mcnp_material.split('\n')[-1] == '        mt24 lwtr.01'
 
     def test_additional_lines_shift(self):
         test_mat = nmm.Material(
-                        'H2O',
-                        pressure_in_Pa=1e6,
-                        temperature_in_C=20,
-                        material_id=1,
-                        additional_end_lines={'shift': ['coucou']}
+            'H2O',
+            pressure_in_Pa=1e6,
+            temperature_in_C=20,
+            material_id=1,
+            additional_end_lines={'shift': ['coucou']}
         )
         assert test_mat.shift_material.split('\n')[-1] == 'coucou'
 
     def test_additional_lines_fispact(self):
         test_mat = nmm.Material(
-                        'H2O',
-                        pressure_in_Pa=1e6,
-                        temperature_in_C=20,
-                        material_id=1,
-                        volume_in_cm3=1,
-                        additional_end_lines={'fispact': ['coucou']}
+            'H2O',
+            pressure_in_Pa=1e6,
+            temperature_in_C=20,
+            material_id=1,
+            volume_in_cm3=1,
+            additional_end_lines={'fispact': ['coucou']}
         )
         assert test_mat.fispact_material.split('\n')[-1] == 'coucou'
 
     def test_additional_lines_serpent(self):
         test_mat = nmm.Material(
-                        'H2O',
-                        pressure_in_Pa=1e6,
-                        temperature_in_C=20,
-                        material_id=1,
-                        additional_end_lines={'serpent': ['coucou']}
+            'H2O',
+            pressure_in_Pa=1e6,
+            temperature_in_C=20,
+            material_id=1,
+            additional_end_lines={'serpent': ['coucou']}
         )
         assert test_mat.serpent_material.split('\n')[-1] == 'coucou'
 

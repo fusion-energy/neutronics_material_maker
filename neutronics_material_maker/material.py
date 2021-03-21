@@ -64,7 +64,7 @@ class Material:
 
     Args:
         material_name: This is the reference name used to look up the material
-            from the internal collection. Look up the available materials 
+            from the internal collection. Look up the available materials
             AvailableMaterials()
         material_tag (str): This is a string that is assigned to the
             material as an identifier. This is used by neutronics
@@ -136,7 +136,7 @@ class Material:
         additional_end_lines: Additional lines of test that are added to the end of
             the material card. Compatable with MCNP, Serpent, Fispact outputs
             which are string based. Agument should be a dictionary specifying
-            the code and a list of lines to be added, besure to include any 
+            the code and a list of lines to be added, besure to include any
             white required spaces in the string. This example will add a single
             S(a,b) card to an MCNP card {'mnnp': ['        mt24 lwtr.01']}.
 
@@ -279,19 +279,23 @@ class Material:
         if value is not None:
             string_codes = ['mcnp', 'serpent', 'shift', 'fispact']
             if not isinstance(value, dict):
-                raise ValueError('Material.additional_end_lines should be a dictionary')
+                raise ValueError(
+                    'Material.additional_end_lines should be a dictionary')
             for key, entries in value.items():
                 if key not in string_codes:
-                    raise ValueError('Material.additional_end_lines should be a '
+                    raise ValueError(
+                        'Material.additional_end_lines should be a '
                         'dictionary where the keys are the name of the neutronics'
                         'code. Acceptable values are {}'.format(string_codes))
                 if not isinstance(entries, list):
-                    raise ValueError('Material.additional_end_lines should be a'
+                    raise ValueError(
+                        'Material.additional_end_lines should be a'
                         ' dictionary where the value of each dictionary entry is a'
                         ' list')
                 for entry in entries:
                     if not isinstance(entry, str):
-                        raise ValueError('Material.additional_end_lines should be'
+                        raise ValueError(
+                            'Material.additional_end_lines should be'
                             'a dictionary where the value of each dictionary entry'
                             ' is a list of strings')
 

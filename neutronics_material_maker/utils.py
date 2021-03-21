@@ -13,6 +13,7 @@ except BaseException:
         "OpenMC not found, .openmc_material, .serpent_material, .mcnp_material,\
             .fispact_material not avaiable")
 
+
 def add_additional_end_lines(code: str, mat) -> list:
     """
     Accertains if additional lines were requested by the user for the code used
@@ -24,6 +25,7 @@ def add_additional_end_lines(code: str, mat) -> list:
         if code in list(mat.additional_end_lines.keys()):
             return mat.additional_end_lines[code]
     return []
+
 
 def make_fispact_material(mat) -> str:
     """
@@ -174,7 +176,7 @@ def make_shift_material(mat) -> str:
     for nuclide, atom_dens in mat.openmc_material.get_nuclide_atom_densities().items():
         zaid += ' ' + isotope_to_zaid(nuclide)
         nd_ += ' ' + f"{atom_dens[1]:.{mat.decimal_places}e}"
-    
+
     mat_card.extend([zaid, nd_])
 
     mat_card = mat_card + add_additional_end_lines('shift', mat)
