@@ -15,6 +15,48 @@ except BaseException:
         " .mcnp_material, .fispact_material .shif_materials not avaiable")
 
 
+def check_add_additional_end_lines(value):
+    """Uses to check the additional lines passed to Material and Multimaterial
+    classes are correctly formatted"""
+
+    if value is not None:
+        string_codes = ['mcnp', 'serpent', 'shift', 'fispact']
+        if not isinstance(value, dict):
+            raise ValueError(
+                'Material.additional_end_lines should be a dictionary')
+        for key, entries in value.items():
+            if key not in string_codes:
+                raise ValueError(
+                    'Material.additional_end_lines should be a '
+                    'dictionary where the keys are the name of the neutronics'
+                    'code. Acceptable values are {}'.format(string_codes))
+            if not isinstance(entries, list):
+                raise ValueError(
+                    'Material.additional_end_lines should be a'
+                    ' dictionary where the value of each dictionary entry is a'
+                    ' list')
+            for entry in entries:
+                if not isinstance(entry, str):
+                    raise ValueError(
+                        'Material.additional_end_lines should be'
+                        'a dictionary where the value of each dictionary entry'
+                        ' is a list of strings')
+    return value
+
+
+def add_additional_end_lines(code: str, mat) -> list:
+    """
+    Accertains if additional lines were requested by the user for the code used
+    and if so returns the additional lines request as a list to be added to the
+    end of the existing material card list.
+    """
+    print(mat.additional_end_lines)
+    if mat.additional_end_lines is not None:
+        if code in list(mat.additional_end_lines.keys()):
+            return mat.additional_end_lines[code]
+    return []
+
+
 def make_fispact_material(mat) -> str:
     """
     Returns a Fispact material card for the material. This contains the required
@@ -40,6 +82,8 @@ def make_fispact_material(mat) -> str:
         atoms_cm3 = atoms_barn_cm * 1.0e24
         atoms = mat.volume_in_cm3 * atoms_cm3
         mat_card.append(isotope + " " + "{:.12E}".format(atoms))
+
+    mat_card = mat_card + add_additional_end_lines('fispact', mat)
 
     return "\n".join(mat_card)
 
@@ -75,6 +119,8 @@ def make_serpent_material(mat) -> str:
             + prefix
             + f"{isotope[1]:.{mat.decimal_places}e}"
         )
+
+    mat_card = mat_card + add_additional_end_lines('serpent', mat)
 
     return "\n".join(mat_card)
 
@@ -125,6 +171,8 @@ def make_mcnp_material(mat) -> str:
 
         mat_card.append(start + rest)
 
+    mat_card = mat_card + add_additional_end_lines('mcnp', mat)
+
     return "\n".join(mat_card)
 
 
@@ -160,6 +208,9 @@ def make_shift_material(mat) -> str:
         nd_ += ' ' + f"{atom_dens[1]:.{mat.decimal_places}e}"
 
     mat_card.extend([zaid, nd_])
+
+    mat_card = mat_card + add_additional_end_lines('shift', mat)
+
     return "\n".join(mat_card)
 
 

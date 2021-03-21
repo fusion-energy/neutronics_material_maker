@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="neutronics_material_maker",
-    version="0.1.16",
+    version="0.2.0",
     summary="Package for making material cards for neutronics codes",
     author="neutronics_material_maker development team",
-    author_email="jonathan.shimwell@ukaea.uk",
+    author_email="mail@jshimwell.com",
     description="A tool for making neutronics material cards for use in OpenMC, MCNP, Serpent, Shift and Fispact",
     long_description=long_description,
     long_description_content_type="text/markdown",
