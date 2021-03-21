@@ -5,13 +5,14 @@ __author__ = "neutronics material maker development team"
 import json
 import warnings
 from pathlib import Path
+from typing import Optional
 
 try:
     import openmc
 except BaseException:
     warnings.warn(
-        "OpenMC not found, .openmc_material, .serpent_material, .mcnp_material,\
-            .fispact_material not avaiable")
+        "OpenMC not found, .openmc_material, .serpent_material,"
+        " .mcnp_material, .fispact_material .shif_materials not avaiable")
 
 
 def make_fispact_material(mat) -> str:
@@ -188,7 +189,7 @@ def AddMaterialFromDir(directory: str, verbose: bool = True):
             print(sorted(list(new_data.keys())), "\n")
 
 
-def AddMaterialFromFile(filename, verbose=True) -> None:
+def AddMaterialFromFile(filename: str, verbose: Optional[bool] = True) -> None:
     """Add materials to the internal library from a json file"""
     with open(filename, "r") as f:
         new_data = json.load(f)
