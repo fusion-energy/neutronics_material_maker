@@ -33,11 +33,18 @@ class test_object_properties(unittest.TestCase):
             materials=[test_mat1, test_mat2],
             fracs=[0.5, 0.5],
             material_id=3,
-            additional_end_lines={'mcnp': ['mat3_secret']}
+            volume_in_cm3=1,
+            additional_end_lines={
+                'mcnp': ['extra_mcnp_lin'],
+                'serpent': ['extra_serpent_lin'],
+                'fispact': ['extra_fispact_lin'],
+            }
         )
         test_mat3.mcnp_material
 
-        assert test_mat3.mcnp_material.split('\n')[-1] == 'mat3_secret'
+        assert test_mat3.mcnp_material.split('\n')[-1] == 'extra_mcnp_lin'
+        assert test_mat3.serpent_material.split('\n')[-1] == 'extra_serpent_lin'
+        assert test_mat3.fispact_material.split('\n')[-1] == 'extra_fispact_lin'
 
     def test_additional_lines_mcnp(self):
 
