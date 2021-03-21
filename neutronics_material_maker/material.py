@@ -7,7 +7,7 @@ import os
 import re
 import warnings
 from json import JSONEncoder
-from typing import Optional, Dict
+from typing import Optional, Dict, List
 import asteval
 from CoolProp.CoolProp import PropsSI
 
@@ -18,6 +18,7 @@ from neutronics_material_maker import (
     make_shift_material,
     material_dict,
     zaid_to_isotope,
+    check_add_additional_end_lines
 )
 
 OPENMC_AVAILABLE = True
@@ -63,17 +64,17 @@ class Material:
     the user. The Material object is also json serializable
 
     Args:
-        material_name (str): This is the reference name used to look up
-            the material from the internal collection. Look up the available
-            materials using AvailableMaterials()
-        material_tag (str): This is a string that is assigned to the
+        material_name: This is the reference name used to look up the material
+            from the internal collection. Look up the available materials
+            AvailableMaterials()
+        material_tag: This is a string that is assigned to the
             material as an identifier. This is used by neutronics
             codes to label the material with a unique identifier
-        packing_fraction (float): This value is mutliplied by the density
+        packing_fraction: This value is mutliplied by the density
             which allows packing_fraction to be taken into account for materials
             involving an amount of void. Recall that packing_fraction is equal
             to 1/void fraction
-        enrichment (float): This is the percentage of isotope enrichment
+        enrichment: This is the percentage of isotope enrichment
             required for the material. This works for materials that have
             an enrichment_target specified. The internal material collection
             have Li6 specified as an enrichment_target for Lithium containing
@@ -81,8 +82,8 @@ class Material:
             the internal package materials take this into account. It is also
             possible to use this when making materials not included in the
             reference collection but an enrichment_target must also be provided.
-        enrichment_target (str): The isotope to enrich e.g. Li6
-        temperature_in_C (float): The temperature of the material in degrees
+        enrichment_target: The isotope to enrich e.g. Li6
+        temperature_in_C: The temperature of the material in degrees
             Celsius. Temperature impacts the density of some materials in the
             collection. Materials in the collection that are impacted by
             temperature have density equations that depend on temperature.
@@ -90,7 +91,7 @@ class Material:
             liquids such as lithium-lead and FLiBe that are used as a breeder
             materials. Convered to K and added to the openmc material object
             and the serpent material card.
-        temperature_in_K (float): The temperature of the material in degrees
+        temperature_in_K: The temperature of the material in degrees
             Kelvin. Temperature impacts the density of some materials in the
             collection. Materials in the collection that are impacted by
             temperature have density equations that depend on temperature.
@@ -98,41 +99,46 @@ class Material:
             liquids such as lithium-lead and FLiBe that are used as breeder
             materials. Added to the openmc material object and the serpent
             material card.
-        pressure_in_Pa (float): The pressure of the material in Pascals
+        pressure_in_Pa: The pressure of the material in Pascals
             Pressure impacts the density of some materials in the
             collection. Materials in the collection that are impacted by
             pressure have density equations that depend on pressure.
             These tend to be liquids and gases used for coolants such as
             H2O and CO2.
-        zaid_suffix (str): The nuclear library to apply to the zaid, for
+        zaid_suffix: The nuclear library to apply to the zaid, for
             example ".31c", this is used in MCNP and Serpent material cards.
-        material_id (int): the id number or mat number used in the MCNP material
-            card
-        decimal_places (int): The number of decimal places to use in MCNP and
+        material_id: the id number or mat number used in the MCNP material card
+        decimal_places: The number of decimal places to use in MCNP and
             Seprent material cards when they are printed out (default of 8).
-        volume_in_cm3 (float): The volume of the material in cm3, used when
+        volume_in_cm3: The volume of the material in cm3, used when
             creating fispact material cards
-        elements (dict): A dictionary of keys and values with the element symbol
+        elements: A dictionary of keys and values with the element symbol
             (str) as the key and the amount of that element as the value (float)
             e.g. {'C': 0.3333, 'O': 0.666}
-        chemical_equation (str): A chemical equation that identifies elements
+        chemical_equation: A chemical equation that identifies elements
             and numbers of elements to add to the material e.g. 'CO2' or 'H2O'
-        isotopes (dict): A dictionary of keys and values with the isotope symbol
+        isotopes: A dictionary of keys and values with the isotope symbol
             (str) as the key and the amount of that isotope (float) as the value
             e.g. {'Li6': 0.9, 'Li7': 0.1} alternatively zaid representation
             can also be used instead of the symbol e.g. {'3006': 0.9, '4007': 0.1}
-        percent_type (str): Atom "ao" or or weight fraction "wo"
-        density (float): value to be used as the density
-        density_unit (str): the units of density "g/cm3", "g/cc", "kg/m3",
+        percent_type: Atom "ao" or or weight fraction "wo"
+        density): value to be used as the density
+        density_unit: the units of density "g/cm3", "g/cc", "kg/m3",
             "atom/b-cm", "atom/cm3"
-        density_equation (str): An equation to be evaluated to find the density,
+        density_equation: An equation to be evaluated to find the density,
             can contain temperature_in_C, temperature_in_K and pressure_in_Pa
             variables as part of the equation.
-        atoms_per_unit_cell (int): The number of atoms in a unit cell of the
+        atoms_per_unit_cell: The number of atoms in a unit cell of the
             crystal structure
-        volume_of_unit_cell_cm3 (float): The volume of the unit cell in cm3
-        reference (str): An entry used to store information on the source of the
+        volume_of_unit_cell_cm3: The volume of the unit cell in cm3
+        reference: An entry used to store information on the source of the
             material data
+        additional_end_lines: Additional lines of test that are added to the end of
+            the material card. Compatable with MCNP, Serpent, Fispact outputs
+            which are string based. Agument should be a dictionary specifying
+            the code and a list of lines to be added, besure to include any
+            white required spaces in the string. This example will add a single
+            S(a,b) card to an MCNP card {'mnnp': ['        mt24 lwtr.01']}.
 
     Returns:
         Material: a neutronics_material_maker.Material instance
@@ -164,6 +170,7 @@ class Material:
         material_id: Optional[int] = None,
         decimal_places: Optional[int] = 8,
         volume_in_cm3: Optional[float] = None,
+        additional_end_lines: Optional[Dict[str, List[str]]] = None,
     ):
 
         self.material_name = material_name
@@ -189,6 +196,7 @@ class Material:
         self.material_id = material_id
         self.decimal_places = decimal_places
         self.volume_in_cm3 = volume_in_cm3
+        self.additional_end_lines = additional_end_lines
 
         # derived values
         self.openmc_material = None
@@ -256,11 +264,28 @@ class Material:
             self._make_openmc_material()
 
     @property
-    def openmc_material(self):
-        """
-        Returns an OpenMC version of the Material.
+    def additional_end_lines(self):
+        """Returns a dictionary of lists where each entry in the list is a to
+        be added to the end of the material card and each key is the name of
+        the neutronics code to add the line to.
 
-        :type: openmc.Material() object
+        Returns:
+            dictionary of neutronics codes each with a list of lines to add
+        """
+        return self._additional_end_lines
+
+    @additional_end_lines.setter
+    def additional_end_lines(self, value):
+        check_add_additional_end_lines(value)
+
+        self._additional_end_lines = value
+
+    @property
+    def openmc_material(self):
+        """Creates an OpenMC version of the Material.
+
+        Returns:
+            openmc.Material() object
         """
         self._openmc_material = self._make_openmc_material()
         return self._openmc_material
@@ -271,10 +296,12 @@ class Material:
 
     @property
     def serpent_material(self):
-        """
-        Returns a Serpent version of the Material.
+        """Creates a a Serpent version of the Material with '\n' as line
+        endings. Decimal places can be controlled with the
+        Material.decimal_places attribute.
 
-        :type: str
+        Returns:
+            A Serpent material card
         """
 
         self._serpent_material = make_serpent_material(self)
@@ -286,13 +313,12 @@ class Material:
 
     @property
     def mcnp_material(self):
-        """
-        Returns a MCNP version of the Material. Requires the
-        Material.material_id to be set. Decimal places can be controlled with
-        the Material.decimal_places attribute.
-        Temperature of the material is set as 273K.
+        """Creates a a MCNP version of the Material with '\n' as line endings.
+        Requires the Material.material_id to be set. Decimal places can be
+        controlled with the Material.decimal_places attribute.
 
-        :type: str
+        Returns:
+            A MCNP material card
         """
         self._mcnp_material = make_mcnp_material(self)
         return self._mcnp_material
@@ -303,12 +329,13 @@ class Material:
 
     @property
     def shift_material(self):
-        """
-        Returns a Shift version of the Material. Requires the
-        Material.material_id to be set. Decimal places can be controlled with
-        the Material.deicmal_places attribute.
+        """Creates a a Shift version of the Material with '\n' as line endings.
+        Requires the Material.material_id and Material.temperature_in_K to be
+        set. Decimal places can be controlled with the Material.deicmal_places
+        attribute.
 
-        :type: str
+        Returns:
+            A Shift material card
         """
         self._shift_material = make_shift_material(self)
         return self._shift_material
@@ -319,11 +346,11 @@ class Material:
 
     @property
     def fispact_material(self):
-        """
-        Returns a fispact version of the Material. Requires the
-        Material.volume_in_cm3 to be set.
+        """Creates a a FISPACT version of the Material with '\n' as line
+        endings. Requires the Material.volume_in_cm3 to be set.
 
-        :type: str
+        Returns:
+            A FISPACT material card
         """
         self._fispact_material = make_fispact_material(self)
         return self._fispact_material
@@ -334,6 +361,12 @@ class Material:
 
     @property
     def material_name(self):
+        """
+        The name of the material, used to look up the material from the
+        internal database of material names available
+
+        :type: str
+        """
         return self._material_name
 
     @material_name.setter
@@ -346,6 +379,12 @@ class Material:
 
     @property
     def material_tag(self):
+        """
+        The material tag to assign the material, used when naming openmc
+        materials. This is the label attached to the material.
+
+        :type: str
+        """
         return self._material_tag
 
     @material_tag.setter
@@ -375,6 +414,11 @@ class Material:
 
     @property
     def elements(self):
+        """
+        A dictionary of all the elements present in the material
+
+        :type: dict
+        """
         return self._elements
 
     @elements.setter
@@ -388,6 +432,12 @@ class Material:
 
     @property
     def chemical_equation(self):
+        """
+        A chemical equation of the material represented as a string e.g. 'H20'.
+        Only integer multipliers are permitted.
+
+        :type: str
+        """
         return self._chemical_equation
 
     @chemical_equation.setter
@@ -400,6 +450,11 @@ class Material:
 
     @property
     def isotopes(self):
+        """
+        A dictionary of all the isotopes present in the material
+
+        :type: dict
+        """
         return self._isotopes
 
     @isotopes.setter
@@ -425,6 +480,12 @@ class Material:
 
     @property
     def density_unit(self):
+        """
+        The units of density to use, either "g/cm3", "g/cc", "kg/m3",
+        "atom/b-cm", "atom/cm3"
+
+        :type: float
+        """
         return self._density_unit
 
     @density_unit.setter
@@ -443,6 +504,11 @@ class Material:
 
     @percent_type.setter
     def percent_type(self, value):
+        """
+        The units of percentage to use, either atom 'ao' or weight 'wo' based.
+
+        :type: float
+        """
         if value in ["ao", "wo", None]:
             self._percent_type = value
         else:
@@ -451,6 +517,11 @@ class Material:
 
     @property
     def enrichment_type(self):
+        """
+        The units of enrichment to use, either atom 'ao' or weight 'wo' based.
+
+        :type: float
+        """
         return self._enrichment_type
 
     @enrichment_type.setter
@@ -476,6 +547,13 @@ class Material:
 
     @property
     def volume_of_unit_cell_cm3(self):
+        """
+        The volume of the crystal unit cell. Can be used in density_equation
+        calculations if 'volume_of_unit_cell_cm3' is used in the
+        density_equation attribute.
+
+        :type: float
+        """
         return self._volume_of_unit_cell_cm3
 
     @volume_of_unit_cell_cm3.setter
@@ -489,6 +567,11 @@ class Material:
 
     @property
     def temperature_in_K(self):
+        """
+        The temperature of the material in Kelvin
+
+        :type: float
+        """
         return self._temperature_in_K
 
     @temperature_in_K.setter
@@ -501,6 +584,11 @@ class Material:
 
     @property
     def temperature_in_C(self):
+        """
+        The temperature of the material in Celsius
+
+        :type: float
+        """
         return self._temperature_in_C
 
     @temperature_in_C.setter
@@ -514,6 +602,12 @@ class Material:
 
     @property
     def density(self):
+        """
+        The density of the material in the units specified by the of
+        density_unit attribute
+
+        :type: float
+        """
         return self._density
 
     @density.setter
@@ -527,6 +621,12 @@ class Material:
 
     @property
     def enrichment(self):
+        """
+        The enrichment of the enrichment_target in percentage. Must be between
+        0. and 100. in the units specified by the of enrichment_type attribute
+
+        :type: float
+        """
         return self._enrichment
 
     @enrichment.setter
@@ -539,6 +639,12 @@ class Material:
 
     @property
     def enrichment_target(self):
+        """
+        Identifies the isotope to enrich when the enrichment attribtue is set.
+        In fusion breeder blankets this is often Li6.
+
+        :type: float
+        """
         return self._enrichment_target
 
     @enrichment_target.setter
@@ -554,6 +660,13 @@ class Material:
 
     @property
     def pressure_in_Pa(self):
+        """
+        The pressure of the material in Pascals. Must be a possive number. Used
+        to calculate the density if the density_equation contains
+        pressure_in_Pa.
+
+        :type: float
+        """
         return self._pressure_in_Pa
 
     @pressure_in_Pa.setter
@@ -566,6 +679,12 @@ class Material:
 
     @property
     def reference(self):
+        """
+        A reference string to state where the material properties information
+        came from
+
+        :type: str
+        """
         return self._reference
 
     @reference.setter
@@ -577,6 +696,12 @@ class Material:
 
     @property
     def zaid_suffix(self):
+        """
+        The zaid suffix to add to materials after the ZAID. Refers to a cross
+        section such as .31c. Used when producing Serpent and MCNP materials
+
+        :type: str
+        """
         return self._zaid_suffix
 
     @zaid_suffix.setter
@@ -588,6 +713,11 @@ class Material:
 
     @property
     def material_id(self):
+        """
+        The material id to assign to the material
+
+        :type: int
+        """
         return self._material_id
 
     @material_id.setter
@@ -603,6 +733,13 @@ class Material:
 
     @volume_in_cm3.setter
     def volume_in_cm3(self, value):
+        """
+        The volume of the material in cm3. Used when writing Fispact materials
+        and can also be used in density equation calculation if volume_in_cm3
+        appears in density_equation.
+
+        :type: float
+        """
         if value is not None:
             if isinstance(value, int):
                 value = float(value)
@@ -611,6 +748,11 @@ class Material:
         self._volume_in_cm3 = value
 
     def _make_openmc_material(self):
+        """Makes an openmc.Material() object that is used to make other
+        material tpyes (e.g. Serpent, MCNP, Shift, Fispact). If elements are
+        specified then makes material using natural adundances of isotopes.
+        This is slightly different to the native openmc method that uses
+        isotopes available in the cross_sections.xml file"""
 
         original_cross_sections = os.environ.get("OPENMC_CROSS_SECTIONS")
         if original_cross_sections is not None:
@@ -657,6 +799,18 @@ class Material:
         dictionary then these are used to populated the attributes of the
         Material object when present.
         """
+
+        if (
+            self.material_id is None
+            and "material_id" in material_dict[self.material_name].keys()
+        ):
+            self.material_id = material_dict[self.material_name]["material_id"]
+
+        if (
+            self.additional_end_lines is None
+            and "additional_end_lines" in material_dict[self.material_name].keys()
+        ):
+            self.additional_end_lines = material_dict[self.material_name]["additional_end_lines"]
 
         if (
             self.chemical_equation is None
@@ -909,7 +1063,11 @@ class Material:
         return sum(list_of_fractions)
 
     def to_json(self):
+        """
+        Json serializable version of the material
 
+        :type: dict
+        """
         jsonified_object = {
             "material_name": self.material_name,
             "material_tag": self.material_tag,

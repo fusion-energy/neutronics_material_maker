@@ -8,6 +8,7 @@ from .utils import AvailableMaterials
 from .utils import material_dict
 from .utils import isotope_to_zaid
 from .utils import zaid_to_isotope
+from .utils import check_add_additional_end_lines
 
 from .material import Material
 from .mutlimaterial import MultiMaterial
