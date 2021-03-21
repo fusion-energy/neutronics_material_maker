@@ -115,7 +115,8 @@ class test_object_properties(unittest.TestCase):
     def test_incorrect_additional_lines_code_name(self):
 
         def incorrect_additional_lines_code_name():
-            """Set merge_tolerance as a negative number which should raise an error"""
+            """Set additional_end_lines to not the name of a neutronics code
+            which should raise an error"""
 
             nmm.Material(
                 'Li4SiO4',
@@ -125,6 +126,38 @@ class test_object_properties(unittest.TestCase):
         self.assertRaises(
             ValueError,
             incorrect_additional_lines_code_name
+        )
+
+    def test_incorrect_additional_lines_code_value_type(self):
+
+        def incorrect_additional_lines_code_value_type():
+            """Set additional_end_lines value to a string
+            which should raise an error"""
+
+            nmm.Material(
+                'Li4SiO4',
+                additional_end_lines={'unknow code': 'serpent'}
+            )
+
+        self.assertRaises(
+            ValueError,
+            incorrect_additional_lines_code_value_type
+        )
+
+    def test_incorrect_additional_lines_code_value_list_type(self):
+
+        def incorrect_additional_lines_code_value_list_type():
+            """Set additional_end_lines value to a list of ints
+            which should raise an error"""
+
+            nmm.Material(
+                'Li4SiO4',
+                additional_end_lines={'unknow code': [1]}
+            )
+
+        self.assertRaises(
+            ValueError,
+            incorrect_additional_lines_code_value_list_type
         )
 
     def test_zaid_to_isotope(self):

@@ -703,6 +703,7 @@ class Material:
         dictionary then these are used to populated the attributes of the
         Material object when present.
         """
+
         if (
             self.material_id is None
             and "material_id" in material_dict[self.material_name].keys()
