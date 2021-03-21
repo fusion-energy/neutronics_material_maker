@@ -44,8 +44,10 @@ class test_object_properties(unittest.TestCase):
         test_mat3.mcnp_material
 
         assert test_mat3.mcnp_material.split('\n')[-1] == 'extra_mcnp_lin'
-        assert test_mat3.serpent_material.split('\n')[-1] == 'extra_serpent_lin'
-        assert test_mat3.fispact_material.split('\n')[-1] == 'extra_fispact_lin'
+        assert test_mat3.serpent_material.split(
+            '\n')[-1] == 'extra_serpent_lin'
+        assert test_mat3.fispact_material.split(
+            '\n')[-1] == 'extra_fispact_lin'
         assert test_mat3.shift_material.split('\n')[-1] == 'extra_shift_lin'
 
     def test_additional_lines_mcnp(self):
