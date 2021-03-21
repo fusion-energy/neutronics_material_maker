@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 # -- Project information -----------------------------------------------------
 
 project = "NeutronicsMaterialMaker"
-copyright = "2020, UKAEA"
+copyright = "2020, UKAEA and neutronics-material-maker contributors"
 author = "neutronics-material-maker development team"
 
 # The short X.Y version
