@@ -45,41 +45,42 @@ class MultiMaterial:
     and openmc.Materials. The MultiMaterial object is json serializable.
 
     Args:
-        material_tag (str): This is a string that is assigned to the
-            material as an identifier. This is used by neutronics
-            codes to label the material with a unique identifier
-        materials (list): a list of neutronics_material_maker.Materials
+        material_tag: This is a string that is assigned to the material as an
+            identifier. This is used by neutronics codes to label the material
+            with a unique identifier
+        materials: a list of neutronics_material_maker.Materials
             or openmc.Materials that are to be mixed
-        fracs (list of floats): A list of fractions that represent the amount of
-            each material to mix
-        percent_type (str): Type of frac percentage, must be one of
+        fracs: A list of fractions that represent the amount of each material
+            to mix, should sum to 1.
+        percent_type: Type of frac percentage, must be one of
             atom percent 'ao', weight percent 'wo', or volume percent 'vo'.
             Defaults to 'vo'
-        packing_fraction (float): This value is multiplied by the density
-            which allows packing_fraction to be taken into account for materials
-            involving an amount of void. Recall that packing_fraction is equal
-            to 1/void fraction
-        zaid_suffix (str): The nuclear library to apply to the zaid, for example
+        packing_fraction: This value is multiplied by the density which allows
+            packing_fraction to be taken into account for materials involving
+            an amount of void. Recall that packing_fraction is equal to 1/void
+            fraction
+        zaid_suffix: The nuclear library to apply to the zaid, for example
             ".31c", this is used in MCNP and Serpent material cards.
-        material_id (int): The id number or mat number used in the MCNP material
+        material_id: The id number or mat number used in the MCNP material
             card
-        decimal_places (int): The number of decimal places to use in MCNP and
+        decimal_places: The number of decimal places to use in MCNP and
             Seprent material cards when they are printed out (default of 8).
-        volume_in_cm3 (float): The volume of the material in cm3, used when
+        volume_in_cm3: The volume of the material in cm3, used when
             creating fispact material cards
-        temperature_in_C (float): The temperature of the material in degrees
+        temperature_in_C: The temperature of the material in degrees
             Celsius. Convered to K and added to the openmc material object and
             the serpent material card
-        temperature_in_K (float): The temperature of the material in degrees
+        temperature_in_K: The temperature of the material in degrees
             Kelvin. Added to the openmc material object and the serpent
             material card
-        additional_end_lines: Additional lines of test that are added to the end of
-            the material card. Compatable with MCNP, Serpent, Fispact outputs
-            which are string based. Agument should be a dictionary specifying
-            the code and a list of lines to be added, besure to include any
-            white required spaces in the string. This example will add a single
-            S(a,b) card to an MCNP card {'mnnp': ['        mt24 lwtr.01']}.
-            Additional lines are not carried over from materials.
+        additional_end_lines: Additional lines of test that are added to the
+            end of the material card. Compatable with MCNP, Serpent, Fispact
+            outputs which are string based. Agument should be a dictionary
+            specifying the code and a list of lines to be added, besure to
+            include any white required spaces in the string. This example will
+            add a single S(a,b) card to an MCNP card
+            {'mnnp': ['        mt24 lwtr.01']}. Additional lines are not
+            carried over from materials.
 
     Returns:
         Material: a neutronics_material_maker.Material instance
@@ -145,12 +146,12 @@ class MultiMaterial:
 
     @property
     def additional_end_lines(self):
-        """
-        Returns a dictionary of lists where each entry in the list is a to be
-        added to the end of the material card and each key is the name of the
-        neutronics code to add the line to.
+        """Returns a dictionary of lists where each entry in the list is a to
+        be added to the end of the material card and each key is the name of
+        the neutronics code to add the line to.
 
-        :type: openmc.Material() object
+        Returns:
+            dictionary of neutronics codes each with a list of lines to add
         """
         return self._additional_end_lines
 
@@ -204,10 +205,10 @@ class MultiMaterial:
 
     @property
     def openmc_material(self):
-        """
-        Returns an OpenMC version of the Material.
+        """Creates an OpenMC version of the Material.
 
-        :type: openmc.Material() object
+        Returns:
+            openmc.Material() object
         """
         self._openmc_material = self._make_openmc_material()
         return self._openmc_material
@@ -217,11 +218,13 @@ class MultiMaterial:
         self._openmc_material = value
 
     @property
-    def serpent_material(self):
-        """
-        Returns a Serpent version of the Material.
+    def serpent_material(self) -> str:
+        """Creates a a Serpent version of the Material with '\n' as line
+        endings. Decimal places can be controlled with the
+        Material.decimal_places attribute.
 
-        :type: str
+        Returns:
+            A Serpent material card
         """
 
         self._serpent_material = make_serpent_material(self)
@@ -233,10 +236,12 @@ class MultiMaterial:
 
     @property
     def mcnp_material(self):
-        """
-        Returns a MCNP version of the Material.
+        """Creates a a MCNP version of the Material with '\n' as line endings.
+        Requires the Material.material_id to be set. Decimal places can be
+        controlled with the Material.decimal_places attribute.
 
-        :type: str
+        Returns:
+            A MCNP material card
         """
         self._mcnp_material = make_mcnp_material(self)
         return self._mcnp_material
@@ -247,10 +252,13 @@ class MultiMaterial:
 
     @property
     def shift_material(self):
-        """
-        Returns a Shift version of hte Material.
+        """Creates a a Shift version of the Material with '\n' as line endings.
+        Requires the Material.material_id and Material.temperature_in_K to be
+        set. Decimal places can be controlled with the Material.deicmal_places
+        attribute.
 
-        :type: str
+        Returns:
+            A Shift material card
         """
         self._shift_material = make_shift_material(self)
         return self._shift_material
@@ -261,10 +269,11 @@ class MultiMaterial:
 
     @property
     def fispact_material(self):
-        """
-        Returns a fispact version of the Material.
+        """Creates a a FISPACT version of the Material with '\n' as line
+        endings. Requires the Material.volume_in_cm3 to be set.
 
-        :type: str
+        Returns:
+            A FISPACT material card
         """
         self._fispact_material = make_fispact_material(self)
         return self._fispact_material
