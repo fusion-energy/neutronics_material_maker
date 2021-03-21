@@ -164,6 +164,41 @@ class test_object_properties(unittest.TestCase):
             incorrect_additional_lines_code_value_list_type
         )
 
+    def test_check_add_additional_end_lines_error_handeling(self):
+
+        def incorrect_type_dict():
+            """Set additional_end_lines value to a string which should raise an
+            error"""
+
+            nmm.utils.check_add_additional_end_lines('mcnp')
+
+        self.assertRaises(
+            ValueError,
+            incorrect_type_dict
+        )
+
+        def incorrect_type_dict_value_empty():
+            """Set additional_end_lines value to a string which should raise an
+            error"""
+
+            nmm.utils.check_add_additional_end_lines({'mcnp': 'random string'})
+
+        self.assertRaises(
+            ValueError,
+            incorrect_type_dict_value_empty
+        )
+
+        def incorrect_type_dict_value():
+            """Set additional_end_lines value to a list of ints which should
+            raise an error"""
+
+            nmm.utils.check_add_additional_end_lines({'mcnp': [1, 2, 3]})
+
+        self.assertRaises(
+            ValueError,
+            incorrect_type_dict_value
+        )
+
     def test_zaid_to_isotope(self):
         assert nmm.utils.zaid_to_isotope("3006") == "Li6"
         assert nmm.utils.zaid_to_isotope("03006") == "Li6"
