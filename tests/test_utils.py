@@ -93,6 +93,9 @@ class test_object_properties(unittest.TestCase):
         assert test_mat.serpent_material.split('\n')[-1] == 'coucou'
 
     def test_additional_lines_from_json(self):
+        """
+        tests multiple additional lines are added to the mcnp material card
+        """
         test_material_1 = {
             "mat_with_add_line": {
                 "chemical_equation": "WC",
@@ -100,7 +103,7 @@ class test_object_properties(unittest.TestCase):
                 "density": 18.0,
                 "density_unit": "g/cm3",
                 "percent_type": "ao",
-                "additional_end_lines": {'mcnp': ['coucou']}
+                "additional_end_lines": {'mcnp': ['coucou1','coucou2']}
             }
         }
 
@@ -110,7 +113,8 @@ class test_object_properties(unittest.TestCase):
         nmm.AddMaterialFromFile("extra_material_1.json")
 
         test_mat = nmm.Material('mat_with_add_line')
-        assert test_mat.mcnp_material.split('\n')[-1] == 'coucou'
+        assert test_mat.mcnp_material.split('\n')[-2] == 'coucou1'
+        assert test_mat.mcnp_material.split('\n')[-1] == 'coucou2'
 
     def test_incorrect_additional_lines_code_name(self):
 

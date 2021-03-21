@@ -14,6 +14,35 @@ except BaseException:
             .fispact_material not avaiable")
 
 
+def check_add_additional_end_lines(value):
+    """Uses to check the additional lines passed to Material and Multimaterial
+    classes are correctly formatted"""
+
+    if value is not None:
+        string_codes = ['mcnp', 'serpent', 'shift', 'fispact']
+        if not isinstance(value, dict):
+            raise ValueError(
+                'Material.additional_end_lines should be a dictionary')
+        for key, entries in value.items():
+            if key not in string_codes:
+                raise ValueError(
+                    'Material.additional_end_lines should be a '
+                    'dictionary where the keys are the name of the neutronics'
+                    'code. Acceptable values are {}'.format(string_codes))
+            if not isinstance(entries, list):
+                raise ValueError(
+                    'Material.additional_end_lines should be a'
+                    ' dictionary where the value of each dictionary entry is a'
+                    ' list')
+            for entry in entries:
+                if not isinstance(entry, str):
+                    raise ValueError(
+                        'Material.additional_end_lines should be'
+                        'a dictionary where the value of each dictionary entry'
+                        ' is a list of strings')
+    return value
+
+
 def add_additional_end_lines(code: str, mat) -> list:
     """
     Accertains if additional lines were requested by the user for the code used

@@ -18,6 +18,7 @@ from neutronics_material_maker import (
     make_shift_material,
     material_dict,
     zaid_to_isotope,
+    check_add_additional_end_lines
 )
 
 OPENMC_AVAILABLE = True
@@ -276,28 +277,7 @@ class Material:
 
     @additional_end_lines.setter
     def additional_end_lines(self, value):
-        if value is not None:
-            string_codes = ['mcnp', 'serpent', 'shift', 'fispact']
-            if not isinstance(value, dict):
-                raise ValueError(
-                    'Material.additional_end_lines should be a dictionary')
-            for key, entries in value.items():
-                if key not in string_codes:
-                    raise ValueError(
-                        'Material.additional_end_lines should be a '
-                        'dictionary where the keys are the name of the neutronics'
-                        'code. Acceptable values are {}'.format(string_codes))
-                if not isinstance(entries, list):
-                    raise ValueError(
-                        'Material.additional_end_lines should be a'
-                        ' dictionary where the value of each dictionary entry is a'
-                        ' list')
-                for entry in entries:
-                    if not isinstance(entry, str):
-                        raise ValueError(
-                            'Material.additional_end_lines should be'
-                            'a dictionary where the value of each dictionary entry'
-                            ' is a list of strings')
+        check_add_additional_end_lines(value)
 
         self._additional_end_lines = value
 
