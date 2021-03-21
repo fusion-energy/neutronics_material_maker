@@ -4,7 +4,7 @@ __author__ = "neutronics material maker development team"
 
 import warnings
 from json import JSONEncoder
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Dict
 
 import neutronics_material_maker as nmm
 from neutronics_material_maker import (make_fispact_material,
@@ -72,6 +72,13 @@ class MultiMaterial:
         temperature_in_K (float): The temperature of the material in degrees
             Kelvin. Added to the openmc material object and the serpent
             material card
+        additional_end_lines: Additional lines of test that are added to the end of
+            the material card. Compatable with MCNP, Serpent, Fispact outputs
+            which are string based. Agument should be a dictionary specifying
+            the code and a list of lines to be added, besure to include any 
+            white required spaces in the string. This example will add a single
+            S(a,b) card to an MCNP card {'mnnp': ['        mt24 lwtr.01']}.
+            Additional lines are not carried over from materials.
 
     Returns:
         Material: a neutronics_material_maker.Material instance
@@ -90,7 +97,8 @@ class MultiMaterial:
         decimal_places: Optional[int] = 8,
         volume_in_cm3: Optional[float] = None,
         temperature_in_C: Optional[float] = None,
-        temperature_in_K: Optional[float] = None
+        temperature_in_K: Optional[float] = None,
+        additional_end_lines: Optional[Dict[str, List[str]]] = None,
     ):
         self.material_tag = material_tag
         self.materials = materials
@@ -103,6 +111,7 @@ class MultiMaterial:
         self.volume_in_cm3 = volume_in_cm3
         self.temperature_in_C = temperature_in_C
         self.temperature_in_K = temperature_in_K
+        self.additional_end_lines = additional_end_lines
 
         # derived values
         self.openmc_material = None
@@ -132,6 +141,40 @@ class MultiMaterial:
 
         if OPENMC_AVAILABLE:
             self._make_openmc_material()
+
+    @property
+    def additional_end_lines(self):
+        """
+        Returns a dictionary of lists where each entry in the list is a to be
+        added to the end of the material card and each key is the name of the
+        neutronics code to add the line to.
+
+        :type: openmc.Material() object
+        """
+        return self._additional_end_lines
+
+    @additional_end_lines.setter
+    def additional_end_lines(self, value):
+        if value is not None:
+            string_codes = ['mcnp', 'serpent', 'shift', 'fispact']
+            if not isinstance(value, dict):
+                raise ValueError('Material.additional_end_lines should be a dictionary')
+            for key, entries in value.items():
+                if key not in string_codes:
+                    raise ValueError('Material.additional_end_lines should be a '
+                        'dictionary where the keys are the name of the neutronics'
+                        'code. Acceptable values are {}'.format(string_codes))
+                if not isinstance(entries, list):
+                    raise ValueError('Material.additional_end_lines should be a'
+                        ' dictionary where the value of each dictionary entry is a'
+                        ' list')
+                for entry in entries:
+                    if not isinstance(entry, str):
+                        raise ValueError('Material.additional_end_lines should be'
+                            'a dictionary where the value of each dictionary entry'
+                            ' is a list of strings')
+
+        self._additional_end_lines = value
 
     @property
     def temperature_in_K(self):
