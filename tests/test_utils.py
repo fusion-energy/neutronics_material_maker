@@ -16,6 +16,106 @@ if __name__ == "__main__":
 
 
 class test_object_properties(unittest.TestCase):
+
+    def test_additional_lines_multimaterial_mcnp(self):
+
+        test_mat1 = nmm.Material(
+                        'Li4SiO4',
+                        additional_end_lines={'mcnp': ['mat1_additional']}
+        )
+        test_mat2 = nmm.Material(
+                        'Be12Ti',
+                        additional_end_lines={'mcnp': ['mat2_additional']}
+        )
+
+        test_mat3 = nmm.MultiMaterial(
+            material_tag='mixed',
+            materials=[test_mat1, test_mat2],
+            fracs=[0.5, 0.5],
+            material_id=3,
+            additional_end_lines={'mcnp': ['mat3_secret']}
+        )
+        test_mat3.mcnp_material
+
+        assert test_mat3.mcnp_material.split('\n')[-1] == 'mat3_secret'
+
+    def test_additional_lines_mcnp(self):
+
+        test_mat = nmm.Material(
+                        'H2O',
+                        pressure_in_Pa=1e6,
+                        temperature_in_C=20,
+                        material_id=1,
+                        additional_end_lines={'mcnp': ['        mt24 lwtr.01']}
+        )
+        assert test_mat.mcnp_material.split('\n')[-1] == '        mt24 lwtr.01'
+
+    def test_additional_lines_shift(self):
+        test_mat = nmm.Material(
+                        'H2O',
+                        pressure_in_Pa=1e6,
+                        temperature_in_C=20,
+                        material_id=1,
+                        additional_end_lines={'shift': ['coucou']}
+        )
+        assert test_mat.shift_material.split('\n')[-1] == 'coucou'
+
+    def test_additional_lines_fispact(self):
+        test_mat = nmm.Material(
+                        'H2O',
+                        pressure_in_Pa=1e6,
+                        temperature_in_C=20,
+                        material_id=1,
+                        volume_in_cm3=1,
+                        additional_end_lines={'fispact': ['coucou']}
+        )
+        assert test_mat.fispact_material.split('\n')[-1] == 'coucou'
+
+    def test_additional_lines_serpent(self):
+        test_mat = nmm.Material(
+                        'H2O',
+                        pressure_in_Pa=1e6,
+                        temperature_in_C=20,
+                        material_id=1,
+                        additional_end_lines={'serpent': ['coucou']}
+        )
+        assert test_mat.serpent_material.split('\n')[-1] == 'coucou'
+
+    def test_additional_lines_from_json(self):
+        test_material_1 = {
+            "mat_with_add_line": {
+                "chemical_equation": "WC",
+                "material_id": 2,
+                "density": 18.0,
+                "density_unit": "g/cm3",
+                "percent_type": "ao",
+                "additional_end_lines": {'mcnp': ['coucou']}
+            }
+        }
+
+        with open("extra_material_1.json", "w") as outfile:
+            json.dump(test_material_1, outfile)
+
+        nmm.AddMaterialFromFile("extra_material_1.json")
+
+        test_mat = nmm.Material('mat_with_add_line')
+        assert test_mat.mcnp_material.split('\n')[-1] == 'coucou'
+
+    def test_incorrect_additional_lines_code_name(self):
+
+        def incorrect_additional_lines_code_name():
+            """Set merge_tolerance as a negative number which should raise an error"""
+
+            nmm.Material(
+                'Li4SiO4',
+                additional_end_lines={'unknow code': ['coucou']}
+            )
+
+        self.assertRaises(
+            ValueError,
+            incorrect_additional_lines_code_name
+        )
+
     def test_zaid_to_isotope(self):
         assert nmm.utils.zaid_to_isotope("3006") == "Li6"
         assert nmm.utils.zaid_to_isotope("03006") == "Li6"
