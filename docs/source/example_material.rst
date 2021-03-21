@@ -167,6 +167,9 @@ It is also possible to make your own materials directly from a dictionary by mak
 
     my_mat = nmm.Material(**my_dict)
 
+Usage - adding extra lines to a material card
+---------------------------------------------
+
 If you require additional lines at the end of the MCNP, Serpent, Fispact or
 Shift materia card then the additional_end_lines argument can be used. This
 will add specific line(s) to the end of a material card. Multiple lines can be
