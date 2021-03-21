@@ -103,7 +103,7 @@ class test_object_properties(unittest.TestCase):
                 "density": 18.0,
                 "density_unit": "g/cm3",
                 "percent_type": "ao",
-                "additional_end_lines": {'mcnp': ['coucou1','coucou2']}
+                "additional_end_lines": {'mcnp': ['coucou1', 'coucou2']}
             }
         }
 
