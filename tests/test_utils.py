@@ -31,6 +31,7 @@ class test_object_properties(unittest.TestCase):
         test_mat3 = nmm.MultiMaterial(
             material_tag='mixed',
             materials=[test_mat1, test_mat2],
+            temperature_in_K=500,
             fracs=[0.5, 0.5],
             material_id=3,
             volume_in_cm3=1,
@@ -41,7 +42,6 @@ class test_object_properties(unittest.TestCase):
                 'shift': ['extra_shift_lin'],
             }
         )
-        test_mat3.mcnp_material
 
         assert test_mat3.mcnp_material.split('\n')[-1] == 'extra_mcnp_lin'
         assert test_mat3.serpent_material.split(
