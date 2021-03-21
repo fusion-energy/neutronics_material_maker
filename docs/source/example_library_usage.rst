@@ -1,5 +1,5 @@
-Interal library usage and extension
-===================================
+Interal library searching, extension and exporting
+==================================================
 
 Usage - finding available materials
 -----------------------------------
@@ -7,7 +7,7 @@ Usage - finding available materials
 Each of the materials available is stored in an internal dictionary that can be
 accessed using the AvailableMaterials() command.
 
-::
+.. code-block:: python
 
     import neutronics_material_maker as nmm
     all_materials = nmm.AvailableMaterials()
@@ -40,10 +40,28 @@ several materials.
 
 You can import this file into the package using AddMaterialFromFile().
 
-::
+.. code-block:: python
 
     import neutronics_material_maker as nmm
     nmm.AddMaterialFromFile('mat_lib.json')
     my_new_material = nmm.Material('polythylene')
 
 Another option is to use AddMaterialFromDir() to import a directory of JSON files.
+
+Usage - exporting a material to a JSON file
+-------------------------------------------
+
+Materials can also be exported to a JSON file as demonstrated below
+
+.. code-block:: python
+
+    import json
+
+    import neutronics_material_maker as nmm
+
+    my_mat1 = nmm.Material('eurofer')
+    my_mat2 = nmm.Material('Li4SiO4')
+
+    with open('my_materials.json', 'w') as outfile:
+        json.dump([my_mat1, my_mat2], outfile, indent=4)
+
