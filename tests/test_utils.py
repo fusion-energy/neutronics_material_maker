@@ -41,7 +41,6 @@ class test_object_properties(unittest.TestCase):
                 'shift': ['extra_shift_lin'],
             }
         )
-        test_mat3.mcnp_material
 
         assert test_mat3.mcnp_material.split('\n')[-1] == 'extra_mcnp_lin'
         assert test_mat3.serpent_material.split('\n')[-1] == 'extra_serpent_lin'
