@@ -7,7 +7,7 @@ import os
 import re
 import warnings
 from json import JSONEncoder
-from typing import Optional, Dict
+from typing import Optional, Dict, List
 import asteval
 from CoolProp.CoolProp import PropsSI
 
@@ -63,9 +63,9 @@ class Material:
     the user. The Material object is also json serializable
 
     Args:
-        material_name (str): This is the reference name used to look up
-            the material from the internal collection. Look up the available
-            materials using AvailableMaterials()
+        material_name: This is the reference name used to look up the material
+            from the internal collection. Look up the available materials 
+            AvailableMaterials()
         material_tag (str): This is a string that is assigned to the
             material as an identifier. This is used by neutronics
             codes to label the material with a unique identifier
@@ -133,6 +133,12 @@ class Material:
         volume_of_unit_cell_cm3 (float): The volume of the unit cell in cm3
         reference (str): An entry used to store information on the source of the
             material data
+        additional_end_lines: Additional lines of test that are added to the end of
+            the material card. Compatable with MCNP, Serpent, Fispact outputs
+            which are string based. Agument should be a dictionary specifying
+            the code and a list of lines to be added, besure to include any 
+            white required spaces in the string. This example will add a single
+            S(a,b) card to an MCNP card {'mnnp': ['        mt24 lwtr.01']}.
 
     Returns:
         Material: a neutronics_material_maker.Material instance
@@ -164,6 +170,7 @@ class Material:
         material_id: Optional[int] = None,
         decimal_places: Optional[int] = 8,
         volume_in_cm3: Optional[float] = None,
+        additional_end_lines: Optional[Dict[str, List[str]]] = None,
     ):
 
         self.material_name = material_name
@@ -189,6 +196,7 @@ class Material:
         self.material_id = material_id
         self.decimal_places = decimal_places
         self.volume_in_cm3 = volume_in_cm3
+        self.additional_end_lines = additional_end_lines
 
         # derived values
         self.openmc_material = None
@@ -254,6 +262,40 @@ class Material:
         # without openmc installed, hence the if
         if OPENMC_AVAILABLE:
             self._make_openmc_material()
+
+    @property
+    def additional_end_lines(self):
+        """
+        Returns a dictionary of lists where each entry in the list is a to be
+        added to the end of the material card and each key is the name of the
+        neutronics code to add the line to.
+
+        :type: openmc.Material() object
+        """
+        return self._additional_end_lines
+
+    @additional_end_lines.setter
+    def additional_end_lines(self, value):
+        if value is not None:
+            string_codes = ['mcnp', 'serpent', 'shift', 'fispact']
+            if not isinstance(value, dict):
+                raise ValueError('Material.additional_end_lines should be a dictionary')
+            for key, entries in value.items():
+                if key not in string_codes:
+                    raise ValueError('Material.additional_end_lines should be a '
+                        'dictionary where the keys are the name of the neutronics'
+                        'code. Acceptable values are {}'.format(string_codes))
+                if not isinstance(entries, list):
+                    raise ValueError('Material.additional_end_lines should be a'
+                        ' dictionary where the value of each dictionary entry is a'
+                        ' list')
+                for entry in entries:
+                    if not isinstance(entry, str):
+                        raise ValueError('Material.additional_end_lines should be'
+                            'a dictionary where the value of each dictionary entry'
+                            ' is a list of strings')
+
+        self._additional_end_lines = value
 
     @property
     def openmc_material(self):
@@ -657,6 +699,17 @@ class Material:
         dictionary then these are used to populated the attributes of the
         Material object when present.
         """
+        if (
+            self.material_id is None
+            and "material_id" in material_dict[self.material_name].keys()
+        ):
+            self.material_id = material_dict[self.material_name]["material_id"]
+
+        if (
+            self.additional_end_lines is None
+            and "additional_end_lines" in material_dict[self.material_name].keys()
+        ):
+            self.additional_end_lines = material_dict[self.material_name]["additional_end_lines"]
 
         if (
             self.chemical_equation is None
