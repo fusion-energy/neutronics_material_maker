@@ -173,11 +173,12 @@ Usage - adding extra lines to a material card
 If you require additional lines at the end of the MCNP, Serpent, Fispact or
 Shift materia card then the additional_end_lines argument can be used. This
 will add specific line(s) to the end of a material card. Multiple lines can be
-added by creating a list wilth multiple entries.
+added by creating a list with multiple entries.
 
-In this example the S(α,β) treatment of water to be correctly modeled in
-MCNP. But this could also be used to add comments to the material card or other
-text at the end of the material card string.
+In this example and additional line can be added to allow the S(α,β) treatment
+of water to be correctly modeled in MCNP. But this could also be used to add
+comments to the material card or other text at the end of the material card
+string.
 
 .. code-block:: python
 
