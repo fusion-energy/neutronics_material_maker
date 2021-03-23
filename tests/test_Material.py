@@ -13,6 +13,19 @@ import neutronics_material_maker as nmm
 
 
 class test_object_properties(unittest.TestCase):
+
+    def test_error_raised_when_enrichment_and_enrichment_target(self):
+
+        def error_raised_correctly():
+
+            nmm.Material(
+                "WC",
+                enrichment=90,
+                enrichment_target=None
+            )
+
+        self.assertRaises(ValueError, error_raised_correctly)
+
     def test_density_of_material_is_set_from_equation(self):
         test_mat = nmm.Material("FLiBe", temperature_in_K=80, pressure_in_Pa=1)
         assert test_mat.density is not None
