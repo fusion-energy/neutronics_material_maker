@@ -25,8 +25,9 @@ then this can be added to the material library in the the following manner.
 ::
 
     {
-        "polythylene": {
+        "my_secret_material": {
             "density": 1.0,
+            "percent_type":"ao",
             "density_unit": "g/cm3",
             "elements": {
                 "H": 0.2,

@@ -114,7 +114,7 @@ accepts a list of ```neutronics_material_maker.Materials``` or
 
 ```python
 import neutronics_material_maker as nmm
-my_mat1 = nmm.Material('Li4SiO4', enrichment=60)
+my_mat1 = nmm.Material('Li4SiO4', packing_fraction=0.64)
 my_mat2 = nmm.Material('Be12Ti')
 my_mat3 = MultiMaterial(materials=[my_mat1, my_mat2],
                         fracs=[0.4, 0.6],
