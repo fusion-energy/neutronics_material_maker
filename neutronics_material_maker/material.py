@@ -944,7 +944,14 @@ class Material:
         return openmc_material
 
     def _add_elements_from_dict(self, openmc_material):
-        """Adds elements from a dictionary or chemical formula to the Material"""
+        """Adds elements from a dictionary or chemical formula to the Material
+
+        Arguments:
+            openmc_material: the material to add additional elements to
+
+        Returns:
+            openmc material object with additional elements
+        """
 
         if self.enrichment_target is not None:
             enrichment_element = re.split(r"(\d+)", self.enrichment_target)[0]
@@ -972,7 +979,14 @@ class Material:
         return openmc_material
 
     def _add_isotopes(self, openmc_material):
-        """Adds isotopes from a dictionary or chemical formula to the Material"""
+        """Adds isotopes from a dictionary or chemical formula to the Material
+
+        Arguments:
+            openmc_material: the material to add additional isotopes to
+
+        Returns:
+            openmc material object with additional isotopes
+        """
 
         for isotope_symbol, isotope_number in zip(
             self.isotopes.keys(), self.isotopes.values()
@@ -987,7 +1001,14 @@ class Material:
         return openmc_material
 
     def _add_density(self, openmc_material):
-        """Calculates the density of the Material"""
+        """Calculates the density of the Material
+
+        Arguments:
+            openmc_material: the material to add the density to
+
+        Returns:
+            openmc material object with density set
+        """
 
         if not isinstance(self.density, float):
 
@@ -1062,11 +1083,9 @@ class Material:
         self.list_of_fractions = list_of_fractions
         return sum(list_of_fractions)
 
-    def to_json(self):
+    def to_json(self) -> dict:
         """
         Json serializable version of the material
-
-        :type: dict
         """
         jsonified_object = {
             "material_name": self.material_name,
