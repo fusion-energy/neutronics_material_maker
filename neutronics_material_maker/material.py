@@ -351,7 +351,7 @@ class Material:
 
         Returns:
             str: A FISPACT material card
-        """        
+        """
         self._fispact_material = make_fispact_material(self)
         return self._fispact_material
 
