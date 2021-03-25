@@ -77,7 +77,7 @@ currently include OpenMC)
 You can clone the repository, and install using the setup.py if you would like
 the development version.
 
-::
+.. code-block:: bash
 
    git clone https://github.com/ukaea/neutronics_material_maker.git
    cd neutronics_material_maker
@@ -99,3 +99,10 @@ Example Scripts
 There are several examples in the relevant example webpages; `example Material usage <https://neutronics-material-maker.readthedocs.io/en/latest/example_material.html>`_ and `example MutliMaterial usage <https://neutronics-material-maker.readthedocs.io/en/latest/example_multimaterial.html>`_ .
 
 Additionally there are more examples in the `OpenMC workshop <https://github.com/ukaea/openmc_workshop/tree/main/tasks/task_02_making_materials>`_ .
+
+
+Source code
+------------
+
+The source code is permissively licensed open-source and available from the
+`GitHub repository <https://github.com/ukaea/neutronics_material_maker>`_

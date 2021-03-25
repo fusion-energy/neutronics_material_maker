@@ -104,12 +104,12 @@ Example making materials from elements
 
     my_mat = nmm.Material(
         material_name="li_with_si",
-        density= 3.0,
-        density_unit= "g/cm3",
-        percent_type= "ao",
+        density=3.0,
+        density_unit="g/cm3",
+        percent_type="ao",
         elements={
-                "Li":4,
-                "Si":2
+                "Li": 4,
+                "Si": 2
                 }
         )
 
@@ -123,11 +123,11 @@ Example making materials from isotopes
     my_mat = nmm.Material(
         material_name="enriched_li",
         density= 3.0,
-        density_unit= "g/cm3",
-        percent_type= "ao",
+        density_unit="g/cm3",
+        percent_type="ao",
         isotopes={
-            "Li6":0.9,
-            "Li7":0.1
+            "Li6": 0.9,
+            "Li7": 0.1
         }
     )
 
@@ -139,12 +139,12 @@ Example making materials from isotopes defined by zaid
 
     my_mat = nmm.Material(
         material_name="enriched_li",
-        density= 3.0,
-        density_unit= "g/cm3",
-        percent_type= "ao",
+        density=3.0,
+        density_unit="g/cm3",
+        percent_type="ao",
         isotopes={
-            "3006":0.9,
-            "3007":0.1
+            "3006": 0.9,
+            "3007": 0.1
         }
     )
 
@@ -157,10 +157,10 @@ It is also possible to make your own materials directly from a dictionary by mak
     my_dict = {
         "material_name": "li_with_si",
         "elements": {
-                        "Li":4,
-                        "Si":2
+                        "Li": 4,
+                        "Si": 2
                     },
-        "density": 3.0,
+        "density": 3.1,
         "density_unit": "g/cm3",
         "percent_type": "ao",
     }
@@ -186,13 +186,13 @@ string.
 
     my_mat2 = nmm.Material(
         'H2O',
-        material_id=1,
+        material_id=24,
         temperature_in_K=573.15,
         pressure_in_Pa=15e6,
         additional_end_lines={'mcnp': ['      mt24 lwtr.01']}
     )
 
-    my_mat2.mcnp_material
+    print(my_mat2.mcnp_material)
 
 The above code will return a MCNP material card string with the additional line
 '      mt24 lwtr.01' at the end. Notice that spaces should also be set by the
@@ -202,8 +202,18 @@ user.
 
     c     H2O density 7.25553605e-01 g/cm3
     M24   001001  6.66562840e-01
-        001002  1.03826667e-04
-        008016  3.32540200e-01
-        008017  1.26333333e-04
-        008018  6.66800000e-04
-        mt24 lwtr.01
+          001002  1.03826667e-04
+          008016  3.32540200e-01
+          008017  1.26333333e-04
+          008018  6.66800000e-04
+          mt24 lwtr.01
+
+It is also possible to specifiy this additional line in a JSON file and
+then read in the file and export the material. The additional end lines can
+also support different outputs for different codes and multiple lines being
+appended to the material card as demonstrated in this video on the feature.
+
+.. raw:: html
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/YLcMkQGOeJE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+

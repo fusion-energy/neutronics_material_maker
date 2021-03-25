@@ -4,18 +4,22 @@ Example MultiMaterial() usage
 Usage - mixing two materials to make a MultiMaterial
 ----------------------------------------------------
 
-Making two materials and mixing them to create a MultiMaterial
+Making two materials and mixing them to create a MultiMaterial, the density
+of the new material will be calculated from the mixture of the two materials.
 
-::
+This example mixes two materials with 40% of mat1 and 60% of mat2 by volume
+fraction
 
-   import neutronics-material-maker as nmm
+.. code-block:: python
 
-   my_mat1 = nmm.Material('eurofer')
-   my_mat2 = nmm.Material('tungsten')
+   import neutronics_material_maker as nmm
 
-   my_mat3 = nmm.MultiMaterial(
+   mat1 = nmm.Material('eurofer')
+   mat2 = nmm.Material('tungsten')
+
+   mat3 = nmm.MultiMaterial(
       material_tag='mixed_mat',
-      materials=[my_mat1, my_mat2],
+      materials=[mat1, mat2],
       fracs=[0.4, 0.6],
       percent_type='vo'
    )

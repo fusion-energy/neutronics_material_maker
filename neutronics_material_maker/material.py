@@ -301,7 +301,7 @@ class Material:
         Material.decimal_places attribute.
 
         Returns:
-            A Serpent material card
+            str: A Serpent material card
         """
 
         self._serpent_material = make_serpent_material(self)
@@ -318,7 +318,7 @@ class Material:
         controlled with the Material.decimal_places attribute.
 
         Returns:
-            A MCNP material card
+            str: A MCNP material card
         """
         self._mcnp_material = make_mcnp_material(self)
         return self._mcnp_material
@@ -335,7 +335,7 @@ class Material:
         attribute.
 
         Returns:
-            A Shift material card
+            str: A Shift material card
         """
         self._shift_material = make_shift_material(self)
         return self._shift_material
@@ -345,12 +345,12 @@ class Material:
         self._shift_material = value
 
     @property
-    def fispact_material(self):
+    def fispact_material(self) -> str:
         """Creates a a FISPACT version of the Material with '\n' as line
         endings. Requires the Material.volume_in_cm3 to be set.
 
         Returns:
-            A FISPACT material card
+            str: A FISPACT material card
         """
         self._fispact_material = make_fispact_material(self)
         return self._fispact_material
@@ -360,12 +360,10 @@ class Material:
         self._fispact_material = value
 
     @property
-    def material_name(self):
+    def material_name(self) -> str:
         """
         The name of the material, used to look up the material from the
         internal database of material names available
-
-        :type: str
         """
         return self._material_name
 
@@ -378,12 +376,10 @@ class Material:
         self._material_name = value
 
     @property
-    def material_tag(self):
+    def material_tag(self) -> str:
         """
         The material tag to assign the material, used when naming openmc
         materials. This is the label attached to the material.
-
-        :type: str
         """
         return self._material_tag
 
@@ -413,11 +409,9 @@ class Material:
         self._packing_fraction = float(value)
 
     @property
-    def elements(self):
+    def elements(self) -> dict:
         """
         A dictionary of all the elements present in the material
-
-        :type: dict
         """
         return self._elements
 
@@ -431,12 +425,10 @@ class Material:
             )
 
     @property
-    def chemical_equation(self):
+    def chemical_equation(self) -> str:
         """
         A chemical equation of the material represented as a string e.g. 'H20'.
         Only integer multipliers are permitted.
-
-        :type: str
         """
         return self._chemical_equation
 
@@ -449,11 +441,9 @@ class Material:
                 "Material.chemical_equation must be a string e.g. 'H2O'")
 
     @property
-    def isotopes(self):
+    def isotopes(self) -> dict:
         """
         A dictionary of all the isotopes present in the material
-
-        :type: dict
         """
         return self._isotopes
 
@@ -479,12 +469,10 @@ class Material:
         self._density_equation = value
 
     @property
-    def density_unit(self):
+    def density_unit(self) -> float:
         """
         The units of density to use, either "g/cm3", "g/cc", "kg/m3",
         "atom/b-cm", "atom/cm3"
-
-        :type: float
         """
         return self._density_unit
 
@@ -503,11 +491,9 @@ class Material:
         return self._percent_type
 
     @percent_type.setter
-    def percent_type(self, value):
+    def percent_type(self, value) -> float:
         """
         The units of percentage to use, either atom 'ao' or weight 'wo' based.
-
-        :type: float
         """
         if value in ["ao", "wo", None]:
             self._percent_type = value
@@ -516,11 +502,10 @@ class Material:
                 "Material.percent_type only accepts 'ao' or 'wo' types")
 
     @property
-    def enrichment_type(self):
+    def enrichment_type(self) -> float:
         """
         The units of enrichment to use, either atom 'ao' or weight 'wo' based.
 
-        :type: float
         """
         return self._enrichment_type
 
@@ -944,7 +929,14 @@ class Material:
         return openmc_material
 
     def _add_elements_from_dict(self, openmc_material):
-        """Adds elements from a dictionary or chemical formula to the Material"""
+        """Adds elements from a dictionary or chemical formula to the Material
+
+        Arguments:
+            openmc_material: the material to add additional elements to
+
+        Returns:
+            openmc material object with additional elements
+        """
 
         if self.enrichment_target is not None:
             enrichment_element = re.split(r"(\d+)", self.enrichment_target)[0]
@@ -972,7 +964,14 @@ class Material:
         return openmc_material
 
     def _add_isotopes(self, openmc_material):
-        """Adds isotopes from a dictionary or chemical formula to the Material"""
+        """Adds isotopes from a dictionary or chemical formula to the Material
+
+        Arguments:
+            openmc_material: the material to add additional isotopes to
+
+        Returns:
+            openmc material object with additional isotopes
+        """
 
         for isotope_symbol, isotope_number in zip(
             self.isotopes.keys(), self.isotopes.values()
@@ -987,7 +986,14 @@ class Material:
         return openmc_material
 
     def _add_density(self, openmc_material):
-        """Calculates the density of the Material"""
+        """Calculates the density of the Material
+
+        Arguments:
+            openmc_material: the material to add the density to
+
+        Returns:
+            openmc material object with density set
+        """
 
         if not isinstance(self.density, float):
 
@@ -1062,11 +1068,9 @@ class Material:
         self.list_of_fractions = list_of_fractions
         return sum(list_of_fractions)
 
-    def to_json(self):
+    def to_json(self) -> dict:
         """
         Json serializable version of the material
-
-        :type: dict
         """
         jsonified_object = {
             "material_name": self.material_name,
