@@ -45,7 +45,7 @@ You can import this file into the package using AddMaterialFromFile().
 
     import neutronics_material_maker as nmm
     nmm.AddMaterialFromFile('mat_lib.json')
-    my_new_material = nmm.Material('polythylene')
+    my_new_material = nmm.Material('my_secret_material')
 
 Another option is to use AddMaterialFromDir() to import a directory of JSON files.
 
