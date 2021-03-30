@@ -15,7 +15,7 @@ except BaseException:
         " .mcnp_material, .fispact_material .shif_materials not avaiable")
 
 # from https://github.com/openmc-dev/openmc/blob/develop/openmc/data/data.py
-# remove when pip install openmc is possilbe
+# remove when pip install openmc via PyPi is available
 NATURAL_ABUNDANCE = {
     'H1': 0.99984426, 'H2': 0.00015574, 'He3': 0.000002,
     'He4': 0.999998, 'Li6': 0.07589, 'Li7': 0.92411,
