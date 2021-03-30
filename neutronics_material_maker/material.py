@@ -18,7 +18,8 @@ from neutronics_material_maker import (
     make_shift_material,
     material_dict,
     zaid_to_isotope,
-    check_add_additional_end_lines
+    check_add_additional_end_lines,
+    NATURAL_ABUNDANCE
 )
 
 OPENMC_AVAILABLE = True
@@ -635,11 +636,11 @@ class Material:
     @enrichment_target.setter
     def enrichment_target(self, value):
         if value is not None:
-            if value not in openmc.data.NATURAL_ABUNDANCE.keys():
+            if value not in NATURAL_ABUNDANCE.keys():
                 raise ValueError(
                     "Material.enrichment_target must be a naturally occuring \
                     isotope from this list",
-                    openmc.data.NATURAL_ABUNDANCE.keys(),
+                    NATURAL_ABUNDANCE.keys(),
                 )
         self._enrichment_target = value
 
