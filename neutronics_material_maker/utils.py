@@ -140,6 +140,7 @@ ATOMIC_SYMBOL = {
     118: 'Og'
 }
 
+
 def check_add_additional_end_lines(value):
     """Uses to check the additional lines passed to Material and Multimaterial
     classes are correctly formatted"""
