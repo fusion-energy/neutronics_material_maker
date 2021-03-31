@@ -26,6 +26,26 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, error_raised_correctly)
 
+    def test_temperature_to_neutronics_code(self):
+        """Creates a material with a temperature and check that this can be
+        selectivly propagated to the openmc.material and that the density
+        remains unchanged"""
+
+        test_mat = nmm.Material("FLiBe", temperature_in_K=80, pressure_in_Pa=1)
+
+        assert test_mat.temperature_in_K == 80
+        assert test_mat.openmc_material.temperature == 80
+
+        test_mat_2 = nmm.Material(
+            "FLiBe",
+            temperature_in_K=80,
+            pressure_in_Pa=1,
+            temperature_to_neutronics_code=False)
+
+        assert test_mat_2.temperature_in_K == 80
+        assert test_mat_2.openmc_material.temperature == None
+        assert test_mat.openmc_material.density == test_mat_2.openmc_material.density     
+
     def test_density_of_material_is_set_from_equation(self):
         test_mat = nmm.Material("FLiBe", temperature_in_K=80, pressure_in_Pa=1)
         assert test_mat.density is not None
