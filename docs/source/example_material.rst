@@ -65,6 +65,12 @@ Temperature can be provided in degrees C or Kelvin.
 
     my_mat1.openmc_material
 
+The temperature_in_K or the temperature_in_C is automatically sent to the
+openmc_material and serpent_material cards. However if this causes difficulties
+for you (perhaps due to not having cross sections at that temperature) this
+automatic propagate of temperature information can be disabled by setting the
+temperature_to_neutronics_code to False.
+
 
 Usage - enriched Material()
 ---------------------------
