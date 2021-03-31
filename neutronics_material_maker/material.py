@@ -18,7 +18,8 @@ from neutronics_material_maker import (
     make_shift_material,
     material_dict,
     zaid_to_isotope,
-    check_add_additional_end_lines
+    check_add_additional_end_lines,
+    NATURAL_ABUNDANCE
 )
 
 OPENMC_AVAILABLE = True
@@ -99,6 +100,16 @@ class Material:
             liquids such as lithium-lead and FLiBe that are used as breeder
             materials. Added to the openmc material object and the serpent
             material card.
+        temperature_to_neutronics_code: The temperature args are often used to
+            find the material density via density equations. However it can be
+            desirable to not make use of this temperature in the neutronics
+            codes. Typically this is due to missing cross section data.
+            Defaults to True which makes use of any material temperature in the
+            neutronics material. Can be set to False which doesn't propagate
+            temperature data to the neutroics material. This only impacts
+            openmc and serpent materials. As shift materials require the use of
+            temperature and fispact/mcnp materials don't make use of
+            temperature on the material card.
         pressure_in_Pa: The pressure of the material in Pascals
             Pressure impacts the density of some materials in the
             collection. Materials in the collection that are impacted by
@@ -154,6 +165,7 @@ class Material:
         enrichment_target: Optional[str] = None,
         temperature_in_C: Optional[float] = None,
         temperature_in_K: Optional[float] = None,
+        temperature_to_neutronics_code: Optional[bool] = True,
         pressure_in_Pa: Optional[float] = None,
         elements: Optional[Dict[str, float]] = None,
         chemical_equation: Optional[str] = None,
@@ -177,6 +189,7 @@ class Material:
         self.material_tag = material_tag
         self.temperature_in_C = temperature_in_C
         self.temperature_in_K = temperature_in_K
+        self.temperature_to_neutronics_code = temperature_to_neutronics_code
         self.pressure_in_Pa = pressure_in_Pa
         self.packing_fraction = packing_fraction
         self.elements = elements
@@ -635,11 +648,11 @@ class Material:
     @enrichment_target.setter
     def enrichment_target(self, value):
         if value is not None:
-            if value not in openmc.data.NATURAL_ABUNDANCE.keys():
+            if value not in NATURAL_ABUNDANCE.keys():
                 raise ValueError(
                     "Material.enrichment_target must be a naturally occuring \
                     isotope from this list",
-                    openmc.data.NATURAL_ABUNDANCE.keys(),
+                    NATURAL_ABUNDANCE.keys(),
                 )
         self._enrichment_target = value
 
@@ -750,12 +763,13 @@ class Material:
         if self.material_id is not None:
             openmc_material = openmc.Material(
                 material_id=self.material_id,
-                name=name,
-                temperature=self.temperature_in_K)
+                name=name)
         else:
             openmc_material = openmc.Material(
-                name=name,
-                temperature=self.temperature_in_K)
+                name=name)
+
+        if self.temperature_to_neutronics_code is True:
+            openmc_material.temperature = self.temperature_in_K
 
         if self.isotopes is not None:
 
