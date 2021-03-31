@@ -41,15 +41,18 @@ class test_object_properties(unittest.TestCase):
             temperature_to_neutronics_code=False)
 
         assert test_mat_2.temperature_in_K == 80
-        assert test_mat_2.openmc_material.temperature == None
-        assert test_mat.openmc_material.density == test_mat_2.openmc_material.density 
+        assert test_mat_2.openmc_material.temperature is None
+        assert test_mat.openmc_material.density == test_mat_2.openmc_material.density
 
     def test_temperature_to_neutronics_code_serpent(self):
         """Creates a material with a temperature and check that this can be
         selectivly propagated to the serpent_material and that the density
         remains unchanged"""
 
-        test_mat = nmm.Material("FLiBe", temperature_in_K=180, pressure_in_Pa=2)
+        test_mat = nmm.Material(
+            "FLiBe",
+            temperature_in_K=180,
+            pressure_in_Pa=2)
 
         assert test_mat.temperature_in_K == 180
         assert test_mat.openmc_material.temperature == 180
@@ -62,9 +65,10 @@ class test_object_properties(unittest.TestCase):
             temperature_to_neutronics_code=False)
 
         assert test_mat_2.temperature_in_K == 180
-        assert test_mat_2.openmc_material.temperature == None
-        assert test_mat_2.serpent_material.split('\n')[0].endswith(' tmp 180') is False
-        assert test_mat.openmc_material.density == test_mat_2.openmc_material.density     
+        assert test_mat_2.openmc_material.temperature is None
+        assert test_mat_2.serpent_material.split(
+            '\n')[0].endswith(' tmp 180') is False
+        assert test_mat.openmc_material.density == test_mat_2.openmc_material.density
 
     def test_density_of_material_is_set_from_equation(self):
         test_mat = nmm.Material("FLiBe", temperature_in_K=80, pressure_in_Pa=1)

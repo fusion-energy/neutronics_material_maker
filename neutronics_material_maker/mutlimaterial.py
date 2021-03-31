@@ -76,7 +76,7 @@ class MultiMaterial:
         temperature_to_neutronics_code: The temperature args are often used to
             find the material density via density equations. However it can be
             desirable to not make use of this temperature in the neutronics
-            codes. Typically this is due to missing cross section data. 
+            codes. Typically this is due to missing cross section data.
             Defaults to True which makes use of any material temperature in the
             neutronics material. Can be set to False which doesn't propagate
             temperature data to the neutroics material. This only impacts
