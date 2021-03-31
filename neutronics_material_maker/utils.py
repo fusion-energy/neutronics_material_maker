@@ -229,9 +229,10 @@ def make_serpent_material(mat) -> str:
 
     mat_card = ["mat " + name + " " +
                 str(mat.openmc_material.get_mass_density())]
-    if mat.temperature_in_K is not None:
-        mat_card[0] = mat_card[0] + ' tmp ' + str(mat.temperature_in_K) + ' '
-    # should check if percent type is 'ao' or 'wo'
+    if mat.temperature_to_neutronics_code is True:
+        if mat.temperature_in_K is not None:
+            mat_card[0] = mat_card[0] + ' tmp ' + str(mat.temperature_in_K)
+        # should check if percent type is 'ao' or 'wo'
 
     for isotope in mat.openmc_material.nuclides:
         if isotope[2] == "ao":
