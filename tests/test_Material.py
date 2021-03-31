@@ -43,8 +43,8 @@ class test_object_properties(unittest.TestCase):
             temperature_to_neutronics_code=False)
 
         assert test_mat_2.temperature_in_K == 80
-        assert test_mat_2.openmc_material.temperature == None
-        assert test_mat.openmc_material.density == test_mat_2.openmc_material.density     
+        assert test_mat_2.openmc_material.temperature is None
+        assert test_mat.openmc_material.density == test_mat_2.openmc_material.density
 
     def test_density_of_material_is_set_from_equation(self):
         test_mat = nmm.Material("FLiBe", temperature_in_K=80, pressure_in_Pa=1)
