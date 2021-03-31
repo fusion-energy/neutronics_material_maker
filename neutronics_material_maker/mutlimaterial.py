@@ -73,6 +73,16 @@ class MultiMaterial:
         temperature_in_K: The temperature of the material in degrees
             Kelvin. Added to the openmc material object and the serpent
             material card
+        temperature_to_neutronics_code: The temperature args are often used to
+            find the material density via density equations. However it can be
+            desirable to not make use of this temperature in the neutronics
+            codes. Typically this is due to missing cross section data. 
+            Defaults to True which makes use of any material temperature in the
+            neutronics material. Can be set to False which doesn't propagate
+            temperature data to the neutroics material. This only impacts
+            openmc and serpent materials. As shift materials require the use of
+            temperature and fispact/mcnp materials don't make use of
+            temperature on the material card.
         additional_end_lines: Additional lines of test that are added to the
             end of the material card. Compatable with MCNP, Serpent, Fispact
             outputs which are string based. Agument should be a dictionary
@@ -100,6 +110,7 @@ class MultiMaterial:
         volume_in_cm3: Optional[float] = None,
         temperature_in_C: Optional[float] = None,
         temperature_in_K: Optional[float] = None,
+        temperature_to_neutronics_code: Optional[bool] = True,
         additional_end_lines: Optional[Dict[str, List[str]]] = None,
     ):
         self.material_tag = material_tag
@@ -113,6 +124,7 @@ class MultiMaterial:
         self.volume_in_cm3 = volume_in_cm3
         self.temperature_in_C = temperature_in_C
         self.temperature_in_K = temperature_in_K
+        self.temperature_to_neutronics_code = temperature_to_neutronics_code
         self.additional_end_lines = additional_end_lines
 
         # derived values
