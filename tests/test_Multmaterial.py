@@ -44,7 +44,7 @@ class test_object_properties(unittest.TestCase):
             materials=[nmm.Material("Li4SiO4"), nmm.Material("Be12Ti")],
             fracs=[0.50, 0.50],
             percent_type="vo",
-            temperature_in_K=300,
+            temperature=300,
             material_id=2,
         )
 
@@ -99,7 +99,7 @@ class test_object_properties(unittest.TestCase):
 
         test_material = nmm.MultiMaterial(
             materials=[
-                nmm.Material('Pb842Li158', temperature_in_K=500),
+                nmm.Material('Pb842Li158', temperature=500),
                 nmm.Material('SiC')
             ],
             fracs=[0.5, 0.5])
@@ -113,7 +113,7 @@ class test_object_properties(unittest.TestCase):
 
         test_material = nmm.MultiMaterial(
             materials=[
-                nmm.Material('Pb842Li158', temperature_in_K=500),
+                nmm.Material('Pb842Li158', temperature=500),
                 nmm.Material('SiC')
             ],
             fracs=[0.5, 0.5],
@@ -204,7 +204,7 @@ class test_object_properties(unittest.TestCase):
     def test_density_of_mixed_materials_from_density_equation(self):
 
         test_material = nmm.Material(
-            "H2O", temperature_in_C=25, pressure_in_Pa=100000)
+            "H2O", temperature=300, pressure_in_Pa=100000)
         test_mixed_material = nmm.MultiMaterial(
             material_tag="test_mixed_material",
             materials=[test_material],
@@ -217,7 +217,7 @@ class test_object_properties(unittest.TestCase):
     def test_density_of_mixed_one_packed_crystal_and_one_non_crystal(self):
 
         test_material_1 = nmm.Material(
-            material_name="H2O", temperature_in_C=25, pressure_in_Pa=100000
+            material_name="H2O", temperature=300, pressure_in_Pa=100000
         )
 
         test_material_2 = nmm.Material(material_name="Li4SiO4")
@@ -550,11 +550,10 @@ class test_object_properties(unittest.TestCase):
                 nmm.Material("eurofer"),
             ],
             fracs=[0.3, 0.7],
-            temperature_in_C=10
+            temperature=283.15
         )
 
-        assert test_material.temperature_in_K == 283.15
-        assert test_material.temperature_in_C == 10
+        assert test_material.temperature == 283.15
         assert test_material.openmc_material.temperature == 283.15
 
         line_by_line_material = test_material.serpent_material.split("\n")
@@ -573,11 +572,10 @@ class test_object_properties(unittest.TestCase):
                 nmm.Material("eurofer"),
             ],
             fracs=[0.3, 0.7],
-            temperature_in_K=300
+            temperature=300
         )
 
-        assert test_material.temperature_in_K == 300
-        assert test_material.temperature_in_C == pytest.approx(26.85)
+        assert test_material.temperature == 300
         assert test_material.openmc_material.temperature == 300
 
         line_by_line_material = test_material.serpent_material.split("\n")

@@ -67,12 +67,8 @@ class MultiMaterial:
             Seprent material cards when they are printed out (default of 8).
         volume_in_cm3: The volume of the material in cm3, used when
             creating fispact material cards
-        temperature_in_C: The temperature of the material in degrees
-            Celsius. Convered to K and added to the openmc material object and
-            the serpent material card
-        temperature_in_K: The temperature of the material in degrees
-            Kelvin. Added to the openmc material object and the serpent
-            material card
+        temperature: The temperature of the material in degrees Kelvin. Added
+            to the openmc material object and the serpent material card.
         temperature_to_neutronics_code: The temperature args are often used to
             find the material density via density equations. However it can be
             desirable to not make use of this temperature in the neutronics
@@ -108,8 +104,7 @@ class MultiMaterial:
         material_id: Optional[int] = None,
         decimal_places: Optional[int] = 8,
         volume_in_cm3: Optional[float] = None,
-        temperature_in_C: Optional[float] = None,
-        temperature_in_K: Optional[float] = None,
+        temperature: Optional[float] = None,
         temperature_to_neutronics_code: Optional[bool] = True,
         additional_end_lines: Optional[Dict[str, List[str]]] = None,
     ):
@@ -122,8 +117,7 @@ class MultiMaterial:
         self.material_id = material_id
         self.decimal_places = decimal_places
         self.volume_in_cm3 = volume_in_cm3
-        self.temperature_in_C = temperature_in_C
-        self.temperature_in_K = temperature_in_K
+        self.temperature = temperature
         self.temperature_to_neutronics_code = temperature_to_neutronics_code
         self.additional_end_lines = additional_end_lines
 
@@ -147,12 +141,6 @@ class MultiMaterial:
                 UserWarning,
             )
 
-        if temperature_in_K is not None or temperature_in_C is not None:
-            if temperature_in_K is None:
-                self.temperature_in_K = temperature_in_C + 273.15
-            if temperature_in_C is None:
-                self.temperature_in_C = temperature_in_K - 273.15
-
         if OPENMC_AVAILABLE:
             self._make_openmc_material()
 
@@ -174,29 +162,16 @@ class MultiMaterial:
         self._additional_end_lines = value
 
     @property
-    def temperature_in_K(self):
-        return self._temperature_in_K
+    def temperature(self):
+        return self._temperature
 
-    @temperature_in_K.setter
-    def temperature_in_K(self, value):
+    @temperature.setter
+    def temperature(self, value):
         if value is not None:
             if value < 0.0:
                 raise ValueError(
-                    "Material.temperature_in_K must be greater than 0")
-        self._temperature_in_K = value
-
-    @property
-    def temperature_in_C(self):
-        return self._temperature_in_C
-
-    @temperature_in_C.setter
-    def temperature_in_C(self, value):
-        if value is not None:
-            if value < -273.15:
-                raise ValueError(
-                    "Material.temperature_in_C must be greater than -273.15"
-                )
-        self._temperature_in_C = value
+                    "Material.temperature must be greater than 0")
+        self._temperature = value
 
     @property
     def packing_fraction(self):
@@ -265,8 +240,8 @@ class MultiMaterial:
     @property
     def shift_material(self):
         """Creates a a Shift version of the Material with '\n' as line endings.
-        Requires the Material.material_id and Material.temperature_in_K to be
-        set. Decimal places can be controlled with the Material.deicmal_places
+        Requires the Material.material_id and Material.temperature to be set.
+        Decimal places can be controlled with the Material.deicmal_places
         attribute.
 
         Returns:
@@ -315,8 +290,8 @@ class MultiMaterial:
             percent_type=self.percent_type,
         )
 
-        if self.temperature_in_K is not None:
-            openmc_material.temperature = self.temperature_in_K
+        if self.temperature is not None and self.temperature_to_neutronics_code is True:
+            openmc_material.temperature = self.temperature
 
         # this modifies the density by the packing fraction of the material
         if self.packing_fraction != 1.0:
@@ -336,8 +311,7 @@ class MultiMaterial:
                 {
                     "material_name": material.material_name,
                     "material_tag": material.material_tag,
-                    "temperature_in_C": material.temperature_in_C,
-                    "temperature_in_K": material.temperature_in_K,
+                    "temperature": material.temperature,
                     "pressure_in_Pa": material.pressure_in_Pa,
                     "packing_fraction": material.packing_fraction,
                     "elements": material.elements,
