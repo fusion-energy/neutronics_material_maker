@@ -300,8 +300,7 @@ class Material:
             str: A Serpent material card
         """
 
-        self._serpent_material = make_serpent_material(self)
-        return self._serpent_material
+        return make_serpent_material(self)
 
     @serpent_material.setter
     def serpent_material(self, value):
@@ -316,8 +315,8 @@ class Material:
         Returns:
             str: A MCNP material card
         """
-        self._mcnp_material = make_mcnp_material(self)
-        return self._mcnp_material
+
+        return make_mcnp_material(self)
 
     @mcnp_material.setter
     def mcnp_material(self, value):
@@ -333,8 +332,8 @@ class Material:
         Returns:
             str: A Shift material card
         """
-        self._shift_material = make_shift_material(self)
-        return self._shift_material
+
+        return make_shift_material(self)
 
     @shift_material.setter
     def shift_material(self, value):
@@ -348,8 +347,8 @@ class Material:
         Returns:
             str: A FISPACT material card
         """
-        self._fispact_material = make_fispact_material(self)
-        return self._fispact_material
+
+        return make_fispact_material(self)
 
     @fispact_material.setter
     def fispact_material(self, value):
