@@ -38,7 +38,7 @@ a material id
 
 .. code-block:: python
 
-   my_mat = nmm.Material('eurofer', temperature_in_K=293, material_id=1)
+   my_mat = nmm.Material('eurofer', temperature=293, material_id=1)
    my_mat.shift_material
 
 
@@ -51,7 +51,7 @@ For several materials within the collection the temperature and the pressure imp
 
     import neutronics_material_maker as nmm
 
-    my_mat1 = nmm.Material('H2O', temperature_in_C=300, pressure_in_Pa=15e6)
+    my_mat1 = nmm.Material('H2O', temperature=300, pressure=15e6)
 
     my_mat1.openmc_material
 
@@ -61,14 +61,14 @@ Temperature can be provided in degrees C or Kelvin.
 
     import neutronics_material_maker as nmm
 
-    my_mat1 = nmm.Material('H2O', temperature_in_K=573.15, pressure_in_Pa=15e6)
+    my_mat1 = nmm.Material('H2O', temperature=573.15, pressure=15e6)
 
     my_mat1.openmc_material
 
-The temperature_in_K or the temperature_in_C is automatically sent to the
-openmc_material and serpent_material cards. However if this causes difficulties
-for you (perhaps due to not having cross sections at that temperature) this
-automatic propagate of temperature information can be disabled by setting the
+The temperature is automatically sent to the openmc_material and
+serpent_material cards. However if this causes difficulties for you (perhaps
+due to not having cross sections at that temperature) this automatic propagate
+of temperature information can be disabled by setting the 
 temperature_to_neutronics_code to False.
 
 
@@ -193,8 +193,8 @@ string.
     my_mat2 = nmm.Material(
         'H2O',
         material_id=24,
-        temperature_in_K=573.15,
-        pressure_in_Pa=15e6,
+        temperature=573.15,
+        pressure=15e6,
         additional_end_lines={'mcnp': ['      mt24 lwtr.01']}
     )
 

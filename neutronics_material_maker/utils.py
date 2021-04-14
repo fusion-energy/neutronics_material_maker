@@ -230,8 +230,8 @@ def make_serpent_material(mat) -> str:
     mat_card = ["mat " + name + " " +
                 str(mat.openmc_material.get_mass_density())]
     if mat.temperature_to_neutronics_code is True:
-        if mat.temperature_in_K is not None:
-            mat_card[0] = mat_card[0] + ' tmp ' + str(mat.temperature_in_K)
+        if mat.temperature is not None:
+            mat_card[0] = mat_card[0] + ' tmp ' + str(mat.temperature)
         # should check if percent type is 'ao' or 'wo'
 
     for isotope in mat.openmc_material.nuclides:
@@ -310,9 +310,9 @@ def make_shift_material(mat) -> str:
         raise ValueError(
             "Material.material_id needs setting before shift_material can be made"
         )
-    if mat.temperature_in_K is None:
+    if mat.temperature is None:
         raise ValueError(
-            "Material.temperature_in_K needs setting before shift_material can be made"
+            "Material.temperature needs setting before shift_material can be made"
         )
 
     if mat.material_tag is None:
@@ -324,7 +324,7 @@ def make_shift_material(mat) -> str:
         "[COMP][MATERIAL]\n"
         + "name %s\n" % name
         + "matid %s\n" % mat.material_id
-        + "tmp %s" % mat.temperature_in_K
+        + "tmp %s" % mat.temperature
     ]
     zaid = 'zaid'
     nd_ = 'nd'
