@@ -245,7 +245,8 @@ class Material:
                         "temperature is needed for", self.material_name
                     )
 
-            if "pressure_dependant" in material_dict[self.material_name].keys():
+            if "pressure_dependant" in material_dict[self.material_name].keys(
+            ):
                 if pressure is None:
                     raise ValueError(
                         "pressure is needed for",
