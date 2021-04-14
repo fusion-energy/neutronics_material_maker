@@ -204,7 +204,7 @@ class test_object_properties(unittest.TestCase):
     def test_density_of_mixed_materials_from_density_equation(self):
 
         test_material = nmm.Material(
-            "H2O", temperature=300, pressure_in_Pa=100000)
+            "H2O", temperature=300, pressure=100000)
         test_mixed_material = nmm.MultiMaterial(
             material_tag="test_mixed_material",
             materials=[test_material],
@@ -217,7 +217,7 @@ class test_object_properties(unittest.TestCase):
     def test_density_of_mixed_one_packed_crystal_and_one_non_crystal(self):
 
         test_material_1 = nmm.Material(
-            material_name="H2O", temperature=300, pressure_in_Pa=100000
+            material_name="H2O", temperature=300, pressure=100000
         )
 
         test_material_2 = nmm.Material(material_name="Li4SiO4")

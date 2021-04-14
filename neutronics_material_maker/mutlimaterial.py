@@ -312,7 +312,7 @@ class MultiMaterial:
                     "material_name": material.material_name,
                     "material_tag": material.material_tag,
                     "temperature": material.temperature,
-                    "pressure_in_Pa": material.pressure_in_Pa,
+                    "pressure": material.pressure,
                     "packing_fraction": material.packing_fraction,
                     "elements": material.elements,
                     "chemical_equation": material.chemical_equation,

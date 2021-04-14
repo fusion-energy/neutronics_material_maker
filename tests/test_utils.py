@@ -54,7 +54,7 @@ class test_object_properties(unittest.TestCase):
 
         test_mat = nmm.Material(
             'H2O',
-            pressure_in_Pa=1e6,
+            pressure=1e6,
             temperature=393,
             material_id=1,
             additional_end_lines={'mcnp': ['        mt24 lwtr.01']}
@@ -64,7 +64,7 @@ class test_object_properties(unittest.TestCase):
     def test_additional_lines_shift(self):
         test_mat = nmm.Material(
             'H2O',
-            pressure_in_Pa=1e6,
+            pressure=1e6,
             temperature=393,
             material_id=1,
             additional_end_lines={'shift': ['coucou']}
@@ -74,7 +74,7 @@ class test_object_properties(unittest.TestCase):
     def test_additional_lines_fispact(self):
         test_mat = nmm.Material(
             'H2O',
-            pressure_in_Pa=1e6,
+            pressure=1e6,
             temperature=393,
             material_id=1,
             volume_in_cm3=1,
@@ -85,7 +85,7 @@ class test_object_properties(unittest.TestCase):
     def test_additional_lines_serpent(self):
         test_mat = nmm.Material(
             'H2O',
-            pressure_in_Pa=1e6,
+            pressure=1e6,
             temperature=393,
             material_id=1,
             additional_end_lines={'serpent': ['coucou']}
@@ -257,7 +257,7 @@ class test_object_properties(unittest.TestCase):
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
             test_mat = nmm.Material(
-                mat, temperature=300, pressure_in_Pa=5e6)
+                mat, temperature=300, pressure=5e6)
 
             assert isinstance(test_mat.openmc_material, openmc.Material)
 
@@ -266,7 +266,7 @@ class test_object_properties(unittest.TestCase):
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
             test_mat = nmm.Material(
-                mat, temperature=300, pressure_in_Pa=5e6, material_id=1
+                mat, temperature=300, pressure=5e6, material_id=1
             )
 
             assert isinstance(test_mat.mcnp_material, str)
@@ -276,7 +276,7 @@ class test_object_properties(unittest.TestCase):
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
             test_mat = nmm.Material(
-                mat, temperature=300, pressure_in_Pa=5e6, material_id=1
+                mat, temperature=300, pressure=5e6, material_id=1
             )
 
             assert isinstance(test_mat.shift_material, str)
@@ -288,7 +288,7 @@ class test_object_properties(unittest.TestCase):
             test_mat = nmm.Material(
                 mat,
                 temperature=300,
-                pressure_in_Pa=5e6,
+                pressure=5e6,
                 volume_in_cm3=1.5)
 
             assert isinstance(test_mat.fispact_material, str)
@@ -298,7 +298,7 @@ class test_object_properties(unittest.TestCase):
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
             test_mat = nmm.Material(
-                mat, temperature=300, pressure_in_Pa=5e6)
+                mat, temperature=300, pressure=5e6)
 
             assert isinstance(test_mat.serpent_material, str)
 

@@ -54,7 +54,7 @@ class Material:
     collection of prepared materials. Modifiers to the material
     isotopes are applied according to arguments such
     as enrichment. Modifiers to the material density are applied
-    according to arguments like temperature and pressure_in_Pa
+    according to arguments like temperature and pressure
     where appropiate (gases, liquids). The collection of materials
     includes relationships between presure, temperature and density
     relationships. This allows the code to adjust the density of the
@@ -102,12 +102,11 @@ class Material:
             openmc and serpent materials. As shift materials require the use of
             temperature and fispact/mcnp materials don't make use of
             temperature on the material card.
-        pressure_in_Pa: The pressure of the material in Pascals
-            Pressure impacts the density of some materials in the
-            collection. Materials in the collection that are impacted by
-            pressure have density equations that depend on pressure.
-            These tend to be liquids and gases used for coolants such as
-            H2O and CO2.
+        pressure: The pressure of the material in Pascals. Pressure impacts the
+            density of some materials in the collection. Materials in the
+            collection that are impacted by pressure have density equations
+            that depend on pressure. These tend to be liquids and gases used
+            for coolants such as H2O and CO2.
         zaid_suffix: The nuclear library to apply to the zaid, for
             example ".31c", this is used in MCNP and Serpent material cards.
         material_id: the id number or mat number used in the MCNP material card
@@ -157,7 +156,7 @@ class Material:
         enrichment_target: Optional[str] = None,
         temperature: Optional[float] = None,
         temperature_to_neutronics_code: Optional[bool] = True,
-        pressure_in_Pa: Optional[float] = None,
+        pressure: Optional[float] = None,
         elements: Optional[Dict[str, float]] = None,
         chemical_equation: Optional[str] = None,
         isotopes: Optional[Dict[str, float]] = None,
@@ -180,7 +179,7 @@ class Material:
         self.material_tag = material_tag
         self.temperature = temperature
         self.temperature_to_neutronics_code = temperature_to_neutronics_code
-        self.pressure_in_Pa = pressure_in_Pa
+        self.pressure = pressure
         self.packing_fraction = packing_fraction
         self.elements = elements
         self.chemical_equation = chemical_equation
@@ -247,9 +246,9 @@ class Material:
                     )
 
             if "pressure_dependant" in material_dict[self.material_name].keys():
-                if pressure_in_Pa is None:
+                if pressure is None:
                     raise ValueError(
-                        "pressure_in_Pa is needed for",
+                        "pressure is needed for",
                         self.material_name)
 
         # this populates the density of materials when density is provided by
@@ -622,23 +621,23 @@ class Material:
         self._enrichment_target = value
 
     @property
-    def pressure_in_Pa(self):
+    def pressure(self):
         """
         The pressure of the material in Pascals. Must be a possive number. Used
         to calculate the density if the density_equation contains
-        pressure_in_Pa.
+        pressure.
 
         :type: float
         """
-        return self._pressure_in_Pa
+        return self._pressure
 
-    @pressure_in_Pa.setter
-    def pressure_in_Pa(self, value):
+    @pressure.setter
+    def pressure(self, value):
         if value is not None:
             if value < 0.0:
                 raise ValueError(
-                    "Material.pressure_in_Pa must be greater than 0")
-        self._pressure_in_Pa = value
+                    "Material.pressure must be greater than 0")
+        self._pressure = value
 
     @property
     def reference(self):
@@ -793,10 +792,10 @@ class Material:
             ]
 
         if (
-            self.pressure_in_Pa is None
-            and "pressure_in_Pa" in material_dict[self.material_name].keys()
+            self.pressure is None
+            and "pressure" in material_dict[self.material_name].keys()
         ):
-            self.pressure_in_Pa = material_dict[self.material_name]["pressure_in_Pa"]
+            self.pressure = material_dict[self.material_name]["pressure"]
 
         if (
             self.packing_fraction is None
@@ -974,7 +973,7 @@ class Material:
 
                 # Potentially used in the eval part
                 aeval.symtable["temperature"] = self.temperature
-                aeval.symtable["pressure_in_Pa"] = self.pressure_in_Pa
+                aeval.symtable["pressure"] = self.pressure
 
                 density = aeval.eval(self.density_equation)
 
@@ -1046,7 +1045,7 @@ class Material:
             "material_name": self.material_name,
             "material_tag": self.material_tag,
             "temperature": self.temperature,
-            "pressure_in_Pa": self.pressure_in_Pa,
+            "pressure": self.pressure,
             "packing_fraction": self.packing_fraction,
             "elements": self.elements,
             "chemical_equation": self.chemical_equation,

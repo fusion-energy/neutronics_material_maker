@@ -51,7 +51,7 @@ For several materials within the collection the temperature and the pressure imp
 
     import neutronics_material_maker as nmm
 
-    my_mat1 = nmm.Material('H2O', temperature=300, pressure_in_Pa=15e6)
+    my_mat1 = nmm.Material('H2O', temperature=300, pressure=15e6)
 
     my_mat1.openmc_material
 
@@ -61,7 +61,7 @@ Temperature can be provided in degrees C or Kelvin.
 
     import neutronics_material_maker as nmm
 
-    my_mat1 = nmm.Material('H2O', temperature=573.15, pressure_in_Pa=15e6)
+    my_mat1 = nmm.Material('H2O', temperature=573.15, pressure=15e6)
 
     my_mat1.openmc_material
 
@@ -194,7 +194,7 @@ string.
         'H2O',
         material_id=24,
         temperature=573.15,
-        pressure_in_Pa=15e6,
+        pressure=15e6,
         additional_end_lines={'mcnp': ['      mt24 lwtr.01']}
     )
 
