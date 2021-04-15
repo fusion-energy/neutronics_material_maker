@@ -29,18 +29,18 @@ class test_object_properties(unittest.TestCase):
         selectivly propagated to the openmc_material and that the density
         remains unchanged"""
 
-        test_mat = nmm.Material("FLiBe", temperature_in_K=80, pressure_in_Pa=1)
+        test_mat = nmm.Material("FLiBe", temperature=80, pressure=1)
 
-        assert test_mat.temperature_in_K == 80
+        assert test_mat.temperature == 80
         assert test_mat.openmc_material.temperature == 80
 
         test_mat_2 = nmm.Material(
             "FLiBe",
-            temperature_in_K=80,
-            pressure_in_Pa=1,
+            temperature=80,
+            pressure=1,
             temperature_to_neutronics_code=False)
 
-        assert test_mat_2.temperature_in_K == 80
+        assert test_mat_2.temperature == 80
         assert test_mat_2.openmc_material.temperature is None
         assert test_mat.openmc_material.density == test_mat_2.openmc_material.density
 
@@ -51,27 +51,27 @@ class test_object_properties(unittest.TestCase):
 
         test_mat = nmm.Material(
             "FLiBe",
-            temperature_in_K=180,
-            pressure_in_Pa=2)
+            temperature=180,
+            pressure=2)
 
-        assert test_mat.temperature_in_K == 180
+        assert test_mat.temperature == 180
         assert test_mat.openmc_material.temperature == 180
         assert test_mat.serpent_material.split('\n')[0].endswith(' tmp 180')
 
         test_mat_2 = nmm.Material(
             "FLiBe",
-            temperature_in_K=180,
-            pressure_in_Pa=1,
+            temperature=180,
+            pressure=1,
             temperature_to_neutronics_code=False)
 
-        assert test_mat_2.temperature_in_K == 180
+        assert test_mat_2.temperature == 180
         assert test_mat_2.openmc_material.temperature is None
         assert test_mat_2.serpent_material.split(
             '\n')[0].endswith(' tmp 180') is False
         assert test_mat.openmc_material.density == test_mat_2.openmc_material.density
 
     def test_density_of_material_is_set_from_equation(self):
-        test_mat = nmm.Material("FLiBe", temperature_in_K=80, pressure_in_Pa=1)
+        test_mat = nmm.Material("FLiBe", temperature=80, pressure=1)
         assert test_mat.density is not None
 
     def test_density_of_material_is_set_from_crystal(self):
@@ -398,7 +398,7 @@ class test_object_properties(unittest.TestCase):
             enrichment_target="Li6",
             enrichment_type="ao",
             chemical_equation=lithium_lead_elements,
-            temperature_in_C=450,
+            temperature=450,
         )
         nucs = test_material.openmc_material.nuclides
         pb_atom_count = 0
@@ -445,7 +445,7 @@ class test_object_properties(unittest.TestCase):
             enrichment_target="Li6",
             enrichment_type="ao",
             chemical_equation=lithium_lead_elements,
-            temperature_in_C=450,
+            temperature=450,
         )
         nucs = test_material.openmc_material.nuclides
         pb_atom_count = 0
@@ -552,7 +552,7 @@ class test_object_properties(unittest.TestCase):
         test_material = nmm.Material(
             "lithium-lead",
             chemical_equation=lithium_lead_elements,
-            temperature_in_C=450,
+            temperature=450,
         )
         nucs = test_material.openmc_material.nuclides
         pb_atom_count = 0
@@ -583,26 +583,26 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, enrichment_too_low)
 
-        def incorrect_pressure_in_Pa():
-            """checks a ValueError is raised when pressure_in_Pa is below 0"""
+        def incorrect_pressure():
+            """checks a ValueError is raised when pressure is below 0"""
 
-            nmm.Material("H2O", temperature_in_C=10, pressure_in_Pa=-1e6)
+            nmm.Material("H2O", temperature=283, pressure=-1e6)
 
-        self.assertRaises(ValueError, incorrect_pressure_in_Pa)
+        self.assertRaises(ValueError, incorrect_pressure)
 
-        def incorrect_temperature_in_K():
-            """checks a ValueError is raised when temperature_in_K is below 0"""
+        def incorrect_temperature():
+            """checks a ValueError is raised when temperature is below 0"""
 
-            nmm.Material("H2O", temperature_in_K=-10, pressure_in_Pa=1e6)
+            nmm.Material("H2O", temperature=-10, pressure=1e6)
 
-        self.assertRaises(ValueError, incorrect_temperature_in_K)
+        self.assertRaises(ValueError, incorrect_temperature)
 
-        def incorrect_temperature_in_C():
-            """checks a ValueError is raised when temperature_in_C is below absolute zero"""
+        def incorrect_temperature_too_low():
+            """checks a ValueError is raised when temperature is below absolute zero"""
 
-            nmm.Material("H2O", temperature_in_C=-300, pressure_in_Pa=1e6)
+            nmm.Material("H2O", temperature=-1, pressure=1e6)
 
-        self.assertRaises(ValueError, incorrect_temperature_in_C)
+        self.assertRaises(ValueError, incorrect_temperature_too_low)
 
         def incorrect_elements_chemical_equation_usage():
             """checks a ValueError is raised when the both chemical_equation and elements are used"""
@@ -636,7 +636,7 @@ class test_object_properties(unittest.TestCase):
 
             nmm.Material(
                 material_name="He",
-                pressure_in_Pa=1e6,
+                pressure=1e6,
             )
 
         self.assertRaises(ValueError, test_missing_temperature_He)
@@ -646,7 +646,7 @@ class test_object_properties(unittest.TestCase):
 
             nmm.Material(
                 material_name="H2O",
-                pressure_in_Pa=1e6,
+                pressure=1e6,
             )
 
         self.assertRaises(ValueError, test_missing_temperature_H2O)
@@ -656,7 +656,7 @@ class test_object_properties(unittest.TestCase):
 
             nmm.Material(
                 material_name="CO2",
-                pressure_in_Pa=1e6,
+                pressure=1e6,
             )
 
         self.assertRaises(ValueError, test_missing_temperature_CO2)
@@ -665,8 +665,8 @@ class test_object_properties(unittest.TestCase):
             """checks a ValueError is raised when the temperature is not set"""
 
             test_material = nmm.Material("H2O",
-                                         temperature_in_C=10,
-                                         pressure_in_Pa=-1e6)
+                                         temperature=283,
+                                         pressure=-1e6)
             test_material.material_name = 1
 
         self.assertRaises(ValueError, test_incorrect_material_name_type)
@@ -719,23 +719,14 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, test_incorrect_volume_of_unit_cell_cm3)
 
-        def test_incorrect_temperature_in_c():
+        def test_incorrect_temperature():
             """checks a ValueError is raised when the temperature is not set"""
 
             nmm.Material(
                 "eurofer",
-                temperature_in_C=-1000.)
+                temperature=-1.)
 
-        self.assertRaises(ValueError, test_incorrect_temperature_in_c)
-
-        def test_incorrect_temperature_in_k():
-            """checks a ValueError is raised when the temperature is not set"""
-
-            nmm.Material(
-                "eurofer",
-                temperature_in_K=-1.)
-
-        self.assertRaises(ValueError, test_incorrect_temperature_in_k)
+        self.assertRaises(ValueError, test_incorrect_temperature)
 
         def test_incorrect_zaid_suffix_type():
             """checks a ValueError is raised when the temperature is not set"""
@@ -814,16 +805,16 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, test_enrichment_too_low)
 
-        def test_pressure_in_Pa_too_low():
-            """checks a ValueError is raised when the pressure_in_Pa is the
+        def test_pressure_too_low():
+            """checks a ValueError is raised when the pressure is the
             too small"""
 
             nmm.Material(
                 "Li4SiO4",
-                pressure_in_Pa=-1
+                pressure=-1
             )
 
-        self.assertRaises(ValueError, test_pressure_in_Pa_too_low)
+        self.assertRaises(ValueError, test_pressure_too_low)
 
         def test_reference_wrong_type():
             """checks a ValueError is raised when the reference is the
@@ -960,12 +951,12 @@ class test_object_properties(unittest.TestCase):
 
     def test_json_dump_works(self):
         test_material = nmm.Material(
-            "H2O", temperature_in_C=100, pressure_in_Pa=1e6)
+            "H2O", temperature=373, pressure=1e6)
         assert isinstance(json.dumps(test_material), str)
 
     def test_json_dump_contains_correct_keys(self):
         test_material = nmm.Material(
-            "H2O", temperature_in_C=100, pressure_in_Pa=1e6)
+            "H2O", temperature=373, pressure=1e6)
         test_material_in_json_form = test_material.to_json()
 
         assert "atoms_per_unit_cell" in test_material_in_json_form.keys()
@@ -981,19 +972,19 @@ class test_object_properties(unittest.TestCase):
         assert "material_tag" in test_material_in_json_form.keys()
         assert "packing_fraction" in test_material_in_json_form.keys()
         assert "percent_type" in test_material_in_json_form.keys()
-        assert "pressure_in_Pa" in test_material_in_json_form.keys()
+        assert "pressure" in test_material_in_json_form.keys()
         assert "reference" in test_material_in_json_form.keys()
-        assert "temperature_in_C" in test_material_in_json_form.keys()
-        assert "temperature_in_K" in test_material_in_json_form.keys()
+        assert "temperature" in test_material_in_json_form.keys()
+        assert "temperature" in test_material_in_json_form.keys()
         assert "volume_of_unit_cell_cm3" in test_material_in_json_form.keys()
 
     def test_json_dump_contains_correct_values(self):
         test_material = nmm.Material(
-            "H2O", temperature_in_C=100, pressure_in_Pa=1e6)
+            "H2O", temperature=373, pressure=1e6)
         test_material_in_json_form = test_material.to_json()
 
-        assert test_material_in_json_form["pressure_in_Pa"] == 1e6
-        assert test_material_in_json_form["temperature_in_C"] == 100
+        assert test_material_in_json_form["pressure"] == 1e6
+        assert test_material_in_json_form["temperature"] == 373
         assert test_material_in_json_form["material_name"] == "H2O"
 
     def test_temperature_from_C_in_materials(self):
@@ -1002,17 +993,16 @@ class test_object_properties(unittest.TestCase):
 
         test_material = nmm.Material(
             'H2O',
-            temperature_in_C=10,
-            pressure_in_Pa=15.5e6
+            temperature=383,
+            pressure=15.5e6
         )
 
-        assert test_material.temperature_in_K == 283.15
-        assert test_material.temperature_in_C == 10
-        assert test_material.openmc_material.temperature == 283.15
+        assert test_material.temperature == 383
+        assert test_material.openmc_material.temperature == 383
 
         line_by_line_material = test_material.serpent_material.split("\n")
 
-        assert line_by_line_material[0].split()[-1] == "283.15"
+        assert line_by_line_material[0].split()[-1] == "383"
         assert line_by_line_material[0].split()[-2] == "tmp"
 
     def test_temperature_from_K_in_materials(self):
@@ -1021,12 +1011,11 @@ class test_object_properties(unittest.TestCase):
 
         test_material = nmm.Material(
             'H2O',
-            temperature_in_K=300,
-            pressure_in_Pa=15.5e6
+            temperature=300,
+            pressure=15.5e6
         )
 
-        assert test_material.temperature_in_K == 300
-        assert test_material.temperature_in_C == pytest.approx(26.85)
+        assert test_material.temperature == 300
         assert test_material.openmc_material.temperature == 300
 
         line_by_line_material = test_material.serpent_material.split("\n")
@@ -1052,8 +1041,8 @@ class test_object_properties(unittest.TestCase):
         with pytest.raises(NameError):
             nmm.Material(
                 "BadMaterial",
-                temperature_in_C=100,
-                pressure_in_Pa=1e6,
+                temperature=373,
+                pressure=1e6,
                 density_equation="os.system('ls')"
             )
 

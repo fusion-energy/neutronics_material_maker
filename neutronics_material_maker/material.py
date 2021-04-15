@@ -54,7 +54,7 @@ class Material:
     collection of prepared materials. Modifiers to the material
     isotopes are applied according to arguments such
     as enrichment. Modifiers to the material density are applied
-    according to arguments like temperature_in_C and pressure_in_Pa
+    according to arguments like temperature and pressure
     where appropiate (gases, liquids). The collection of materials
     includes relationships between presure, temperature and density
     relationships. This allows the code to adjust the density of the
@@ -84,15 +84,7 @@ class Material:
             possible to use this when making materials not included in the
             reference collection but an enrichment_target must also be provided.
         enrichment_target: The isotope to enrich e.g. Li6
-        temperature_in_C: The temperature of the material in degrees
-            Celsius. Temperature impacts the density of some materials in the
-            collection. Materials in the collection that are impacted by
-            temperature have density equations that depend on temperature.
-            These tend to be liquids and gases used for coolants and even
-            liquids such as lithium-lead and FLiBe that are used as a breeder
-            materials. Convered to K and added to the openmc material object
-            and the serpent material card.
-        temperature_in_K: The temperature of the material in degrees
+        temperature: The temperature of the material in degrees
             Kelvin. Temperature impacts the density of some materials in the
             collection. Materials in the collection that are impacted by
             temperature have density equations that depend on temperature.
@@ -110,12 +102,11 @@ class Material:
             openmc and serpent materials. As shift materials require the use of
             temperature and fispact/mcnp materials don't make use of
             temperature on the material card.
-        pressure_in_Pa: The pressure of the material in Pascals
-            Pressure impacts the density of some materials in the
-            collection. Materials in the collection that are impacted by
-            pressure have density equations that depend on pressure.
-            These tend to be liquids and gases used for coolants such as
-            H2O and CO2.
+        pressure: The pressure of the material in Pascals. Pressure impacts the
+            density of some materials in the collection. Materials in the
+            collection that are impacted by pressure have density equations
+            that depend on pressure. These tend to be liquids and gases used
+            for coolants such as H2O and CO2.
         zaid_suffix: The nuclear library to apply to the zaid, for
             example ".31c", this is used in MCNP and Serpent material cards.
         material_id: the id number or mat number used in the MCNP material card
@@ -137,7 +128,7 @@ class Material:
         density_unit: the units of density "g/cm3", "g/cc", "kg/m3",
             "atom/b-cm", "atom/cm3"
         density_equation: An equation to be evaluated to find the density,
-            can contain temperature_in_C, temperature_in_K and pressure_in_Pa
+            can contain temperature and pressure
             variables as part of the equation.
         atoms_per_unit_cell: The number of atoms in a unit cell of the
             crystal structure
@@ -163,10 +154,9 @@ class Material:
         material_tag: Optional[str] = None,
         enrichment: Optional[float] = None,
         enrichment_target: Optional[str] = None,
-        temperature_in_C: Optional[float] = None,
-        temperature_in_K: Optional[float] = None,
+        temperature: Optional[float] = None,
         temperature_to_neutronics_code: Optional[bool] = True,
-        pressure_in_Pa: Optional[float] = None,
+        pressure: Optional[float] = None,
         elements: Optional[Dict[str, float]] = None,
         chemical_equation: Optional[str] = None,
         isotopes: Optional[Dict[str, float]] = None,
@@ -187,10 +177,9 @@ class Material:
 
         self.material_name = material_name
         self.material_tag = material_tag
-        self.temperature_in_C = temperature_in_C
-        self.temperature_in_K = temperature_in_K
+        self.temperature = temperature
         self.temperature_to_neutronics_code = temperature_to_neutronics_code
-        self.pressure_in_Pa = pressure_in_Pa
+        self.pressure = pressure
         self.packing_fraction = packing_fraction
         self.elements = elements
         self.chemical_equation = chemical_equation
@@ -239,34 +228,28 @@ class Material:
 
             if "temperature_dependant" in material_dict[self.material_name].keys(
             ):
-                if temperature_in_K is None and temperature_in_C is None:
+                if temperature is None:
                     if self.material_name == "He":
                         raise ValueError(
-                            "temperature_in_K or temperature_in_C is needed for",
+                            "temperature is needed for",
                             self.material_name,
-                            ". Typical helium cooled blankets are 400C and 8e6Pa",
+                            ". Typical helium cooled blankets are 670K and 8e6Pa",
                         )
                     elif self.material_name == "H2O":
                         raise ValueError(
-                            "temperature_in_K or temperature_in_C is needed for",
+                            "temperature is needed for",
                             self.material_name,
                             ". Typical water cooled blankets are 305C and 15.5e6Pa",
                         )
                     raise ValueError(
-                        "temperature_in_K or temperature_in_C is needed for",
-                        self.material_name,
+                        "temperature is needed for", self.material_name
                     )
-                else:
-                    if temperature_in_K is None:
-                        self.temperature_in_K = temperature_in_C + 273.15
-                    if temperature_in_C is None:
-                        self.temperature_in_C = temperature_in_K - 273.15
 
             if "pressure_dependant" in material_dict[self.material_name].keys(
             ):
-                if pressure_in_Pa is None:
+                if pressure is None:
                     raise ValueError(
-                        "pressure_in_Pa is needed for",
+                        "pressure is needed for",
                         self.material_name)
 
         # this populates the density of materials when density is provided by
@@ -317,8 +300,7 @@ class Material:
             str: A Serpent material card
         """
 
-        self._serpent_material = make_serpent_material(self)
-        return self._serpent_material
+        return make_serpent_material(self)
 
     @serpent_material.setter
     def serpent_material(self, value):
@@ -333,8 +315,8 @@ class Material:
         Returns:
             str: A MCNP material card
         """
-        self._mcnp_material = make_mcnp_material(self)
-        return self._mcnp_material
+
+        return make_mcnp_material(self)
 
     @mcnp_material.setter
     def mcnp_material(self, value):
@@ -343,15 +325,15 @@ class Material:
     @property
     def shift_material(self):
         """Creates a a Shift version of the Material with '\n' as line endings.
-        Requires the Material.material_id and Material.temperature_in_K to be
-        set. Decimal places can be controlled with the Material.deicmal_places
+        Requires the Material.material_id and Material.temperature to be set.
+        Decimal places can be controlled with the Material.deicmal_places
         attribute.
 
         Returns:
             str: A Shift material card
         """
-        self._shift_material = make_shift_material(self)
-        return self._shift_material
+
+        return make_shift_material(self)
 
     @shift_material.setter
     def shift_material(self, value):
@@ -365,8 +347,8 @@ class Material:
         Returns:
             str: A FISPACT material card
         """
-        self._fispact_material = make_fispact_material(self)
-        return self._fispact_material
+
+        return make_fispact_material(self)
 
     @fispact_material.setter
     def fispact_material(self, value):
@@ -564,39 +546,21 @@ class Material:
         self._volume_of_unit_cell_cm3 = value
 
     @property
-    def temperature_in_K(self):
+    def temperature(self):
         """
         The temperature of the material in Kelvin
 
         :type: float
         """
-        return self._temperature_in_K
+        return self._temperature
 
-    @temperature_in_K.setter
-    def temperature_in_K(self, value):
+    @temperature.setter
+    def temperature(self, value):
         if value is not None:
             if value < 0.0:
                 raise ValueError(
-                    "Material.temperature_in_K must be greater than 0")
-        self._temperature_in_K = value
-
-    @property
-    def temperature_in_C(self):
-        """
-        The temperature of the material in Celsius
-
-        :type: float
-        """
-        return self._temperature_in_C
-
-    @temperature_in_C.setter
-    def temperature_in_C(self, value):
-        if value is not None:
-            if value < -273.15:
-                raise ValueError(
-                    "Material.temperature_in_C must be greater than -273.15"
-                )
-        self._temperature_in_C = value
+                    "Material.temperature must be greater than 0")
+        self._temperature = value
 
     @property
     def density(self):
@@ -657,23 +621,23 @@ class Material:
         self._enrichment_target = value
 
     @property
-    def pressure_in_Pa(self):
+    def pressure(self):
         """
         The pressure of the material in Pascals. Must be a possive number. Used
         to calculate the density if the density_equation contains
-        pressure_in_Pa.
+        pressure.
 
         :type: float
         """
-        return self._pressure_in_Pa
+        return self._pressure
 
-    @pressure_in_Pa.setter
-    def pressure_in_Pa(self, value):
+    @pressure.setter
+    def pressure(self, value):
         if value is not None:
             if value < 0.0:
                 raise ValueError(
-                    "Material.pressure_in_Pa must be greater than 0")
-        self._pressure_in_Pa = value
+                    "Material.pressure must be greater than 0")
+        self._pressure = value
 
     @property
     def reference(self):
@@ -769,7 +733,7 @@ class Material:
                 name=name)
 
         if self.temperature_to_neutronics_code is True:
-            openmc_material.temperature = self.temperature_in_K
+            openmc_material.temperature = self.temperature
 
         if self.isotopes is not None:
 
@@ -820,26 +784,18 @@ class Material:
             ]
 
         if (
-            self.temperature_in_C is None
-            and "temperature_in_C" in material_dict[self.material_name].keys()
+            self.temperature is None
+            and "temperature" in material_dict[self.material_name].keys()
         ):
-            self.temperature_in_C = material_dict[self.material_name][
-                "temperature_in_C"
+            self.temperature = material_dict[self.material_name][
+                "temperature"
             ]
 
         if (
-            self.temperature_in_K is None
-            and "temperature_in_K" in material_dict[self.material_name].keys()
+            self.pressure is None
+            and "pressure" in material_dict[self.material_name].keys()
         ):
-            self.temperature_in_K = material_dict[self.material_name][
-                "temperature_in_K"
-            ]
-
-        if (
-            self.pressure_in_Pa is None
-            and "pressure_in_Pa" in material_dict[self.material_name].keys()
-        ):
-            self.pressure_in_Pa = material_dict[self.material_name]["pressure_in_Pa"]
+            self.pressure = material_dict[self.material_name]["pressure"]
 
         if (
             self.packing_fraction is None
@@ -1016,9 +972,8 @@ class Material:
                 aeval = asteval.Interpreter(usersyms=asteval_user_symbols)
 
                 # Potentially used in the eval part
-                aeval.symtable["temperature_in_K"] = self.temperature_in_K
-                aeval.symtable["temperature_in_C"] = self.temperature_in_C
-                aeval.symtable["pressure_in_Pa"] = self.pressure_in_Pa
+                aeval.symtable["temperature"] = self.temperature
+                aeval.symtable["pressure"] = self.pressure
 
                 density = aeval.eval(self.density_equation)
 
@@ -1089,9 +1044,8 @@ class Material:
         jsonified_object = {
             "material_name": self.material_name,
             "material_tag": self.material_tag,
-            "temperature_in_C": self.temperature_in_C,
-            "temperature_in_K": self.temperature_in_K,
-            "pressure_in_Pa": self.pressure_in_Pa,
+            "temperature": self.temperature,
+            "pressure": self.pressure,
             "packing_fraction": self.packing_fraction,
             "elements": self.elements,
             "chemical_equation": self.chemical_equation,
