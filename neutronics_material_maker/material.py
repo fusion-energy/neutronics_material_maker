@@ -7,7 +7,7 @@ import os
 import re
 import warnings
 from json import JSONEncoder
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Union
 import asteval
 from CoolProp.CoolProp import PropsSI
 
@@ -150,7 +150,7 @@ class Material:
     def __init__(
         self,
         material_name: Optional[str] = None,
-        packing_fraction: Optional[float] = 1.0,
+        packing_fraction: Optional[float] = 1.,
         material_tag: Optional[str] = None,
         enrichment: Optional[float] = None,
         enrichment_target: Optional[str] = None,
@@ -1036,6 +1036,69 @@ class Material:
                     list_of_fractions.append(1)
         self.list_of_fractions = list_of_fractions
         return sum(list_of_fractions)
+
+    #TODO
+    # def from_library(
+    #     name:
+    #     library:
+    # ):
+
+    def from_mixture(
+        materials,
+        fracs: List[float],
+        percent_type: Optional[str] = "vo",
+        material_name: Optional[str] = None,
+        packing_fraction: Optional[float] = 1.,
+        material_tag: Optional[str] = None,
+        temperature: Optional[float] = None,
+        temperature_to_neutronics_code: Optional[bool] = True,
+        reference: Optional[str] = None,
+        zaid_suffix: Optional[str] = None,
+        material_id: Optional[int] = None,
+        decimal_places: Optional[int] = 8,
+        volume_in_cm3: Optional[float] = None,
+        additional_end_lines: Optional[Dict[str, List[str]]] = None,
+    ):
+
+        openmc_material_objects = []
+        for material in materials:
+            if isinstance(material, openmc.Material):
+                openmc_material_objects.append(material)
+            elif isinstance(material, Material):
+                openmc_material_objects.append(material.openmc_material)
+            else:
+                raise ValueError(
+                    "only openmc.Material or neutronics_material_maker. \
+                    Materials are accepted. Not", type(material),
+                )
+
+        openmc_material = openmc.Material.mix_materials(
+            materials=openmc_material_objects,
+            fracs=fracs,
+            percent_type=percent_type,
+        )
+
+        isotopes = {}
+        for nuclide in openmc_material.nuclides:
+            isotopes[nuclide.name] = nuclide.percent
+  
+        return Material(
+            percent_type=nuclide.percent_type,
+            isotopes=isotopes,
+            density=openmc_material.get_mass_density(),
+            density_unit='g/cm3',
+            packing_fraction=packing_fraction,
+            material_tag=material_tag,
+            material_name=material_name,
+            temperature=temperature,
+            temperature_to_neutronics_code=temperature_to_neutronics_code,
+            reference=reference,
+            zaid_suffix=zaid_suffix,
+            material_id=material_id,
+            decimal_places=decimal_places,
+            volume_in_cm3=volume_in_cm3,
+            additional_end_lines=additional_end_lines,
+        )
 
     def to_json(self) -> dict:
         """

@@ -4,7 +4,6 @@
         "density_equation": "0.515 - 1.01e-4 * (temperature + 273.15 - 200)",
         "density_unit": "g/cm3",
         "reference": "http://aries.ucsd.edu/LIB/PROPS/PANOS/li.html",
-        "temperature_dependant": true,
         "percent_type": "ao",
         "enrichment_target":"Li6",
         "enrichment_type":"ao"
@@ -13,7 +12,6 @@
         "chemical_equation": "FLiNaK",
         "density": 2.1,
         "density_unit":"g/cm3",
-        "enrichable": true,
         "reference": "Based on chemical formula",
         "percent_type": "ao",
         "enrichment_target":"Li6",

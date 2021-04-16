@@ -12,4 +12,3 @@ from .utils import check_add_additional_end_lines
 from .utils import NATURAL_ABUNDANCE
 
 from .material import Material
-from .mutlimaterial import MultiMaterial

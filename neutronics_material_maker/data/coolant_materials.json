@@ -4,8 +4,6 @@
         "density_equation": "PropsSI('D', 'T', temperature, 'P', pressure, 'Helium')",
         "density_unit": "kg/m3",
         "reference": "CoolProp python package for density equation",
-        "temperature_dependant": true,
-        "pressure_dependant": true,
         "percent_type": "ao"
     },
     "H2O": {
@@ -13,8 +11,6 @@
         "density_equation": "PropsSI('D', 'T', temperature, 'P', pressure, 'Water')/1000.",
         "density_unit": "g/cm3",
         "reference": "CoolProp python package",
-        "temperature_dependant": true,
-        "pressure_dependant": true,
         "percent_type": "ao"
     },
     "D2O": {
@@ -31,8 +27,6 @@
         "density_equation": "PropsSI('D', 'T', temperature, 'P', pressure, 'CO2')/1000.",
         "density_unit": "g/cm3",
         "reference": "CoolProp python package",
-        "temperature_dependant": true,
-        "pressure_dependant": true,
         "percent_type": "ao"
     },
     "nitrogen": {
@@ -40,8 +34,6 @@
         "density_equation": "PropsSI('D', 'T', temperature, 'P', pressure, 'nitrogen')/1000.",
         "density_unit": "g/cm3",
         "reference": "CoolProp python package",
-        "temperature_dependant": true,
-        "pressure_dependant": true,
         "percent_type": "ao"
     },
     "argon": {
@@ -49,8 +41,6 @@
         "density_equation": "PropsSI('D', 'T', temperature, 'P', pressure, 'argon')/1000.",
         "density_unit": "g/cm3",
         "reference": "CoolProp python package",
-        "temperature_dependant": true,
-        "pressure_dependant": true,
         "percent_type": "ao"
     },
     "xenon": {
@@ -58,8 +48,6 @@
         "density_equation": "PropsSI('D', 'T', temperature, 'P', pressure, 'xenon')/1000.",
         "density_unit": "g/cm3",
         "reference": "CoolProp python package",
-        "temperature_dependant": true,
-        "pressure_dependant": true,
         "percent_type": "ao"
     }
 }
