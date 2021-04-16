@@ -217,15 +217,15 @@ def make_fispact_material(mat) -> str:
 def make_serpent_material(mat) -> str:
     """Returns the material in a string compatable with Serpent II"""
 
-    if mat.material_tag is None:
-        name = mat.material_name
-    else:
-        name = mat.material_tag
-
     if mat.zaid_suffix is None:
         zaid_suffix = ""
     else:
         zaid_suffix = mat.zaid_suffix
+
+    if mat.name is None:
+        name = ''
+    else:
+        name = mat.name
 
     mat_card = ["mat " + name + " " +
                 str(mat.openmc_material.get_mass_density())]
@@ -260,15 +260,15 @@ def make_mcnp_material(mat) -> str:
             "Material.material_id needs setting before mcnp_material can be made"
         )
 
-    if mat.material_tag is None:
-        name = mat.material_name
-    else:
-        name = mat.material_tag
-
     if mat.zaid_suffix is None:
         zaid_suffix = ""
     else:
         zaid_suffix = mat.zaid_suffix
+
+    if mat.name is None:
+        name=''
+    else:
+        name = mat.name
 
     mat_card = [
         "c     "
@@ -315,14 +315,9 @@ def make_shift_material(mat) -> str:
             "Material.temperature needs setting before shift_material can be made"
         )
 
-    if mat.material_tag is None:
-        name = mat.material_name
-    else:
-        name = mat.material_tag
-
     mat_card = [
         "[COMP][MATERIAL]\n"
-        + "name %s\n" % name
+        + "name %s\n" % mat.name
         + "matid %s\n" % mat.material_id
         + "tmp %s" % mat.temperature
     ]
@@ -359,12 +354,7 @@ def zaid_to_isotope(zaid: str) -> str:
 def AddMaterialFromDir(directory: str, verbose: bool = True):
     """Add materials to the internal library from a directory of json files"""
     for filename in Path(directory).rglob("*.json"):
-        with open(filename, "r") as f:
-            new_data = json.load(f)
-            material_dict.update(new_data)
-        if verbose:
-            print("Added materials to library from", filename)
-            print(sorted(list(new_data.keys())), "\n")
+        AddMaterialFromFile(filename, verbose)
 
 
 def AddMaterialFromFile(filename: str, verbose: Optional[bool] = True) -> None:
