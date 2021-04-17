@@ -688,8 +688,7 @@ class Material:
                 "Material.enrichment are all needed to enrich a material"
             )
 
-        else:
-            return None
+        return None
 
     def _add_elements_from_equation(self, openmc_material):
         """Adds elements from a dictionary or chemical equation to the Material"""
@@ -858,8 +857,8 @@ class Material:
         **kwargs
     ):
 
-        with open(filename, "r") as f:
-            new_data = json.load(f)
+        with open(filename, "r") as file:
+            new_data = json.load(file)
 
         print(new_data)
         print(new_data.keys())
@@ -884,16 +883,15 @@ class Material:
                 'name of ', name, 'not found in the internal library'
             )
 
-        else:
-            entry = material_dict[name].copy()
+        entry = material_dict[name].copy()
 
-            # customisation of the library entry
-            for key, value in kwargs.items():
-                entry[key] = value
+        # customisation of the library entry
+        for key, value in kwargs.items():
+            entry[key] = value
 
-            print(entry)
+        print(entry)
 
-            return Material(name=name, **entry)
+        return Material(name=name, **entry)
 
     def from_mixture(
         materials,

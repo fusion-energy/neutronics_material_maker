@@ -133,29 +133,29 @@ class test_object_properties(unittest.TestCase):
         assert "Li7" in test_mat.openmc_material.get_nuclides()
 
     def test_iron_density(self):
-        a = nmm.Material.from_library("Iron")
-        assert a.openmc_material.density == 7.874
+        test_mat = nmm.Material.from_library("Iron")
+        assert test_mat.openmc_material.density == 7.874
 
-        a = nmm.Material.from_library("Iron")
-        serpent_density = a.serpent_material.split("\n")[0].split()[2]
+        test_mat = nmm.Material.from_library("Iron")
+        serpent_density = test_mat.serpent_material.split("\n")[0].split()[2]
         assert float(serpent_density) == pytest.approx(7.874)
 
-        a = nmm.Material.from_library("Iron", material_id=45)
-        mcnp_density = a.mcnp_material.split("\n")[0].split()[3]
+        test_mat = nmm.Material.from_library("Iron", material_id=45)
+        mcnp_density = test_mat.mcnp_material.split("\n")[0].split()[3]
         assert float(mcnp_density) == pytest.approx(7.874)
 
-        a = nmm.Material.from_library("Iron", volume_in_cm3=100)
-        fispact_density = a.fispact_material.split("\n")[0].split()[1]
+        test_mat = nmm.Material.from_library("Iron", volume_in_cm3=100)
+        fispact_density = test_mat.fispact_material.split("\n")[0].split()[1]
         assert float(fispact_density) == pytest.approx(7.874)
 
     def test_fispact_material(self):
-        a = nmm.Material.from_library("Li4SiO4", volume_in_cm3=1.0)
-        line_by_line_material = a.fispact_material.split("\n")
+        test_mat = nmm.Material.from_library("Li4SiO4", volume_in_cm3=1.0)
+        line_by_line_material = test_mat.fispact_material.split("\n")
 
         assert len(line_by_line_material) == 10
-        assert a.fispact_material.split(
+        assert test_mat.fispact_material.split(
             "\n")[0].startswith("DENSITY 2.31899993235464")
-        assert a.fispact_material.split("\n")[1] == "FUEL 8"
+        assert test_mat.fispact_material.split("\n")[1] == "FUEL 8"
         assert "Li6 3.537400925715E+21" in line_by_line_material
         assert "Li7 4.307481314353E+22" in line_by_line_material
         assert "Si28 1.074757396925E+22" in line_by_line_material
@@ -166,8 +166,8 @@ class test_object_properties(unittest.TestCase):
         assert "O18 9.324307302413E+19" in line_by_line_material
 
     def test_fispact_material_with_volume(self):
-        a = nmm.Material.from_library("Li4SiO4", volume_in_cm3=2.0)
-        line_by_line_material = a.fispact_material.split("\n")
+        test_mat = nmm.Material.from_library("Li4SiO4", volume_in_cm3=2.0)
+        line_by_line_material = test_mat.fispact_material.split("\n")
 
         assert len(line_by_line_material) == 10
         assert line_by_line_material[0].startswith("DENSITY 2.31899993235464")
