@@ -30,7 +30,8 @@ class test_object_properties(unittest.TestCase):
         selectivly propagated to the openmc_material and that the density
         remains unchanged"""
 
-        test_mat = nmm.Material.from_library("FLiBe", temperature=80, pressure=1)
+        test_mat = nmm.Material.from_library(
+            "FLiBe", temperature=80, pressure=1)
 
         assert test_mat.temperature == 80
         assert test_mat.openmc_material.temperature == 80
@@ -72,7 +73,8 @@ class test_object_properties(unittest.TestCase):
         assert test_mat.openmc_material.density == test_mat_2.openmc_material.density
 
     def test_density_of_material_is_set_from_equation(self):
-        test_mat = nmm.Material.from_library("FLiBe", temperature=80, pressure=1)
+        test_mat = nmm.Material.from_library(
+            "FLiBe", temperature=80, pressure=1)
         assert test_mat.density is not None
 
     def test_density_of_material_is_set_from_crystal(self):
@@ -663,8 +665,8 @@ class test_object_properties(unittest.TestCase):
             """checks a ValueError is raised when the temperature is not set"""
 
             test_material = nmm.Material.from_library("H2O",
-                                         temperature=283,
-                                         pressure=-1e6)
+                                                      temperature=283,
+                                                      pressure=-1e6)
             test_material.name = 1
 
         self.assertRaises(ValueError, test_incorrect_name_type)
@@ -957,7 +959,8 @@ class test_object_properties(unittest.TestCase):
             name="H2O", temperature=373, pressure=1e6)
         test_material_in_json_form = test_material.to_json()
 
-        assert "atoms_per_unit_cell" in test_material_in_json_form['H2O'].keys()
+        assert "atoms_per_unit_cell" in test_material_in_json_form['H2O'].keys(
+        )
         assert "density" in test_material_in_json_form['H2O'].keys()
         assert "density_unit" in test_material_in_json_form['H2O'].keys()
         assert "chemical_equation" in test_material_in_json_form['H2O'].keys()
@@ -971,7 +974,8 @@ class test_object_properties(unittest.TestCase):
         assert "reference" in test_material_in_json_form['H2O'].keys()
         assert "temperature" in test_material_in_json_form['H2O'].keys()
         assert "temperature" in test_material_in_json_form['H2O'].keys()
-        assert "volume_of_unit_cell_cm3" in test_material_in_json_form['H2O'].keys()
+        assert "volume_of_unit_cell_cm3" in test_material_in_json_form['H2O'].keys(
+        )
 
     def test_json_dump_contains_correct_values(self):
         test_material = nmm.Material.from_library(

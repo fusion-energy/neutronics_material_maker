@@ -205,7 +205,8 @@ class Material:
                 "Material.chemical_equation and Material.elements can not both be set"
             )
 
-        # It should also be possible to ininitialize nmm.Material without OpenMC
+        # It should also be possible to ininitialize nmm.Material without
+        # OpenMC
         if OPENMC_AVAILABLE:
             self._make_openmc_material()
 
@@ -690,7 +691,6 @@ class Material:
         else:
             return None
 
-
     def _add_elements_from_equation(self, openmc_material):
         """Adds elements from a dictionary or chemical equation to the Material"""
 
@@ -782,7 +782,9 @@ class Material:
                     "Material.temperature is needed to calculate the density")
 
             if "pressure" in self.density and self.pressure is None:
-                raise ValueError("Material.pressure is needed to calculate the density")
+                raise ValueError(
+                    "Material.pressure is needed to calculate the density"
+                )
 
             # Potentially used in the eval part
             aeval.symtable["temperature"] = self.temperature
@@ -868,13 +870,13 @@ class Material:
         for key, value in kwargs.items():
             entry[key] = value
 
-        return Material(name = name, **entry)
+        return Material(name=name, **entry)
 
     def from_library(
         name: str,
         **kwargs
     ):
-        # TODO allow discreat libraries to be searched library: List('str') 
+        # TODO allow discreat libraries to be searched library: List('str')
 
         if name not in material_dict.keys():
 
@@ -888,10 +890,10 @@ class Material:
             # customisation of the library entry
             for key, value in kwargs.items():
                 entry[key] = value
-            
+
             print(entry)
 
-            return Material(name = name, **entry)
+            return Material(name=name, **entry)
 
     def from_mixture(
         materials,
@@ -939,7 +941,7 @@ class Material:
         isotopes = {}
         for nuclide in openmc_material.nuclides:
             isotopes[nuclide.name] = nuclide.percent
-  
+
         return Material(
             percent_type=nuclide.percent_type,
             isotopes=isotopes,
@@ -983,7 +985,7 @@ class Material:
                 "material_id": self.material_id,
                 "decimal_places": self.decimal_places,
                 "volume_in_cm3": self.volume_in_cm3,
-                }
+            }
         }
 
         return jsonified_object

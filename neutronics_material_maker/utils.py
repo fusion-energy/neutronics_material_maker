@@ -266,7 +266,7 @@ def make_mcnp_material(mat) -> str:
         zaid_suffix = mat.zaid_suffix
 
     if mat.name is None:
-        name=''
+        name = ''
     else:
         name = mat.name
 

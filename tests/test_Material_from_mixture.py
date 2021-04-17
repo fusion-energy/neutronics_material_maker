@@ -16,8 +16,12 @@ class test_object_properties(unittest.TestCase):
 
         test_material = nmm.Material.from_mixture(
             name="test_material",
-            materials=[nmm.Material.from_library("Li4SiO4"), nmm.Material.from_library("Be12Ti")],
-            fracs=[0.50, 0.50],
+            materials=[
+                nmm.Material.from_library("Li4SiO4"),
+                nmm.Material.from_library("Be12Ti")],
+            fracs=[
+                0.50,
+                0.50],
             percent_type="vo",
         )
 
@@ -28,8 +32,12 @@ class test_object_properties(unittest.TestCase):
 
         test_material = nmm.Material.from_mixture(
             name="test_material",
-            materials=[nmm.Material.from_library("Li4SiO4"), nmm.Material.from_library("Be12Ti")],
-            fracs=[0.50, 0.50],
+            materials=[
+                nmm.Material.from_library("Li4SiO4"),
+                nmm.Material.from_library("Be12Ti")],
+            fracs=[
+                0.50,
+                0.50],
             percent_type="vo",
             material_id=2,
         )
@@ -41,8 +49,12 @@ class test_object_properties(unittest.TestCase):
 
         test_material = nmm.Material.from_mixture(
             name="test_material",
-            materials=[nmm.Material.from_library("Li4SiO4"), nmm.Material.from_library("Be12Ti")],
-            fracs=[0.50, 0.50],
+            materials=[
+                nmm.Material.from_library("Li4SiO4"),
+                nmm.Material.from_library("Be12Ti")],
+            fracs=[
+                0.50,
+                0.50],
             percent_type="vo",
             temperature=300,
             material_id=2,
@@ -55,8 +67,12 @@ class test_object_properties(unittest.TestCase):
 
         test_material = nmm.Material.from_mixture(
             name="test_material",
-            materials=[nmm.Material.from_library("Li4SiO4"), nmm.Material.from_library("Be12Ti")],
-            fracs=[0.50, 0.50],
+            materials=[
+                nmm.Material.from_library("Li4SiO4"),
+                nmm.Material.from_library("Be12Ti")],
+            fracs=[
+                0.50,
+                0.50],
             percent_type="vo",
             volume_in_cm3=20,
         )
@@ -70,8 +86,12 @@ class test_object_properties(unittest.TestCase):
 
         test_material = nmm.Material.from_mixture(
             name="test_material",
-            materials=[nmm.Material.from_library("Li4SiO4"), nmm.Material.from_library("Be12Ti")],
-            fracs=[0.50, 0.50],
+            materials=[
+                nmm.Material.from_library("Li4SiO4"),
+                nmm.Material.from_library("Be12Ti")],
+            fracs=[
+                0.50,
+                0.50],
             percent_type="vo",
         )
 
@@ -131,8 +151,12 @@ class test_object_properties(unittest.TestCase):
 
         test_material_1 = nmm.Material.from_mixture(
             name="test_material_1",
-            materials=[nmm.Material.from_library("Li4SiO4"), nmm.Material.from_library("Be12Ti")],
-            fracs=[0.5, 0.5],
+            materials=[
+                nmm.Material.from_library("Li4SiO4"),
+                nmm.Material.from_library("Be12Ti")],
+            fracs=[
+                0.5,
+                0.5],
             percent_type="vo",
         ).openmc_material
 
@@ -265,8 +289,12 @@ class test_object_properties(unittest.TestCase):
 
         test_material_5 = nmm.Material.from_mixture(
             name="test_material_5",
-            materials=[nmm.Material.from_library("tungsten"), nmm.Material.from_library("eurofer")],
-            fracs=[0.5, 0.5],
+            materials=[
+                nmm.Material.from_library("tungsten"),
+                nmm.Material.from_library("eurofer")],
+            fracs=[
+                0.5,
+                0.5],
         ).openmc_material
 
         test_material_6 = nmm.Material.from_mixture(
@@ -330,26 +358,20 @@ class test_object_properties(unittest.TestCase):
         )
 
         test_material_9 = openmc.Material.mix_materials(
-            name="test_material_9",
-            materials=[
-                nmm.Material.from_library("tungsten", packing_fraction=1).openmc_material,
-                nmm.Material.from_library("eurofer", packing_fraction=1).openmc_material,
-            ],
-            fracs=[0.5, 0.5],
-            percent_type="vo",
-        )
+            name="test_material_9", materials=[
+                nmm.Material.from_library(
+                    "tungsten", packing_fraction=1).openmc_material, nmm.Material.from_library(
+                    "eurofer", packing_fraction=1).openmc_material, ], fracs=[
+                0.5, 0.5], percent_type="vo", )
 
         assert test_material_8.density == test_material_9.density
 
         test_material_10 = openmc.Material.mix_materials(
-            name="test_material_10",
-            materials=[
-                nmm.Material.from_library("tungsten", packing_fraction=0.5).openmc_material,
-                nmm.Material.from_library("eurofer", packing_fraction=0.5).openmc_material,
-            ],
-            fracs=[0.5, 0.5],
-            percent_type="vo",
-        )
+            name="test_material_10", materials=[
+                nmm.Material.from_library(
+                    "tungsten", packing_fraction=0.5).openmc_material, nmm.Material.from_library(
+                    "eurofer", packing_fraction=0.5).openmc_material, ], fracs=[
+                0.5, 0.5], percent_type="vo", )
 
         assert test_material_10.density == pytest.approx(
             test_material_8.density * 0.5)
@@ -358,8 +380,12 @@ class test_object_properties(unittest.TestCase):
 
         test_material_11 = nmm.Material.from_mixture(
             name="test_material_11",
-            materials=[nmm.Material.from_library("tungsten"), nmm.Material.from_library("eurofer")],
-            fracs=[0.5, 0.5],
+            materials=[
+                nmm.Material.from_library("tungsten"),
+                nmm.Material.from_library("eurofer")],
+            fracs=[
+                0.5,
+                0.5],
         ).openmc_material
 
         test_material_12 = openmc.Material.mix_materials(
@@ -372,7 +398,8 @@ class test_object_properties(unittest.TestCase):
             percent_type="vo",
         )
 
-        assert pytest.approx(test_material_11.density) == test_material_12.density
+        assert pytest.approx(
+            test_material_11.density) == test_material_12.density
 
         test_material_13 = nmm.Material.from_mixture(
             name="test_material_13",
@@ -384,16 +411,14 @@ class test_object_properties(unittest.TestCase):
         ).openmc_material
 
         test_material_14 = openmc.Material.mix_materials(
-            name="test_material_14",
-            materials=[
-                nmm.Material.from_library("tungsten", packing_fraction=0.6).openmc_material,
-                nmm.Material.from_library("eurofer", packing_fraction=0.8).openmc_material,
-            ],
-            fracs=[0.3, 0.7],
-            percent_type="vo",
-        )
+            name="test_material_14", materials=[
+                nmm.Material.from_library(
+                    "tungsten", packing_fraction=0.6).openmc_material, nmm.Material.from_library(
+                    "eurofer", packing_fraction=0.8).openmc_material, ], fracs=[
+                0.3, 0.7], percent_type="vo", )
 
-        assert pytest.approx(test_material_13.density) == test_material_14.density
+        assert pytest.approx(
+            test_material_13.density) == test_material_14.density
 
     def test_json_dump_works(self):
         test_material = nmm.Material.from_mixture(
@@ -418,8 +443,10 @@ class test_object_properties(unittest.TestCase):
         test_material_in_json_form = test_material.to_json()
 
         assert "test_material" in list(test_material_in_json_form.keys())
-        assert "percent_type" in test_material_in_json_form["test_material"].keys()
-        assert "packing_fraction" in test_material_in_json_form["test_material"].keys()
+        assert "percent_type" in test_material_in_json_form["test_material"].keys(
+        )
+        assert "packing_fraction" in test_material_in_json_form["test_material"].keys(
+        )
 
     def test_json_dump_contains_correct_values(self):
         test_material = nmm.Material.from_mixture(
@@ -441,13 +468,11 @@ class test_object_properties(unittest.TestCase):
             """checks a ValueError is raised when the fracs are above 1"""
 
             nmm.Material.from_mixture(
-                name="test_material",
-                materials=[
-                    nmm.Material.from_library("tungsten", packing_fraction=0.6),
-                    nmm.Material.from_library("eurofer", packing_fraction=0.8),
-                ],
-                fracs=[0.3, 0.75],
-            )
+                name="test_material", materials=[
+                    nmm.Material.from_library(
+                        "tungsten", packing_fraction=0.6), nmm.Material.from_library(
+                        "eurofer", packing_fraction=0.8), ], fracs=[
+                    0.3, 0.75], )
 
         with warnings.catch_warnings(record=True) as w:
             # Cause all warnings to always be triggered.
@@ -466,13 +491,11 @@ class test_object_properties(unittest.TestCase):
             """checks a ValueError is raised when the fracs are above 1"""
 
             nmm.Material.from_mixture(
-                name="test_material",
-                materials=[
-                    nmm.Material.from_library("tungsten", packing_fraction=0.6),
-                    nmm.Material.from_library("eurofer", packing_fraction=0.8),
-                ],
-                fracs=[0.3, 0.65],
-            )
+                name="test_material", materials=[
+                    nmm.Material.from_library(
+                        "tungsten", packing_fraction=0.6), nmm.Material.from_library(
+                        "eurofer", packing_fraction=0.8), ], fracs=[
+                    0.3, 0.65], )
 
         with warnings.catch_warnings(record=True) as w:
             # Cause all warnings to always be triggered.
@@ -492,14 +515,11 @@ class test_object_properties(unittest.TestCase):
             wrong type"""
 
             nmm.Material.from_mixture(
-                name="test_material",
-                materials=[
-                    nmm.Material.from_library("tungsten", packing_fraction=0.6),
-                    nmm.Material.from_library("eurofer", packing_fraction=0.8),
-                ],
-                fracs=[0.3, 0.7],
-                packing_fraction="1"
-            )
+                name="test_material", materials=[
+                    nmm.Material.from_library(
+                        "tungsten", packing_fraction=0.6), nmm.Material.from_library(
+                        "eurofer", packing_fraction=0.8), ], fracs=[
+                    0.3, 0.7], packing_fraction="1")
 
         self.assertRaises(ValueError, test_incorrect_packing_fraction)
 
@@ -508,14 +528,11 @@ class test_object_properties(unittest.TestCase):
             too large"""
 
             nmm.Material.from_mixture(
-                name="test_material",
-                materials=[
-                    nmm.Material.from_library("tungsten", packing_fraction=0.6),
-                    nmm.Material.from_library("eurofer", packing_fraction=0.8),
-                ],
-                fracs=[0.3, 0.7],
-                packing_fraction=1.1
-            )
+                name="test_material", materials=[
+                    nmm.Material.from_library(
+                        "tungsten", packing_fraction=0.6), nmm.Material.from_library(
+                        "eurofer", packing_fraction=0.8), ], fracs=[
+                    0.3, 0.7], packing_fraction=1.1)
 
         self.assertRaises(ValueError, test_too_large_packing_fraction)
 
@@ -524,14 +541,11 @@ class test_object_properties(unittest.TestCase):
             too large"""
 
             nmm.Material.from_mixture(
-                name="test_material",
-                materials=[
-                    nmm.Material.from_library("tungsten", packing_fraction=0.6),
-                    nmm.Material.from_library("eurofer", packing_fraction=0.8),
-                ],
-                fracs=[0.3, 0.7],
-                packing_fraction=-0.1
-            )
+                name="test_material", materials=[
+                    nmm.Material.from_library(
+                        "tungsten", packing_fraction=0.6), nmm.Material.from_library(
+                        "eurofer", packing_fraction=0.8), ], fracs=[
+                    0.3, 0.7], packing_fraction=-0.1)
 
         self.assertRaises(ValueError, test_too_small_packing_fraction)
 
