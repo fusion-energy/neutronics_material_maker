@@ -12,7 +12,7 @@ import pytest
 
 
 class test_object_properties(unittest.TestCase):
-    def test_serpent_multimaterial_type(self):
+    def test_serpent_from_mixture_type(self):
 
         test_material = nmm.Material.from_mixture(
             name="test_material",
@@ -24,7 +24,7 @@ class test_object_properties(unittest.TestCase):
         assert len(test_material.serpent_material) > 100
         assert isinstance(test_material.serpent_material, str)
 
-    def test_mcnp_multimaterial_type(self):
+    def test_mcnp_from_mixture_type(self):
 
         test_material = nmm.Material.from_mixture(
             name="test_material",
@@ -37,7 +37,7 @@ class test_object_properties(unittest.TestCase):
         assert len(test_material.mcnp_material) > 100
         assert isinstance(test_material.mcnp_material, str)
 
-    def test_shift_multimaterial_type(self):
+    def test_shift_from_mixture_type(self):
 
         test_material = nmm.Material.from_mixture(
             name="test_material",
@@ -51,7 +51,7 @@ class test_object_properties(unittest.TestCase):
         assert len(test_material.shift_material) > 100
         assert isinstance(test_material.shift_material, str)
 
-    def test_fispact_multimaterial_type(self):
+    def test_fispact_from_mixture_type(self):
 
         test_material = nmm.Material.from_mixture(
             name="test_material",
@@ -64,9 +64,9 @@ class test_object_properties(unittest.TestCase):
         assert len(test_material.fispact_material) > 100
         assert isinstance(test_material.fispact_material, str)
 
-    def test_make_multimaterial_from_material_objects(self):
-        # tests that a multimaterial can be created by passing Material objects
-        # into the MultiMaterial function
+    def test_make_from_mixture_from_material_objects(self):
+        # tests that a from_mixture can be created by passing Material objects
+        # into the from_mixture function
 
         test_material = nmm.Material.from_mixture(
             name="test_material",
@@ -78,9 +78,9 @@ class test_object_properties(unittest.TestCase):
         assert isinstance(test_material, openmc.Material) is False
         assert isinstance(test_material.openmc_material, openmc.Material)
 
-    def test_make_multimaterial_from_openmc_materials(self):
-        # tests that a multimaterial can be created by passing neutronics
-        # materials into the MultiMaterial function
+    def test_make_from_mixture_from_openmc_materials(self):
+        # tests that a from_mixture can be created by passing neutronics
+        # materials into the from_mixture function
 
         test_material = nmm.Material.from_mixture(
             name="test_material",
@@ -124,9 +124,9 @@ class test_object_properties(unittest.TestCase):
         test_material.openmc_material
         assert test_material.openmc_material.name == 'tag_set_on_creation'
 
-    def test_multimaterial_attributes_from_material_objects_and_openmc_materials(
+    def test_from_mixture_attributes_from_material_objects_and_openmc_materials(
             self):
-        # tests that multimaterials made from material objects and neutronics
+        # tests that from_mixtures made from material objects and neutronics
         # materials have the same properties
 
         test_material_1 = nmm.Material.from_mixture(
@@ -261,7 +261,7 @@ class test_object_properties(unittest.TestCase):
         assert test_material_4.density == pytest.approx(
             test_material_1.density * 0.75)
 
-    def test_packing_fraction_for_multimaterial_function(self):
+    def test_packing_fraction_for_from_mixture_function(self):
 
         test_material_5 = nmm.Material.from_mixture(
             name="test_material_5",
@@ -292,7 +292,7 @@ class test_object_properties(unittest.TestCase):
         assert test_material_7.density == pytest.approx(
             test_material_5.density * 0.5)
 
-    def test_packing_fraction_of_a_multimaterial(self):
+    def test_packing_fraction_of_a_from_mixture(self):
 
         test_material_6 = nmm.Material.from_mixture(
             name="test_material_6",
@@ -354,7 +354,7 @@ class test_object_properties(unittest.TestCase):
         assert test_material_10.density == pytest.approx(
             test_material_8.density * 0.5)
 
-    def test_multimaterial_vs_mix_materials(self):
+    def test_from_mixture_vs_mix_materials(self):
 
         test_material_11 = nmm.Material.from_mixture(
             name="test_material_11",
@@ -535,9 +535,9 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, test_too_small_packing_fraction)
 
-    def test_temperature_from_C_in_multimaterials(self):
+    def test_temperature_from_C_in_from_mixtures(self):
         """checks that the temperature set in C ends up in the temperature
-        attribute of the openmc multimaterials"""
+        attribute of the openmc from_mixtures"""
 
         test_material = nmm.Material.from_mixture(
             name="test_material",
@@ -557,9 +557,9 @@ class test_object_properties(unittest.TestCase):
         assert line_by_line_material[0].split()[-1] == "283.15"
         assert line_by_line_material[0].split()[-2] == "tmp"
 
-    def test_temperature_from_K_in_multimaterials(self):
+    def test_temperature_from_K_in_from_mixtures(self):
         """checks that the temperature set in K ends up in the temperature
-        attribute of the openmc multimaterials"""
+        attribute of the openmc from_mixtures"""
 
         test_material = nmm.Material.from_mixture(
             name="test_material",
