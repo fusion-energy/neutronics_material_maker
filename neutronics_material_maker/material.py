@@ -120,12 +120,12 @@ class Material:
             e.g. {'Li6': 0.9, 'Li7': 0.1} alternatively zaid representation
             can also be used instead of the symbol e.g. {'3006': 0.9, '4007': 0.1}
         percent_type: Atom "ao" or or weight fraction "wo"
-        density): value to be used as the density
+        density: value to be used as the density. Can be a number or a string.
+            if a string then it will be evaluated as an equation to find the
+            density and can contain temperature and pressure varibles.
+            variables as part of the equation.
         density_unit: the units of density "g/cm3", "g/cc", "kg/m3",
             "atom/b-cm", "atom/cm3"
-        density_equation: An equation to be evaluated to find the density,
-            can contain temperature and pressure
-            variables as part of the equation.
         atoms_per_unit_cell: The number of atoms in a unit cell of the
             crystal structure
         volume_of_unit_cell_cm3: The volume of the unit cell in cm3
@@ -158,7 +158,6 @@ class Material:
         percent_type: Optional[str] = None,
         density: Optional[float] = None,
         density_unit: Optional[str] = None,
-        density_equation: Optional[str] = None,
         atoms_per_unit_cell: Optional[int] = None,
         volume_of_unit_cell_cm3: Optional[float] = None,
         enrichment_type: Optional[str] = None,
@@ -179,7 +178,6 @@ class Material:
         self.chemical_equation = chemical_equation
         self.isotopes = isotopes
         self.density = density
-        self.density_equation = density_equation
         self.atoms_per_unit_cell = atoms_per_unit_cell
         self.volume_of_unit_cell_cm3 = volume_of_unit_cell_cm3
         self.density_unit = density_unit
@@ -388,18 +386,6 @@ class Material:
             )
 
     @property
-    def density_equation(self):
-        return self._density_equation
-
-    @density_equation.setter
-    def density_equation(self, value):
-        if value is not None:
-            if not isinstance(value, str):
-                raise ValueError(
-                    "Material.density_equation should be a string")
-        self._density_equation = value
-
-    @property
     def density_unit(self) -> float:
         """
         The units of density to use, either "g/cm3", "g/cc", "kg/m3",
@@ -464,9 +450,9 @@ class Material:
     @property
     def volume_of_unit_cell_cm3(self):
         """
-        The volume of the crystal unit cell. Can be used in density_equation
-        calculations if 'volume_of_unit_cell_cm3' is used in the
-        density_equation attribute.
+        The volume of the crystal unit cell. Can be used in a density string as
+        part of the equation calculations if 'volume_of_unit_cell_cm3' is used
+        in the density attribute.
 
         :type: float
         """
@@ -512,7 +498,9 @@ class Material:
     def density(self, value):
         if value is None:
             self._density = value
-        else:
+        elif isinstance(value, str):
+            self._density = value
+        elif isinstance(value, (int, float)):
             if value < 0:
                 raise ValueError("Material.density should be above 0", value)
             self._density = float(value)
@@ -550,8 +538,8 @@ class Material:
         if value is not None:
             if value not in NATURAL_ABUNDANCE.keys():
                 raise ValueError(
-                    "Material.enrichment_target must be a naturally occuring \
-                    isotope from this list",
+                    "Material.enrichment_target must be a naturally occuring "
+                    "isotope from this list",
                     NATURAL_ABUNDANCE.keys(),
                 )
         self._enrichment_target = value
@@ -560,8 +548,7 @@ class Material:
     def pressure(self):
         """
         The pressure of the material in Pascals. Must be a possive number. Used
-        to calculate the density if the density_equation contains
-        pressure.
+        to calculate the density if it appears in the density attribute.
 
         :type: float
         """
@@ -634,7 +621,7 @@ class Material:
         """
         The volume of the material in cm3. Used when writing Fispact materials
         and can also be used in density equation calculation if volume_in_cm3
-        appears in density_equation.
+        appears in density attribute.
 
         :type: float
         """
@@ -686,8 +673,28 @@ class Material:
 
         return openmc_material
 
+    def _check_enrichment_attributes(self):
+
+        if self.enrichment is None:
+            return None
+
+        elif (self.enrichment_type is not None and self.enrichment_target is not None):
+            return re.split(r"(\d+)", self.enrichment_target)[0]
+
+        elif (self.enrichment is not None or self.enrichment_type is not None or self.enrichment_target is not None):
+            raise ValueError(
+                "Material.enrichment_target, Material.enrichment_type and "
+                "Material.enrichment are all needed to enrich a material"
+            )
+
+        else:
+            return None
+
+
     def _add_elements_from_equation(self, openmc_material):
         """Adds elements from a dictionary or chemical equation to the Material"""
+
+        self._check_enrichment_attributes()
 
         openmc_material.add_elements_from_formula(
             self.chemical_equation,
@@ -709,17 +716,7 @@ class Material:
             openmc material object with additional elements
         """
 
-        # if self.enrichment is not None:
-        #     if self.enrichment_target is None or self.enrichment_type is None:
-        #         raise ValueError(
-        #             "Material.enrichment_target and enrichment type are \
-        #             needed to enrich a material"
-        #         )
-
-        if self.enrichment_target is not None:
-            enrichment_element = re.split(r"(\d+)", self.enrichment_target)[0]
-        else:
-            enrichment_element = None
+        enrichment_element = self._check_enrichment_attributes()
 
         for element_symbol, element_number in zip(
             self.elements.keys(), self.elements.values()
@@ -775,21 +772,22 @@ class Material:
 
         if not isinstance(self.density, float):
 
-            if self.density is None and self.density_equation is not None:
+            # a density equation is being used
+            if isinstance(self.density, str):
                 aeval = asteval.Interpreter(usersyms=asteval_user_symbols)
-
-                if "temperature" in self.density_equation and self.temperature is None:
+                print('got to', aeval)
+                if "temperature" in self.density and self.temperature is None:
                     raise ValueError(
                         "Material.temperature is needed to calculate the density")
 
-                if "pressure" in self.density_equation and self.pressure is None:
+                if "pressure" in self.density and self.pressure is None:
                     raise ValueError("Material.pressure is needed to calculate the density")
 
                 # Potentially used in the eval part
                 aeval.symtable["temperature"] = self.temperature
                 aeval.symtable["pressure"] = self.pressure
 
-                density = aeval.eval(self.density_equation)
+                density = aeval.eval(self.density)
 
                 if len(aeval.error) > 0:
                     raise aeval.error[0].exc(aeval.error[0].msg)
@@ -818,10 +816,10 @@ class Material:
 
                 raise ValueError(
                     "density can't be set for "
-                    + str(self.name)
-                    + " provide either a density_value, density_equation as a \
-                        string, or atoms_per_unit_cell and \
-                        volume_of_unit_cell_cm3"
+                    + str(self.name) +
+                    " provide either a density value as a number or density "
+                    "as a string, or atoms_per_unit_cell and "
+                    "volume_of_unit_cell_cm3"
                 )
 
         openmc_material.set_density(
@@ -964,28 +962,27 @@ class Material:
         Json serializable version of the material
         """
         jsonified_object = {
-            self.name:{
-            "temperature": self.temperature,
-            "pressure": self.pressure,
-            "packing_fraction": self.packing_fraction,
-            "elements": self.elements,
-            "chemical_equation": self.chemical_equation,
-            "isotopes": self.isotopes,
-            "density": self.density,
-            "density_equation": self.density_equation,
-            "atoms_per_unit_cell": self.atoms_per_unit_cell,
-            "volume_of_unit_cell_cm3": self.volume_of_unit_cell_cm3,
-            "density_unit": self.density_unit,
-            "percent_type": self.percent_type,
-            "enrichment": self.enrichment,
-            "enrichment_target": self.enrichment_target,
-            "enrichment_type": self.enrichment_type,
-            "reference": self.reference,
-            "zaid_suffix": self.zaid_suffix,
-            "material_id": self.material_id,
-            "decimal_places": self.decimal_places,
-            "volume_in_cm3": self.volume_in_cm3,
-            }
+            self.name: {
+                "temperature": self.temperature,
+                "pressure": self.pressure,
+                "packing_fraction": self.packing_fraction,
+                "elements": self.elements,
+                "chemical_equation": self.chemical_equation,
+                "isotopes": self.isotopes,
+                "density": self.density,
+                "atoms_per_unit_cell": self.atoms_per_unit_cell,
+                "volume_of_unit_cell_cm3": self.volume_of_unit_cell_cm3,
+                "density_unit": self.density_unit,
+                "percent_type": self.percent_type,
+                "enrichment": self.enrichment,
+                "enrichment_target": self.enrichment_target,
+                "enrichment_type": self.enrichment_type,
+                "reference": self.reference,
+                "zaid_suffix": self.zaid_suffix,
+                "material_id": self.material_id,
+                "decimal_places": self.decimal_places,
+                "volume_in_cm3": self.volume_in_cm3,
+                }
         }
 
         return jsonified_object

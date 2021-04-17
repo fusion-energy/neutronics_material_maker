@@ -201,7 +201,7 @@ class test_object_properties(unittest.TestCase):
             + (test_material_1.openmc_material.density * 0.65 * 0.8)
         )
 
-    def test_density_of_mixed_materials_from_density_equation(self):
+    def test_density_of_mixed_materials_from_density(self):
 
         test_material = nmm.Material.from_library(
             "H2O", temperature=300, pressure=100000)

@@ -959,7 +959,6 @@ class test_object_properties(unittest.TestCase):
 
         assert "atoms_per_unit_cell" in test_material_in_json_form['H2O'].keys()
         assert "density" in test_material_in_json_form['H2O'].keys()
-        assert "density_equation" in test_material_in_json_form['H2O'].keys()
         assert "density_unit" in test_material_in_json_form['H2O'].keys()
         assert "chemical_equation" in test_material_in_json_form['H2O'].keys()
         assert "enrichment" in test_material_in_json_form['H2O'].keys()
@@ -1039,7 +1038,7 @@ class test_object_properties(unittest.TestCase):
                 name="Nb3Sn",
                 temperature=373,
                 pressure=1e6,
-                density_equation="os.system('ls')"
+                density="os.system('ls')"
             )
 
 

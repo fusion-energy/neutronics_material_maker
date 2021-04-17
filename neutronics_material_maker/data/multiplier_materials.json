@@ -1,7 +1,7 @@
 {
     "Pb": {
         "chemical_equation": "Pb",
-        "density_equation": "10.678 - 13.174e-4 * (temperature-600.6)",
+        "density": "10.678 - 13.174e-4 * (temperature-600.6)",
         "density_unit": "g/cm3",
         "reference": "https://www.sciencedirect.com/science/article/abs/pii/0022190261802261",
         "percent_type": "ao"
