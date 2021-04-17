@@ -3,9 +3,9 @@
 __author__ = "neutronics material maker development team"
 
 
+import json
 import os
 import re
-import json
 import warnings
 from json import JSONEncoder
 from typing import Dict, List, Optional, Union
@@ -49,19 +49,8 @@ JSONEncoder.default = _default
 
 class Material:
     """
-    Produces a material by looking up the name in a
-    collection of prepared materials. Modifiers to the material
-    isotopes are applied according to arguments such
-    as enrichment. Modifiers to the material density are applied
-    according to arguments like temperature and pressure
-    where appropiate (gases, liquids). The collection of materials
-    includes relationships between presure, temperature and density
-    relationships. This allows the code to adjust the density of the
-    material accordingly. The intended use is a tool to facilitate
-    the use of a common materials library (internal or your own).
-    However it is also possible to make complete Materials without
-    using the reference collection but more inputs are needed from
-    the user. The Material object is also json serializable
+    Produces a material from input arguments that can be output in formats
+    suitable for several different neutronics codes.
 
     Args:
         name: This is a string that is assigned to the material as an
@@ -73,12 +62,7 @@ class Material:
             to 1/void fraction
         enrichment: This is the percentage of isotope enrichment
             required for the material. This works for materials that have
-            an enrichment_target specified. The internal material collection
-            have Li6 specified as an enrichment_target for Lithium containing
-            compounds. Enrichment of Li6 impacts the density of a material and
-            the internal package materials take this into account. It is also
-            possible to use this when making materials not included in the
-            reference collection but an enrichment_target must also be provided.
+            an enrichment_target and enrichment_type also specified.
         enrichment_target: The isotope to enrich e.g. Li6
         temperature: The temperature of the material in degrees
             Kelvin. Temperature impacts the density of some materials in the
@@ -129,7 +113,7 @@ class Material:
         atoms_per_unit_cell: The number of atoms in a unit cell of the
             crystal structure
         volume_of_unit_cell_cm3: The volume of the unit cell in cm3
-        reference: An entry used to store information on the source of the
+        comment: An entry used to store information on the source of the
             material data
         additional_end_lines: Additional lines of test that are added to the end of
             the material card. Compatable with MCNP, Serpent, Fispact outputs
@@ -161,7 +145,7 @@ class Material:
         atoms_per_unit_cell: Optional[int] = None,
         volume_of_unit_cell_cm3: Optional[float] = None,
         enrichment_type: Optional[str] = None,
-        reference: Optional[str] = None,
+        comment: Optional[str] = None,
         zaid_suffix: Optional[str] = None,
         material_id: Optional[int] = None,
         decimal_places: Optional[int] = 8,
@@ -185,7 +169,7 @@ class Material:
         self.enrichment = enrichment
         self.enrichment_target = enrichment_target
         self.enrichment_type = enrichment_type
-        self.reference = reference
+        self.comment = comment
         self.zaid_suffix = zaid_suffix
         self.material_id = material_id
         self.decimal_places = decimal_places
@@ -564,21 +548,21 @@ class Material:
         self._pressure = value
 
     @property
-    def reference(self):
+    def comment(self):
         """
-        A reference string to state where the material properties information
+        A comment string to state where the material properties information
         came from
 
         :type: str
         """
-        return self._reference
+        return self._comment
 
-    @reference.setter
-    def reference(self, value):
+    @comment.setter
+    def comment(self, value):
         if value is not None:
             if not isinstance(value, str):
-                raise ValueError("Material.reference must be a string")
-        self._reference = value
+                raise ValueError("Material.comment must be a string")
+        self._comment = value
 
     @property
     def zaid_suffix(self):
@@ -902,7 +886,7 @@ class Material:
         temperature: Optional[float] = None,
         temperature_to_neutronics_code: Optional[bool] = True,
         pressure: Optional[float] = None,
-        reference: Optional[str] = None,
+        comment: Optional[str] = None,
         zaid_suffix: Optional[str] = None,
         material_id: Optional[int] = None,
         decimal_places: Optional[int] = 8,
@@ -950,7 +934,7 @@ class Material:
             temperature=temperature,
             temperature_to_neutronics_code=temperature_to_neutronics_code,
             pressure=pressure,
-            reference=reference,
+            comment=comment,
             zaid_suffix=zaid_suffix,
             material_id=material_id,
             decimal_places=decimal_places,
@@ -978,7 +962,7 @@ class Material:
                 "enrichment": self.enrichment,
                 "enrichment_target": self.enrichment_target,
                 "enrichment_type": self.enrichment_type,
-                "reference": self.reference,
+                "comment": self.comment,
                 "zaid_suffix": self.zaid_suffix,
                 "material_id": self.material_id,
                 "decimal_places": self.decimal_places,

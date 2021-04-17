@@ -816,16 +816,16 @@ class test_object_properties(unittest.TestCase):
 
         self.assertRaises(ValueError, test_pressure_too_low)
 
-        def test_reference_wrong_type():
-            """checks a ValueError is raised when the reference is the
+        def test_comment_wrong_type():
+            """checks a ValueError is raised when the comment is the
             not a string"""
 
             nmm.Material.from_library(
                 "Li4SiO4",
-                reference=-1
+                comment=-1
             )
 
-        self.assertRaises(ValueError, test_reference_wrong_type)
+        self.assertRaises(ValueError, test_comment_wrong_type)
 
         def test_material_id_wrong_type():
             """checks a ValueError is raised when the material_id is the
@@ -851,18 +851,18 @@ class test_object_properties(unittest.TestCase):
         #     )
         # self.assertRaises(ValueError, no_enrichment_target)
 
-        def incorrect_reference_type():
-            """checks a ValueError is raised when the reference is an int"""
+        def incorrect_comment_type():
+            """checks a ValueError is raised when the comment is an int"""
 
             nmm.Material.from_library(
                 name="Li4SiO4",
                 enrichment=50.0,
                 enrichment_target="Li6",
                 enrichment_type="ao",
-                reference=1,
+                comment=1,
             )
 
-        self.assertRaises(ValueError, incorrect_reference_type)
+        self.assertRaises(ValueError, incorrect_comment_type)
 
         def incorrect_setting_for_id():
             """checks a ValueError is raised when the id is not set
@@ -971,7 +971,7 @@ class test_object_properties(unittest.TestCase):
         assert "packing_fraction" in test_material_in_json_form['H2O'].keys()
         assert "percent_type" in test_material_in_json_form['H2O'].keys()
         assert "pressure" in test_material_in_json_form['H2O'].keys()
-        assert "reference" in test_material_in_json_form['H2O'].keys()
+        assert "comment" in test_material_in_json_form['H2O'].keys()
         assert "temperature" in test_material_in_json_form['H2O'].keys()
         assert "temperature" in test_material_in_json_form['H2O'].keys()
         assert "volume_of_unit_cell_cm3" in test_material_in_json_form['H2O'].keys(

@@ -3,7 +3,7 @@
         "chemical_equation": "Pb842Li158",
         "density": "99.90*(0.1-16.8e-6*(temperature + 273.15))",
         "density_unit": "g/cm3",
-        "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
+        "comment": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
         "percent_type": "ao",
         "enrichment_target":"Li6",
         "enrichment_type": "ao"
@@ -12,7 +12,7 @@
         "chemical_equation": "Pb842Li158",
         "density": "99.90*(0.1-16.8e-6*(temperature + 273.15))",
         "density_unit": "g/cm3",
-        "reference": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
+        "comment": "density equation valid for in the range 240-350 C. source http://aries.ucsd.edu/LIB/PROPS/PANOS/lipb.html",
         "percent_type": "ao",
         "enrichment_target":"Li6",
         "enrichment_type":"ao"
@@ -22,7 +22,7 @@
         "atoms_per_unit_cell": 1,
         "volume_of_unit_cell_cm3": 0.14400485967e-21,
         "density_unit":"g/cm3",
-        "reference": "DOI 10.17188/1198772 https://materialsproject.org/materials/mp-22538/",
+        "comment": "DOI 10.17188/1198772 https://materialsproject.org/materials/mp-22538/",
         "percent_type": "ao",
         "enrichment_target":"Li6",
         "enrichment_type":"ao"
@@ -31,7 +31,7 @@
         "chemical_equation": "F2Li2BeF2",
         "density": "2.214 - 4.2e-4 * (temperature + 273.15)",
         "density_unit": "g/cm3",
-        "reference": "source http://aries.ucsd.edu/LIB/MEETINGS/0103-TRANSMUT/gohar/Gohar-present.pdf",
+        "comment": "source http://aries.ucsd.edu/LIB/MEETINGS/0103-TRANSMUT/gohar/Gohar-present.pdf",
         "percent_type": "ao",
         "enrichment_target":"Li6",
         "enrichment_type":"ao"
@@ -40,7 +40,7 @@
         "chemical_equation": "FLiNaBe",
         "density": 2.05,
         "density_unit":"g/cm3",
-        "reference": "Based on chemical formula",
+        "comment": "Based on chemical formula",
         "percent_type": "ao",
         "enrichment_target":"Li6",
         "enrichment_type":"ao"
