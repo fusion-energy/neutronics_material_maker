@@ -973,17 +973,23 @@ class test_object_properties(unittest.TestCase):
             name="Li4SiO4", enrichment=90)
         test_material_in_json_form = test_material.to_json()
 
-        assert "atoms_per_unit_cell" in test_material_in_json_form['Li4SiO4'].keys()
+        assert "atoms_per_unit_cell" in test_material_in_json_form['Li4SiO4'].keys(
+        )
         assert "density" in test_material_in_json_form['Li4SiO4'].keys()
         assert "density_unit" in test_material_in_json_form['Li4SiO4'].keys()
-        assert "chemical_equation" in test_material_in_json_form['Li4SiO4'].keys()
-        assert "enrichment_type" in test_material_in_json_form['Li4SiO4'].keys()
-        assert "packing_fraction" in test_material_in_json_form['Li4SiO4'].keys()
+        assert "chemical_equation" in test_material_in_json_form['Li4SiO4'].keys(
+        )
+        assert "enrichment_type" in test_material_in_json_form['Li4SiO4'].keys(
+        )
+        assert "packing_fraction" in test_material_in_json_form['Li4SiO4'].keys(
+        )
         assert "percent_type" in test_material_in_json_form['Li4SiO4'].keys()
         assert "comment" in test_material_in_json_form['Li4SiO4'].keys()
         assert "enrichment" in test_material_in_json_form['Li4SiO4'].keys()
-        assert "enrichment_target" in test_material_in_json_form['Li4SiO4'].keys()
-        assert "volume_of_unit_cell_cm3" in test_material_in_json_form['Li4SiO4'].keys()
+        assert "enrichment_target" in test_material_in_json_form['Li4SiO4'].keys(
+        )
+        assert "volume_of_unit_cell_cm3" in test_material_in_json_form['Li4SiO4'].keys(
+        )
 
     def test_json_dump_contains_correct_values(self):
         test_material = nmm.Material.from_library(
