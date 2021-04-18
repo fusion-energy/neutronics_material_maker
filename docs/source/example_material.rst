@@ -13,7 +13,7 @@ Example making materials from elements
     import neutronics_material_maker as nmm
 
     my_mat = nmm.Material(
-        material_name="li_with_si",
+        name="li_with_si",
         density=3.0,
         density_unit="g/cm3",
         percent_type="ao",
@@ -31,7 +31,7 @@ Example making materials from isotopes
     import neutronics_material_maker as nmm
 
     my_mat = nmm.Material(
-        material_name="enriched_li",
+        name="enriched_li",
         density= 3.0,
         density_unit="g/cm3",
         percent_type="ao",
@@ -48,7 +48,7 @@ Example making materials from isotopes defined by zaid
     import neutronics_material_maker as nmm
 
     my_mat = nmm.Material(
-        material_name="enriched_li",
+        name="enriched_li",
         density=3.0,
         density_unit="g/cm3",
         percent_type="ao",
@@ -66,7 +66,7 @@ making use of the python syntax to exspand a dictionary **
     import neutronics_material_maker as nmm
     
     my_dict = {
-        "material_name": "li_with_si",
+        "name": "li_with_si",
         "elements": {
                         "Li": 4,
                         "Si": 2
