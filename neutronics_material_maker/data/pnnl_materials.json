@@ -3,7 +3,7 @@
         "density":1.127,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.58364,
             "C":0.374859,
@@ -17,7 +17,7 @@
         "density":0.7899,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.599985,
             "C":0.300013,
@@ -28,7 +28,7 @@
         "density":0.001097,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.499983,
             "C":0.500017
@@ -38,7 +38,7 @@
         "density":0.001205,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.00015,
             "N":0.784431,
@@ -50,7 +50,7 @@
         "density":1.42,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.53845,
             "C":0.230778,
@@ -62,7 +62,7 @@
         "density":2.6989,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Al":1.0
         }
@@ -71,7 +71,7 @@
         "density":3.97,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.6,
             "Al":0.4
@@ -81,7 +81,7 @@
         "density":2.78,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Mg":0.017158,
             "Al":0.955163,
@@ -98,7 +98,7 @@
         "density":2.59,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Li":0.083519,
             "Mg":0.001728,
@@ -117,7 +117,7 @@
         "density":2.73,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Al":0.987924,
             "Si":0.00322,
@@ -131,7 +131,7 @@
         "density":2.69,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Be":1.5e-05,
             "Mg":0.000313,
@@ -148,7 +148,7 @@
         "density":2.66,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Mg":0.044473,
             "Al":0.947944,
@@ -165,7 +165,7 @@
         "density":2.7,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Mg":0.011162,
             "Al":0.977325,
@@ -182,7 +182,7 @@
         "density":2.81,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Mg":0.029014,
             "Al":0.933062,
@@ -199,7 +199,7 @@
         "density":0.771,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.749992,
             "N":0.250008
@@ -209,7 +209,7 @@
         "density":1.25,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.416667,
             "C":0.583333
@@ -219,7 +219,7 @@
         "density":0.001662,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Ar":1.0
         }
@@ -228,7 +228,7 @@
         "density":1.3,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.586755,
             "C":0.402588,
@@ -243,7 +243,7 @@
         "density":2.5784,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.134043,
             "C":0.110118,
@@ -268,7 +268,7 @@
         "density":1.25,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.431814,
             "C":0.488641,
@@ -279,7 +279,7 @@
         "density":4.89,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "F":0.666662,
             "Ba":0.333338
@@ -289,7 +289,7 @@
         "density":4.5,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.666682,
             "S":0.166644,
@@ -300,7 +300,7 @@
         "density":0.8765,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.499983,
             "C":0.500017
@@ -310,7 +310,7 @@
         "density":1.848,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Be":1.0
         }
@@ -319,7 +319,7 @@
         "density":1.9,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Be":0.666667,
             "C":0.333333
@@ -329,7 +329,7 @@
         "density":3.01,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Be":0.5,
             "O":0.5
@@ -339,7 +339,7 @@
         "density":9.747,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Bi":1.0
         }
@@ -348,7 +348,7 @@
         "density":7.13,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.631647,
             "Ge":0.157804,
@@ -359,7 +359,7 @@
         "density":1.06,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.634604,
             "C":0.052291,
@@ -381,7 +381,7 @@
         "density":1.45,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.513809,
             "C":0.35363,
@@ -395,7 +395,7 @@
         "density":1.785,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.386404,
             "C":0.335506,
@@ -409,7 +409,7 @@
         "density":1.85,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.527886,
             "C":0.192478,
@@ -425,7 +425,7 @@
         "density":1.85,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.475389,
             "C":0.121904,
@@ -442,7 +442,7 @@
         "density":2.53,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.454507,
             "C":0.113475,
@@ -453,7 +453,7 @@
         "density":2.6,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.217879,
             "Na":0.005123,
@@ -468,7 +468,7 @@
         "density":2.6,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.116547,
             "Na":0.005481,
@@ -483,7 +483,7 @@
         "density":1.73,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.465116,
             "B":0.093023,
@@ -495,7 +495,7 @@
         "density":1.5,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.428571,
             "B":0.142857,
@@ -506,7 +506,7 @@
         "density":2.37,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":1.0
         }
@@ -515,7 +515,7 @@
         "density":2.52,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.799981,
             "C":0.200019
@@ -525,7 +525,7 @@
         "density":0.004058,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.333333,
             "F":0.666667
@@ -535,7 +535,7 @@
         "density":0.002831,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.25,
             "F":0.75
@@ -545,7 +545,7 @@
         "density":1.812,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.399978,
             "O":0.600022
@@ -555,7 +555,7 @@
         "density":1.03,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.654712,
             "C":0.062268,
@@ -576,7 +576,7 @@
         "density":8.07,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Fe":0.001002,
             "Cu":0.674918,
@@ -589,7 +589,7 @@
         "density":1.8,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.663432,
             "AL":0.003747,
@@ -602,7 +602,7 @@
         "density":2.1,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.636337,
             "Mg":0.005057,
@@ -617,7 +617,7 @@
         "density":2.1,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.635745,
             "Mg":0.001008,
@@ -632,7 +632,7 @@
         "density":8.4,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Al":0.065613,
             "Si":0.007378,
@@ -649,7 +649,7 @@
         "density":1.76,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.268599,
             "C":0.458133,
@@ -662,7 +662,7 @@
         "density":8.65,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Cd":1.0
         }
@@ -671,7 +671,7 @@
         "density":2.45,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.380952,
             "N":0.095238,
@@ -683,7 +683,7 @@
         "density":6.2,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Cd":0.499997,
             "Te":0.500003
@@ -693,7 +693,7 @@
         "density":7.9,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.666662,
             "Cd":0.166664,
@@ -704,7 +704,7 @@
         "density":2.8,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.200002,
             "O":0.599991,
@@ -715,7 +715,7 @@
         "density":3.18,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "F":0.666655,
             "Ca":0.333345
@@ -725,7 +725,7 @@
         "density":3.3,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.499987,
             "Ca":0.500013
@@ -735,7 +735,7 @@
         "density":2.96,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.666678,
             "S":0.166644,
@@ -746,7 +746,7 @@
         "density":0.001842,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.333333,
             "O":0.666667
@@ -756,7 +756,7 @@
         "density":1.594,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.200003,
             "Cl":0.799997
@@ -766,7 +766,7 @@
         "density":0.32,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":1e-06,
             "C":0.999999
@@ -776,7 +776,7 @@
         "density":2.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":1e-06,
             "C":0.999999
@@ -786,7 +786,7 @@
         "density":1.7,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":1e-06,
             "C":0.999999
@@ -796,7 +796,7 @@
         "density":1.1,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.437442,
             "O":0.437316,
@@ -810,7 +810,7 @@
         "density":1.1,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.213314,
             "O":0.528366,
@@ -827,7 +827,7 @@
         "density":1.42,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.476179,
             "C":0.285724,
@@ -838,7 +838,7 @@
         "density":0.24,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.47619,
             "C":0.285714,
@@ -849,7 +849,7 @@
         "density":1.03,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.659087,
             "N":0.000353,
@@ -862,7 +862,7 @@
         "density":6.16,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "F":0.75,
             "Ce":0.25
@@ -872,7 +872,7 @@
         "density":4.51,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "I":0.5,
             "Cs":0.5
@@ -882,7 +882,7 @@
         "density":7.18,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Cr":1.0
         }
@@ -891,7 +891,7 @@
         "density":2.2,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.6333,
             "Na":0.006923,
@@ -910,7 +910,7 @@
         "density":0.84,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.228612,
             "C":0.74902,
@@ -923,7 +923,7 @@
         "density":0.75,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.421425,
             "C":0.533649,
@@ -936,7 +936,7 @@
         "density":0.75,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.357505,
             "C":0.519319,
@@ -949,7 +949,7 @@
         "density":3.35,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.109602,
             "O":0.600189,
@@ -966,7 +966,7 @@
         "density":3.36,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.235416,
             "O":0.548162,
@@ -985,7 +985,7 @@
         "density":3.1,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.147522,
             "B":0.025543,
@@ -1008,7 +1008,7 @@
         "density":3.2,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.208729,
             "B":0.022437,
@@ -1028,7 +1028,7 @@
         "density":4.8,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.158643,
             "O":0.207881,
@@ -1044,7 +1044,7 @@
         "density":2.18,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.07844,
             "O":0.595591,
@@ -1061,7 +1061,7 @@
         "density":2.35,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.20517,
             "O":0.539084,
@@ -1078,7 +1078,7 @@
         "density":4.4,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.018192,
             "O":0.412591,
@@ -1095,7 +1095,7 @@
         "density":5.9,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.135585,
             "O":0.150644,
@@ -1112,7 +1112,7 @@
         "density":4.54,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.20964,
             "O":0.301631,
@@ -1129,7 +1129,7 @@
         "density":2.25,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.084739,
             "O":0.604079,
@@ -1144,7 +1144,7 @@
         "density":3.1,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.247678,
             "B":0.018643,
@@ -1165,7 +1165,7 @@
         "density":3.1,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.24827,
             "B":0.021464,
@@ -1186,7 +1186,7 @@
         "density":4.5,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.244686,
             "B":0.025664,
@@ -1202,7 +1202,7 @@
         "density":3.53,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.082371,
             "O":0.551004,
@@ -1222,7 +1222,7 @@
         "density":4.64,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.086069,
             "O":0.314488,
@@ -1239,7 +1239,7 @@
         "density":2.147,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.059733,
             "C":0.159071,
@@ -1261,7 +1261,7 @@
         "density":5.5,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.187558,
             "O":0.141791,
@@ -1275,7 +1275,7 @@
         "density":2.3,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.106691,
             "C":0.25354,
@@ -1293,7 +1293,7 @@
         "density":2.35,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.149867,
             "C":0.074204,
@@ -1311,7 +1311,7 @@
         "density":2.35,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.103586,
             "O":0.58481,
@@ -1329,7 +1329,7 @@
         "density":2.3,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.30533,
             "C":0.00288,
@@ -1347,7 +1347,7 @@
         "density":2.3,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.168759,
             "C":0.001416,
@@ -1365,7 +1365,7 @@
         "density":2.3,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.168038,
             "O":0.563183,
@@ -1380,7 +1380,7 @@
         "density":2.32,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.133302,
             "C":0.082334,
@@ -1401,7 +1401,7 @@
         "density":2.1,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.246195,
             "C":0.001181,
@@ -1420,7 +1420,7 @@
         "density":8.96,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Cu":1.0
         }
@@ -1429,7 +1429,7 @@
         "density":0.22,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.151312,
             "O":0.581761,
@@ -1446,7 +1446,7 @@
         "density":1.52,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.316855,
             "O":0.501581,
@@ -1458,7 +1458,7 @@
         "density":1.52,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.670604,
             "Na":0.005578,
@@ -1476,7 +1476,7 @@
         "density":0.001253,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.75,
             "C":0.25
@@ -1486,7 +1486,7 @@
         "density":0.901,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.571429,
             "C":0.285714,
@@ -1497,7 +1497,7 @@
         "density":0.7893,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.666654,
             "C":0.222232,
@@ -1508,7 +1508,7 @@
         "density":0.001175,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.666653,
             "C":0.333347
@@ -1518,7 +1518,7 @@
         "density":1.114,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.6,
             "C":0.2,
@@ -1529,7 +1529,7 @@
         "density":1.72,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.444444,
             "N":0.222222,
@@ -1540,7 +1540,7 @@
         "density":1.49,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.285714,
             "C":0.142857,
@@ -1552,7 +1552,7 @@
         "density":1.89,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.285714,
             "C":0.142857,
@@ -1564,7 +1564,7 @@
         "density":1.49,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.300771,
             "C":0.234383,
@@ -1576,7 +1576,7 @@
         "density":1.6,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.25,
             "C":0.15,
@@ -1588,7 +1588,7 @@
         "density":1.77,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.275862,
             "C":0.172414,
@@ -1600,7 +1600,7 @@
         "density":1.82,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.285714,
             "C":0.142857,
@@ -1612,7 +1612,7 @@
         "density":1.65,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.238095,
             "C":0.333333,
@@ -1624,7 +1624,7 @@
         "density":1.1,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.618329,
             "C":0.101257,
@@ -1636,7 +1636,7 @@
         "density":0.185,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.384052,
             "C":0.316901,
@@ -1648,7 +1648,7 @@
         "density":5.2,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.599991,
             "Fe":0.400009
@@ -1658,7 +1658,7 @@
         "density":1.024,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.660018,
             "N":1.2e-05,
@@ -1673,7 +1673,7 @@
         "density":1.27,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.001849,
             "O":0.001658,
@@ -1690,7 +1690,7 @@
         "density":2.49,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.035039,
             "O":0.609968,
@@ -1707,7 +1707,7 @@
         "density":2.565,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.043757,
             "O":0.611965,
@@ -1726,7 +1726,7 @@
         "density":2.55,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.628478,
             "Mg":0.030755,
@@ -1739,7 +1739,7 @@
         "density":1.12,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.200004,
             "F":0.399998,
@@ -1750,7 +1750,7 @@
         "density":1.8,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.200003,
             "F":0.399999,
@@ -1761,7 +1761,7 @@
         "density":0.95,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.200004,
             "F":0.599997,
@@ -1772,7 +1772,7 @@
         "density":1.5,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.200003,
             "F":0.599998,
@@ -1783,7 +1783,7 @@
         "density":1.8,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.200005,
             "F":0.599996,
@@ -1794,7 +1794,7 @@
         "density":7.9004,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Gd":1.0
         }
@@ -1803,7 +1803,7 @@
         "density":7.44,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.400012,
             "S":0.199976,
@@ -1814,7 +1814,7 @@
         "density":6.71,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.625,
             "Si":0.125,
@@ -1825,7 +1825,7 @@
         "density":1.3,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.558087,
             "C":0.316304,
@@ -1837,7 +1837,7 @@
         "density":5.31,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Ga":0.5,
             "As":0.5
@@ -1847,7 +1847,7 @@
         "density":0.721,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.689368,
             "C":0.310632
@@ -1857,7 +1857,7 @@
         "density":5.323,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Ge":1.0
         }
@@ -1866,7 +1866,7 @@
         "density":2.66,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Li":0.078133,
             "O":0.581195,
@@ -1880,7 +1880,7 @@
         "density":2.5,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Li":0.209694,
             "O":0.545112,
@@ -1894,7 +1894,7 @@
         "density":2.42,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Li":0.124299,
             "O":0.585945,
@@ -1908,7 +1908,7 @@
         "density":2.42,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Li":0.239068,
             "O":0.546269,
@@ -1920,7 +1920,7 @@
         "density":2.23,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.070449,
             "O":0.641095,
@@ -1934,7 +1934,7 @@
         "density":0.128,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.018718,
             "B":0.026176,
@@ -1948,7 +1948,7 @@
         "density":6.22,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.592955,
             "Si":0.174592,
@@ -1961,7 +1961,7 @@
         "density":2.4,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.603858,
             "Na":0.088145,
@@ -1973,7 +1973,7 @@
         "density":1.2613,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.571417,
             "C":0.214294,
@@ -1984,7 +1984,7 @@
         "density":19.32,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Au":1.0
         }
@@ -1993,7 +1993,7 @@
         "density":2.32,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.333321,
             "O":0.500014,
@@ -2005,7 +2005,7 @@
         "density":0.000125,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "He3":1.0
         }
@@ -2014,7 +2014,7 @@
         "density":0.000166,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "He":1.0
         }
@@ -2023,7 +2023,7 @@
         "density":8.4e-05,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":1.0
         }
@@ -2032,7 +2032,7 @@
         "density":7.94,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.002984,
             "Al":0.007663,
@@ -2050,7 +2050,7 @@
         "density":8.47,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.004642,
             "Si":0.006583,
@@ -2066,7 +2066,7 @@
         "density":8.44,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.133302,
             "C":0.082334,
@@ -2087,7 +2087,7 @@
         "density":8.19,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.000267,
             "C":0.003507,
@@ -2110,7 +2110,7 @@
         "density":7.31,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "In":1.0
         }
@@ -2119,7 +2119,7 @@
         "density":7.874,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Fe":1.0
         }
@@ -2128,7 +2128,7 @@
         "density":7.3,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.333333,
             "Fe":0.666667
@@ -2138,7 +2138,7 @@
         "density":7.15,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.499969,
             "Fe":0.500031
@@ -2148,7 +2148,7 @@
         "density":7.866,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.000556,
             "O":0.003826,
@@ -2162,7 +2162,7 @@
         "density":7.15,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.137104,
             "Si":0.044836,
@@ -2176,7 +2176,7 @@
         "density":7.7,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.003746,
             "Si":0.003164,
@@ -2190,7 +2190,7 @@
         "density":0.096,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.000468,
             "O":0.636102,
@@ -2205,7 +2205,7 @@
         "density":1.42,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.256399,
             "C":0.564114,
@@ -2217,7 +2217,7 @@
         "density":16.8,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Ni":0.191007,
             "Cu":0.294036,
@@ -2228,7 +2228,7 @@
         "density":1.95,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.32,
             "B":0.16,
@@ -2240,7 +2240,7 @@
         "density":0.819,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.694164,
             "C":0.305836
@@ -2250,7 +2250,7 @@
         "density":0.003478,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Kr":1.0
         }
@@ -2259,7 +2259,7 @@
         "density":1.79,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.333333,
             "C":0.333333,
@@ -2270,7 +2270,7 @@
         "density":11.35,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Pb":1.0
         }
@@ -2279,7 +2279,7 @@
         "density":8.24,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.666667,
             "W":0.166667,
@@ -2290,7 +2290,7 @@
         "density":0.534,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Li":1.0
         }
@@ -2299,7 +2299,7 @@
         "density":1.178,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.499991,
             "Li":0.250004,
@@ -2310,7 +2310,7 @@
         "density":2.635,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Li":0.5,
             "F":0.5
@@ -2320,7 +2320,7 @@
         "density":3.5,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "Li6":0.315789,
             "B10":0.157895
@@ -2334,7 +2334,7 @@
         "density":0.82,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.499989,
             "Li":0.500011
@@ -2344,7 +2344,7 @@
         "density":4.08,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Li":0.499998,
             "I":0.500002
@@ -2354,7 +2354,7 @@
         "density":3.494,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Li":0.499998,
             "I":0.500002
@@ -2364,7 +2364,7 @@
         "density":2.013,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Li":0.666667,
             "O":0.333333
@@ -2374,7 +2374,7 @@
         "density":2.44,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Li":0.153851,
             "B":0.307673,
@@ -2385,7 +2385,7 @@
         "density":1.19,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.53332,
             "C":0.333345,
@@ -2396,7 +2396,7 @@
         "density":6.73,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.6,
             "Al":0.25,
@@ -2407,7 +2407,7 @@
         "density":8.4,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.6,
             "Al":0.2,
@@ -2418,7 +2418,7 @@
         "density":7.4,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.625,
             "Si":0.125,
@@ -2429,7 +2429,7 @@
         "density":7.3,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.5,
             "Si":0.1,
@@ -2441,7 +2441,7 @@
         "density":1.74,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Mg":1.0
         }
@@ -2450,7 +2450,7 @@
         "density":3.58,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.5,
             "Mg":0.5
@@ -2460,7 +2460,7 @@
         "density":2.53,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.333313,
             "O":0.583351,
@@ -2471,7 +2471,7 @@
         "density":1.3,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.47619,
             "C":0.285714,
@@ -2482,7 +2482,7 @@
         "density":1.35,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.388889,
             "C":0.277778,
@@ -2493,7 +2493,7 @@
         "density":13.546,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Hg":1.0
         }
@@ -2502,7 +2502,7 @@
         "density":6.36,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "I":0.666667,
             "Hg":0.333333
@@ -2512,7 +2512,7 @@
         "density":0.000667,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.8,
             "C":0.2
@@ -2522,7 +2522,7 @@
         "density":0.7914,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.666654,
             "C":0.166675,
@@ -2533,7 +2533,7 @@
         "density":1.3266,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.4,
             "C":0.2,
@@ -2544,7 +2544,7 @@
         "density":10.22,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Mo":1.0
         }
@@ -2553,7 +2553,7 @@
         "density":1.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.111111,
             "O":0.555556,
@@ -2565,7 +2565,7 @@
         "density":1.11,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.619265,
             "C":0.082642,
@@ -2577,7 +2577,7 @@
         "density":1.07,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.631883,
             "C":0.062435,
@@ -2589,7 +2589,7 @@
         "density":1.04,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.630932,
             "C":0.056732,
@@ -2610,7 +2610,7 @@
         "density":1.04,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.633101,
             "C":0.06407,
@@ -2627,7 +2627,7 @@
         "density":0.000839,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Ne":1.0
         }
@@ -2636,7 +2636,7 @@
         "density":8.902,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Ni":1.0
         }
@@ -2645,7 +2645,7 @@
         "density":8.57,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Nb":1.0
         }
@@ -2654,7 +2654,7 @@
         "density":0.001165,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "N":1.0
         }
@@ -2663,7 +2663,7 @@
         "density":1.08,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.593363,
             "C":0.311934,
@@ -2675,7 +2675,7 @@
         "density":1.425,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.617633,
             "C":0.323542,
@@ -2687,7 +2687,7 @@
         "density":1.14,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.578932,
             "C":0.315803,
@@ -2699,7 +2699,7 @@
         "density":1.14,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.599986,
             "C":0.320013,
@@ -2711,7 +2711,7 @@
         "density":0.97,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.588884,
             "C":0.39773,
@@ -2724,7 +2724,7 @@
         "density":0.975,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.587752,
             "C":0.404749,
@@ -2735,7 +2735,7 @@
         "density":0.97,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.590046,
             "C":0.391765,
@@ -2747,7 +2747,7 @@
         "density":0.875,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.629388,
             "C":0.36522,
@@ -2759,7 +2759,7 @@
         "density":0.955,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.633782,
             "C":0.364349,
@@ -2770,7 +2770,7 @@
         "density":0.871,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.392857,
             "C":0.47619,
@@ -2783,7 +2783,7 @@
         "density":0.915,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.62069,
             "C":0.344828,
@@ -2794,7 +2794,7 @@
         "density":0.001332,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":1.0
         }
@@ -2803,7 +2803,7 @@
         "density":0.001561,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.285714,
             "C":0.071429,
@@ -2814,7 +2814,7 @@
         "density":0.001611,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.166667,
             "C":0.041667,
@@ -2825,7 +2825,7 @@
         "density":12.02,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Pd":1.0
         }
@@ -2834,7 +2834,7 @@
         "density":1.2914,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.546952,
             "C":0.235246,
@@ -2847,7 +2847,7 @@
         "density":2.2,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.440293,
             "C":0.255254,
@@ -2861,7 +2861,7 @@
         "density":3.815,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.407082,
             "C":0.175079,
@@ -2877,7 +2877,7 @@
         "density":21.45,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Pt":1.0
         }
@@ -2886,7 +2886,7 @@
         "density":6.75,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Br":0.75
         },
@@ -2902,7 +2902,7 @@
         "density":13.6,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.5
         },
@@ -2918,7 +2918,7 @@
         "density":5.71,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Cl":0.75
         },
@@ -2934,7 +2934,7 @@
         "density":11.46,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.666667
         },
@@ -2950,7 +2950,7 @@
         "density":9.33,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "F":0.75
         },
@@ -2966,7 +2966,7 @@
         "density":7.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "F":0.8
         },
@@ -2982,7 +2982,7 @@
         "density":5.08,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "F":0.857143
         },
@@ -2998,7 +2998,7 @@
         "density":6.92,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "I":0.75
         },
@@ -3014,7 +3014,7 @@
         "density":2.447,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "N":0.235294,
             "O":0.705882
@@ -3031,7 +3031,7 @@
         "density":14.25,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "N":0.5
         },
@@ -3047,7 +3047,7 @@
         "density":10.5,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.6
         },
@@ -3063,7 +3063,7 @@
         "density":14.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.5
         },
@@ -3079,7 +3079,7 @@
         "density":19.84,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "Pu238":0.0001,
             "Pu239":0.936559,
@@ -3093,7 +3093,7 @@
         "density":19.84,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "Pu238":0.000897,
             "Pu239":0.86247,
@@ -3107,7 +3107,7 @@
         "density":19.84,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "Pu238":0.002347,
             "Pu239":0.785422,
@@ -3121,7 +3121,7 @@
         "density":19.84,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "Pu238":0.000502,
             "Pu239":0.935269,
@@ -3134,7 +3134,7 @@
         "density":19.84,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "Pu238":0.001005,
             "Pu239":0.861564,
@@ -3147,7 +3147,7 @@
         "density":19.84,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "Pu238":0.009965,
             "Pu239":0.625153,
@@ -3160,7 +3160,7 @@
         "density":19.84,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "Pu238":0.000301,
             "Pu239":0.939451,
@@ -3174,7 +3174,7 @@
         "density":1.2,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.424226,
             "C":0.484864,
@@ -3185,7 +3185,7 @@
         "density":1.38,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.363632,
             "C":0.454552,
@@ -3196,7 +3196,7 @@
         "density":1.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.627759,
             "B":0.04669,
@@ -3207,7 +3207,7 @@
         "density":0.93,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.666662,
             "C":0.333338
@@ -3217,7 +3217,7 @@
         "density":0.0482,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.344828,
             "C":0.517241,
@@ -3229,7 +3229,7 @@
         "density":0.9,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.666653,
             "C":0.333347
@@ -3239,7 +3239,7 @@
         "density":1.06,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.499994,
             "C":0.500006
@@ -3249,7 +3249,7 @@
         "density":2.25,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.333339,
             "F":0.666661
@@ -3259,7 +3259,7 @@
         "density":0.021,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.360023,
             "C":0.400878,
@@ -3271,7 +3271,7 @@
         "density":1.19,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.499986,
             "C":0.333345,
@@ -3282,7 +3282,7 @@
         "density":1.406,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.499995,
             "C":0.33334,
@@ -3293,7 +3293,7 @@
         "density":1.032,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.525382,
             "C":0.474618
@@ -3303,7 +3303,7 @@
         "density":1.7,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.333317,
             "C":0.333346,
@@ -3314,7 +3314,7 @@
         "density":1.1,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.615385,
             "Al":0.076923,
@@ -3326,7 +3326,7 @@
         "density":3.13,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "K":0.5,
             "I":0.5
@@ -3336,7 +3336,7 @@
         "density":2.32,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.333333,
             "K":0.666667
@@ -3346,7 +3346,7 @@
         "density":0.001879,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.72726,
             "C":0.27274
@@ -3356,7 +3356,7 @@
         "density":0.43,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.72726,
             "C":0.27274
@@ -3366,7 +3366,7 @@
         "density":1.23,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.416667,
             "C":0.583333
@@ -3376,7 +3376,7 @@
         "density":1.08,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.589073,
             "C":0.317171,
@@ -3388,7 +3388,7 @@
         "density":2.662,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.032837,
             "C":0.044735,
@@ -3410,7 +3410,7 @@
         "density":3.01,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.607469,
             "Na":0.020797,
@@ -3429,7 +3429,7 @@
         "density":2.69,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.629769,
             "Na":0.024738,
@@ -3448,7 +3448,7 @@
         "density":2.61,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.017089,
             "C":0.181445,
@@ -3469,7 +3469,7 @@
         "density":2.32,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.034647,
             "C":0.022161,
@@ -3490,7 +3490,7 @@
         "density":2.68,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.1039,
             "C":0.011058,
@@ -3511,7 +3511,7 @@
         "density":0.92,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.666653,
             "C":0.333347
@@ -3521,7 +3521,7 @@
         "density":0.92,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.61537,
             "C":0.38463
@@ -3531,7 +3531,7 @@
         "density":1.23,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.499985,
             "C":0.400014,
@@ -3542,7 +3542,7 @@
         "density":1.0185,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.597039,
             "C":0.199359,
@@ -3554,7 +3554,7 @@
         "density":1.209865,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.621161,
             "O":0.310581,
@@ -3566,7 +3566,7 @@
         "density":1.022394,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.661906,
             "O":0.330953,
@@ -3578,7 +3578,7 @@
         "density":1.7,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.135405,
             "C":0.004874,
@@ -3595,7 +3595,7 @@
         "density":1.023343,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.66159,
             "O":0.331493,
@@ -3611,7 +3611,7 @@
         "density":1.023343,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.661599,
             "B":3e-06,
@@ -3631,7 +3631,7 @@
         "density":2.14,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.297872,
             "O":0.489362,
@@ -3643,7 +3643,7 @@
         "density":2.33,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Si":1.0
         }
@@ -3652,7 +3652,7 @@
         "density":3.21,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.5,
             "Si":0.5
@@ -3662,7 +3662,7 @@
         "density":2.648,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.666667,
             "Si":0.333333
@@ -3672,7 +3672,7 @@
         "density":2.32,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.666667,
             "Si":0.333333
@@ -3682,7 +3682,7 @@
         "density":10.5,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Ag":1.0
         }
@@ -3691,7 +3691,7 @@
         "density":1.1,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.619966,
             "C":0.118059,
@@ -3712,7 +3712,7 @@
         "density":0.971,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Na":1.0
         }
@@ -3721,7 +3721,7 @@
         "density":7.57,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.666667,
             "Na":0.083333,
@@ -3733,7 +3733,7 @@
         "density":2.17,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Na":0.5,
             "Cl":0.5
@@ -3743,7 +3743,7 @@
         "density":3.667,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Na":0.499999,
             "I":0.500001
@@ -3753,7 +3753,7 @@
         "density":2.261,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "N":0.2,
             "O":0.6,
@@ -3764,7 +3764,7 @@
         "density":2.27,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.333333,
             "Na":0.666667
@@ -3774,7 +3774,7 @@
         "density":7.87,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "B":0.048827,
             "C":0.00174,
@@ -3791,7 +3791,7 @@
         "density":7.82,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.022831,
             "Fe":0.977169
@@ -3801,7 +3801,7 @@
         "density":7.874,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.009183,
             "Si":0.007854,
@@ -3820,7 +3820,7 @@
         "density":7.86,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.003405,
             "N":0.004866,
@@ -3837,7 +3837,7 @@
         "density":7.86,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.006356,
             "Si":0.018057,
@@ -3853,7 +3853,7 @@
         "density":8.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.00183,
             "Si":0.009781,
@@ -3869,7 +3869,7 @@
         "density":8.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.000687,
             "Si":0.009793,
@@ -3885,7 +3885,7 @@
         "density":8.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.0019,
             "Si":0.010048,
@@ -3902,7 +3902,7 @@
         "density":8.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.001384,
             "Si":0.019722,
@@ -3919,7 +3919,7 @@
         "density":8.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.00364,
             "Si":0.019457,
@@ -3936,7 +3936,7 @@
         "density":8.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.003659,
             "Si":0.019559,
@@ -3954,7 +3954,7 @@
         "density":7.8,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.003591,
             "Si":0.019108,
@@ -3970,7 +3970,7 @@
         "density":7.8,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.030406,
             "Si":0.012521,
@@ -3986,7 +3986,7 @@
         "density":0.862,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.635838,
             "C":0.32948,
@@ -3997,7 +3997,7 @@
         "density":1.22,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.416667,
             "C":0.583333
@@ -4007,7 +4007,7 @@
         "density":2.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "S":1.0
         }
@@ -4016,7 +4016,7 @@
         "density":16.654,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Ta":1.0
         }
@@ -4025,7 +4025,7 @@
         "density":11.72,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Th":1.0
         }
@@ -4034,7 +4034,7 @@
         "density":10.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.666667,
             "Th":0.333333
@@ -4044,7 +4044,7 @@
         "density":7.31,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Sn":1.0
         }
@@ -4053,7 +4053,7 @@
         "density":1.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.546359,
             "C":0.32948,
@@ -4067,7 +4067,7 @@
         "density":0.001064,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.605249,
             "C":0.227454,
@@ -4079,7 +4079,7 @@
         "density":0.001826,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.598952,
             "C":0.278531,
@@ -4091,7 +4091,7 @@
         "density":0.92,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.634643,
             "C":0.284063,
@@ -4112,7 +4112,7 @@
         "density":1.02,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.625781,
             "C":0.164483,
@@ -4128,7 +4128,7 @@
         "density":1.05,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.633136,
             "C":0.053674,
@@ -4149,7 +4149,7 @@
         "density":1.05,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.64323,
             "C":0.047811,
@@ -4166,7 +4166,7 @@
         "density":1.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.630454,
             "C":0.117588,
@@ -4187,7 +4187,7 @@
         "density":1.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.630936,
             "C":0.058092,
@@ -4199,7 +4199,7 @@
         "density":1.04,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.64136,
             "C":0.047676,
@@ -4220,7 +4220,7 @@
         "density":1.04,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.645178,
             "C":0.050568,
@@ -4237,7 +4237,7 @@
         "density":4.54,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Ti":1.0
         }
@@ -4246,7 +4246,7 @@
         "density":4.43,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.004953,
             "C":0.002154,
@@ -4262,7 +4262,7 @@
         "density":4.26,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.666606,
             "Ti":0.333394
@@ -4272,7 +4272,7 @@
         "density":3.75,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.666667,
             "Ti":0.333333
@@ -4282,7 +4282,7 @@
         "density":0.8669,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.533317,
             "C":0.466683
@@ -4292,7 +4292,7 @@
         "density":0.864,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.627907,
             "B":0.023256,
@@ -4304,7 +4304,7 @@
         "density":0.9724,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.613636,
             "C":0.272727,
@@ -4316,7 +4316,7 @@
         "density":19.3,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "W":1.0
         }
@@ -4325,7 +4325,7 @@
         "density":13.63,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.5
         },
@@ -4340,7 +4340,7 @@
         "density":11.28,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "C":0.666667
         },
@@ -4355,7 +4355,7 @@
         "density":10.96,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.666667
         },
@@ -4370,7 +4370,7 @@
         "density":4.68,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "F":0.857143
         },
@@ -4385,7 +4385,7 @@
         "density":11.1,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.75
         },
@@ -4400,7 +4400,7 @@
         "density":14.31,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "N":0.5
         },
@@ -4415,7 +4415,7 @@
         "density":8.3,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.727273
         },
@@ -4430,7 +4430,7 @@
         "density":6.7,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "F":0.8
         },
@@ -4445,7 +4445,7 @@
         "density":7.29,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.75
         },
@@ -4460,7 +4460,7 @@
         "density":18.951157,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "U234":5e-06,
             "U235":0.002532,
@@ -4471,7 +4471,7 @@
         "density":18.944492,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "U234":0.00031,
             "U235":0.029967,
@@ -4482,7 +4482,7 @@
         "density":18.724868,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "U234":0.010582,
             "U235":0.932362,
@@ -4494,7 +4494,7 @@
         "density":18.732854,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "U234":0.009722,
             "U235":0.898982,
@@ -4506,7 +4506,7 @@
         "density":18.72476,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "U234":0.009849,
             "U235":0.932166,
@@ -4518,7 +4518,7 @@
         "density":18.944386,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "U234":0.000271,
             "U235":0.030372,
@@ -4530,7 +4530,7 @@
         "density":18.95,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "isotopes": {
             "U234":5.8e-05,
             "U235":0.007295,
@@ -4541,7 +4541,7 @@
         "density":11.0,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.666666
         },
@@ -4561,7 +4561,7 @@
         "density":6.37,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.4,
             "F":0.4
@@ -4577,7 +4577,7 @@
         "density":2.203,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "N":0.181818,
             "O":0.727273
@@ -4593,7 +4593,7 @@
         "density":0.085,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.197175,
             "O":0.520978,
@@ -4610,7 +4610,7 @@
         "density":1.8,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.133327,
             "C":0.333341,
@@ -4621,7 +4621,7 @@
         "density":1.10534,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.333333
         },
@@ -4633,7 +4633,7 @@
         "density":0.998207,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.666657,
             "O":0.333343
@@ -4643,7 +4643,7 @@
         "density":0.000756,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.666657,
             "O":0.333343
@@ -4653,7 +4653,7 @@
         "density":1.05,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.632204,
             "C":0.304366,
@@ -4666,7 +4666,7 @@
         "density":0.99,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.65888,
             "C":0.320919,
@@ -4679,7 +4679,7 @@
         "density":0.93,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.675311,
             "C":0.324689
@@ -4689,7 +4689,7 @@
         "density":0.64,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.462423,
             "C":0.323389,
@@ -4705,7 +4705,7 @@
         "density":0.005485,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Xe":1.0
         }
@@ -4714,7 +4714,7 @@
         "density":4.56,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.6,
             "Al":0.25,
@@ -4725,7 +4725,7 @@
         "density":5.37,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.6,
             "Al":0.2,
@@ -4736,7 +4736,7 @@
         "density":4.45,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.625,
             "Si":0.125,
@@ -4747,7 +4747,7 @@
         "density":2.25,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.173913,
             "O":0.521739,
@@ -4760,7 +4760,7 @@
         "density":7.133,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Zn":1.0
         }
@@ -4769,7 +4769,7 @@
         "density":5.42,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Zn":0.5,
             "Se":0.5
@@ -4779,7 +4779,7 @@
         "density":4.09,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "S":0.5,
             "Zn":0.5
@@ -4789,7 +4789,7 @@
         "density":6.56,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.006796,
             "Cr":0.001743,
@@ -4803,7 +4803,7 @@
         "density":6.56,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.00679,
             "Cr":0.001741,
@@ -4816,7 +4816,7 @@
         "density":6.506,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "Zr":1.0
         }
@@ -4825,7 +4825,7 @@
         "density":5.61,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.615385,
             "Zr":0.384615
@@ -4835,7 +4835,7 @@
         "density":5.61,
         "density_unit":"g/cm3",
         "percent_type": "ao",
-        "reference":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
+        "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "H":0.666667,
             "Zr":0.333333

@@ -3,24 +3,23 @@
 __author__ = "neutronics material maker development team"
 
 
+import json
 import os
 import re
 import warnings
 from json import JSONEncoder
-from typing import Optional, Dict, List
+from typing import Dict, List, Optional, Union
+
 import asteval
 from CoolProp.CoolProp import PropsSI
 
-from neutronics_material_maker import (
-    make_fispact_material,
-    make_serpent_material,
-    make_mcnp_material,
-    make_shift_material,
-    material_dict,
-    zaid_to_isotope,
-    check_add_additional_end_lines,
-    NATURAL_ABUNDANCE
-)
+from neutronics_material_maker import (NATURAL_ABUNDANCE,
+                                       check_add_additional_end_lines,
+                                       make_fispact_material,
+                                       make_mcnp_material,
+                                       make_serpent_material,
+                                       make_shift_material, material_dict,
+                                       zaid_to_isotope)
 
 OPENMC_AVAILABLE = True
 try:
@@ -50,39 +49,20 @@ JSONEncoder.default = _default
 
 class Material:
     """
-    Produces a material by looking up the material_name in a
-    collection of prepared materials. Modifiers to the material
-    isotopes are applied according to arguments such
-    as enrichment. Modifiers to the material density are applied
-    according to arguments like temperature and pressure
-    where appropiate (gases, liquids). The collection of materials
-    includes relationships between presure, temperature and density
-    relationships. This allows the code to adjust the density of the
-    material accordingly. The intended use is a tool to facilitate
-    the use of a common materials library (internal or your own).
-    However it is also possible to make complete Materials without
-    using the reference collection but more inputs are needed from
-    the user. The Material object is also json serializable
+    Produces a material from input arguments that can be output in formats
+    suitable for several different neutronics codes.
 
     Args:
-        material_name: This is the reference name used to look up the material
-            from the internal collection. Look up the available materials
-            AvailableMaterials()
-        material_tag: This is a string that is assigned to the
-            material as an identifier. This is used by neutronics
-            codes to label the material with a unique identifier
+        name: This is a string that is assigned to the material as an
+            identifier. This is used by neutronics codes to label the material
+            with a unique identifier.
         packing_fraction: This value is mutliplied by the density
             which allows packing_fraction to be taken into account for materials
             involving an amount of void. Recall that packing_fraction is equal
             to 1/void fraction
         enrichment: This is the percentage of isotope enrichment
             required for the material. This works for materials that have
-            an enrichment_target specified. The internal material collection
-            have Li6 specified as an enrichment_target for Lithium containing
-            compounds. Enrichment of Li6 impacts the density of a material and
-            the internal package materials take this into account. It is also
-            possible to use this when making materials not included in the
-            reference collection but an enrichment_target must also be provided.
+            an enrichment_target and enrichment_type also specified.
         enrichment_target: The isotope to enrich e.g. Li6
         temperature: The temperature of the material in degrees
             Kelvin. Temperature impacts the density of some materials in the
@@ -124,16 +104,16 @@ class Material:
             e.g. {'Li6': 0.9, 'Li7': 0.1} alternatively zaid representation
             can also be used instead of the symbol e.g. {'3006': 0.9, '4007': 0.1}
         percent_type: Atom "ao" or or weight fraction "wo"
-        density): value to be used as the density
+        density: value to be used as the density. Can be a number or a string.
+            if a string then it will be evaluated as an equation to find the
+            density and can contain temperature and pressure varibles.
+            variables as part of the equation.
         density_unit: the units of density "g/cm3", "g/cc", "kg/m3",
             "atom/b-cm", "atom/cm3"
-        density_equation: An equation to be evaluated to find the density,
-            can contain temperature and pressure
-            variables as part of the equation.
         atoms_per_unit_cell: The number of atoms in a unit cell of the
             crystal structure
         volume_of_unit_cell_cm3: The volume of the unit cell in cm3
-        reference: An entry used to store information on the source of the
+        comment: An entry used to store information on the source of the
             material data
         additional_end_lines: Additional lines of test that are added to the end of
             the material card. Compatable with MCNP, Serpent, Fispact outputs
@@ -149,9 +129,8 @@ class Material:
 
     def __init__(
         self,
-        material_name: Optional[str] = None,
-        packing_fraction: Optional[float] = 1.0,
-        material_tag: Optional[str] = None,
+        name: Optional[str] = None,
+        packing_fraction: Optional[float] = 1.,
         enrichment: Optional[float] = None,
         enrichment_target: Optional[str] = None,
         temperature: Optional[float] = None,
@@ -163,11 +142,10 @@ class Material:
         percent_type: Optional[str] = None,
         density: Optional[float] = None,
         density_unit: Optional[str] = None,
-        density_equation: Optional[str] = None,
         atoms_per_unit_cell: Optional[int] = None,
         volume_of_unit_cell_cm3: Optional[float] = None,
         enrichment_type: Optional[str] = None,
-        reference: Optional[str] = None,
+        comment: Optional[str] = None,
         zaid_suffix: Optional[str] = None,
         material_id: Optional[int] = None,
         decimal_places: Optional[int] = 8,
@@ -175,8 +153,7 @@ class Material:
         additional_end_lines: Optional[Dict[str, List[str]]] = None,
     ):
 
-        self.material_name = material_name
-        self.material_tag = material_tag
+        self.name = name
         self.temperature = temperature
         self.temperature_to_neutronics_code = temperature_to_neutronics_code
         self.pressure = pressure
@@ -185,7 +162,6 @@ class Material:
         self.chemical_equation = chemical_equation
         self.isotopes = isotopes
         self.density = density
-        self.density_equation = density_equation
         self.atoms_per_unit_cell = atoms_per_unit_cell
         self.volume_of_unit_cell_cm3 = volume_of_unit_cell_cm3
         self.density_unit = density_unit
@@ -193,7 +169,7 @@ class Material:
         self.enrichment = enrichment
         self.enrichment_target = enrichment_target
         self.enrichment_type = enrichment_type
-        self.reference = reference
+        self.comment = comment
         self.zaid_suffix = zaid_suffix
         self.material_id = material_id
         self.decimal_places = decimal_places
@@ -213,49 +189,8 @@ class Material:
                 "Material.chemical_equation and Material.elements can not both be set"
             )
 
-        if self.material_name in material_dict.keys():
-
-            self._populate_from_inbuilt_dictionary()
-
-            # checks that if we try to enrich a material by providing any of the
-            # arguments, that the other arguments are also provided
-            if self.enrichment is not None:
-                if self.enrichment_target is None or self.enrichment_type is None:
-                    raise ValueError(
-                        "Material.enrichment_target and enrichment type are \
-                        needed to enrich a material"
-                    )
-
-            if "temperature_dependant" in material_dict[self.material_name].keys(
-            ):
-                if temperature is None:
-                    if self.material_name == "He":
-                        raise ValueError(
-                            "temperature is needed for",
-                            self.material_name,
-                            ". Typical helium cooled blankets are 670K and 8e6Pa",
-                        )
-                    elif self.material_name == "H2O":
-                        raise ValueError(
-                            "temperature is needed for",
-                            self.material_name,
-                            ". Typical water cooled blankets are 305C and 15.5e6Pa",
-                        )
-                    raise ValueError(
-                        "temperature is needed for", self.material_name
-                    )
-
-            if "pressure_dependant" in material_dict[self.material_name].keys(
-            ):
-                if pressure is None:
-                    raise ValueError(
-                        "pressure is needed for",
-                        self.material_name)
-
-        # this populates the density of materials when density is provided by
-        # equations and crystal latic information by making the openmc material
-        # however it should also be possible to ininitialize nmm.Material
-        # without openmc installed, hence the if
+        # It should also be possible to ininitialize nmm.Material without
+        # OpenMC
         if OPENMC_AVAILABLE:
             self._make_openmc_material()
 
@@ -355,36 +290,20 @@ class Material:
         self._fispact_material = value
 
     @property
-    def material_name(self) -> str:
+    def name(self) -> str:
         """
         The name of the material, used to look up the material from the
         internal database of material names available
         """
-        return self._material_name
+        return self._name
 
-    @material_name.setter
-    def material_name(self, value):
+    @name.setter
+    def name(self, value):
         if value is not None:
             if not isinstance(value, str):
                 raise ValueError(
-                    "Material.material_name must be a string", value)
-        self._material_name = value
-
-    @property
-    def material_tag(self) -> str:
-        """
-        The material tag to assign the material, used when naming openmc
-        materials. This is the label attached to the material.
-        """
-        return self._material_tag
-
-    @material_tag.setter
-    def material_tag(self, value):
-        if value is not None:
-            if not isinstance(value, str):
-                raise ValueError(
-                    "Material.material_tag must be a string", value)
-        self._material_tag = value
+                    "Material.name must be a string", value)
+        self._name = value
 
     @property
     def packing_fraction(self):
@@ -452,18 +371,6 @@ class Material:
             )
 
     @property
-    def density_equation(self):
-        return self._density_equation
-
-    @density_equation.setter
-    def density_equation(self, value):
-        if value is not None:
-            if not isinstance(value, str):
-                raise ValueError(
-                    "Material.density_equation should be a string")
-        self._density_equation = value
-
-    @property
     def density_unit(self) -> float:
         """
         The units of density to use, either "g/cm3", "g/cc", "kg/m3",
@@ -528,9 +435,9 @@ class Material:
     @property
     def volume_of_unit_cell_cm3(self):
         """
-        The volume of the crystal unit cell. Can be used in density_equation
-        calculations if 'volume_of_unit_cell_cm3' is used in the
-        density_equation attribute.
+        The volume of the crystal unit cell. Can be used in a density string as
+        part of the equation calculations if 'volume_of_unit_cell_cm3' is used
+        in the density attribute.
 
         :type: float
         """
@@ -559,7 +466,7 @@ class Material:
         if value is not None:
             if value < 0.0:
                 raise ValueError(
-                    "Material.temperature must be greater than 0")
+                    "Material.temperature must be greater than 0 Kelvin")
         self._temperature = value
 
     @property
@@ -576,7 +483,9 @@ class Material:
     def density(self, value):
         if value is None:
             self._density = value
-        else:
+        elif isinstance(value, str):
+            self._density = value
+        elif isinstance(value, (int, float)):
             if value < 0:
                 raise ValueError("Material.density should be above 0", value)
             self._density = float(value)
@@ -614,8 +523,8 @@ class Material:
         if value is not None:
             if value not in NATURAL_ABUNDANCE.keys():
                 raise ValueError(
-                    "Material.enrichment_target must be a naturally occuring \
-                    isotope from this list",
+                    "Material.enrichment_target must be a naturally occuring "
+                    "isotope from this list",
                     NATURAL_ABUNDANCE.keys(),
                 )
         self._enrichment_target = value
@@ -624,8 +533,7 @@ class Material:
     def pressure(self):
         """
         The pressure of the material in Pascals. Must be a possive number. Used
-        to calculate the density if the density_equation contains
-        pressure.
+        to calculate the density if it appears in the density attribute.
 
         :type: float
         """
@@ -640,21 +548,21 @@ class Material:
         self._pressure = value
 
     @property
-    def reference(self):
+    def comment(self):
         """
-        A reference string to state where the material properties information
+        A comment string to state where the material properties information
         came from
 
         :type: str
         """
-        return self._reference
+        return self._comment
 
-    @reference.setter
-    def reference(self, value):
+    @comment.setter
+    def comment(self, value):
         if value is not None:
             if not isinstance(value, str):
-                raise ValueError("Material.reference must be a string")
-        self._reference = value
+                raise ValueError("Material.comment must be a string")
+        self._comment = value
 
     @property
     def zaid_suffix(self):
@@ -698,7 +606,7 @@ class Material:
         """
         The volume of the material in cm3. Used when writing Fispact materials
         and can also be used in density equation calculation if volume_in_cm3
-        appears in density_equation.
+        appears in density attribute.
 
         :type: float
         """
@@ -720,17 +628,13 @@ class Material:
         if original_cross_sections is not None:
             del os.environ["OPENMC_CROSS_SECTIONS"]
 
-        if self.material_tag is None:
-            name = self.material_name
-        else:
-            name = self.material_tag
         if self.material_id is not None:
             openmc_material = openmc.Material(
                 material_id=self.material_id,
-                name=name)
+                name=self.name)
         else:
             openmc_material = openmc.Material(
-                name=name)
+                name=self.name)
 
         if self.temperature_to_neutronics_code is True:
             openmc_material.temperature = self.temperature
@@ -754,139 +658,26 @@ class Material:
 
         return openmc_material
 
-    def _populate_from_inbuilt_dictionary(self):
-        """This runs on initilisation and if attributes of the Material object
-        are not specified (left as None) then the internal material dictionary
-        is checked to see if defaults are pressent for the particular material.
-        If the attributed has defaults that are present in the internal
-        dictionary then these are used to populated the attributes of the
-        Material object when present.
-        """
+    def _check_enrichment_attributes(self):
 
-        if (
-            self.material_id is None
-            and "material_id" in material_dict[self.material_name].keys()
-        ):
-            self.material_id = material_dict[self.material_name]["material_id"]
+        if self.enrichment is None:
+            return None
 
-        if (
-            self.additional_end_lines is None
-            and "additional_end_lines" in material_dict[self.material_name].keys()
-        ):
-            self.additional_end_lines = material_dict[self.material_name]["additional_end_lines"]
+        elif (self.enrichment_type is not None and self.enrichment_target is not None):
+            return re.split(r"(\d+)", self.enrichment_target)[0]
 
-        if (
-            self.chemical_equation is None
-            and "chemical_equation" in material_dict[self.material_name].keys()
-        ):
-            self.chemical_equation = material_dict[self.material_name][
-                "chemical_equation"
-            ]
+        elif (self.enrichment is not None or self.enrichment_type is not None or self.enrichment_target is not None):
+            raise ValueError(
+                "Material.enrichment_target, Material.enrichment_type and "
+                "Material.enrichment are all needed to enrich a material"
+            )
 
-        if (
-            self.temperature is None
-            and "temperature" in material_dict[self.material_name].keys()
-        ):
-            self.temperature = material_dict[self.material_name][
-                "temperature"
-            ]
-
-        if (
-            self.pressure is None
-            and "pressure" in material_dict[self.material_name].keys()
-        ):
-            self.pressure = material_dict[self.material_name]["pressure"]
-
-        if (
-            self.packing_fraction is None
-            and "packing_fraction" in material_dict[self.material_name].keys()
-        ):
-            self.packing_fraction = material_dict[self.material_name][
-                "packing_fraction"
-            ]
-
-        if (
-            self.elements is None
-            and "elements" in material_dict[self.material_name].keys()
-        ):
-            self.elements = material_dict[self.material_name]["elements"]
-
-        if (
-            self.isotopes is None
-            and "isotopes" in material_dict[self.material_name].keys()
-        ):
-            self.isotopes = material_dict[self.material_name]["isotopes"]
-
-        if (
-            self.density is None
-            and "density" in material_dict[self.material_name].keys()
-        ):
-            self.density = material_dict[self.material_name]["density"]
-
-        if (
-            self.density_equation is None
-            and "density_equation" in material_dict[self.material_name].keys()
-        ):
-            self.density_equation = material_dict[self.material_name][
-                "density_equation"
-            ]
-
-        if (
-            self.atoms_per_unit_cell is None
-            and "atoms_per_unit_cell" in material_dict[self.material_name].keys()
-        ):
-            self.atoms_per_unit_cell = material_dict[self.material_name][
-                "atoms_per_unit_cell"
-            ]
-
-        if (
-            self.volume_of_unit_cell_cm3 is None
-            and "volume_of_unit_cell_cm3" in material_dict[self.material_name].keys()
-        ):
-            self.volume_of_unit_cell_cm3 = material_dict[self.material_name][
-                "volume_of_unit_cell_cm3"
-            ]
-
-        if (
-            self.density_unit is None
-            and "density_unit" in material_dict[self.material_name].keys()
-        ):
-            self.density_unit = material_dict[self.material_name]["density_unit"]
-
-        if (
-            self.percent_type is None
-            and "percent_type" in material_dict[self.material_name].keys()
-        ):
-            self.percent_type = material_dict[self.material_name]["percent_type"]
-
-        if (
-            self.enrichment is None
-            and "enrichment" in material_dict[self.material_name].keys()
-        ):
-            self.enrichment = material_dict[self.material_name]["enrichment"]
-
-        if (
-            self.enrichment_target is None
-            and "enrichment_target" in material_dict[self.material_name].keys()
-        ):
-            self.enrichment_target = material_dict[self.material_name][
-                "enrichment_target"
-            ]
-
-        if (
-            self.enrichment_type is None
-            and "enrichment_type" in material_dict[self.material_name].keys()
-        ):
-            self.enrichment_type = material_dict[self.material_name]["enrichment_type"]
-
-        if (
-            self.reference is None
-            and "reference" in material_dict[self.material_name].keys()
-        ):
-            self.reference = material_dict[self.material_name]["reference"]
+        return None
 
     def _add_elements_from_equation(self, openmc_material):
         """Adds elements from a dictionary or chemical equation to the Material"""
+
+        self._check_enrichment_attributes()
 
         openmc_material.add_elements_from_formula(
             self.chemical_equation,
@@ -908,10 +699,7 @@ class Material:
             openmc material object with additional elements
         """
 
-        if self.enrichment_target is not None:
-            enrichment_element = re.split(r"(\d+)", self.enrichment_target)[0]
-        else:
-            enrichment_element = None
+        enrichment_element = self._check_enrichment_attributes()
 
         for element_symbol, element_number in zip(
             self.elements.keys(), self.elements.values()
@@ -965,50 +753,60 @@ class Material:
             openmc material object with density set
         """
 
-        if not isinstance(self.density, float):
+        if isinstance(self.density, float):
+            density = self.density
 
-            if self.density is None and self.density_equation is not None:
+        # a density equation is being used
+        elif isinstance(self.density, str):
+            aeval = asteval.Interpreter(usersyms=asteval_user_symbols)
 
-                aeval = asteval.Interpreter(usersyms=asteval_user_symbols)
-
-                # Potentially used in the eval part
-                aeval.symtable["temperature"] = self.temperature
-                aeval.symtable["pressure"] = self.pressure
-
-                density = aeval.eval(self.density_equation)
-
-                if len(aeval.error) > 0:
-                    raise aeval.error[0].exc(aeval.error[0].msg)
-
-                if density is None:
-                    raise ValueError(
-                        "Density value of ",
-                        self.material_name,
-                        " can not be found")
-                else:
-                    self.density = density
-
-            elif (
-                self.atoms_per_unit_cell is not None
-                and self.volume_of_unit_cell_cm3 is not None
-            ):
-
-                molar_mass = (
-                    self._get_atoms_in_crystal() *
-                    openmc_material.average_molar_mass)
-
-                mass = self.atoms_per_unit_cell * molar_mass * atomic_mass_unit_in_g
-
-                self.density = mass / self.volume_of_unit_cell_cm3
-            else:
-
+            if "temperature" in self.density and self.temperature is None:
                 raise ValueError(
-                    "density can't be set for "
-                    + str(self.material_name)
-                    + " provide either a density_value, density_equation as a \
-                        string, or atoms_per_unit_cell and \
-                        volume_of_unit_cell_cm3"
+                    "Material.temperature is needed to calculate the density")
+
+            if "pressure" in self.density and self.pressure is None:
+                raise ValueError(
+                    "Material.pressure is needed to calculate the density"
                 )
+
+            # Potentially used in the eval part
+            aeval.symtable["temperature"] = self.temperature
+            aeval.symtable["pressure"] = self.pressure
+
+            density = aeval.eval(self.density)
+
+            if len(aeval.error) > 0:
+                raise aeval.error[0].exc(aeval.error[0].msg)
+
+            if density is None:
+                raise ValueError(
+                    "Density value of ",
+                    self.name,
+                    " can not be found")
+            else:
+                self.density = density
+
+        elif (
+            self.atoms_per_unit_cell is not None
+            and self.volume_of_unit_cell_cm3 is not None
+        ):
+
+            molar_mass = (
+                self._get_atoms_in_crystal() *
+                openmc_material.average_molar_mass)
+
+            mass = self.atoms_per_unit_cell * molar_mass * atomic_mass_unit_in_g
+
+            self.density = mass / self.volume_of_unit_cell_cm3
+        else:
+
+            raise ValueError(
+                "density can't be set for "
+                + str(self.name) +
+                " provide either a density value as a number or density "
+                "as a string, or atoms_per_unit_cell and "
+                "volume_of_unit_cell_cm3"
+            )
 
         openmc_material.set_density(
             self.density_unit, self.density * self.packing_fraction
@@ -1037,13 +835,117 @@ class Material:
         self.list_of_fractions = list_of_fractions
         return sum(list_of_fractions)
 
+    def from_json_file(
+        filename: str,
+        name: str,
+        **kwargs
+    ):
+
+        with open(filename, "r") as file:
+            new_data = json.load(file)
+
+        print(new_data)
+        print(new_data.keys())
+
+        entry = new_data[name]
+
+        # customisation of the library entry
+        for key, value in kwargs.items():
+            entry[key] = value
+
+        return Material(name=name, **entry)
+
+    def from_library(
+        name: str,
+        **kwargs
+    ):
+        # TODO allow discreat libraries to be searched library: List('str')
+
+        if name not in material_dict.keys():
+
+            raise ValueError(
+                'name of ', name, 'not found in the internal library'
+            )
+
+        entry = material_dict[name].copy()
+
+        # customisation of the library entry
+        for key, value in kwargs.items():
+            entry[key] = value
+
+        return Material(name=name, **entry)
+
+    def from_mixture(
+        materials,
+        fracs: List[float],
+        percent_type: Optional[str] = 'vo',
+        name: Optional[str] = None,
+        packing_fraction: Optional[float] = 1.,
+        temperature: Optional[float] = None,
+        temperature_to_neutronics_code: Optional[bool] = True,
+        pressure: Optional[float] = None,
+        comment: Optional[str] = None,
+        zaid_suffix: Optional[str] = None,
+        material_id: Optional[int] = None,
+        decimal_places: Optional[int] = 8,
+        volume_in_cm3: Optional[float] = None,
+        additional_end_lines: Optional[Dict[str, List[str]]] = None,
+    ):
+        if sum(fracs) != 1.0:
+            warnings.warn(
+                "warning sum of MutliMaterials.fracs do not sum to 1."
+                + str(fracs)
+                + " = "
+                + str(sum(fracs)),
+                UserWarning,
+            )
+
+        openmc_material_objects = []
+        for material in materials:
+            if isinstance(material, openmc.Material):
+                openmc_material_objects.append(material)
+            elif isinstance(material, Material):
+                openmc_material_objects.append(material.openmc_material)
+            else:
+                raise ValueError(
+                    "only openmc.Material or neutronics_material_maker. \
+                    Materials are accepted. Not", type(material),
+                )
+
+        openmc_material = openmc.Material.mix_materials(
+            materials=openmc_material_objects,
+            fracs=fracs,
+            percent_type=percent_type,
+        )
+
+        isotopes = {}
+        for nuclide in sorted(openmc_material.nuclides):
+            isotopes[nuclide.name] = nuclide.percent
+
+        return Material(
+            percent_type=nuclide.percent_type,
+            isotopes=isotopes,
+            density=openmc_material.get_mass_density(),
+            density_unit='g/cm3',
+            packing_fraction=packing_fraction,
+            name=name,
+            temperature=temperature,
+            temperature_to_neutronics_code=temperature_to_neutronics_code,
+            pressure=pressure,
+            comment=comment,
+            zaid_suffix=zaid_suffix,
+            material_id=material_id,
+            decimal_places=decimal_places,
+            volume_in_cm3=volume_in_cm3,
+            additional_end_lines=additional_end_lines,
+        )
+
     def to_json(self) -> dict:
         """
         Json serializable version of the material
         """
-        jsonified_object = {
-            "material_name": self.material_name,
-            "material_tag": self.material_tag,
+
+        contents = {
             "temperature": self.temperature,
             "pressure": self.pressure,
             "packing_fraction": self.packing_fraction,
@@ -1051,7 +953,6 @@ class Material:
             "chemical_equation": self.chemical_equation,
             "isotopes": self.isotopes,
             "density": self.density,
-            "density_equation": self.density_equation,
             "atoms_per_unit_cell": self.atoms_per_unit_cell,
             "volume_of_unit_cell_cm3": self.volume_of_unit_cell_cm3,
             "density_unit": self.density_unit,
@@ -1059,11 +960,19 @@ class Material:
             "enrichment": self.enrichment,
             "enrichment_target": self.enrichment_target,
             "enrichment_type": self.enrichment_type,
-            "reference": self.reference,
+            "comment": self.comment,
             "zaid_suffix": self.zaid_suffix,
             "material_id": self.material_id,
             "decimal_places": self.decimal_places,
             "volume_in_cm3": self.volume_in_cm3,
+        }
+
+        for key, value in dict(contents).items():
+            if value is None:
+                del contents[key]
+
+        jsonified_object = {
+            self.name: contents
         }
 
         return jsonified_object

@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 # -- Project information -----------------------------------------------------
 
 project = "NeutronicsMaterialMaker"
-copyright = "2020, UKAEA and neutronics-material-maker contributors"
+copyright = "2020-2021 neutronics-material-maker contributors"
 author = "neutronics-material-maker development team"
 
 # The short X.Y version
@@ -133,7 +133,7 @@ latex_documents = [
         master_doc,
         "NeutronicsMaterialMaker.tex",
         "NeutronicsMaterialMaker Documentation",
-        "John Billingsley",
+        "Neutronics material maker contributors",
         "manual",
     )
 ]

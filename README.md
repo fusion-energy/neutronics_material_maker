@@ -22,7 +22,7 @@ temperature and pressure.
 
 :point_right: [Documentation](https://neutronics-material-maker.readthedocs.io/en/latest/)
 
-:point_right: [Video presentation](https://www.youtube.com/watch?v=V-VHLwRar9s)
+:point_right: [Video presentation]()
 
 ## Installation
 
@@ -106,17 +106,17 @@ my_mat2.openmc_material
 ```
 
 
-## Usage - MultiMaterial (Mixed Materials))
+## Usage - Material.from_mixture
 
-Materials can also be mixed together using the MultiMaterial class. This
+Materials can also be mixed together using the from_mixture method. This
 accepts a list of ```neutronics_material_maker.Materials``` or 
 ```openmc.Material``` objects along with the material fractions (fracs).
 
 ```python
 import neutronics_material_maker as nmm
-my_mat1 = nmm.Material('Li4SiO4', packing_fraction=0.64)
-my_mat2 = nmm.Material('Be12Ti')
-my_mat3 = MultiMaterial(materials=[my_mat1, my_mat2],
+my_mat1 = nmm.Material.from_library(name='Li4SiO4', packing_fraction=0.64)
+my_mat2 = nmm.Material.from_library(name='Be12Ti')
+my_mat3 = nmm.Material.from_mixture(materials=[my_mat1, my_mat2],
                         fracs=[0.4, 0.6],
                         percent_type='vo')
 my_mat3.openmc_material
