@@ -204,17 +204,22 @@ Another option is to use AddMaterialFromDir() to import a directory of JSON file
 Usage - exporting a material to a JSON file
 -------------------------------------------
 
-Materials can also be exported to a JSON file as demonstrated below.
-You could even customise them by attaching specific attribute values.
+Materials can also be exported to a JSON file as demonstrated below. This JSON
+file can then be read back in if required using the AddMaterialFromDir or
+AddMaterialFromFile utility functions.
 
 .. code-block:: python
-
-    import json
 
     import neutronics_material_maker as nmm
 
     my_mat1 = nmm.Material.from_library(name='eurofer', material_id=1)
     my_mat2 = nmm.Material.from_library(name='Li4SiO4', material_id=1)
 
-    with open('my_materials.json', 'w') as outfile:
-        json.dump([my_mat1, my_mat2], outfile, indent=4)
+    nmm.SaveMaterialsToFile(
+        filename='my_materials.json',
+        materials=[my_mat1, my_mat2],
+        format='json',
+    )
+
+The format can be changed to 'mcnp', 'serpent', 'shift' or 'fispact' to output
+a list of nmm.Materials in those formats.
