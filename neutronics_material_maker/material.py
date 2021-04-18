@@ -921,7 +921,7 @@ class Material:
         isotopes = {}
         for nuclide in sorted(openmc_material.nuclides):
             isotopes[nuclide.name] = nuclide.percent
-        
+
         return Material(
             percent_type=nuclide.percent_type,
             isotopes=isotopes,
@@ -946,26 +946,26 @@ class Material:
         """
 
         contents = {
-                "temperature": self.temperature,
-                "pressure": self.pressure,
-                "packing_fraction": self.packing_fraction,
-                "elements": self.elements,
-                "chemical_equation": self.chemical_equation,
-                "isotopes": self.isotopes,
-                "density": self.density,
-                "atoms_per_unit_cell": self.atoms_per_unit_cell,
-                "volume_of_unit_cell_cm3": self.volume_of_unit_cell_cm3,
-                "density_unit": self.density_unit,
-                "percent_type": self.percent_type,
-                "enrichment": self.enrichment,
-                "enrichment_target": self.enrichment_target,
-                "enrichment_type": self.enrichment_type,
-                "comment": self.comment,
-                "zaid_suffix": self.zaid_suffix,
-                "material_id": self.material_id,
-                "decimal_places": self.decimal_places,
-                "volume_in_cm3": self.volume_in_cm3,
-            }
+            "temperature": self.temperature,
+            "pressure": self.pressure,
+            "packing_fraction": self.packing_fraction,
+            "elements": self.elements,
+            "chemical_equation": self.chemical_equation,
+            "isotopes": self.isotopes,
+            "density": self.density,
+            "atoms_per_unit_cell": self.atoms_per_unit_cell,
+            "volume_of_unit_cell_cm3": self.volume_of_unit_cell_cm3,
+            "density_unit": self.density_unit,
+            "percent_type": self.percent_type,
+            "enrichment": self.enrichment,
+            "enrichment_target": self.enrichment_target,
+            "enrichment_type": self.enrichment_type,
+            "comment": self.comment,
+            "zaid_suffix": self.zaid_suffix,
+            "material_id": self.material_id,
+            "decimal_places": self.decimal_places,
+            "volume_in_cm3": self.volume_in_cm3,
+        }
 
         for key, value in dict(contents).items():
             if value is None:
