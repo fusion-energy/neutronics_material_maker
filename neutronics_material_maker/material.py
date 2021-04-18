@@ -873,8 +873,6 @@ class Material:
         for key, value in kwargs.items():
             entry[key] = value
 
-        print(entry)
-
         return Material(name=name, **entry)
 
     def from_mixture(
@@ -921,9 +919,9 @@ class Material:
         )
 
         isotopes = {}
-        for nuclide in openmc_material.nuclides:
+        for nuclide in sorted(openmc_material.nuclides):
             isotopes[nuclide.name] = nuclide.percent
-
+        
         return Material(
             percent_type=nuclide.percent_type,
             isotopes=isotopes,
@@ -946,8 +944,8 @@ class Material:
         """
         Json serializable version of the material
         """
-        jsonified_object = {
-            self.name: {
+
+        contents = {
                 "temperature": self.temperature,
                 "pressure": self.pressure,
                 "packing_fraction": self.packing_fraction,
@@ -968,6 +966,13 @@ class Material:
                 "decimal_places": self.decimal_places,
                 "volume_in_cm3": self.volume_in_cm3,
             }
+
+        for key, value in dict(contents).items():
+            if value is None:
+                del contents[key]
+
+        jsonified_object = {
+            self.name: contents
         }
 
         return jsonified_object

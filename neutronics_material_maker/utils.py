@@ -372,6 +372,43 @@ def AvailableMaterials() -> dict:
     return material_dict
 
 
+def SaveMaterialsToFile(filename: str, materials: list, format='json') -> str:
+    """Saves a list of materials to a json file. Useful for saving as a library
+    for future use.
+
+    Arguments:
+        filename: The output filename.
+        materials: List of neutronics_material_maker.Materials to save.
+
+    Returns
+        str: the filename of the json file
+    """
+
+    if format == 'json':
+        with open(filename, 'w') as outfile:
+            json.dump({mat.name: mat.to_json()[mat.name] for mat in materials}, outfile, indent=4)
+        return filename
+
+    all_materials = ''
+    for mat in materials:
+        if format == 'mcnp':
+            all_materials += 'c\nc\nc\n' + mat.mcnp_material
+
+        if format == 'serpent':
+            all_materials += mat.serpent_material
+
+        if format == 'shift':
+            all_materials += mat.shift_material
+
+        if format == 'fispact':
+            all_materials += mat.shift_material
+
+    with open(filename, 'w') as outfile:
+        outfile.write(all_materials)
+    
+    return filename
+
+
 # loads the internal material library of materials
 material_dict = {}
 AddMaterialFromDir(Path(__file__).parent / "data", verbose=False)
