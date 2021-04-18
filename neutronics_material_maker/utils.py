@@ -386,7 +386,8 @@ def SaveMaterialsToFile(filename: str, materials: list, format='json') -> str:
 
     if format == 'json':
         with open(filename, 'w') as outfile:
-            json.dump({mat.name: mat.to_json()[mat.name] for mat in materials}, outfile, indent=4)
+            json.dump({mat.name: mat.to_json()[mat.name]
+                       for mat in materials}, outfile, indent=4)
         return filename
 
     all_materials = ''
@@ -405,7 +406,7 @@ def SaveMaterialsToFile(filename: str, materials: list, format='json') -> str:
 
     with open(filename, 'w') as outfile:
         outfile.write(all_materials)
-    
+
     return filename
 
 
