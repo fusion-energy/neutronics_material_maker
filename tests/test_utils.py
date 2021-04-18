@@ -19,17 +19,17 @@ class test_object_properties(unittest.TestCase):
 
     def test_additional_lines_multimaterial_mcnp(self):
 
-        test_mat1 = nmm.Material(
+        test_mat1 = nmm.Material.from_library(
             'Li4SiO4',
             additional_end_lines={'mcnp': ['mat1_additional']}
         )
-        test_mat2 = nmm.Material(
+        test_mat2 = nmm.Material.from_library(
             'Be12Ti',
             additional_end_lines={'mcnp': ['mat2_additional']}
         )
 
-        test_mat3 = nmm.MultiMaterial(
-            material_tag='mixed',
+        test_mat3 = nmm.Material.from_mixture(
+            name='mixed',
             materials=[test_mat1, test_mat2],
             temperature=500,
             fracs=[0.5, 0.5],
@@ -52,7 +52,7 @@ class test_object_properties(unittest.TestCase):
 
     def test_additional_lines_mcnp(self):
 
-        test_mat = nmm.Material(
+        test_mat = nmm.Material.from_library(
             'H2O',
             pressure=1e6,
             temperature=393,
@@ -62,7 +62,7 @@ class test_object_properties(unittest.TestCase):
         assert test_mat.mcnp_material.split('\n')[-1] == '        mt24 lwtr.01'
 
     def test_additional_lines_shift(self):
-        test_mat = nmm.Material(
+        test_mat = nmm.Material.from_library(
             'H2O',
             pressure=1e6,
             temperature=393,
@@ -72,7 +72,7 @@ class test_object_properties(unittest.TestCase):
         assert test_mat.shift_material.split('\n')[-1] == 'coucou'
 
     def test_additional_lines_fispact(self):
-        test_mat = nmm.Material(
+        test_mat = nmm.Material.from_library(
             'H2O',
             pressure=1e6,
             temperature=393,
@@ -83,7 +83,7 @@ class test_object_properties(unittest.TestCase):
         assert test_mat.fispact_material.split('\n')[-1] == 'coucou'
 
     def test_additional_lines_serpent(self):
-        test_mat = nmm.Material(
+        test_mat = nmm.Material.from_library(
             'H2O',
             pressure=1e6,
             temperature=393,
@@ -112,7 +112,7 @@ class test_object_properties(unittest.TestCase):
 
         nmm.AddMaterialFromFile("extra_material_1.json")
 
-        test_mat = nmm.Material('mat_with_add_line')
+        test_mat = nmm.Material.from_library('mat_with_add_line')
         assert test_mat.mcnp_material.split('\n')[-2] == 'coucou1'
         assert test_mat.mcnp_material.split('\n')[-1] == 'coucou2'
 
@@ -122,7 +122,7 @@ class test_object_properties(unittest.TestCase):
             """Set additional_end_lines to not the name of a neutronics code
             which should raise an error"""
 
-            nmm.Material(
+            nmm.Material.from_library(
                 'Li4SiO4',
                 additional_end_lines={'unknow code': ['coucou']}
             )
@@ -138,7 +138,7 @@ class test_object_properties(unittest.TestCase):
             """Set additional_end_lines value to a string
             which should raise an error"""
 
-            nmm.Material(
+            nmm.Material.from_library(
                 'Li4SiO4',
                 additional_end_lines={'unknow code': 'serpent'}
             )
@@ -154,7 +154,7 @@ class test_object_properties(unittest.TestCase):
             """Set additional_end_lines value to a list of ints
             which should raise an error"""
 
-            nmm.Material(
+            nmm.Material.from_library(
                 'Li4SiO4',
                 additional_end_lines={'unknow code': [1]}
             )
@@ -256,7 +256,7 @@ class test_object_properties(unittest.TestCase):
 
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
-            test_mat = nmm.Material(
+            test_mat = nmm.Material.from_library(
                 mat, temperature=300, pressure=5e6)
 
             assert isinstance(test_mat.openmc_material, openmc.Material)
@@ -265,7 +265,7 @@ class test_object_properties(unittest.TestCase):
 
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
-            test_mat = nmm.Material(
+            test_mat = nmm.Material.from_library(
                 mat, temperature=300, pressure=5e6, material_id=1
             )
 
@@ -275,7 +275,7 @@ class test_object_properties(unittest.TestCase):
 
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
-            test_mat = nmm.Material(
+            test_mat = nmm.Material.from_library(
                 mat, temperature=300, pressure=5e6, material_id=1
             )
 
@@ -285,7 +285,7 @@ class test_object_properties(unittest.TestCase):
 
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
-            test_mat = nmm.Material(
+            test_mat = nmm.Material.from_library(
                 mat,
                 temperature=300,
                 pressure=5e6,
@@ -297,7 +297,7 @@ class test_object_properties(unittest.TestCase):
 
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
-            test_mat = nmm.Material(
+            test_mat = nmm.Material.from_library(
                 mat, temperature=300, pressure=5e6)
 
             assert isinstance(test_mat.serpent_material, str)

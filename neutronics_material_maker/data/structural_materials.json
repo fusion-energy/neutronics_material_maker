@@ -42,7 +42,7 @@
         },
         "density": 7.78,
         "density_unit": "g/cm3",
-        "reference": "neutronics handbook",
+        "comment": "neutronics handbook",
         "percent_type": "ao"
     },
     "SS_316L_N_IG": {
@@ -66,7 +66,7 @@
         },
         "density": 7.93,
         "density_unit": "g/cm3",
-        "reference": "neutronics handbook",
+        "comment": "neutronics handbook",
         "percent_type": "ao"
     },
     "tungsten_with_impurities": {
@@ -104,7 +104,7 @@
         },
         "density": 19.0,
         "density_unit": "g/cm3",
-        "reference": "neutronics handbook",
+        "comment": "neutronics handbook",
         "percent_type": "ao"
     },
     "tungsten": {
@@ -238,7 +238,7 @@
         },
         "density": 8.9,
         "density_unit": "g/cm3",
-        "reference": "neutronics handbook",
+        "comment": "neutronics handbook",
         "percent_type": "ao"
     },
     "CuCrZr": {
@@ -249,7 +249,7 @@
         },
         "density": 8.9,
         "density_unit": "g/cm3",
-        "reference": "",
+        "comment": "",
         "percent_type": "wo"
     }
 }

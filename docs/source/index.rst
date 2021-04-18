@@ -16,7 +16,7 @@ isotopic enrichment.
 
 .. raw:: html
 
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/V-VHLwRar9s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 .. toctree::
@@ -24,10 +24,9 @@ isotopic enrichment.
 
    
    material
-   multimaterial
    example_material
-   example_multimaterial
-   example_library_usage
+   example_material_from_mixture
+   example_material_from_library
 
 
 History
@@ -86,17 +85,14 @@ the development version.
 Features
 --------
 
-There are two main user classes 
+There is just on user class
 `Material() <https://neutronics-material-maker.readthedocs.io/en/latest/material.html>`_ 
-and 
-`MutliMaterial() <https://neutronics-material-maker.readthedocs.io/en/latest/multimaterial.html>`_ 
-which are both fully documented.
 
 
 Example Scripts
 ---------------
 
-There are several examples in the relevant example webpages; `example Material usage <https://neutronics-material-maker.readthedocs.io/en/latest/example_material.html>`_ and `example MutliMaterial usage <https://neutronics-material-maker.readthedocs.io/en/latest/example_multimaterial.html>`_ .
+There are several examples in the relevant example webpages; `example Material usage <https://neutronics-material-maker.readthedocs.io/en/latest/example_material.html>`_ .
 
 Additionally there are more examples in the `OpenMC workshop <https://github.com/ukaea/openmc_workshop/tree/main/tasks/task_02_making_materials>`_ .
 
