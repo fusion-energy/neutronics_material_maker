@@ -85,7 +85,7 @@ the development version.
 Features
 --------
 
-There is just on user class
+There is just one user class called
 `Material() <https://neutronics-material-maker.readthedocs.io/en/latest/material.html>`_ 
 
 
