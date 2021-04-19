@@ -65,15 +65,28 @@ all_materials = nmm.AvailableMaterials()
 print(all_materials.keys())
 ```
 
+### Usage - Material()
 
-## Usage - Basic Material
+```python
+import neutronics_material_maker as nmm
+my_mat = nmm.Material(
+    name='my_custom_material',
+    isotopes={'Li6':0.5, 'Li7':0.5},
+    density=2.01,
+    percent_type='ao',
+    density_unit='g/cm3'
+)
+my_mat.openmc_material
+```
+
+## Usage - Material from library
 
 Here is an example that accesses a material from the internal collection called
 eurofer which has about 60 isotopes of a density of 7.78g/cm3.
 
 ```python
 import neutronics_material_maker as nmm
-my_mat = nmm.Material('eurofer')
+my_mat = nmm.Material.from_library('eurofer')
 my_mat.openmc_material
 ```
 
@@ -84,7 +97,7 @@ For several materials within the collection the temperature and the pressure imp
 
 ```python
 import neutronics_material_maker as nmm
-my_mat1 = nmm.Material('H2O', temperature_in_C=300, pressure_in_Pa=15e6)
+my_mat1 = nmm.Material.from_library(name='H2O', temperature=600, pressure=15e6)
 my_mat1.openmc_material
 ```
 
@@ -101,7 +114,7 @@ neutronics_material_maker.
 
 ```python
 import neutronics_material_maker as nmm
-my_mat2 = nmm.Material('Li4SiO4', enrichment=60)
+my_mat2 = nmm.Material.from_library(name='Li4SiO4', enrichment=60)
 my_mat2.openmc_material
 ```
 
