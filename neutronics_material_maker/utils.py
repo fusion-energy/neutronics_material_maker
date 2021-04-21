@@ -351,11 +351,15 @@ def zaid_to_isotope(zaid: str) -> str:
     return symbol + str(int(a))
 
 
-def AddMaterialFromDir(directory: str, verbose: bool = True):
+def AddMaterialFromDir(directory: str, verbose: bool = True, recursive=True):
     """Add materials to the internal library from a directory of json files"""
     if verbose is True:
         print('searching directory', directory)
-    for filename in Path(directory).rglob("*.json"):
+    if recursive:
+        filelist = Path(directory).rglob("*.json")
+    else:
+        filelist = Path(directory).glob("*.json")
+    for filename in filelist:
         if verbose is True:
             print('loading', filename)
         AddMaterialFromFile(filename, verbose)
