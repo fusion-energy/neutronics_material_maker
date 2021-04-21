@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="neutronics_material_maker",
-    version="0.3.2",
+    version="0.3.3",
     summary="Package for making material cards for neutronics codes",
     author="neutronics_material_maker development team",
     author_email="mail@jshimwell.com",
