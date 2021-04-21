@@ -353,18 +353,23 @@ def zaid_to_isotope(zaid: str) -> str:
 
 def AddMaterialFromDir(directory: str, verbose: bool = True):
     """Add materials to the internal library from a directory of json files"""
+    if verbose is True:
+        print('searching directory', directory)
     for filename in Path(directory).rglob("*.json"):
+        if verbose is True:
+            print('loading', filename)
         AddMaterialFromFile(filename, verbose)
 
 
 def AddMaterialFromFile(filename: str, verbose: Optional[bool] = True) -> None:
     """Add materials to the internal library from a json file"""
-    with open(filename, "r") as f:
-        new_data = json.load(f)
-        material_dict.update(new_data)
     if verbose:
         print("Added materials to library from", filename)
-        print(sorted(list(material_dict.keys())))
+    with open(filename, "r") as f:
+        new_data = json.load(f)
+        if verbose:
+            print('Added material', list(new_data.keys()))
+        material_dict.update(new_data)
 
 
 def AvailableMaterials() -> dict:
