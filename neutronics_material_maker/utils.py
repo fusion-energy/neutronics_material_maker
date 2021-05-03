@@ -300,7 +300,7 @@ def make_mcnp_material(mat) -> str:
 
     mat_card = mat_card + add_additional_end_lines('mcnp', mat)
 
-    return "\n".join(mat_card)
+    return "\n".join(mat_card) + '\n'
 
 
 def make_shift_material(mat) -> str:

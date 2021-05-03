@@ -208,7 +208,7 @@ class test_object_properties(unittest.TestCase):
         )
         line_by_line_material = test_material.mcnp_material.split("\n")
 
-        assert len(line_by_line_material) == 12
+        assert len(line_by_line_material) == 13
 
         assert line_by_line_material[0].split()[0] == "c"
         assert line_by_line_material[0].split()[1] == "Nb3Sn"
@@ -239,7 +239,7 @@ class test_object_properties(unittest.TestCase):
         )
         line_by_line_material = test_material.mcnp_material.split("\n")
 
-        assert len(line_by_line_material) == 12
+        assert len(line_by_line_material) == 13
 
         assert line_by_line_material[0].split()[0] == "c"
         assert line_by_line_material[0].split()[1] == "Nb3Sn"
@@ -271,7 +271,7 @@ class test_object_properties(unittest.TestCase):
         )
         line_by_line_material = test_material.mcnp_material.split("\n")
 
-        assert len(line_by_line_material) == 12
+        assert len(line_by_line_material) == 13
 
         assert line_by_line_material[0].split()[0] == "c"
         assert line_by_line_material[0].split()[1] == "test2"
