@@ -43,7 +43,7 @@ class test_object_properties(unittest.TestCase):
             }
         )
 
-        assert test_mat3.mcnp_material.split('\n')[-1] == 'extra_mcnp_lin'
+        assert test_mat3.mcnp_material.split('\n')[-2] == 'extra_mcnp_lin'
         assert test_mat3.serpent_material.split(
             '\n')[-1] == 'extra_serpent_lin'
         assert test_mat3.fispact_material.split(
@@ -59,7 +59,7 @@ class test_object_properties(unittest.TestCase):
             material_id=1,
             additional_end_lines={'mcnp': ['        mt24 lwtr.01']}
         )
-        assert test_mat.mcnp_material.split('\n')[-1] == '        mt24 lwtr.01'
+        assert test_mat.mcnp_material.split('\n')[-2] == '        mt24 lwtr.01'
 
     def test_additional_lines_shift(self):
         test_mat = nmm.Material.from_library(
@@ -113,8 +113,8 @@ class test_object_properties(unittest.TestCase):
         nmm.AddMaterialFromFile("extra_material_1.json")
 
         test_mat = nmm.Material.from_library('mat_with_add_line')
-        assert test_mat.mcnp_material.split('\n')[-2] == 'coucou1'
-        assert test_mat.mcnp_material.split('\n')[-1] == 'coucou2'
+        assert test_mat.mcnp_material.split('\n')[-3] == 'coucou1'
+        assert test_mat.mcnp_material.split('\n')[-2] == 'coucou2'
 
     def test_incorrect_additional_lines_code_name(self):
 
