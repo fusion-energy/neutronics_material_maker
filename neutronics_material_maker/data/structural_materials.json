@@ -1,7 +1,8 @@
 {
     "WC": {
         "chemical_equation": "WC",
-        "density": 18.0,
+        "density": 15.67,
+        "comment": "Theoretical density as specified in https://www.birmingham.ac.uk/Documents/college-eps/xmat/Low-Temperature-Spark-Plasma-Sintering-of-Pure-Nano-WC-Powder.pdf",
         "density_unit": "g/cm3",
         "percent_type": "ao"
     },
