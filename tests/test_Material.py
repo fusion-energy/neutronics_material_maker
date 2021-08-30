@@ -159,13 +159,17 @@ class test_object_properties(unittest.TestCase):
         dict_of_fispact_mats = {}
         for entry in line_by_line_material:
             isotope_and_fraction = entry.split()
-            dict_of_fispact_mats[isotope_and_fraction[0]] = float(isotope_and_fraction[1])
-        
+            dict_of_fispact_mats[isotope_and_fraction[0]
+                                 ] = float(isotope_and_fraction[1])
+
         assert dict_of_fispact_mats['Li6'] == pytest.approx(3.537400925715E+21)
         assert dict_of_fispact_mats['Li7'] == pytest.approx(4.307481314353E+22)
-        assert dict_of_fispact_mats['Si28'] == pytest.approx(1.074757396925E+22)
-        assert dict_of_fispact_mats['Si29'] == pytest.approx(5.457311411014E+20)
-        assert dict_of_fispact_mats['Si30'] == pytest.approx(3.597484069651E+20)
+        assert dict_of_fispact_mats['Si28'] == pytest.approx(
+            1.074757396925E+22)
+        assert dict_of_fispact_mats['Si29'] == pytest.approx(
+            5.457311411014E+20)
+        assert dict_of_fispact_mats['Si30'] == pytest.approx(
+            3.597484069651E+20)
         assert dict_of_fispact_mats['O16'] == pytest.approx(4.650130496709E+22)
         assert dict_of_fispact_mats['O17'] == pytest.approx(1.766602913225E+19)
         assert dict_of_fispact_mats['O18'] == pytest.approx(9.324307302413E+19)
@@ -181,13 +185,17 @@ class test_object_properties(unittest.TestCase):
         dict_of_fispact_mats = {}
         for entry in line_by_line_material:
             isotope_and_fraction = entry.split()
-            dict_of_fispact_mats[isotope_and_fraction[0]] = float(isotope_and_fraction[1])
+            dict_of_fispact_mats[isotope_and_fraction[0]
+                                 ] = float(isotope_and_fraction[1])
 
         assert dict_of_fispact_mats['Li6'] == pytest.approx(7.074801851431E+21)
         assert dict_of_fispact_mats['Li7'] == pytest.approx(8.614962628707E+22)
-        assert dict_of_fispact_mats['Si28'] == pytest.approx(2.149514793849E+22)
-        assert dict_of_fispact_mats['Si29'] == pytest.approx(1.091462282203E+21)
-        assert dict_of_fispact_mats['Si30'] == pytest.approx(7.194968139301E+20)
+        assert dict_of_fispact_mats['Si28'] == pytest.approx(
+            2.149514793849E+22)
+        assert dict_of_fispact_mats['Si29'] == pytest.approx(
+            1.091462282203E+21)
+        assert dict_of_fispact_mats['Si30'] == pytest.approx(
+            7.194968139301E+20)
         assert dict_of_fispact_mats['O16'] == pytest.approx(9.300260993419E+22)
         assert dict_of_fispact_mats['O17'] == pytest.approx(3.533205826449E+19)
         assert dict_of_fispact_mats['O18'] == pytest.approx(1.864861460483E+20)
