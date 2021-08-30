@@ -592,7 +592,7 @@
         "comment":"https://www.pnnl.gov/main/publications/external/technical_reports/PNNL-15870Rev1.pdf",
         "elements": {
             "O":0.663432,
-            "AL":0.003747,
+            "Al":0.003747,
             "Si":0.323225,
             "Ca":0.007063,
             "Fe":0.002534
