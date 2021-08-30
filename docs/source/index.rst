@@ -78,7 +78,7 @@ the development version.
 
 .. code-block:: bash
 
-   git clone https://github.com/ukaea/neutronics_material_maker.git
+   git clone https://github.com/fusion-energy/neutronics_material_maker.git
    cd neutronics_material_maker
    python setup.py install
 
@@ -94,11 +94,11 @@ Example Scripts
 
 There are several examples in the relevant example webpages; `example Material usage <https://neutronics-material-maker.readthedocs.io/en/latest/example_material.html>`_ .
 
-Additionally there are more examples in the `OpenMC workshop <https://github.com/ukaea/openmc_workshop/tree/main/tasks/task_02_making_materials>`_ .
+Additionally there are more examples in the `OpenMC workshop <https://github.com/fusion-energy/openmc_workshop/tree/main/tasks/task_02_making_materials>`_ .
 
 
 Source code
 ------------
 
 The source code is permissively licensed open-source and available from the
-`GitHub repository <https://github.com/ukaea/neutronics_material_maker>`_
+`GitHub repository <https://github.com/fusion-energy/neutronics_material_maker>`_
