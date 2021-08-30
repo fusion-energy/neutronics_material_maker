@@ -153,17 +153,22 @@ class test_object_properties(unittest.TestCase):
         line_by_line_material = test_mat.fispact_material.split("\n")
 
         assert len(line_by_line_material) == 10
-        assert test_mat.fispact_material.split(
-            "\n")[0].startswith("DENSITY 2.31899993235464")
-        assert test_mat.fispact_material.split("\n")[1] == "FUEL 8"
-        assert "Li6 3.537400925715E+21" in line_by_line_material
-        assert "Li7 4.307481314353E+22" in line_by_line_material
-        assert "Si28 1.074757396925E+22" in line_by_line_material
-        assert "Si29 5.457311411014E+20" in line_by_line_material
-        assert "Si30 3.597484069651E+20" in line_by_line_material
-        assert "O16 4.650130496709E+22" in line_by_line_material
-        assert "O17 1.766602913225E+19" in line_by_line_material
-        assert "O18 9.324307302413E+19" in line_by_line_material
+        assert line_by_line_material[0].startswith("DENSITY 2.31899993235464")
+        assert line_by_line_material[1] == "FUEL 8"
+
+        dict_of_fispact_mats = {}
+        for entry in line_by_line_material:
+            isotope_and_fraction = entry.split()
+            dict_of_fispact_mats[isotope_and_fraction[0]] = float(isotope_and_fraction[1])
+        
+        assert dict_of_fispact_mats['Li6'] == pytest.approx(3.537400925715E+21)
+        assert dict_of_fispact_mats['Li7'] == pytest.approx(4.307481314353E+22)
+        assert dict_of_fispact_mats['Si28'] == pytest.approx(1.074757396925E+22)
+        assert dict_of_fispact_mats['Si29'] == pytest.approx(5.457311411014E+20)
+        assert dict_of_fispact_mats['Si30'] == pytest.approx(3.597484069651E+20)
+        assert dict_of_fispact_mats['O16'] == pytest.approx(4.650130496709E+22)
+        assert dict_of_fispact_mats['O17'] == pytest.approx(1.766602913225E+19)
+        assert dict_of_fispact_mats['O18'] == pytest.approx(9.324307302413E+19)
 
     def test_fispact_material_with_volume(self):
         test_mat = nmm.Material.from_library("Li4SiO4", volume_in_cm3=2.0)
@@ -172,14 +177,20 @@ class test_object_properties(unittest.TestCase):
         assert len(line_by_line_material) == 10
         assert line_by_line_material[0].startswith("DENSITY 2.31899993235464")
         assert line_by_line_material[1] == "FUEL 8"
-        assert "Li6 7.074801851431E+21" in line_by_line_material
-        assert "Li7 8.614962628707E+22" in line_by_line_material
-        assert "Si28 2.149514793849E+22" in line_by_line_material
-        assert "Si29 1.091462282203E+21" in line_by_line_material
-        assert "Si30 7.194968139301E+20" in line_by_line_material
-        assert "O16 9.300260993419E+22" in line_by_line_material
-        assert "O17 3.533205826449E+19" in line_by_line_material
-        assert "O18 1.864861460483E+20" in line_by_line_material
+
+        dict_of_fispact_mats = {}
+        for entry in line_by_line_material:
+            isotope_and_fraction = entry.split()
+            dict_of_fispact_mats[isotope_and_fraction[0]] = float(isotope_and_fraction[1])
+
+        assert dict_of_fispact_mats['Li6'] == pytest.approx(7.074801851431E+21)
+        assert dict_of_fispact_mats['Li7'] == pytest.approx(8.614962628707E+22)
+        assert dict_of_fispact_mats['Si28'] == pytest.approx(2.149514793849E+22)
+        assert dict_of_fispact_mats['Si29'] == pytest.approx(1.091462282203E+21)
+        assert dict_of_fispact_mats['Si30'] == pytest.approx(7.194968139301E+20)
+        assert dict_of_fispact_mats['O16'] == pytest.approx(9.300260993419E+22)
+        assert dict_of_fispact_mats['O17'] == pytest.approx(3.533205826449E+19)
+        assert dict_of_fispact_mats['O18'] == pytest.approx(1.864861460483E+20)
 
     def test_mcnp_material_suffix(self):
         test_material1 = nmm.Material.from_library(
