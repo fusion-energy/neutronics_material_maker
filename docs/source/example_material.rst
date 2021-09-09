@@ -1,7 +1,9 @@
 Example Material() usage
 ========================
 
-While the internal data bases contain 
+While the internal data bases contain lots of standard materials it is often
+necessary to build a custom material. These examples show users how to build
+materials from user defined isotopes and elements.
 
 Usage - make a your own materials
 ---------------------------------

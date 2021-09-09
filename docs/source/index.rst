@@ -25,8 +25,8 @@ isotopic enrichment.
    
    material
    example_material
-   example_material_from_mixture
    example_material_from_library
+   example_material_from_mixture
 
 
 History
