@@ -17,7 +17,8 @@ accessed using the AvailableMaterials() command.
 Usage - making materials from libraries
 ---------------------------------------
 
-Here is an example that accesses a material from the internal collection called eurofer which has about 60 isotopes and a density of 7.78g/cm3.
+Here is an example that accesses a material from the internal collection called
+eurofer which has about 60 isotopes and a density of 7.78g/cm3.
 
 .. code-block:: python
 
@@ -60,7 +61,12 @@ Usage - customising materials from libraries
 Usage - hot pressurised  Material()
 -----------------------------------
 
-For several materials within the collection the temperature and the pressure impacts the density of the material. The neutronics_material_maker adjusts the density to take temperature (in C or K) and the pressure into account when appropriate. Densities are calculated either by a material specific formula (for example `FLiBe <https://github.com/fusion-energy/neutronics_material_maker/blob/openmc_version/neutronics_material_maker/data/multiplier_and_breeder_materials.json>`_) or using `CoolProps <https://pypi.org/project/CoolProp/>`_ (for example coolants such as H2O).
+For several materials within the collection the temperature and the pressure
+impacts the density of the material. The neutronics_material_maker adjusts the
+density to take temperature (in C or K) and the pressure into account when
+appropriate. Densities are calculated either by a material specific formula
+(for example `FLiBe <https://github.com/fusion-energy/neutronics_material_maker/blob/openmc_version/neutronics_material_maker/data/multiplier_and_breeder_materials.json>`_)
+or using `CoolProps <https://pypi.org/project/CoolProp/>`_ (for example coolants such as H2O).
 
 .. code-block:: python
 
@@ -90,9 +96,13 @@ temperature_to_neutronics_code to False.
 Usage - enriched Material()
 ---------------------------
 
-For several materials within the collection the density is adjusted when the material is enriched. For breeder blankets in fusion it is common to enrich the lithium 6 content.
+For several materials within the collection the density is adjusted when the
+material is enriched. For breeder blankets in fusion it is common to enrich the
+lithium 6 content.
 
-Lithium ceramics used in fusion breeder blankets often contain enriched lithium-6 content. This slight change in density is accounted for by the neutronics_material_maker.
+Lithium ceramics used in fusion breeder blankets often contain enriched
+lithium-6 content. This slight change in density is accounted for by the
+neutronics_material_maker.
 
 .. code-block:: python
 
@@ -155,7 +165,7 @@ user.
             008018  6.66800000e-04
             mt24 lwtr.01
 
-It is also possible to specifiy this additional line in a JSON file and
+It is also possible to specify this additional line in a JSON file and
 then read in the file and export the material. The additional end lines can
 also support different outputs for different codes and multiple lines being
 appended to the material card as demonstrated in this video on the feature.
@@ -169,7 +179,7 @@ Usage - importing your own library from a file
 ----------------------------------------------
 
 A correctly formated JSON file that contains materials defined in the same
-format as the `exisiting materials <https://github.com/ukaea/neutronics_material_maker/blob/openmc_version/neutronics_material_maker/data/>`_ can be added to the material library.
+format as the `exisiting materials <https://github.com/fusion-energy/neutronics_material_maker/tree/main/neutronics_material_maker/data>`_ can be added to the material library.
 
 Assuming you have a JSON file saved as mat_lib.json with the following contents
 then this can be added to the material library in the the following manner. 
