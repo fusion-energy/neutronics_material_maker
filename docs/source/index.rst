@@ -25,8 +25,8 @@ isotopic enrichment.
    
    material
    example_material
-   example_material_from_mixture
    example_material_from_library
+   example_material_from_mixture
 
 
 History
@@ -59,28 +59,25 @@ Installation
 ------------
 
 The recommended method is to install from [Conda Forge](https://conda-forge.org)
-which also installs all the dependancies including OpenMC.
+which also installs all the dependencies including OpenMC.
 
 .. code-block:: bash
 
    conda install neutronics_material_maker -c conda-forge
 
 
-Alternativly the code can be easily installed using pip (which doesn't
+Alternatively the code can be easily installed using pip (which doesn't
 currently include OpenMC)
 
 .. code-block:: bash
 
    pip install neutronics_material_maker
 
-You can clone the repository, and install using the setup.py if you would like
-the development version.
+You can pip install directly from the development branch on the GitHub
+repository if you would like the very latest version.
 
 .. code-block:: bash
-
-   git clone https://github.com/fusion-energy/neutronics_material_maker.git
-   cd neutronics_material_maker
-   python setup.py install
+   pip install git+https://github.com/fusion-energy/neutronics_material_maker.git@develop
 
 Features
 --------

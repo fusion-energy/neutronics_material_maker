@@ -1,6 +1,9 @@
 Example Material.from_mixture() usage
 =====================================
 
+It is possible to mix two or more materials together to create a new mixed
+material using the from_mixture method.
+
 Usage - mixing two materials using Material.from_mixture
 --------------------------------------------------------
 
