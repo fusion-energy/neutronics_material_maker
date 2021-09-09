@@ -59,7 +59,7 @@ Example making materials from isotopes defined by zaid
     )
 
 It is also possible to make your own materials directly from a dictionary by
-making use of the python syntax to exspand a dictionary **
+making use of the python syntax to expand a dictionary **
 
 .. code-block:: python
 
