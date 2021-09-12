@@ -1,0 +1,12 @@
+{
+    "Rexolite 1422": {
+        "elements": {
+            "C": 1.0
+        },
+        "density": 1.06,
+        "density_unit": "g/cm3",
+        "comment": "Rexolite 1422 http://hdl.handle.net/11375/24061",
+        "percent_type": "wo"
+    }
+}
+    
