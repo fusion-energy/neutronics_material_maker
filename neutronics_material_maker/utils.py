@@ -152,21 +152,20 @@ def check_add_additional_end_lines(value):
                 'Material.additional_end_lines should be a dictionary')
         for key, entries in value.items():
             if key not in string_codes:
-                raise ValueError(
-                    'Material.additional_end_lines should be a '
-                    'dictionary where the keys are the name of the neutronics'
-                    'code. Acceptable values are {}'.format(string_codes))
+                msg = (f'Material.additional_end_lines should be a dictionary '
+                       'where the keys are the name of the neutronics '
+                       'code. Acceptable values are {string_codes}')
+                raise ValueError(msg)
             if not isinstance(entries, list):
                 raise ValueError(
-                    'Material.additional_end_lines should be a'
-                    ' dictionary where the value of each dictionary entry is a'
-                    ' list')
+                    'Material.additional_end_lines should be a dictionary '
+                    'where the value of each dictionary entry is a list')
             for entry in entries:
                 if not isinstance(entry, str):
                     raise ValueError(
-                        'Material.additional_end_lines should be'
-                        'a dictionary where the value of each dictionary entry'
-                        ' is a list of strings')
+                        'Material.additional_end_lines should be a dictionary '
+                        'where the value of each dictionary entry is a list '
+                        'of strings')
     return value
 
 
@@ -193,9 +192,8 @@ def make_fispact_material(mat) -> str:
     """
 
     if mat.volume_in_cm3 is None:
-        raise ValueError(
-            "Material.volume_in_cm3 needs setting before fispact_material can be made"
-        )
+        msg = "Material.volume_in_cm3 needs setting before fispact_material can be made"
+        raise ValueError(msg)
 
     mat_card = [
         "DENSITY " + str(mat.openmc_material.get_mass_density()),
@@ -227,11 +225,10 @@ def make_serpent_material(mat) -> str:
     else:
         name = mat.name
 
-    mat_card = ["mat " + name + " " +
-                str(mat.openmc_material.get_mass_density())]
+    mat_card = [f"mat {name} {mat.openmc_material.get_mass_density()}"]
     if mat.temperature_to_neutronics_code is True:
         if mat.temperature is not None:
-            mat_card[0] = mat_card[0] + ' tmp ' + str(mat.temperature)
+            mat_card[0] = mat_card[0] + f' tmp {mat.temperature}'
         # should check if percent type is 'ao' or 'wo'
 
     for isotope in mat.openmc_material.nuclides:
@@ -361,14 +358,14 @@ def AddMaterialFromDir(directory: str, verbose: bool = True, recursive=True):
         filelist = Path(directory).glob("*.json")
     for filename in filelist:
         if verbose is True:
-            print('loading', filename)
+            print(f'loading {filename}')
         AddMaterialFromFile(filename, verbose)
 
 
 def AddMaterialFromFile(filename: str, verbose: Optional[bool] = True) -> None:
     """Add materials to the internal library from a json file"""
     if verbose:
-        print("Added materials to library from", filename)
+        print(f"Added materials to library from {filename}")
     with open(filename, "r") as f:
         new_data = json.load(f)
         if verbose:
