@@ -153,8 +153,8 @@ def check_add_additional_end_lines(value):
         for key, entries in value.items():
             if key not in string_codes:
                 msg = (f'Material.additional_end_lines should be a dictionary '
-                        'where the keys are the name of the neutronics '
-                        'code. Acceptable values are {string_codes}')
+                       'where the keys are the name of the neutronics '
+                       'code. Acceptable values are {string_codes}')
                 raise ValueError(msg)
             if not isinstance(entries, list):
                 raise ValueError(

@@ -489,7 +489,8 @@ class Material:
             self._density = value
         elif isinstance(value, (int, float)):
             if value < 0:
-                raise ValueError(f"Material.density should be above 0. Not {value}")
+                raise ValueError(
+                    f"Material.density should be above 0. Not {value}")
             self._density = float(value)
 
     @property
@@ -524,8 +525,9 @@ class Material:
     def enrichment_target(self, value):
         if value is not None:
             if value not in NATURAL_ABUNDANCE.keys():
-                msg = ("Material.enrichment_target must be a naturally occuring "
-                       f"isotope from this list {NATURAL_ABUNDANCE.keys()}")
+                msg = (
+                    "Material.enrichment_target must be a naturally occuring "
+                    f"isotope from this list {NATURAL_ABUNDANCE.keys()}")
                 raise ValueError(msg)
         self._enrichment_target = value
 
@@ -857,10 +859,11 @@ class Material:
         # TODO allow discreat libraries to be searched library: List('str')
 
         if name not in material_dict.keys():
-            closest_match = difflib.get_close_matches(name, material_dict.keys())
+            closest_match = difflib.get_close_matches(
+                name, material_dict.keys())
             msg = f'name of {name} was not found in the internal library.'
             if len(closest_match) > 0:
-                msg = msg +  f' Did you mean {closest_match}?'
+                msg = msg + f' Did you mean {closest_match}?'
             raise ValueError(msg)
 
         entry = material_dict[name].copy()
@@ -889,7 +892,7 @@ class Material:
     ):
         if sum(fracs) != 1.0:
             msg = ("warning sum of MutliMaterials.fracs do not sum to 1."
-                  f"{fracs} = {sum(fracs)}")
+                   f"{fracs} = {sum(fracs)}")
             warnings.warn(msg, UserWarning)
 
         openmc_material_objects = []
@@ -900,7 +903,7 @@ class Material:
                 openmc_material_objects.append(material.openmc_material)
             else:
                 msg = ("only openmc.Material or neutronics_material_maker."
-                      f"Materials are accepted. Not {type(material)}")
+                       f"Materials are accepted. Not {type(material)}")
                 raise ValueError(msg)
 
         openmc_material = openmc.Material.mix_materials(
