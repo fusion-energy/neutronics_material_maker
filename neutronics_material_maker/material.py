@@ -3,6 +3,7 @@
 __author__ = "neutronics material maker development team"
 
 
+import difflib
 import json
 import os
 import re
@@ -862,10 +863,11 @@ class Material:
         # TODO allow discreat libraries to be searched library: List('str')
 
         if name not in material_dict.keys():
-
-            raise ValueError(
-                'name of ', name, 'not found in the internal library'
-            )
+            closest_match = difflib.get_close_matches(name, material_dict.keys())
+            msg = f'name of {name} was not found in the internal library.'
+            if len(closest_match) > 0:
+                msg = msg +  f' Did you mean {closest_match}?'
+            raise ValueError(msg)
 
         entry = material_dict[name].copy()
 
