@@ -27,9 +27,10 @@ try:
     import openmc
 except ImportError:
     OPENMC_AVAILABLE = False
-    warnings.warn(
-        "OpenMC python package not found, .openmc_material, .serpent_material, \
-            .mcnp_material, .fispact_material methods not avaiable")
+    msg = ("OpenMC python package not found, .openmc_material, "
+           ".serpent_material, .mcnp_material, .fispact_material methods not "
+           "avaiable")
+    warnings.warn(msg)
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
@@ -488,7 +489,7 @@ class Material:
             self._density = value
         elif isinstance(value, (int, float)):
             if value < 0:
-                raise ValueError("Material.density should be above 0", value)
+                raise ValueError(f"Material.density should be above 0. Not {value}")
             self._density = float(value)
 
     @property
@@ -523,11 +524,9 @@ class Material:
     def enrichment_target(self, value):
         if value is not None:
             if value not in NATURAL_ABUNDANCE.keys():
-                raise ValueError(
-                    "Material.enrichment_target must be a naturally occuring "
-                    "isotope from this list",
-                    NATURAL_ABUNDANCE.keys(),
-                )
+                msg = ("Material.enrichment_target must be a naturally occuring "
+                       f"isotope from this list {NATURAL_ABUNDANCE.keys()}")
+                raise ValueError(msg)
         self._enrichment_target = value
 
     @property
@@ -544,8 +543,7 @@ class Material:
     def pressure(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError(
-                    "Material.pressure must be greater than 0")
+                raise ValueError("Material.pressure must be greater than 0")
         self._pressure = value
 
     @property
@@ -800,14 +798,10 @@ class Material:
 
             self.density = mass / self.volume_of_unit_cell_cm3
         else:
-
-            raise ValueError(
-                "density can't be set for "
-                + str(self.name) +
-                " provide either a density value as a number or density "
-                "as a string, or atoms_per_unit_cell and "
-                "volume_of_unit_cell_cm3"
-            )
+            msg = ("density can't be set for {self.name} provide either a "
+                   "density value as a number or density as a string, or "
+                   "atoms_per_unit_cell and volume_of_unit_cell_cm3")
+            raise ValueError(msg)
 
         openmc_material.set_density(
             self.density_unit, self.density * self.packing_fraction
@@ -894,13 +888,9 @@ class Material:
         additional_end_lines: Optional[Dict[str, List[str]]] = None,
     ):
         if sum(fracs) != 1.0:
-            warnings.warn(
-                "warning sum of MutliMaterials.fracs do not sum to 1."
-                + str(fracs)
-                + " = "
-                + str(sum(fracs)),
-                UserWarning,
-            )
+            msg = ("warning sum of MutliMaterials.fracs do not sum to 1."
+                  f"{fracs} = {sum(fracs)}")
+            warnings.warn(msg, UserWarning)
 
         openmc_material_objects = []
         for material in materials:
@@ -909,10 +899,9 @@ class Material:
             elif isinstance(material, Material):
                 openmc_material_objects.append(material.openmc_material)
             else:
-                raise ValueError(
-                    "only openmc.Material or neutronics_material_maker. \
-                    Materials are accepted. Not", type(material),
-                )
+                msg = ("only openmc.Material or neutronics_material_maker."
+                      f"Materials are accepted. Not {type(material)}")
+                raise ValueError(msg)
 
         openmc_material = openmc.Material.mix_materials(
             materials=openmc_material_objects,
