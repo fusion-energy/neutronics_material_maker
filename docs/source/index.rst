@@ -23,6 +23,7 @@ isotopic enrichment.
    :maxdepth: 1
 
    
+   install
    material
    example_material
    example_material_from_library
@@ -33,51 +34,15 @@ History
 -------
 
 The package was originally created by Jonathan Shimwell as a method of
-reducing the effort required to the same materials accross different neutronics
+reducing the effort required to the same materials across different neutronics
 codes. The current version can be considered a materials library and translator
 between material types. The original version contained methods of mixing
 materials and building materials from chemical equations. These aspects of the
 code were moved to OpenMC in code contributions (e.g
 `1 <https://github.com/openmc-dev/openmc/pull/1530>`_ and
 `2 <https://github.com/openmc-dev/openmc/pull/1534>`_ )
-which reduced the complexity and maintainance burden for the neutronics
-material maker and brought on OpenMC as a major dependancy.
-
-
-Prerequisites
--------------
-
-To use the neutronics-material-maker tool you will need Python 3 and OpenMC
-installed.
-
-* `Python 3 <https://www.python.org/downloads/>`_
-* `OpenMC <https://docs.openmc.org/en/stable/usersguide/install.html>`_
-
-
-
-Installation
-------------
-
-The recommended method is to install from [Conda Forge](https://conda-forge.org)
-which also installs all the dependencies including OpenMC.
-
-.. code-block:: bash
-
-   conda install neutronics_material_maker -c conda-forge
-
-
-Alternatively the code can be easily installed using pip (which doesn't
-currently include OpenMC)
-
-.. code-block:: bash
-
-   pip install neutronics_material_maker
-
-You can pip install directly from the development branch on the GitHub
-repository if you would like the very latest version.
-
-.. code-block:: bash
-   pip install git+https://github.com/fusion-energy/neutronics_material_maker.git@develop
+which reduced the complexity and maintenance burden for the neutronics
+material maker and brought on OpenMC as a major dependency.
 
 Features
 --------
@@ -91,7 +56,7 @@ Example Scripts
 
 There are several examples in the relevant example webpages; `example Material usage <https://neutronics-material-maker.readthedocs.io/en/latest/example_material.html>`_ .
 
-Additionally there are more examples in the `OpenMC workshop <https://github.com/fusion-energy/openmc_workshop/tree/main/tasks/task_02_making_materials>`_ .
+Additionally there are more examples in the `Neutronics workshop <https://github.com/fusion-energy/neutronics-workshop/tree/main/tasks/task_02_making_materials>`_ .
 
 
 Source code
