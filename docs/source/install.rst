@@ -39,7 +39,7 @@ Then install the package.
 
 .. code-block:: bash
 
-   conda install neutronics_material_maker -c conda-forge
+   conda install -c conda-forge neutronics_material_maker
 
 Now you should be ready to import neutronics-material-maker from your new python
 environment.
@@ -66,7 +66,7 @@ Then install the OpenMC.
 
 .. code-block:: bash
 
-   conda install -c cadquery -c conda-forge openmc
+   conda install -c conda-forge openmc
 
 Then pip install the package.
 
