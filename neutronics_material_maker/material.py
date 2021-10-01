@@ -14,22 +14,27 @@ from typing import Dict, List, Optional, Union
 import asteval
 from CoolProp.CoolProp import PropsSI
 
-from neutronics_material_maker import (NATURAL_ABUNDANCE,
-                                       check_add_additional_end_lines,
-                                       make_fispact_material,
-                                       make_mcnp_material,
-                                       make_serpent_material,
-                                       make_shift_material, material_dict,
-                                       zaid_to_isotope)
+from neutronics_material_maker import (
+    NATURAL_ABUNDANCE,
+    check_add_additional_end_lines,
+    make_fispact_material,
+    make_mcnp_material,
+    make_serpent_material,
+    make_shift_material,
+    material_dict,
+    zaid_to_isotope,
+)
 
 OPENMC_AVAILABLE = True
 try:
     import openmc
 except ImportError:
     OPENMC_AVAILABLE = False
-    msg = ("OpenMC python package not found, .openmc_material, "
-           ".serpent_material, .mcnp_material, .fispact_material methods not "
-           "avaiable")
+    msg = (
+        "OpenMC python package not found, .openmc_material, "
+        ".serpent_material, .mcnp_material, .fispact_material methods not "
+        "avaiable"
+    )
     warnings.warn(msg)
 
 atomic_mass_unit_in_g = 1.660539040e-24
@@ -39,7 +44,7 @@ asteval_user_symbols = {"PropsSI": PropsSI}
 
 
 def _default(self, obj):
-    """ monkey-patches json module so that the custom to_json
+    """monkey-patches json module so that the custom to_json
     method is used which allows Materials to be json dumped
     """
     return getattr(obj.__class__, "to_json", _default.default)(obj)
@@ -72,7 +77,7 @@ class Material:
             temperature have density equations that depend on temperature.
             These tend to be liquids and gases used for coolants and even
             liquids such as lithium-lead and FLiBe that are used as breeder
-            materials. Added to the openmc material object and the serpent
+            materials. Added to the OpenMC material object and the serpent
             material card.
         temperature_to_neutronics_code: The temperature args are often used to
             find the material density via density equations. However it can be
@@ -80,8 +85,8 @@ class Material:
             codes. Typically this is due to missing cross section data.
             Defaults to True which makes use of any material temperature in the
             neutronics material. Can be set to False which doesn't propagate
-            temperature data to the neutroics material. This only impacts
-            openmc and serpent materials. As shift materials require the use of
+            temperature data to the neutronics material. This only impacts
+            OpenMC and serpent materials. As shift materials require the use of
             temperature and fispact/mcnp materials don't make use of
             temperature on the material card.
         pressure: The pressure of the material in Pascals. Pressure impacts the
@@ -108,7 +113,7 @@ class Material:
         percent_type: Atom "ao" or or weight fraction "wo"
         density: value to be used as the density. Can be a number or a string.
             if a string then it will be evaluated as an equation to find the
-            density and can contain temperature and pressure varibles.
+            density and can contain temperature and pressure variables.
             variables as part of the equation.
         density_unit: the units of density "g/cm3", "g/cc", "kg/m3",
             "atom/b-cm", "atom/cm3"
@@ -119,10 +124,10 @@ class Material:
             material data
         additional_end_lines: Additional lines of test that are added to the end of
             the material card. Compatable with MCNP, Serpent, Fispact outputs
-            which are string based. Agument should be a dictionary specifying
-            the code and a list of lines to be added, besure to include any
+            which are string based. Argument should be a dictionary specifying
+            the code and a list of lines to be added, be sure to include any
             white required spaces in the string. This example will add a single
-            S(a,b) card to an MCNP card {'mnnp': ['        mt24 lwtr.01']}.
+            S(a,b) card to an MCNP card {'mcnp': ['        mt24 lwtr.01']}.
 
     Returns:
         Material: a neutronics_material_maker.Material instance
@@ -132,7 +137,7 @@ class Material:
     def __init__(
         self,
         name: Optional[str] = None,
-        packing_fraction: Optional[float] = 1.,
+        packing_fraction: Optional[float] = 1.0,
         enrichment: Optional[float] = None,
         enrichment_target: Optional[str] = None,
         temperature: Optional[float] = None,
@@ -229,9 +234,8 @@ class Material:
 
     @property
     def serpent_material(self):
-        """Creates a a Serpent version of the Material with '\n' as line
-        endings. Decimal places can be controlled with the
-        Material.decimal_places attribute.
+        """Creates a Serpent version of the Material. Decimal places can be
+        controlled with the Material.decimal_places attribute.
 
         Returns:
             str: A Serpent material card
@@ -245,9 +249,9 @@ class Material:
 
     @property
     def mcnp_material(self):
-        """Creates a a MCNP version of the Material with '\n' as line endings.
-        Requires the Material.material_id to be set. Decimal places can be
-        controlled with the Material.decimal_places attribute.
+        """Creates a MCNP version of the Material. Requires the
+        Material.material_id to be set. Decimal places can be controlled with
+        the Material.decimal_places attribute.
 
         Returns:
             str: A MCNP material card
@@ -261,10 +265,9 @@ class Material:
 
     @property
     def shift_material(self):
-        """Creates a a Shift version of the Material with '\n' as line endings.
-        Requires the Material.material_id and Material.temperature to be set.
-        Decimal places can be controlled with the Material.deicmal_places
-        attribute.
+        """Creates a Shift version of the Material. Requires the
+        Material.material_id and Material.temperature to be set. Decimal places
+        can be controlled with the Material.deicmal_places attribute.
 
         Returns:
             str: A Shift material card
@@ -278,8 +281,8 @@ class Material:
 
     @property
     def fispact_material(self) -> str:
-        """Creates a a FISPACT version of the Material with '\n' as line
-        endings. Requires the Material.volume_in_cm3 to be set.
+        """Creates a FISPACT version of the Material. Requires the
+        Material.volume_in_cm3 to be set.
 
         Returns:
             str: A FISPACT material card
@@ -303,8 +306,7 @@ class Material:
     def name(self, value):
         if value is not None:
             if not isinstance(value, str):
-                raise ValueError(
-                    "Material.name must be a string", value)
+                raise ValueError("Material.name must be a string", value)
         self._name = value
 
     @property
@@ -314,14 +316,11 @@ class Material:
     @packing_fraction.setter
     def packing_fraction(self, value):
         if not isinstance(value, (float, int)):
-            raise ValueError(
-                "Material.packing_fraction must be a float or int")
+            raise ValueError("Material.packing_fraction must be a float or int")
         if value < 0.0:
-            raise ValueError(
-                "Material.packing_fraction must be greater than 0")
+            raise ValueError("Material.packing_fraction must be greater than 0")
         if value > 1.0:
-            raise ValueError(
-                "Material.packing_fraction must be less than 1.")
+            raise ValueError("Material.packing_fraction must be less than 1.")
         self._packing_fraction = float(value)
 
     @property
@@ -353,8 +352,7 @@ class Material:
         if isinstance(value, str) or value is None:
             self._chemical_equation = value
         else:
-            raise ValueError(
-                "Material.chemical_equation must be a string e.g. 'H2O'")
+            raise ValueError("Material.chemical_equation must be a string e.g. 'H2O'")
 
     @property
     def isotopes(self) -> dict:
@@ -402,8 +400,7 @@ class Material:
         if value in ["ao", "wo", None]:
             self._percent_type = value
         else:
-            raise ValueError(
-                "Material.percent_type only accepts 'ao' or 'wo' types")
+            raise ValueError("Material.percent_type only accepts 'ao' or 'wo' types")
 
     @property
     def enrichment_type(self) -> float:
@@ -430,8 +427,7 @@ class Material:
     def atoms_per_unit_cell(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError(
-                    "Material.atoms_per_unit_cell must be greater than 0")
+                raise ValueError("Material.atoms_per_unit_cell must be greater than 0")
         self._atoms_per_unit_cell = value
 
     @property
@@ -467,8 +463,7 @@ class Material:
     def temperature(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError(
-                    "Material.temperature must be greater than 0 Kelvin")
+                raise ValueError("Material.temperature must be greater than 0 Kelvin")
         self._temperature = value
 
     @property
@@ -489,8 +484,7 @@ class Material:
             self._density = value
         elif isinstance(value, (int, float)):
             if value < 0:
-                raise ValueError(
-                    f"Material.density should be above 0. Not {value}")
+                raise ValueError(f"Material.density should be above 0. Not {value}")
             self._density = float(value)
 
     @property
@@ -507,8 +501,7 @@ class Material:
     def enrichment(self, value):
         if value is not None:
             if value < 0 or value > 100:
-                raise ValueError(
-                    "Material.enrichment must be between 0 and 100")
+                raise ValueError("Material.enrichment must be between 0 and 100")
         self._enrichment = value
 
     @property
@@ -527,7 +520,8 @@ class Material:
             if value not in NATURAL_ABUNDANCE.keys():
                 msg = (
                     "Material.enrichment_target must be a naturally occuring "
-                    f"isotope from this list {NATURAL_ABUNDANCE.keys()}")
+                    f"isotope from this list {NATURAL_ABUNDANCE.keys()}"
+                )
                 raise ValueError(msg)
         self._enrichment_target = value
 
@@ -631,11 +625,10 @@ class Material:
 
         if self.material_id is not None:
             openmc_material = openmc.Material(
-                material_id=self.material_id,
-                name=self.name)
+                material_id=self.material_id, name=self.name
+            )
         else:
-            openmc_material = openmc.Material(
-                name=self.name)
+            openmc_material = openmc.Material(name=self.name)
 
         if self.temperature_to_neutronics_code is True:
             openmc_material.temperature = self.temperature
@@ -664,10 +657,14 @@ class Material:
         if self.enrichment is None:
             return None
 
-        elif (self.enrichment_type is not None and self.enrichment_target is not None):
+        elif self.enrichment_type is not None and self.enrichment_target is not None:
             return re.split(r"(\d+)", self.enrichment_target)[0]
 
-        elif (self.enrichment is not None or self.enrichment_type is not None or self.enrichment_target is not None):
+        elif (
+            self.enrichment is not None
+            or self.enrichment_type is not None
+            or self.enrichment_target is not None
+        ):
             raise ValueError(
                 "Material.enrichment_target, Material.enrichment_type and "
                 "Material.enrichment are all needed to enrich a material"
@@ -763,12 +760,11 @@ class Material:
 
             if "temperature" in self.density and self.temperature is None:
                 raise ValueError(
-                    "Material.temperature is needed to calculate the density")
+                    "Material.temperature is needed to calculate the density"
+                )
 
             if "pressure" in self.density and self.pressure is None:
-                raise ValueError(
-                    "Material.pressure is needed to calculate the density"
-                )
+                raise ValueError("Material.pressure is needed to calculate the density")
 
             # Potentially used in the eval part
             aeval.symtable["temperature"] = self.temperature
@@ -780,10 +776,7 @@ class Material:
                 raise aeval.error[0].exc(aeval.error[0].msg)
 
             if density is None:
-                raise ValueError(
-                    "Density value of ",
-                    self.name,
-                    " can not be found")
+                raise ValueError("Density value of ", self.name, " can not be found")
             else:
                 self.density = density
 
@@ -793,16 +786,18 @@ class Material:
         ):
 
             molar_mass = (
-                self._get_atoms_in_crystal() *
-                openmc_material.average_molar_mass)
+                self._get_atoms_in_crystal() * openmc_material.average_molar_mass
+            )
 
             mass = self.atoms_per_unit_cell * molar_mass * atomic_mass_unit_in_g
 
             self.density = mass / self.volume_of_unit_cell_cm3
         else:
-            msg = ("density can't be set for {self.name} provide either a "
-                   "density value as a number or density as a string, or "
-                   "atoms_per_unit_cell and volume_of_unit_cell_cm3")
+            msg = (
+                "density can't be set for {self.name} provide either a "
+                "density value as a number or density as a string, or "
+                "atoms_per_unit_cell and volume_of_unit_cell_cm3"
+            )
             raise ValueError(msg)
 
         openmc_material.set_density(
@@ -814,10 +809,7 @@ class Material:
     def _get_atoms_in_crystal(self):
         """Finds the number of atoms in the crystal lactic"""
 
-        tokens = [
-            a for a in re.split(
-                r"([A-Z][a-z]*)",
-                self.chemical_equation) if a]
+        tokens = [a for a in re.split(r"([A-Z][a-z]*)", self.chemical_equation) if a]
 
         list_of_fractions = []
 
@@ -832,11 +824,7 @@ class Material:
         self.list_of_fractions = list_of_fractions
         return sum(list_of_fractions)
 
-    def from_json_file(
-        filename: str,
-        name: str,
-        **kwargs
-    ):
+    def from_json_file(filename: str, name: str, **kwargs):
 
         with open(filename, "r") as file:
             new_data = json.load(file)
@@ -852,18 +840,14 @@ class Material:
 
         return Material(name=name, **entry)
 
-    def from_library(
-        name: str,
-        **kwargs
-    ):
+    def from_library(name: str, **kwargs):
         # TODO allow discreat libraries to be searched library: List('str')
 
         if name not in material_dict.keys():
-            closest_match = difflib.get_close_matches(
-                name, material_dict.keys())
-            msg = f'name of {name} was not found in the internal library.'
+            closest_match = difflib.get_close_matches(name, material_dict.keys())
+            msg = f"name of {name} was not found in the internal library."
             if len(closest_match) > 0:
-                msg = msg + f' Did you mean {closest_match}?'
+                msg = msg + f" Did you mean {closest_match}?"
             raise ValueError(msg)
 
         entry = material_dict[name].copy()
@@ -877,9 +861,9 @@ class Material:
     def from_mixture(
         materials,
         fracs: List[float],
-        percent_type: Optional[str] = 'vo',
+        percent_type: Optional[str] = "vo",
         name: Optional[str] = None,
-        packing_fraction: Optional[float] = 1.,
+        packing_fraction: Optional[float] = 1.0,
         temperature: Optional[float] = None,
         temperature_to_neutronics_code: Optional[bool] = True,
         pressure: Optional[float] = None,
@@ -891,8 +875,10 @@ class Material:
         additional_end_lines: Optional[Dict[str, List[str]]] = None,
     ):
         if sum(fracs) != 1.0:
-            msg = ("warning sum of MutliMaterials.fracs do not sum to 1."
-                   f"{fracs} = {sum(fracs)}")
+            msg = (
+                "warning sum of MutliMaterials.fracs do not sum to 1."
+                f"{fracs} = {sum(fracs)}"
+            )
             warnings.warn(msg, UserWarning)
 
         openmc_material_objects = []
@@ -902,8 +888,10 @@ class Material:
             elif isinstance(material, Material):
                 openmc_material_objects.append(material.openmc_material)
             else:
-                msg = ("only openmc.Material or neutronics_material_maker."
-                       f"Materials are accepted. Not {type(material)}")
+                msg = (
+                    "only openmc.Material or neutronics_material_maker."
+                    f"Materials are accepted. Not {type(material)}"
+                )
                 raise ValueError(msg)
 
         openmc_material = openmc.Material.mix_materials(
@@ -920,7 +908,7 @@ class Material:
             percent_type=nuclide.percent_type,
             isotopes=isotopes,
             density=openmc_material.get_mass_density(),
-            density_unit='g/cm3',
+            density_unit="g/cm3",
             packing_fraction=packing_fraction,
             name=name,
             temperature=temperature,
@@ -965,8 +953,6 @@ class Material:
             if value is None:
                 del contents[key]
 
-        jsonified_object = {
-            self.name: contents
-        }
+        jsonified_object = {self.name: contents}
 
         return jsonified_object
