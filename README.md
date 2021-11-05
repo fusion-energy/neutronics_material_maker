@@ -158,7 +158,7 @@ arguments.
 
 ```python
 import neutronics_material_maker as nmm
-my_mat = nmm.Material('tungsten')
+my_mat = nmm.Materialfrom_library('tungsten')
 
 # openmc
 my_mat.openmc_material
