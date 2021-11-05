@@ -159,10 +159,20 @@ arguments.
 ```python
 import neutronics_material_maker as nmm
 my_mat = nmm.Material('tungsten')
-my_mat.openmc_material()
-my_mat.mcnp_material(id=1, zaid_suffix='.31c)
-my_mat.serpent_material(zaid_suffix='.31c))
-my_mat.fispact_material(volume=100)
+
+# openmc
+my_mat.openmc_material
+
+# mcnp - required a material_id to be set
+my_mat.material_id = 1
+my_mat.mcnp_material
+
+# serpent
+my_mat.serpent_material
+
+# fispact - requires volume to be specified
+my_mat.volume_in_cm3 = 1 / my_mat.density
+my_mat.fispact_material
 ```
 
 ## Further Examples
