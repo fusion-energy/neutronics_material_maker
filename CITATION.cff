@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Shimwell"
+  given-names: "Jonathan"
+  orcid: "https://orcid.org/0000-0001-6909-0946"
+- family-names: "Billingsley"
+  given-names: "John"
+- family-names: "Coleman"
+  given-names: "Matti"
+- family-names: "Whan Bae"
+  given-names: "Jin"
+- family-names: "León Hernández"
+  given-names: "Daniel"
+- family-names: "Worrall"
+  given-names: "Ross"
+- family-names: "Katie"
+  given-names: "Taylor"
+- family-names: "Anurag"
+  given-names: "Saigiridhari"
+- family-names: "Ariful"
+  given-names: "Islam Pranto"
+title: "Neutronics Material Maker: A tool for making reproducible materials and standardizing use across several neutronics codes "
+version: 1.0.2
+date-released: 2021-9-13
+url: "https://github.com/fusion-energy/neutronics_material_maker"
