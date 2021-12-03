@@ -1,0 +1,42 @@
+{
+    "ej-200-plastic-scintillator": {
+        "elements": {
+            "H": 5.17,
+            "C": 4.69
+        },
+        "density": 1.023,
+        "density_unit": "g/cm3",
+        "comment": "https://eljentechnology.com/products/plastic-scintillators/ej-200-ej-204-ej-208-ej-212",
+        "percent_type": "ao"
+    },
+    "ej-204-plastic-scintillator": {
+        "elements": {
+            "H": 5.15,
+            "C": 4.68
+        },
+        "density": 1.023,
+        "density_unit": "g/cm3",
+        "comment": "https://eljentechnology.com/products/plastic-scintillators/ej-200-ej-204-ej-208-ej-212",
+        "percent_type": "ao"
+    },
+    "ej-208-plastic-scintillator": {
+        "elements": {
+            "H": 5.17,
+            "C": 4.69
+        },
+        "density": 1.023,
+        "density_unit": "g/cm3",
+        "comment": "https://eljentechnology.com/products/plastic-scintillators/ej-200-ej-204-ej-208-ej-212",
+        "percent_type": "ao"
+    },
+    "ej-212-plastic-scintillator": {
+        "elements": {
+            "H": 5.17,
+            "C": 4.69
+        },
+        "density": 1.023,
+        "density_unit": "g/cm3",
+        "comment": "https://eljentechnology.com/products/plastic-scintillators/ej-200-ej-204-ej-208-ej-212",
+        "percent_type": "ao"
+    }
+}
