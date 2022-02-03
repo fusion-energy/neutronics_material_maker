@@ -9,7 +9,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: ghcr.io/openmc-data-storage/miniconda3_4.9.2_endfb-7.1_nndc_tendl_2019:latest as dependencies
+      - image: ghcr.io/openmc-data-storage/miniconda3_4.9.2_endfb-7.1_nndc_tendl_2019
 
     working_directory: ~/repo
 
