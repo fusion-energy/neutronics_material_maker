@@ -18,7 +18,7 @@ jobs:
       - run:
           name: install
           command:
-            python setup.py install
+            pip install .
  
       # run tests!
       - run:
