@@ -48,7 +48,7 @@ environment.
 Install (conda + pip)
 ---------------------
 
-Create a new environment (Python 3.6, 3.7 or 3.8 are supported).
+Create a new environment (Python 3.6, 3.7, 3.8, 3.9 are supported).
 
 .. code-block:: bash
 
@@ -76,3 +76,11 @@ Then pip install the package.
 
 Now you should be ready to import neutronics-material-maker from your new python
 environment.
+
+To include the optional capability of calculating the density of coolants
+additional packages are needed (CoolProp). A slightly modified pip install
+is required in this case.
+
+.. code-block:: bash
+
+   pip install "neutronics_material_maker[density]"
