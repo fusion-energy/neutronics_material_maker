@@ -18,7 +18,7 @@ jobs:
       - run:
           name: install
           command:
-            pip install .[density]
+            pip install .[density,tests]
  
       # run tests!
       - run:
