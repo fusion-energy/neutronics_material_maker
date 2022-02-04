@@ -23,9 +23,8 @@ jobs:
             echo 'export OPENMC_CROSS_SECTIONS=/nuclear_data/cross_sections.xml' >> $BASH_ENV
       - run:
           name: install
-          command:
-            OPENMC_CROSS_SECTIONS=/nuclear_data/cross_sections.xml
-            conda install 
+          command: |
+            conda install -c conda-forge openmc
             pip install .
  
       # run tests!
