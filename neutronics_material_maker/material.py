@@ -9,10 +9,10 @@ import os
 import re
 import warnings
 from json import JSONEncoder
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 import asteval
-from CoolProp.CoolProp import PropsSI
+
 
 from neutronics_material_maker import (
     NATURAL_ABUNDANCE,
@@ -38,10 +38,6 @@ except ImportError:
     warnings.warn(msg)
 
 atomic_mass_unit_in_g = 1.660539040e-24
-
-# Set any custom symbols for use in asteval
-asteval_user_symbols = {"PropsSI": PropsSI}
-
 
 def _default(self, obj):
     """monkey-patches json module so that the custom to_json
@@ -764,7 +760,16 @@ class Material:
 
         # a density equation is being used
         elif isinstance(self.density, str):
-            aeval = asteval.Interpreter(usersyms=asteval_user_symbols)
+
+            if self.density.startswith('PropsSI'):
+                from CoolProp.CoolProp import PropsSI
+
+                # Set any custom symbols for use in asteval
+                asteval_user_symbols = {"PropsSI": PropsSI}
+
+                aeval = asteval.Interpreter(usersyms=asteval_user_symbols)
+            else:
+                aeval = asteval.Interpreter()
 
             if "temperature" in self.density and self.temperature is None:
                 raise ValueError(
