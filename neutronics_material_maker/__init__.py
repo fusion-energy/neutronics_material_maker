@@ -1,4 +1,3 @@
-
 try:
     from importlib.metadata import version, PackageNotFoundError
 except (ModuleNotFoundError, ImportError):

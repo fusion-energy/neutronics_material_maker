@@ -39,6 +39,7 @@ except ImportError:
 
 atomic_mass_unit_in_g = 1.660539040e-24
 
+
 def _default(self, obj):
     """monkey-patches json module so that the custom to_json
     method is used which allows Materials to be json dumped
@@ -312,11 +313,9 @@ class Material:
     @packing_fraction.setter
     def packing_fraction(self, value):
         if not isinstance(value, (float, int)):
-            raise ValueError(
-                "Material.packing_fraction must be a float or int")
+            raise ValueError("Material.packing_fraction must be a float or int")
         if value < 0.0:
-            raise ValueError(
-                "Material.packing_fraction must be greater than 0")
+            raise ValueError("Material.packing_fraction must be greater than 0")
         if value > 1.0:
             raise ValueError("Material.packing_fraction must be less than 1.")
         self._packing_fraction = float(value)
@@ -350,8 +349,7 @@ class Material:
         if isinstance(value, str) or value is None:
             self._chemical_equation = value
         else:
-            raise ValueError(
-                "Material.chemical_equation must be a string e.g. 'H2O'")
+            raise ValueError("Material.chemical_equation must be a string e.g. 'H2O'")
 
     @property
     def isotopes(self) -> dict:
@@ -399,8 +397,7 @@ class Material:
         if value in ["ao", "wo", None]:
             self._percent_type = value
         else:
-            raise ValueError(
-                "Material.percent_type only accepts 'ao' or 'wo' types")
+            raise ValueError("Material.percent_type only accepts 'ao' or 'wo' types")
 
     @property
     def enrichment_type(self) -> float:
@@ -427,8 +424,7 @@ class Material:
     def atoms_per_unit_cell(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError(
-                    "Material.atoms_per_unit_cell must be greater than 0")
+                raise ValueError("Material.atoms_per_unit_cell must be greater than 0")
         self._atoms_per_unit_cell = value
 
     @property
@@ -464,8 +460,7 @@ class Material:
     def temperature(self, value):
         if value is not None:
             if value < 0.0:
-                raise ValueError(
-                    "Material.temperature must be greater than 0 Kelvin")
+                raise ValueError("Material.temperature must be greater than 0 Kelvin")
         self._temperature = value
 
     @property
@@ -486,8 +481,7 @@ class Material:
             self._density = value
         elif isinstance(value, (int, float)):
             if value < 0:
-                raise ValueError(
-                    f"Material.density should be above 0. Not {value}")
+                raise ValueError(f"Material.density should be above 0. Not {value}")
             self._density = float(value)
 
     @property
@@ -504,8 +498,7 @@ class Material:
     def enrichment(self, value):
         if value is not None:
             if value < 0 or value > 100:
-                raise ValueError(
-                    "Material.enrichment must be between 0 and 100")
+                raise ValueError("Material.enrichment must be between 0 and 100")
         self._enrichment = value
 
     @property
@@ -761,7 +754,7 @@ class Material:
         # a density equation is being used
         elif isinstance(self.density, str):
 
-            if self.density.startswith('PropsSI'):
+            if self.density.startswith("PropsSI"):
                 from CoolProp.CoolProp import PropsSI
 
                 # Set any custom symbols for use in asteval
@@ -777,8 +770,7 @@ class Material:
                 )
 
             if "pressure" in self.density and self.pressure is None:
-                raise ValueError(
-                    "Material.pressure is needed to calculate the density")
+                raise ValueError("Material.pressure is needed to calculate the density")
 
             # Potentially used in the eval part
             aeval.symtable["temperature"] = self.temperature
@@ -790,10 +782,7 @@ class Material:
                 raise aeval.error[0].exc(aeval.error[0].msg)
 
             if density is None:
-                raise ValueError(
-                    "Density value of ",
-                    self.name,
-                    " can not be found")
+                raise ValueError("Density value of ", self.name, " can not be found")
             else:
                 self.density = density
 
@@ -803,8 +792,8 @@ class Material:
         ):
 
             molar_mass = (
-                self._get_atoms_in_crystal() *
-                openmc_material.average_molar_mass)
+                self._get_atoms_in_crystal() * openmc_material.average_molar_mass
+            )
 
             mass = self.atoms_per_unit_cell * molar_mass * atomic_mass_unit_in_g
 
@@ -826,10 +815,7 @@ class Material:
     def _get_atoms_in_crystal(self):
         """Finds the number of atoms in the crystal lactic"""
 
-        tokens = [
-            a for a in re.split(
-                r"([A-Z][a-z]*)",
-                self.chemical_equation) if a]
+        tokens = [a for a in re.split(r"([A-Z][a-z]*)", self.chemical_equation) if a]
 
         list_of_fractions = []
 
@@ -864,8 +850,7 @@ class Material:
         # TODO allow discreat libraries to be searched library: List('str')
 
         if name not in material_dict.keys():
-            closest_match = difflib.get_close_matches(
-                name, material_dict.keys())
+            closest_match = difflib.get_close_matches(name, material_dict.keys())
             msg = f"name of {name} was not found in the internal library."
             if len(closest_match) > 0:
                 msg = msg + f" Did you mean {closest_match}?"
