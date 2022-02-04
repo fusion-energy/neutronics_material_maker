@@ -3,7 +3,7 @@ try:
 except (ModuleNotFoundError, ImportError):
     from importlib_metadata import version, PackageNotFoundError
 try:
-    __version__ = version("paramak")
+    __version__ = version("neutronics_material_maker")
 except PackageNotFoundError:
     from setuptools_scm import get_version
 
