@@ -18,13 +18,13 @@ jobs:
       - run:
           name: install
           command:
-            python setup.py install
+            pip install .[density]
  
       # run tests!
       - run:
           name: run tests
           command: |
-            conda install -c conda-forge
+            conda install -c conda-forge openmc
             pytest tests -v --cov=neutronics_material_maker --cov-report term --cov-report html:htmlcov --cov-report xml --junitxml=test-reports/junit.xml
       - store_test_results:
           path: test-reports
