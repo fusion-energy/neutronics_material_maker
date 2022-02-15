@@ -33,7 +33,7 @@ jobs:
           path: test-reports
       - run:
           name: install curl
-          command:
+          command: |
             apt-get --allow-releaseinfo-change update
             apt-get update && apt-get -y install curl
       - run: curl -s https://codecov.io/bash | bash
