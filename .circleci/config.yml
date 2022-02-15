@@ -18,7 +18,7 @@ jobs:
       - run:
           name: install
           command: |
-            conda install -c conda-forge openmc
+            conda install -c conda-forge openmc==0.13.0
             pip install .[density,tests]
  
       # run tests!
