@@ -9,7 +9,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: openmc/openmc:develop
+      - image: continuumio/miniconda3:4.9.2
 
     working_directory: ~/repo
 
@@ -17,13 +17,14 @@ jobs:
       - checkout
       - run:
           name: install
-          command:
-            python setup.py install
+          command: |
+            conda install -c conda-forge openmc==0.13.0
+            pip install .[density,tests]
  
       # run tests!
       - run:
           name: run tests
-          command: 
+          command:
             pytest tests -v --cov=neutronics_material_maker --cov-report term --cov-report html:htmlcov --cov-report xml --junitxml=test-reports/junit.xml
       - store_test_results:
           path: test-reports
@@ -32,6 +33,7 @@ jobs:
           path: test-reports
       - run:
           name: install curl
-          command:
+          command: |
+            apt-get --allow-releaseinfo-change update
             apt-get update && apt-get -y install curl
       - run: curl -s https://codecov.io/bash | bash

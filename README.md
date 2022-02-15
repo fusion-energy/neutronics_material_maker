@@ -26,6 +26,8 @@ temperature and pressure.
 
 ## Installation
 
+### Conda
+
 To use the code you will need to have OpenMC installed
 [OpenMC](https://docs.openmc.org/en/latest/quickinstall.html).
 
@@ -33,15 +35,25 @@ The recommended method is to install from
 [Conda Forge](https://conda-forge.org) which also installs all the dependencies
 including OpenMC.
 
-```
+```bash
+conda create --name new_env python=3.8
+conda activate new_env
 conda install neutronics_material_maker -c conda-forge
 ```
+### Pip
+Alternatively the code can be easily installed using pip. This method doesn't
+currently include OpenMC so that will have to be installed separately using
+Conda or compiled.
 
-Alternatively the code can be easily installed using pip (which doesn't
-currently include OpenMC)
-
-```
+```bash
 pip install neutronics_material_maker
+```
+
+To include the optional capability of calculating the density of coolants
+additional packages are needed (CoolProp). A slightly modified pip install
+is required in this case.
+```bash
+pip install "neutronics_material_maker[density]"
 ```
 
 ## Features
