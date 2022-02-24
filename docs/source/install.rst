@@ -44,7 +44,6 @@ Then install the package.
 Now you should be ready to import neutronics-material-maker from your new python
 environment.
 
-
 Install (conda + pip)
 ---------------------
 
@@ -76,6 +75,9 @@ Then pip install the package.
 
 Now you should be ready to import neutronics-material-maker from your new python
 environment.
+
+Install (optional density features)
+-----------------------------------
 
 To include the optional capability of calculating the density of coolants
 additional packages are needed (CoolProp). A slightly modified pip install
