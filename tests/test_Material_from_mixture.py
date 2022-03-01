@@ -495,7 +495,7 @@ class test_object_properties(unittest.TestCase):
             assert issubclass(w[-1].category, UserWarning)
             # the second entry is needed as OpenMC material mixer also raises
             # and error
-            assert "warning sum of MutliMaterials.fracs do not sum to 1." in str(
+            assert "Warning some material is not accounted for as the follow" in str(
                 w[-2].message
             )
 
@@ -521,13 +521,13 @@ class test_object_properties(unittest.TestCase):
             assert issubclass(w[-1].category, UserWarning)
             # the second entry is needed as OpenMC material mixer also raises
             # and error
-            assert "warning sum of MutliMaterials.fracs do not sum to 1." in str(
+            assert "Warning some material is not accounted for as the follow" in str(
                 w[-2].message
             )
 
-        def test_incorrect_packing_fraction():
-            """checks a ValueError is raised when the packing_fraction is the
-            wrong type"""
+        def not_fully_accounting_mat():
+            """checks a warning is raised when the fracs and packing fractions
+            don't account for all the material"""
 
             nmm.Material.from_mixture(
                 name="test_material",
@@ -535,11 +535,23 @@ class test_object_properties(unittest.TestCase):
                     nmm.Material.from_library("tungsten", packing_fraction=0.6),
                     nmm.Material.from_library("eurofer", packing_fraction=0.8),
                 ],
-                fracs=[0.3, 0.7],
-                packing_fraction="1",
+                fracs=[0.3, 0.6],
+                packing_fraction=0.2
             )
 
-        self.assertRaises(ValueError, test_incorrect_packing_fraction)
+        with warnings.catch_warnings(record=True) as w:
+            # Cause all warnings to always be triggered.
+            warnings.simplefilter("always")
+            # Trigger a warning.
+            not_fully_accounting_mat()
+            # Verify some things
+            assert len(w) >= 1
+            assert issubclass(w[-1].category, UserWarning)
+            # the second entry is needed as OpenMC material mixer also raises
+            # and error
+            assert "Warning some material is not accounted for as the follow" in str(
+                w[-2].message
+            )
 
         def test_too_large_packing_fraction():
             """checks a ValueError is raised when the packing_fraction is the
