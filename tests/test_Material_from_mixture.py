@@ -536,7 +536,7 @@ class test_object_properties(unittest.TestCase):
                     nmm.Material.from_library("eurofer", packing_fraction=0.8),
                 ],
                 fracs=[0.3, 0.6],
-                packing_fraction=0.2
+                packing_fraction=0.2,
             )
 
         with warnings.catch_warnings(record=True) as w:

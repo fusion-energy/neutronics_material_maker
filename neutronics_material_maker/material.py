@@ -885,7 +885,7 @@ class Material:
         Args:
             materials: A list of neutronics_material_maker.Materials or openmc.Materials
             fracs: A list of material fractions, typically sums to 1.
-            percent_type: Volume "vo" Atom "ao" or weight fraction "wo" 
+            percent_type: Volume "vo" Atom "ao" or weight fraction "wo"
             name: the name of the material
             packing_fraction: This value is mutliplied by the density
                 which allows packing_fraction to be taken into account for materials
@@ -933,7 +933,7 @@ class Material:
         Returns: neutronics_material_maker.Material() object
         """
 
-        if sum(fracs)*packing_fraction + (1-packing_fraction) != 1.0:
+        if sum(fracs) * packing_fraction + (1 - packing_fraction) != 1.0:
             msg = (
                 "Warning some material is not accounted for as the follow "
                 "equation is not equal to 1."
