@@ -62,7 +62,7 @@ class Material:
             with a unique identifier.
         packing_fraction: This value is mutliplied by the density
             which allows packing_fraction to be taken into account for materials
-            involving an amount of void. Recall that 
+            involving an amount of void. Recall that
             packing_fraction = 1 - void fraction
         enrichment: This is the percentage of isotope enrichment
             required for the material. This works for materials that have
