@@ -76,7 +76,7 @@ or using `CoolProps <https://pypi.org/project/CoolProp/>`_ (for example coolants
 
     my_mat1.openmc_material
 
-Temperature can be provided in degrees C or Kelvin.
+Temperature must be provided in Kelvin.
 
 .. code-block:: python
 
