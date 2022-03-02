@@ -65,7 +65,7 @@ For several materials within the collection the temperature and the pressure
 impacts the density of the material. The neutronics_material_maker adjusts the
 density to take temperature (in C or K) and the pressure into account when
 appropriate. Densities are calculated either by a material specific formula
-(for example `FLiBe <https://github.com/fusion-energy/neutronics_material_maker/blob/openmc_version/neutronics_material_maker/data/multiplier_and_breeder_materials.json>`_)
+(for example FLiBe which has an temperature dependent equation for calculating the density https://github.com/fusion-energy/neutronics_material_maker/blob/a166ccebdb4949c987df75a404eaf8f63853e2c4/neutronics_material_maker/data/multiplier_and_breeder_materials.json#L32)
 or using `CoolProps <https://pypi.org/project/CoolProp/>`_ (for example coolants such as H2O).
 
 .. code-block:: python
@@ -146,13 +146,13 @@ string.
         material_id=24,
         temperature=573.15,
         pressure=15e6,
-        additional_end_lines={'mcnp': ['      mt24 lwtr.01']}
+        additional_end_lines={'mcnp': ['mt24 lwtr.01']}
     )
 
     print(my_mat2.mcnp_material)
 
 The above code will return a MCNP material card string with the additional line
-'      mt24 lwtr.01' at the end. Notice that spaces should also be set by the
+'mt24 lwtr.01' at the end. Note that spaces should also be set by the
 user.
 
 .. code-block:: bash
@@ -163,7 +163,7 @@ user.
             008016  3.32540200e-01
             008017  1.26333333e-04
             008018  6.66800000e-04
-            mt24 lwtr.01
+    mt24 lwtr.01
 
 It is also possible to specify this additional line in a JSON file and
 then read in the file and export the material. The additional end lines can
