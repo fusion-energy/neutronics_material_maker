@@ -65,7 +65,7 @@ For several materials within the collection the temperature and the pressure
 impacts the density of the material. The neutronics_material_maker adjusts the
 density to take temperature (in C or K) and the pressure into account when
 appropriate. Densities are calculated either by a material specific formula
-(for example FLiBe)
+(for example FLiBe which has an temperature dependent equation for calculating the density https://github.com/fusion-energy/neutronics_material_maker/blob/a166ccebdb4949c987df75a404eaf8f63853e2c4/neutronics_material_maker/data/multiplier_and_breeder_materials.json#L32)
 or using `CoolProps <https://pypi.org/project/CoolProp/>`_ (for example coolants such as H2O).
 
 .. code-block:: python
