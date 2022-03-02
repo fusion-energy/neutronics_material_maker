@@ -62,8 +62,8 @@ class Material:
             with a unique identifier.
         packing_fraction: This value is mutliplied by the density
             which allows packing_fraction to be taken into account for materials
-            involving an amount of void. Recall that packing_fraction is equal
-            to 1/void fraction
+            involving an amount of void. Recall that
+            packing_fraction = 1 - void fraction
         enrichment: This is the percentage of isotope enrichment
             required for the material. This works for materials that have
             an enrichment_target and enrichment_type also specified.
@@ -107,7 +107,7 @@ class Material:
             (str) as the key and the amount of that isotope (float) as the value
             e.g. {'Li6': 0.9, 'Li7': 0.1} alternatively zaid representation
             can also be used instead of the symbol e.g. {'3006': 0.9, '4007': 0.1}
-        percent_type: Atom "ao" or or weight fraction "wo"
+        percent_type: Atom "ao" or weight fraction "wo"
         density: value to be used as the density. Can be a number or a string.
             if a string then it will be evaluated as an equation to find the
             density and can contain temperature and pressure variables.
@@ -865,7 +865,7 @@ class Material:
         return Material(name=name, **entry)
 
     def from_mixture(
-        materials,
+        materials: list,
         fracs: List[float],
         percent_type: Optional[str] = "vo",
         name: Optional[str] = None,
@@ -880,10 +880,65 @@ class Material:
         volume_in_cm3: Optional[float] = None,
         additional_end_lines: Optional[Dict[str, List[str]]] = None,
     ):
-        if sum(fracs) != 1.0:
+        """Creates a material from a mixture of multiple materials.
+
+        Args:
+            materials: A list of neutronics_material_maker.Materials or openmc.Materials
+            fracs: A list of material fractions, typically sums to 1.
+            percent_type: Volume "vo" Atom "ao" or weight fraction "wo"
+            name: the name of the material
+            packing_fraction: This value is mutliplied by the density
+                which allows packing_fraction to be taken into account for materials
+                involving an amount of void. Recall that
+                packing_fraction = 1 - void fraction
+            temperature: The temperature of the material in degrees
+                Kelvin. Temperature impacts the density of some materials in the
+                collection. Materials in the collection that are impacted by
+                temperature have density equations that depend on temperature.
+                These tend to be liquids and gases used for coolants and even
+                liquids such as lithium-lead and FLiBe that are used as breeder
+                materials. Added to the OpenMC material object and the serpent
+                material card.
+            temperature_to_neutronics_code: The temperature args are often used to
+                find the material density via density equations. However it can be
+                desirable to not make use of this temperature in the neutronics
+                codes. Typically this is due to missing cross section data.
+                Defaults to True which makes use of any material temperature in the
+                neutronics material. Can be set to False which doesn't propagate
+                temperature data to the neutronics material. This only impacts
+                OpenMC and serpent materials. As shift materials require the use of
+                temperature and fispact/mcnp materials don't make use of
+                temperature on the material card.
+            pressure: The pressure of the material in Pascals. Pressure impacts the
+                density of some materials in the collection. Materials in the
+                collection that are impacted by pressure have density equations
+                that depend on pressure. These tend to be liquids and gases used
+                for coolants such as H2O and CO2.
+            zaid_suffix: The nuclear library to apply to the zaid, for
+                example ".31c", this is used in MCNP and Serpent material cards.
+            material_id: the id number or mat number used in the MCNP material card
+            decimal_places: The number of decimal places to use in MCNP and
+                Seprent material cards when they are printed out (default of 8).
+            volume_in_cm3: The volume of the material in cm3, used when
+                creating fispact material cards
+            comment: An entry used to store information on the source of the
+                material data
+            additional_end_lines: Additional lines of test that are added to the end of
+                the material card. Compatable with MCNP, Serpent, Fispact outputs
+                which are string based. Argument should be a dictionary specifying
+                the code and a list of lines to be added, be sure to include any
+                white required spaces in the string. This example will add a single
+                S(a,b) card to an MCNP card {'mcnp': ['        mt24 lwtr.01']}.
+
+        Returns: neutronics_material_maker.Material() object
+        """
+
+        if sum(fracs) * packing_fraction + (1 - packing_fraction) != 1.0:
             msg = (
-                "warning sum of MutliMaterials.fracs do not sum to 1."
-                f"{fracs} = {sum(fracs)}"
+                "Warning some material is not accounted for as the follow "
+                "equation is not equal to 1."
+                "sum(fracs)*packing_fraction + (1-packing_fraction)"
+                f"sum({fracs})*{packing_fraction} + (1-{packing_fraction})"
             )
             warnings.warn(msg, UserWarning)
 
