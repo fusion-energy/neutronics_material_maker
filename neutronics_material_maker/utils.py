@@ -715,4 +715,4 @@ def SaveMaterialsToFile(filename: str, materials: list, format="json") -> str:
 
 # loads the internal material library of materials
 material_dict = {}
-AddMaterialFromDir(Path(__file__).parent / "data", verbose=False)
+#AddMaterialFromDir(Path(__file__).parent / "data", verbose=False)
