@@ -14,9 +14,10 @@
     },
     "SiC": {
         "chemical_equation": "SiC",
-        "density": 3.0,
+        "density": 3.21,
         "density_unit": "g/cm3",
-        "percent_type": "ao"
+        "percent_type": "ao", 
+        "comment": "https://www.sciencedirect.com/topics/materials-science/silicon-carbide"
     },
     "eurofer": {
         "elements": {
@@ -103,18 +104,20 @@
             "S": 5e-06,
             "Si": 2e-05
         },
-        "density": 19.0,
+        "density": 19.3,
         "density_unit": "g/cm3",
         "comment": "neutronics handbook",
-        "percent_type": "ao"
+        "percent_type": "ao",
+        "comment": "https://physics.nist.gov/cgi-bin/Star/compos.pl?mode=text&matno=074"
     },
     "tungsten": {
         "elements": {
             "W": 1.0
         },
-        "density": 19.2,
+        "density": 19.3,
         "density_unit": "g/cm3",
-        "percent_type": "ao"
+        "percent_type": "ao", 
+        "comment": "https://physics.nist.gov/cgi-bin/Star/compos.pl?mode=text&matno=074"
     },
     "P91": {
         "elements": {
