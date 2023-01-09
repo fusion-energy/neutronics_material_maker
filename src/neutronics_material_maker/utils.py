@@ -496,7 +496,7 @@ def make_fispact_material(mat) -> str:
     for (
         isotope,
         atoms_barn_cm,
-    ) in mat.openmc_material.get_nuclide_atom_densities().values():
+    ) in mat.openmc_material.get_nuclide_atom_densities().items():
         atoms_cm3 = atoms_barn_cm * 1.0e24
         atoms = mat.volume_in_cm3 * atoms_cm3
         mat_card.append(isotope + " " + "{:.12E}".format(atoms))
@@ -618,7 +618,7 @@ def make_shift_material(mat) -> str:
     # shift units in atoms / barn-cm
     for nuclide, atom_dens in mat.openmc_material.get_nuclide_atom_densities().items():
         zaid += " " + isotope_to_zaid(nuclide)
-        nd_ += " " + f"{atom_dens[1]:.{mat.decimal_places}e}"
+        nd_ += " " + f"{atom_dens:.{mat.decimal_places}e}"
 
     mat_card.extend([zaid, nd_])
 
