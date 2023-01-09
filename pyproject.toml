@@ -1,10 +1,52 @@
 [build-system]
 requires = [
-    "setuptools >= 45",
+    "setuptools >= 65.4.0",
     "wheel",
-    "setuptools_scm[toml] >= 6.2",
+    "setuptools_scm[toml] >= 7.0.5",
 ]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "neutronics_material_maker"
+authors = [
+  { name="Jonathan Shimwell", email="mail@jshimwell.com" },
+]
+license = {file = "LICENSE.txt"}
+description = "A tool for making reproducible materials and standardizing use across several neutronics codes"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["material", "library", "database", "serpent", "mcnp", "openmc", "fispact"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "asteval>=0.9.20",
+]
+dynamic = ["version"]
+
+
 [tool.setuptools_scm]
-write_to = "neutronics_material_maker/_version.py"
+write_to = "src/_version.py"
+
+
+[project.optional-dependencies]
+density = [
+    "coolprop"
+]
+tests = [
+    "pytest",
+    "pytest-cov"
+]
+docs = [
+    "sphinx",
+    "sphinx_autodoc_typehints",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/fusion-energy/neutronics_material_maker"
+"Bug Tracker" = "https://github.com/fusion-energy/neutronics_material_maker/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
