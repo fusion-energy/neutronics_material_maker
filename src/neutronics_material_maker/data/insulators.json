@@ -1,7 +1,8 @@
 {
     "Rexolite 1422": {
         "elements": {
-            "C": 1.0
+            "C": 0.077421,
+            "H": 0.922579
         },
         "density": 1.06,
         "density_unit": "g/cm3",
@@ -9,4 +10,3 @@
         "percent_type": "wo"
     }
 }
-    
