@@ -156,7 +156,6 @@ class Material:
         volume_in_cm3: Optional[float] = None,
         additional_end_lines: Optional[Dict[str, List[str]]] = None,
     ):
-
         self.name = name
         self.temperature = temperature
         self.temperature_to_neutronics_code = temperature_to_neutronics_code
@@ -631,15 +630,12 @@ class Material:
             openmc_material.temperature = self.temperature
 
         if self.isotopes is not None:
-
             openmc_material = self._add_isotopes(openmc_material)
 
         if self.elements is not None:
-
             openmc_material = self._add_elements_from_dict(openmc_material)
 
         if self.chemical_equation is not None:
-
             openmc_material = self._add_elements_from_equation(openmc_material)
 
         # sorts the materials to avoid differently ordered material xml files
@@ -654,7 +650,6 @@ class Material:
         return openmc_material
 
     def _check_enrichment_attributes(self):
-
         if self.enrichment is None:
             return None
 
@@ -703,7 +698,6 @@ class Material:
         for element_symbol, element_number in zip(
             self.elements.keys(), self.elements.values()
         ):
-
             if element_symbol == enrichment_element:
                 openmc_material.add_element(
                     element_symbol,
@@ -757,7 +751,6 @@ class Material:
 
         # a density equation is being used
         elif isinstance(self.density, str):
-
             if self.density.startswith("PropsSI"):
                 from CoolProp.CoolProp import PropsSI
 
@@ -794,7 +787,6 @@ class Material:
             self.atoms_per_unit_cell is not None
             and self.volume_of_unit_cell_cm3 is not None
         ):
-
             molar_mass = (
                 self._get_atoms_in_crystal() * openmc_material.average_molar_mass
             )
@@ -835,7 +827,6 @@ class Material:
         return sum(list_of_fractions)
 
     def from_json_file(filename: str, name: str, **kwargs):
-
         with open(filename, "r") as file:
             new_data = json.load(file)
 

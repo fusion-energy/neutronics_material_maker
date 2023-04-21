@@ -17,7 +17,6 @@ if __name__ == "__main__":
 
 class test_object_properties(unittest.TestCase):
     def test_additional_lines_multimaterial_mcnp(self):
-
         test_mat1 = nmm.Material.from_library(
             "Li4SiO4", additional_end_lines={"mcnp": ["mat1_additional"]}
         )
@@ -46,7 +45,6 @@ class test_object_properties(unittest.TestCase):
         assert test_mat3.shift_material.split("\n")[-1] == "extra_shift_lin"
 
     def test_additional_lines_mcnp(self):
-
         test_mat = nmm.Material.from_library(
             "H2O",
             pressure=1e6,
@@ -223,7 +221,6 @@ class test_object_properties(unittest.TestCase):
         assert len(nmm_again.AvailableMaterials().keys()) >= 418
 
     def test_dictionary_of_materials_makes_openmc_materials(self):
-
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
             test_mat = nmm.Material.from_library(mat, temperature=300, pressure=5e6)
@@ -231,7 +228,6 @@ class test_object_properties(unittest.TestCase):
             assert isinstance(test_mat.openmc_material, openmc.Material)
 
     def test_dictionary_of_materials_makes_mcnp_materials(self):
-
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
             test_mat = nmm.Material.from_library(
@@ -241,7 +237,6 @@ class test_object_properties(unittest.TestCase):
             assert isinstance(test_mat.mcnp_material, str)
 
     def test_dictionary_of_materials_makes_shift_materials(self):
-
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
             test_mat = nmm.Material.from_library(
@@ -251,7 +246,6 @@ class test_object_properties(unittest.TestCase):
             assert isinstance(test_mat.shift_material, str)
 
     def test_dictionary_of_materials_makes_fispact_materials(self):
-
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
             test_mat = nmm.Material.from_library(
@@ -261,7 +255,6 @@ class test_object_properties(unittest.TestCase):
             assert isinstance(test_mat.fispact_material, str)
 
     def test_dictionary_of_materials_makes_serpent_materials(self):
-
         for mat in nmm.AvailableMaterials().keys():
             print(mat)
             test_mat = nmm.Material.from_library(mat, temperature=300, pressure=5e6)

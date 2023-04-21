@@ -13,7 +13,6 @@ import pytest
 
 class test_object_properties(unittest.TestCase):
     def test_serpent_from_mixture_type(self):
-
         test_material = nmm.Material.from_mixture(
             name="test_material",
             materials=[
@@ -28,7 +27,6 @@ class test_object_properties(unittest.TestCase):
         assert isinstance(test_material.serpent_material, str)
 
     def test_mcnp_from_mixture_type(self):
-
         test_material = nmm.Material.from_mixture(
             name="test_material",
             materials=[
@@ -44,7 +42,6 @@ class test_object_properties(unittest.TestCase):
         assert isinstance(test_material.mcnp_material, str)
 
     def test_shift_from_mixture_type(self):
-
         test_material = nmm.Material.from_mixture(
             name="test_material",
             materials=[
@@ -61,7 +58,6 @@ class test_object_properties(unittest.TestCase):
         assert isinstance(test_material.shift_material, str)
 
     def test_fispact_from_mixture_type(self):
-
         test_material = nmm.Material.from_mixture(
             name="test_material",
             materials=[
@@ -111,7 +107,6 @@ class test_object_properties(unittest.TestCase):
         assert isinstance(test_material.openmc_material, openmc.Material)
 
     def test_mutliname_setting(self):
-
         test_material = nmm.Material.from_mixture(
             materials=[
                 nmm.Material.from_library("Pb842Li158", temperature=500),
@@ -169,7 +164,6 @@ class test_object_properties(unittest.TestCase):
         assert test_material_1.nuclides == test_material_2.nuclides
 
     def test_density_of_mixed_two_packed_crystals(self):
-
         test_material_1 = nmm.Material.from_library(name="Li4SiO4")
         test_material_packed_1 = nmm.Material.from_library(
             name="Li4SiO4", packing_fraction=0.65
@@ -202,7 +196,6 @@ class test_object_properties(unittest.TestCase):
         )
 
     def test_density_of_mixed_two_packed_and_non_packed_crystals(self):
-
         test_material_1 = nmm.Material.from_library(name="Li4SiO4")
         test_material_1_packed = nmm.Material.from_library(
             name="Li4SiO4", packing_fraction=0.65
@@ -221,7 +214,6 @@ class test_object_properties(unittest.TestCase):
         )
 
     def test_density_of_mixed_materials_from_density(self):
-
         test_material = nmm.Material.from_library(
             "H2O", temperature=300, pressure=100000
         )
@@ -234,7 +226,6 @@ class test_object_properties(unittest.TestCase):
         )
 
     def test_density_of_mixed_one_packed_crystal_and_one_non_crystal(self):
-
         test_material_1 = nmm.Material.from_library(
             name="H2O", temperature=300, pressure=100000
         )
@@ -260,7 +251,6 @@ class test_object_properties(unittest.TestCase):
         )
 
     def test_packing_fraction_for_single_materials(self):
-
         test_material_1 = nmm.Material.from_library("Li4SiO4").openmc_material
 
         test_material_2 = nmm.Material.from_library(
@@ -282,7 +272,6 @@ class test_object_properties(unittest.TestCase):
         assert test_material_4.density == pytest.approx(test_material_1.density * 0.75)
 
     def test_packing_fraction_for_from_mixture_function(self):
-
         test_material_5 = nmm.Material.from_mixture(
             name="test_material_5",
             materials=[
@@ -315,7 +304,6 @@ class test_object_properties(unittest.TestCase):
         assert test_material_7.density == pytest.approx(test_material_5.density * 0.5)
 
     def test_packing_fraction_of_a_from_mixture(self):
-
         test_material_6 = nmm.Material.from_mixture(
             name="test_material_6",
             materials=[
@@ -340,7 +328,6 @@ class test_object_properties(unittest.TestCase):
         )
 
     def test_packing_fraction_for_mix_materials_function(self):
-
         test_material_8 = openmc.Material.mix_materials(
             name="test_material_8",
             materials=[
@@ -384,7 +371,6 @@ class test_object_properties(unittest.TestCase):
         assert test_material_10.density == pytest.approx(test_material_8.density * 0.5)
 
     def test_from_mixture_vs_mix_materials(self):
-
         test_material_11 = nmm.Material.from_mixture(
             name="test_material_11",
             materials=[
