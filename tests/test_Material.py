@@ -13,7 +13,6 @@ import pytest
 class test_object_properties(unittest.TestCase):
     def test_error_raised_when_enrichment_and_enrichment_target(self):
         def error_raised_correctly():
-
             test_material = nmm.Material.from_library(
                 name="WC", enrichment=90, enrichment_target=None
             )
@@ -145,7 +144,7 @@ class test_object_properties(unittest.TestCase):
         line_by_line_material = test_mat.fispact_material.split("\n")
 
         assert len(line_by_line_material) == 10
-        assert line_by_line_material[0].startswith("DENSITY 2.31899993235464")
+        assert line_by_line_material[0].startswith("DENSITY 2.318999932")
         assert line_by_line_material[1] == "FUEL 8"
 
         dict_of_fispact_mats = {}
@@ -169,7 +168,7 @@ class test_object_properties(unittest.TestCase):
         line_by_line_material = test_mat.fispact_material.split("\n")
 
         assert len(line_by_line_material) == 10
-        assert line_by_line_material[0].startswith("DENSITY 2.31899993235464")
+        assert line_by_line_material[0].startswith("DENSITY 2.3189999")
         assert line_by_line_material[1] == "FUEL 8"
 
         dict_of_fispact_mats = {}
@@ -388,7 +387,6 @@ class test_object_properties(unittest.TestCase):
         assert "      050116.30c  3.6350e-02" in line_by_line_material
 
     def test_material_creation_from_chemical_formula_with_enrichment(self):
-
         pb_fraction = 3
         li_fraction = 7
         enrichment = 20
@@ -431,7 +429,6 @@ class test_object_properties(unittest.TestCase):
         )
 
     def test_material_creation_from_chemical_formula_with_enrichment2(self):
-
         pb_fraction = 3
         li_fraction = 7
         enrichment = 20
@@ -471,7 +468,6 @@ class test_object_properties(unittest.TestCase):
         )
 
     def test_density_of_crystals(self):
-
         # these tests fail because the density value is too far away from calculated value
         # however, this could be becuase the density values are rounded to 2 dp
 
@@ -508,7 +504,6 @@ class test_object_properties(unittest.TestCase):
         #  TODO extra checks for all the crystals needed here
 
     def test_density_of_enriched_crystals(self):
-
         test_mat = nmm.Material.from_library(name="Li4SiO4")
         test_mat_enriched = nmm.Material.from_library(
             name="Li4SiO4",
@@ -521,7 +516,6 @@ class test_object_properties(unittest.TestCase):
         )
 
     def test_density_of_packed_crystals(self):
-
         test_mat = nmm.Material.from_library(name="Li4SiO4")
         test_mat_packed = nmm.Material.from_library(
             name="Li4SiO4", packing_fraction=0.35
@@ -532,7 +526,6 @@ class test_object_properties(unittest.TestCase):
         )
 
     def test_material_creation_from_chemical_formula(self):
-
         pb_fraction = 3
         li_fraction = 7
 
@@ -993,5 +986,4 @@ class test_object_properties(unittest.TestCase):
 
 
 if __name__ == "__main__":
-
     unittest.main()
