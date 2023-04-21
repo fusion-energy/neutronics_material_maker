@@ -569,7 +569,6 @@ def make_mcnp_material(mat) -> str:
         + " g/cm3"
     ]
     for i, isotope in enumerate(mat.openmc_material.nuclides):
-
         if i == 0:
             start = f"M{mat.material_id: <5}"
         else:
