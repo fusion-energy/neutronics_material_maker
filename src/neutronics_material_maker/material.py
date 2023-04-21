@@ -642,6 +642,10 @@ class Material:
 
             openmc_material = self._add_elements_from_equation(openmc_material)
 
+        # sorts the materials to avoid differently ordered material xml files
+        # resulting in different neutronics results
+        openmc_material._nuclides = sorted(openmc_material._nuclides)
+
         openmc_material = self._add_density(openmc_material)
 
         if original_cross_sections is not None:

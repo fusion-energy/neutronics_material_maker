@@ -145,7 +145,7 @@ class test_object_properties(unittest.TestCase):
         line_by_line_material = test_mat.fispact_material.split("\n")
 
         assert len(line_by_line_material) == 10
-        assert line_by_line_material[0].startswith("DENSITY 2.31899993235464")
+        assert line_by_line_material[0].startswith("DENSITY 2.318999932")
         assert line_by_line_material[1] == "FUEL 8"
 
         dict_of_fispact_mats = {}
@@ -169,7 +169,7 @@ class test_object_properties(unittest.TestCase):
         line_by_line_material = test_mat.fispact_material.split("\n")
 
         assert len(line_by_line_material) == 10
-        assert line_by_line_material[0].startswith("DENSITY 2.31899993235464")
+        assert line_by_line_material[0].startswith("DENSITY 2.3189999")
         assert line_by_line_material[1] == "FUEL 8"
 
         dict_of_fispact_mats = {}
