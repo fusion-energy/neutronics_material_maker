@@ -1,7 +1,7 @@
 {
     "Li": {
         "chemical_equation": "Li",
-        "density": "0.515 - 1.01e-4 * (temperature + 273.15 - 200)",
+        "density": "0.515 - 1.01e-4 * (temperature - 273.15 - 200)",
         "density_unit": "g/cm3",
         "comment": "http://aries.ucsd.edu/LIB/PROPS/PANOS/li.html",
         "percent_type": "ao",
