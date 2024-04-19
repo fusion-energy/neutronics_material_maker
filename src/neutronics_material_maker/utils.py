@@ -469,7 +469,6 @@ def add_additional_end_lines(code: str, mat) -> list:
     and if so returns the additional lines request as a list to be added to the
     end of the existing material card list.
     """
-    print(mat.additional_end_lines)
     if mat.additional_end_lines is not None:
         if code in list(mat.additional_end_lines.keys()):
             return mat.additional_end_lines[code]
