@@ -37,7 +37,7 @@ jobs:
             python -m pip install --upgrade pip
             python -m pip install .
             python -c 'import neutronics_material_maker'
-            python -m pip install .[tests]
+            python -m pip install .[density,tests]
 
         - name: run pytest
           run: python -m pytest -v tests
