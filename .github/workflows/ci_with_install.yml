@@ -2,11 +2,11 @@ name: CI testing
 
 on:
     pull_request:
-      # branches:
-      #   - main
+      branches:
+        - main
     push:
-      # branches:
-      #   - main
+      branches:
+        - main
 
 jobs:
     testing:
@@ -40,4 +40,4 @@ jobs:
             python -m pip install .[density,tests]
 
         - name: run pytest
-          run: python -m pytest -v tests
+          run: python -m pytest tests -v --cov=neutronics_material_maker --cov-report term --cov-report html:htmlcov --cov-report xml --junitxml=test-reports/junit.xml

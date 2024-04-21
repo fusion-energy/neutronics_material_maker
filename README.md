@@ -1,6 +1,6 @@
 
 [![N|Python](https://www.python.org/static/community_logos/python-powered-w-100x40.png)](https://www.python.org)
-[![CircleCI](https://circleci.com/gh/fusion-energy/neutronics_material_maker/tree/main.svg?style=svg)](https://circleci.com/gh/fusion-energy/neutronics_material_maker/tree/main)
+[![CI testing](https://github.com/fusion-energy/neutronics_material_maker/actions/workflows/ci_with_install.yml/badge.svg?branch=main)](https://github.com/fusion-energy/neutronics_material_maker/actions/workflows/ci_with_install.yml)
 [![codecov](https://codecov.io/gh/fusion-energy/neutronics_material_maker/branch/main/graph/badge.svg)](https://codecov.io/gh/fusion-energy/neutronics_material_maker)
 [![PyPI version](https://badge.fury.io/py/neutronics-material-maker.svg)](https://badge.fury.io/py/neutronics-material-maker)
 [![Documentation Status](https://readthedocs.org/projects/neutronics-material-maker/badge/?version=latest)](https://neutronics-material-maker.readthedocs.io/en/latest/?badge=latest)
