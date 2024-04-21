@@ -195,7 +195,7 @@ class test_object_properties(unittest.TestCase):
     def test_entries_from_each_json_file_get_into_the_internal_dict(self):
         all_mats = nmm.AvailableMaterials().keys()
 
-        assert "A-150 Tissue-Equivalent Plastic (A150TEP)" in all_mats
+        assert "A-150 Tissue-Equivalent Plastic" in all_mats
         assert "Zirconium Hydride (ZrH2)" in all_mats
         assert "Pb842Li158" in all_mats
         assert "FLiNaBe" in all_mats

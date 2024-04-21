@@ -610,8 +610,8 @@ class Material:
 
     def _make_openmc_material(self):
         """Makes an openmc.Material() object that is used to make other
-        material tpyes (e.g. Serpent, MCNP, Shift, Fispact). If elements are
-        specified then makes material using natural adundances of isotopes.
+        material types (e.g. Serpent, MCNP, Shift, Fispact). If elements are
+        specified then makes material using natural abundances of isotopes.
         This is slightly different to the native openmc method that uses
         isotopes available in the cross_sections.xml file"""
 
