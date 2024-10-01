@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
-__author__ = "neutronics material maker development team"
+from __future__ import annotations
 
+__author__ = "neutronics material maker development team"
 
 import difflib
 import json
@@ -33,7 +34,7 @@ except ImportError:
     msg = (
         "OpenMC python package not found, .openmc_material, "
         ".serpent_material, .mcnp_material, .fispact_material methods not "
-        "avaiable"
+        "available"
     )
     warnings.warn(msg)
 
@@ -826,7 +827,8 @@ class Material:
         self.list_of_fractions = list_of_fractions
         return sum(list_of_fractions)
 
-    def from_json_file(filename: str, name: str, **kwargs):
+    @classmethod
+    def from_json_file(cls, filename: str, name: str, **kwargs) -> Material:
         with open(filename, "r") as file:
             new_data = json.load(file)
 
@@ -839,10 +841,11 @@ class Material:
         for key, value in kwargs.items():
             entry[key] = value
 
-        return Material(name=name, **entry)
+        return cls(name=name, **entry)
 
-    def from_library(name: str, **kwargs):
-        # TODO allow discreat libraries to be searched library: List('str')
+    @classmethod
+    def from_library(cls, name: str, **kwargs) -> Material:
+        # TODO allow discrete libraries to be searched library: List('str')
 
         if name not in material_dict.keys():
             closest_match = difflib.get_close_matches(name, material_dict.keys())
@@ -857,9 +860,11 @@ class Material:
         for key, value in kwargs.items():
             entry[key] = value
 
-        return Material(name=name, **entry)
+        return cls(name=name, **entry)
 
+    @classmethod
     def from_mixture(
+        cls,
         materials: list,
         fracs: List[float],
         percent_type: Optional[str] = "vo",
@@ -874,7 +879,7 @@ class Material:
         decimal_places: Optional[int] = 8,
         volume_in_cm3: Optional[float] = None,
         additional_end_lines: Optional[Dict[str, List[str]]] = None,
-    ):
+    ) -> Material:
         """Creates a material from a mixture of multiple materials.
 
         Args:
@@ -960,7 +965,7 @@ class Material:
         for nuclide in sorted(openmc_material.nuclides):
             isotopes[nuclide.name] = nuclide.percent
 
-        return Material(
+        return cls(
             percent_type=nuclide.percent_type,
             isotopes=isotopes,
             density=openmc_material.get_mass_density(),
