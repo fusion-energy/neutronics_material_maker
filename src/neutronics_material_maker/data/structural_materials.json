@@ -255,5 +255,39 @@
         "density_unit": "g/cm3",
         "comment": "",
         "percent_type": "wo"
+    },
+    "Ti-6Al-4V": {
+        "elements": {
+            "Ti": 89.255,
+            "Al": 6.125,
+            "V": 4,
+            "Fe": 0.3,
+            "O": 0.2,
+            "C": 0.08,
+            "N": 0.05,
+            "H": 0.015,
+            "Y": 0.005
+        },
+        "density": 4.429,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
+    },
+    "epoxy_resin": {
+        "chemical_equation": "C21H25ClO5",
+        "density": 1.17,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
+    },
+    "zircaloy_4": {
+        "elements": {
+            "Zr": 0.9823,
+            "Sn": 0.0145,
+            "Fe": 0.0021,
+            "Cr": 0.001,
+            "O": 0.0001
+        },
+        "density": 6.56,
+        "density_unit": "g/cm3",
+        "percent_type": "ao"
     }
 }
