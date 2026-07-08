@@ -979,11 +979,45 @@ class test_object_properties(unittest.TestCase):
     @staticmethod
     def test_restricted_eval():
         """Test that arbitrary commands cannot be injected."""
+        # The string "os.system('ls')" is passed as a density *expression* to
+        # the asteval sandbox, which must reject it.  os.system is never called.
         with pytest.raises(NameError):
             nmm.Material.from_library(
                 name="Nb3Sn", temperature=373, pressure=1e6, density="os.system('ls')"
             )
 
 
+
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_coolprop_missing_gives_helpful_error():
+    """ModuleNotFoundError for missing CoolProp should include install instructions.
+
+    Without this fix the user sees a bare 'No module named CoolProp' with no
+    hint on how to resolve it (reported in #27).  We trigger the import guard
+    by calling _add_density directly on a minimal Material stub — this avoids
+    needing OpenMC or CoolProp to be installed in the test environment.
+    """
+    import builtins
+    import unittest.mock
+
+    real_import = builtins.__import__
+
+    def fake_import(name, *args, **kwargs):
+        # Block only the CoolProp import; let everything else through
+        if name == "CoolProp.CoolProp":
+            raise ModuleNotFoundError("No module named 'CoolProp'")
+        return real_import(name, *args, **kwargs)
+
+    # Build a minimal Material instance without going through __init__ so we
+    # can set only the attributes _add_density reads before the CoolProp guard.
+    mat = nmm.Material.__new__(nmm.Material)
+    mat.density = "PropsSI('D', 'T', temperature, 'P', pressure, 'Water')/1000."
+    mat.temperature = 300.0
+    mat.pressure = 1e5
+
+    with unittest.mock.patch("builtins.__import__", side_effect=fake_import):
+        with pytest.raises(ModuleNotFoundError, match="pip install CoolProp"):
+            mat._add_density(None)
