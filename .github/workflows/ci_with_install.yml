@@ -30,7 +30,7 @@ jobs:
             channels: conda-forge
 
         - name: install dependencies
-          run: conda install -c conda-forge openmc -y
+          run: conda install -c conda-forge openmc pip -y
 
         - name: install package
           run: |
