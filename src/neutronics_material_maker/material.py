@@ -753,7 +753,13 @@ class Material:
         # a density equation is being used
         elif isinstance(self.density, str):
             if self.density.startswith("PropsSI"):
-                from CoolProp.CoolProp import PropsSI
+                try:
+                    from CoolProp.CoolProp import PropsSI
+                except ModuleNotFoundError:
+                    raise ModuleNotFoundError(
+                        "CoolProp is required for density expressions that use PropsSI. "
+                        "Install it with: pip install CoolProp"
+                    ) from None
 
                 # Set any custom symbols for use in asteval
                 asteval_user_symbols = {"PropsSI": PropsSI}
