@@ -40,7 +40,7 @@
         "chemical_equation": "Li465Na465Be380F1690",
         "density": 2.05,
         "density_unit":"g/cm3",
-        "comment": "Based on chemical formula, source 10.13182/FST14-975",
+        "comment": "Based on chemical formula, source 10.13182/FST14-975 using LiF-31%/NaF-31%/BeF2-38% from table 1",
         "percent_type": "ao",
         "enrichment_target":"Li6",
         "enrichment_type":"ao"
