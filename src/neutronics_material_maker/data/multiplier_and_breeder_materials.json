@@ -37,10 +37,10 @@
         "enrichment_type":"ao"
     },
     "FLiNaBe": {
-        "chemical_equation": "FLiNaBe",
+        "chemical_equation": "Li465Na465Be380F1690",
         "density": 2.05,
         "density_unit":"g/cm3",
-        "comment": "Based on chemical formula",
+        "comment": "Based on chemical formula, source 10.13182/FST14-975",
         "percent_type": "ao",
         "enrichment_target":"Li6",
         "enrichment_type":"ao"
