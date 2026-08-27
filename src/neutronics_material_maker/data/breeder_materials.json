@@ -9,10 +9,10 @@
         "enrichment_type":"ao"
     },
     "FLiNaK": {
-        "chemical_equation": "FLiNaK",
+        "chemical_equation": "Li2325Na0575F5000K2100",
         "density": 2.1,
         "density_unit":"g/cm3",
-        "comment": "Based on chemical formula",
+        "comment": "Based on chemical formula, source 'Fluid Fuel Reactors', J. A. Lane",
         "percent_type": "ao",
         "enrichment_target":"Li6",
         "enrichment_type":"ao"
